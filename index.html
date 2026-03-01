@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Urban Farmer - Making Every Urban Home Green, Intelligently</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #1a3a2a; --moss: #2d5a3d; --sage: #6b8f71; --leaf: #4a7c59;
+    --terra: #c17b4a; --amber: #e8a25a; --cream: #f5f0e8; --linen: #ede7d9;
+    --bark: #6b4f3a; --white: #fdfcf9; --text: #1a1a18; --text-muted: #5a5a50;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family:'DM Sans',sans-serif; background:var(--white); color:var(--text); overflow-x:hidden; }
+
+  /* ICONS - inline SVG helpers */
+  .ico { display:inline-flex; align-items:center; justify-content:center; }
+  .ico svg { stroke-linecap:round; stroke-linejoin:round; fill:none; }
+
+  /* NAV */
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:1.1rem 5%; background:rgba(253,252,249,0.94);
+    backdrop-filter:blur(14px); border-bottom:1px solid rgba(107,143,113,0.15);
+    transition:box-shadow 0.3s;
+  }
+  .nav-logo { display:flex; align-items:center; gap:0.7rem; text-decoration:none; }
+  .nav-logo-icon {
+    width:38px; height:38px; background:var(--forest); border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .nav-logo-icon svg { width:20px; height:20px; stroke:white; stroke-width:2; }
+  .nav-logo-text { font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:700; color:var(--forest); }
+  .nav-links { display:flex; align-items:center; gap:2rem; list-style:none; }
+  .nav-links a { text-decoration:none; color:var(--text-muted); font-size:0.88rem; transition:color 0.2s; }
+  .nav-links a:hover { color:var(--forest); }
+  .nav-cta { display:flex; gap:0.7rem; }
+
+  .btn {
+    display:inline-flex; align-items:center; justify-content:center; gap:0.4rem;
+    padding:0.65rem 1.4rem; border-radius:100px;
+    font-family:'DM Sans',sans-serif; font-size:0.875rem; font-weight:500;
+    text-decoration:none; cursor:pointer; border:none; transition:all 0.25s;
+  }
+  .btn svg { width:15px; height:15px; stroke:currentColor; stroke-width:2; fill:none; }
+  .btn-outline { background:transparent; border:1.5px solid var(--forest); color:var(--forest); }
+  .btn-outline:hover { background:var(--forest); color:white; }
+  .btn-primary { background:var(--forest); color:white; box-shadow:0 2px 12px rgba(26,58,42,0.25); }
+  .btn-primary:hover { background:var(--moss); transform:translateY(-1px); }
+  .btn-terra { background:var(--terra); color:white; }
+  .btn-terra:hover { background:#b06a39; transform:translateY(-1px); }
+  .btn-lg { padding:0.88rem 2rem; font-size:0.95rem; }
+  .btn-white { background:white; color:var(--forest); font-weight:600; }
+  .btn-white:hover { background:var(--cream); transform:translateY(-2px); }
+  .btn-white-terra { background:white; color:var(--terra); font-weight:600; }
+  .btn-white-terra:hover { background:var(--cream); }
+
+  /* HERO */
+  .hero { min-height:100vh; display:grid; grid-template-columns:1fr 1fr; padding-top:72px; position:relative; overflow:hidden; }
+  .hero-bg {
+    position:absolute; inset:0;
+    background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(107,143,113,0.1),transparent 60%),
+               radial-gradient(ellipse 40% 40% at 10% 20%,rgba(193,123,74,0.07),transparent 50%);
+  }
+  .hero-pattern { position:absolute; right:0; top:0; bottom:0; width:50%; background:var(--linen); clip-path:polygon(8% 0,100% 0,100% 100%,0% 100%); }
+  .hero-content { position:relative; z-index:2; display:flex; flex-direction:column; justify-content:center; padding:4rem 5% 4rem 8%; }
+  .hero-tag {
+    display:inline-flex; align-items:center; gap:0.5rem;
+    background:rgba(107,143,113,0.1); border:1px solid rgba(107,143,113,0.25);
+    color:var(--leaf); padding:0.35rem 1rem; border-radius:100px;
+    font-size:0.78rem; font-weight:500; letter-spacing:0.06em; text-transform:uppercase;
+    margin-bottom:1.5rem; width:fit-content; animation:fadeUp 0.6s ease both;
+  }
+  .hero-tag svg { width:14px; height:14px; stroke:var(--leaf); stroke-width:2; fill:none; }
+  .hero-title {
+    font-family:'Playfair Display',serif; font-size:clamp(2.6rem,5vw,4.2rem); font-weight:700;
+    line-height:1.1; color:var(--forest); margin-bottom:1.4rem; animation:fadeUp 0.6s 0.1s ease both;
+  }
+  .hero-title em { font-style:italic; color:var(--terra); }
+  .hero-subtitle {
+    font-size:1.05rem; color:var(--text-muted); line-height:1.75; max-width:480px;
+    margin-bottom:2.5rem; font-weight:300; animation:fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-actions { display:flex; gap:1rem; flex-wrap:wrap; animation:fadeUp 0.6s 0.3s ease both; }
+  .hero-stats {
+    display:flex; gap:2.5rem; margin-top:3.5rem; padding-top:2.5rem;
+    border-top:1px solid rgba(107,143,113,0.18); animation:fadeUp 0.6s 0.4s ease both;
+  }
+  .stat-num { font-family:'Playfair Display',serif; font-size:1.9rem; font-weight:700; color:var(--forest); }
+  .stat-label { font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.06em; margin-top:0.2rem; }
+  .hero-visual { position:relative; z-index:2; display:flex; align-items:center; justify-content:center; padding:4rem 8% 4rem 5%; animation:fadeLeft 0.8s 0.2s ease both; }
+  .hero-card-wrap { position:relative; width:100%; max-width:360px; }
+  .hero-main-card { background:white; border-radius:20px; padding:1.5rem; box-shadow:0 8px 40px rgba(26,58,42,0.12); border:1px solid rgba(107,143,113,0.1); }
+  .hero-plant-img {
+    width:100%; height:190px; border-radius:12px;
+    background:linear-gradient(135deg,#e8f5e9,#c8e6c9); margin-bottom:1rem;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.5rem;
+  }
+  .hero-plant-img svg { width:36px; height:36px; stroke:rgba(74,124,89,0.35); stroke-width:1.5; fill:none; }
+  .hero-plant-img span { font-size:0.72rem; color:rgba(74,124,89,0.45); }
+  .hero-card-name { font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--forest); margin-bottom:0.25rem; }
+  .hero-card-loc { display:flex; align-items:center; gap:0.35rem; font-size:0.78rem; color:var(--text-muted); margin-bottom:1rem; }
+  .hero-card-loc svg { width:12px; height:12px; stroke:var(--text-muted); stroke-width:2; fill:none; flex-shrink:0; }
+  .hero-card-footer { display:flex; justify-content:space-between; align-items:center; }
+  .hero-price { font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--forest); font-weight:600; }
+  .know-badge {
+    display:flex; align-items:center; gap:0.4rem; background:var(--forest); color:white;
+    padding:0.35rem 0.75rem; border-radius:8px; font-size:0.72rem; font-weight:500;
+  }
+  .know-badge svg { width:12px; height:12px; stroke:white; stroke-width:2; fill:none; }
+  .floating-card { position:absolute; background:white; border-radius:14px; padding:0.8rem 1rem; box-shadow:0 6px 24px rgba(26,58,42,0.12); border:1px solid rgba(107,143,113,0.1); animation:float 3s ease-in-out infinite; }
+  .fc1 { top:-18px; right:-18px; animation-delay:0s; }
+  .fc2 { bottom:-14px; left:-18px; animation-delay:1.5s; }
+  .fc-label { font-size:0.68rem; color:var(--text-muted); margin-bottom:0.25rem; }
+  .fc-value { font-size:0.85rem; font-weight:600; color:var(--forest); display:flex; align-items:center; gap:0.35rem; }
+  .fc-dot { width:8px; height:8px; background:#4caf50; border-radius:50%; animation:pulse 2s infinite; flex-shrink:0; }
+  .fc-value svg { width:13px; height:13px; stroke:var(--leaf); stroke-width:2; fill:none; }
+
+  /* SHARED SECTION STYLES */
+  section { padding:6rem 5%; }
+  .section-tag { display:inline-block; font-size:0.72rem; font-weight:500; text-transform:uppercase; letter-spacing:0.12em; color:var(--terra); margin-bottom:0.9rem; }
+  .section-title { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,3.5vw,2.5rem); font-weight:700; color:var(--forest); line-height:1.2; max-width:600px; margin-bottom:1.1rem; }
+  .section-subtitle { font-size:1rem; color:var(--text-muted); line-height:1.72; max-width:550px; font-weight:300; margin-bottom:3rem; }
+
+  /* HOW IT WORKS */
+  .how-section { background:var(--forest); }
+  .how-section .section-title { color:var(--cream); max-width:100%; }
+  .how-section .section-subtitle { color:rgba(245,240,232,0.55); }
+  .how-header { text-align:center; margin-bottom:3.5rem; }
+  .how-tabs {
+    display:flex; justify-content:center; gap:0.4rem; margin-bottom:3rem;
+    background:rgba(255,255,255,0.06); border-radius:100px; padding:0.35rem;
+    width:fit-content; margin-left:auto; margin-right:auto;
+  }
+  .how-tab { padding:0.6rem 1.5rem; border-radius:100px; font-family:'DM Sans',sans-serif; font-size:0.875rem; font-weight:500; cursor:pointer; border:none; background:transparent; color:rgba(245,240,232,0.55); transition:all 0.25s; }
+  .how-tab.active { background:var(--terra); color:white; }
+  .how-steps { display:none; }
+  .how-steps.active { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.4rem; }
+  .step-card { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.09); border-radius:20px; padding:1.8rem; position:relative; overflow:hidden; transition:transform 0.3s; }
+  .step-card:hover { transform:translateY(-4px); }
+  .step-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--terra),var(--amber)); }
+  .step-num { font-family:'Playfair Display',serif; font-size:2.8rem; font-weight:700; color:rgba(255,255,255,0.07); line-height:1; margin-bottom:1rem; }
+  .step-icon { width:44px; height:44px; border-radius:12px; background:rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; margin-bottom:1rem; }
+  .step-icon svg { width:22px; height:22px; stroke:var(--amber); stroke-width:2; fill:none; }
+  .step-title { font-family:'Playfair Display',serif; font-size:1.05rem; color:var(--cream); margin-bottom:0.55rem; }
+  .step-desc { font-size:0.84rem; color:rgba(245,240,232,0.55); line-height:1.65; }
+
+  /* SERVICE CARDS */
+  .service-section { background:white; padding:6rem 8%; }
+  .service-header { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; margin-bottom:3.5rem; }
+  .services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; }
+  .service-card { background:var(--linen); border-radius:18px; padding:1.6rem; border:1px solid rgba(107,143,113,0.1); transition:all 0.3s; }
+  .service-card:hover { transform:translateY(-4px); box-shadow:0 12px 36px rgba(26,58,42,0.09); border-color:rgba(107,143,113,0.25); }
+  .svc-icon { width:48px; height:48px; border-radius:13px; display:flex; align-items:center; justify-content:center; margin-bottom:1.1rem; }
+  .svc-icon svg { width:22px; height:22px; stroke-width:2; fill:none; }
+  .si-green { background:rgba(74,124,89,0.12); } .si-green svg { stroke:var(--leaf); }
+  .si-terra { background:rgba(193,123,74,0.12); } .si-terra svg { stroke:var(--terra); }
+  .si-bark  { background:rgba(107,79,58,0.1);  } .si-bark  svg { stroke:var(--bark); }
+  .si-amber { background:rgba(232,162,90,0.15);} .si-amber svg { stroke:#b87d1a; }
+  .si-sage  { background:rgba(107,143,113,0.12);} .si-sage svg { stroke:var(--sage); }
+  .si-forest{ background:rgba(26,58,42,0.1);  } .si-forest svg { stroke:var(--forest); }
+  .service-title { font-family:'Playfair Display',serif; font-size:1rem; color:var(--forest); margin-bottom:0.5rem; }
+  .service-desc { font-size:0.83rem; color:var(--text-muted); line-height:1.65; }
+
+  /* KNOW YOUR PLANT */
+  .know-section { background:var(--linen); padding:6rem 8%; }
+  .know-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
+  .know-steps { display:flex; flex-direction:column; gap:1.5rem; margin-top:2rem; }
+  .know-step { display:flex; gap:1.2rem; align-items:flex-start; }
+  .know-step-num { width:36px; height:36px; border-radius:50%; background:var(--forest); color:white; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:700; flex-shrink:0; margin-top:0.1rem; }
+  .know-step-title { font-size:0.95rem; font-weight:500; color:var(--forest); margin-bottom:0.3rem; }
+  .know-step-desc { font-size:0.83rem; color:var(--text-muted); line-height:1.6; }
+  .know-phone { background:white; border-radius:24px; padding:1.4rem; box-shadow:0 16px 60px rgba(26,58,42,0.13); border:1px solid rgba(107,143,113,0.1); max-width:290px; margin:0 auto; position:relative; }
+  .know-floating { position:absolute; top:-14px; right:-14px; background:white; border-radius:12px; padding:0.7rem 0.9rem; box-shadow:0 4px 20px rgba(26,58,42,0.1); border:1px solid rgba(107,143,113,0.1); animation:float 3s ease-in-out infinite; }
+  .know-floating-label { font-size:0.65rem; color:var(--text-muted); margin-bottom:0.2rem; }
+  .know-floating-val { font-size:0.8rem; font-weight:600; color:var(--forest); }
+  .know-phone-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; padding-bottom:0.75rem; border-bottom:1px solid rgba(107,143,113,0.1); }
+  .know-phone-title { font-family:'Playfair Display',serif; font-size:0.95rem; color:var(--forest); }
+  .know-phone-badge { font-size:0.65rem; background:rgba(74,124,89,0.1); color:var(--leaf); padding:0.2rem 0.55rem; border-radius:100px; }
+  .know-plant-img { width:100%; height:120px; background:linear-gradient(135deg,#e8f5e9,#c8e6c9); border-radius:12px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.4rem; margin-bottom:0.85rem; }
+  .know-plant-img svg { width:28px; height:28px; stroke:rgba(74,124,89,0.35); stroke-width:1.5; fill:none; }
+  .know-plant-img span { font-size:0.68rem; color:rgba(74,124,89,0.45); }
+  .know-plant-name { font-family:'Playfair Display',serif; font-size:0.9rem; color:var(--forest); margin-bottom:0.12rem; }
+  .know-plant-sci { font-size:0.68rem; color:var(--text-muted); font-style:italic; margin-bottom:0.6rem; }
+  .know-tabs-mini { display:flex; gap:0.3rem; margin-bottom:0.75rem; }
+  .ktab { font-size:0.66rem; padding:0.22rem 0.5rem; border-radius:6px; background:rgba(107,143,113,0.1); color:var(--sage); cursor:pointer; }
+  .ktab.active { background:var(--forest); color:white; }
+  .know-info-row { display:grid; grid-template-columns:1fr 1fr; gap:0.4rem; margin-bottom:0.75rem; }
+  .know-info-item { background:var(--linen); border-radius:8px; padding:0.55rem; text-align:center; }
+  .know-info-item svg { width:13px; height:13px; stroke:var(--sage); stroke-width:2; fill:none; }
+  .know-info-label { font-size:0.58rem; text-transform:uppercase; color:var(--text-muted); margin-top:0.15rem; }
+  .know-info-val { font-size:0.72rem; font-weight:500; color:var(--forest); }
+  .know-buy-btn { width:100%; background:var(--terra); color:white; border:none; border-radius:10px; padding:0.65rem; font-family:'DM Sans',sans-serif; font-size:0.83rem; font-weight:500; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:0.4rem; }
+  .know-buy-btn svg { width:14px; height:14px; stroke:white; stroke-width:2; fill:none; }
+  .know-app-hint { margin-top:0.65rem; padding:0.55rem; background:rgba(26,58,42,0.05); border-radius:9px; display:flex; align-items:center; gap:0.5rem; font-size:0.7rem; color:var(--text-muted); }
+  .know-app-hint svg { width:13px; height:13px; stroke:var(--forest); stroke-width:2; fill:none; flex-shrink:0; }
+
+  /* CUSTOMER ECOSYSTEM */
+  .customer-section { background:white; padding:6rem 8%; }
+  .customer-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1.1rem; margin-top:3rem; }
+  .cc-card { background:var(--linen); border-radius:18px; padding:1.5rem; border:1px solid rgba(107,143,113,0.1); transition:all 0.3s; text-align:center; }
+  .cc-card:hover { transform:translateY(-4px); box-shadow:0 10px 30px rgba(26,58,42,0.09); }
+  .cc-icon { width:52px; height:52px; border-radius:14px; display:flex; align-items:center; justify-content:center; margin:0 auto 1rem; }
+  .cc-icon svg { width:24px; height:24px; stroke-width:2; fill:none; }
+  .cc-title { font-family:'Playfair Display',serif; font-size:0.95rem; color:var(--forest); margin-bottom:0.45rem; }
+  .cc-desc { font-size:0.8rem; color:var(--text-muted); line-height:1.6; }
+
+  /* CORPORATE */
+  .corporate-section { background:var(--forest); padding:6rem 8%; position:relative; overflow:hidden; }
+  .corporate-section::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 70% at 85% 50%,rgba(107,143,113,0.2),transparent); }
+  .corp-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; position:relative; z-index:2; }
+  .corp-title { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,3vw,2.4rem); color:white; line-height:1.2; margin-bottom:1rem; }
+  .corp-title em { font-style:italic; color:var(--amber); }
+  .corp-desc { font-size:0.9rem; color:rgba(245,240,232,0.6); line-height:1.75; margin-bottom:2rem; }
+  .corp-services { display:flex; flex-direction:column; gap:0.9rem; margin-bottom:2rem; }
+  .corp-svc { display:flex; align-items:center; gap:0.85rem; }
+  .corp-svc-icon { width:36px; height:36px; border-radius:10px; background:rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .corp-svc-icon svg { width:18px; height:18px; stroke:var(--amber); stroke-width:2; fill:none; }
+  .corp-svc-text { font-size:0.875rem; color:rgba(245,240,232,0.7); }
+  .corp-visual { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:20px; overflow:hidden; }
+  .corp-img-placeholder { width:100%; height:250px; background:rgba(255,255,255,0.04); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.75rem; }
+  .corp-img-placeholder svg { width:44px; height:44px; stroke:rgba(245,240,232,0.2); stroke-width:1.5; fill:none; }
+  .corp-img-placeholder span { font-size:0.78rem; color:rgba(245,240,232,0.25); }
+  .corp-img-footer { padding:1.2rem 1.4rem; border-top:1px solid rgba(255,255,255,0.08); display:flex; justify-content:space-between; }
+  .corp-img-footer .c-label { font-size:0.72rem; color:rgba(245,240,232,0.4); margin-bottom:0.2rem; }
+  .corp-img-footer .c-val { font-size:0.88rem; color:var(--cream); font-weight:500; }
+
+  /* DUAL CTA */
+  .dual-cta { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin:0 5% 5rem; }
+  .cta-card { border-radius:24px; padding:3rem; position:relative; overflow:hidden; }
+  .cta-green { background:var(--forest); }
+  .cta-terra { background:var(--terra); }
+  .cta-card::after { content:''; position:absolute; width:180px; height:180px; border-radius:50%; right:-40px; bottom:-40px; opacity:0.08; background:white; }
+  .cta-tag { font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em; color:rgba(255,255,255,0.5); margin-bottom:0.75rem; }
+  .cta-title { font-family:'Playfair Display',serif; font-size:1.55rem; color:white; margin-bottom:0.65rem; line-height:1.25; }
+  .cta-desc { font-size:0.875rem; color:rgba(255,255,255,0.6); line-height:1.6; margin-bottom:1.8rem; }
+
+  /* FOOTER */
+  footer { background:var(--forest); color:var(--cream); padding:4rem 8% 2rem; }
+  .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:3rem; margin-bottom:3rem; }
+  .footer-brand { display:flex; align-items:center; gap:0.6rem; margin-bottom:0.7rem; }
+  .footer-brand svg { width:22px; height:22px; stroke:var(--amber); stroke-width:2; fill:none; }
+  .footer-brand-name { font-family:'Playfair Display',serif; font-size:1.35rem; font-weight:700; color:white; }
+  .footer-brand-desc { font-size:0.84rem; color:rgba(245,240,232,0.45); line-height:1.7; max-width:260px; }
+  .footer-col-title { font-size:0.7rem; font-weight:500; text-transform:uppercase; letter-spacing:0.1em; color:var(--amber); margin-bottom:1.1rem; }
+  .footer-links { list-style:none; }
+  .footer-links li { margin-bottom:0.65rem; }
+  .footer-links a { text-decoration:none; color:rgba(245,240,232,0.5); font-size:0.84rem; transition:color 0.2s; }
+  .footer-links a:hover { color:var(--cream); }
+  .footer-bottom { border-top:1px solid rgba(255,255,255,0.09); padding-top:1.5rem; display:flex; justify-content:space-between; align-items:center; font-size:0.78rem; color:rgba(245,240,232,0.3); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeLeft { from{opacity:0;transform:translateX(40px)} to{opacity:1;transform:translateX(0)} }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
+  .reveal { opacity:0; transform:translateY(30px); transition:opacity 0.7s ease,transform 0.7s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  @media(max-width:1000px){ .services-grid{grid-template-columns:1fr 1fr;} .customer-grid{grid-template-columns:1fr 1fr;} .corp-grid{grid-template-columns:1fr;} .know-grid{grid-template-columns:1fr;} .dual-cta{grid-template-columns:1fr;} }
+  @media(max-width:768px){ .hero{grid-template-columns:1fr;} .hero-pattern,.hero-visual{display:none;} .service-header{grid-template-columns:1fr;gap:1.5rem;} .services-grid{grid-template-columns:1fr;} .footer-grid{grid-template-columns:1fr 1fr;} .nav-links{display:none;} }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z" stroke-width="2"/></svg>
+    </div>
+    <span class="nav-logo-text">Urban Farmer</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#how-it-works">How it Works</a></li>
+    <li><a href="#nursery-services">For Nurseries</a></li>
+    <li><a href="#customer-ecosystem">For Customers</a></li>
+    <li><a href="#corporate">Corporate</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="login.html" class="btn btn-outline">Sign In</a>
+    <a href="register.html" class="btn btn-primary">Get Started</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-content">
+    <div class="hero-tag">
+      <svg viewBox="0 0 24 24"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z" stroke-width="2"/></svg>
+India’s first structured plant-retention ecosystem
+    </div>
+    <h1 class="hero-title">Making Every<br>Urban Home<br><em>Self-Sustaining</em></h1>
+    <p class="hero-subtitle">From knowing the right plant to growing it, buying it, and maintaining it - Urban Farmer is your end-to-end partner for intelligent urban gardening.</p>
+    <div class="hero-actions">
+      <a href="register.html?type=customer" class="btn btn-primary btn-lg">Start Your Green Journey</a>
+      <a href="register.html?type=nursery" class="btn btn-terra btn-lg">List Your Nursery</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">240+</div><div class="stat-label">Partner Nurseries</div></div>
+      <div><div class="stat-num">5,000+</div><div class="stat-label">Plants Listed</div></div>
+      <div><div class="stat-num">12+</div><div class="stat-label">Services Offered</div></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card-wrap">
+      <div class="floating-card fc1">
+        <div class="fc-label">New Order</div>
+        <div class="fc-value"><span class="fc-dot"></span>Holy Basil - Rs. 120</div>
+      </div>
+      <div class="floating-card fc2">
+        <div class="fc-label">Plant Scans Today</div>
+        <div class="fc-value">
+          <svg viewBox="0 0 24 24"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h4M18 14v4M14 18h4" stroke-width="2"/></svg>
+          47 scans
+        </div>
+      </div>
+<div class="hero-plant-img">
+  <img src="tulasi.png" alt="Holy Basil plant" style="width:100%;height:100%;object-fit:cover;border-radius:12px;" />
+</div>
+        <div class="hero-card-name">Holy Basil (Tulasi)</div>
+        <div class="hero-card-loc">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke-width="2"/><circle cx="12" cy="10" r="3" stroke-width="2"/></svg>
+          Green Valley Nursery, Bengaluru
+        </div>
+        <div class="hero-card-footer">
+          <div class="hero-price">Rs. 120</div>
+          <div class="know-badge">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><line x1="12" y1="8" x2="12" y2="12" stroke-width="2"/><line x1="12" y1="16" x2="12.01" y2="16" stroke-width="2"/></svg>
+            Know This Plant
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how-it-works">
+  <div class="how-header">
+    <div class="section-tag" style="color:var(--amber)">The Process</div>
+    <h2 class="section-title">How Urban Farmer Works</h2>
+    <p class="section-subtitle">Whether you run a nursery or love plants, every step of the journey is covered - intelligently.</p>
+    <div class="how-tabs">
+      <button class="how-tab active" onclick="switchTab('nursery',event)">For Nurseries</button>
+      <button class="how-tab" onclick="switchTab('customer',event)">For Customers</button>
+    </div>
+  </div>
+
+  <div class="how-steps active" id="steps-nursery">
+    <div class="step-card reveal">
+      <div class="step-num">01</div>
+      <div class="step-icon"><svg viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-width="2"/></svg></div>
+      <div class="step-title">Register and Get Verified</div>
+      <div class="step-desc">Create your nursery profile with business details, location, and contact. Our team verifies your listing within 24 hours and onboards you fully.</div>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">02</div>
+      <div class="step-icon"><svg viewBox="0 0 24 24"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z" stroke-width="2"/></svg></div>
+      <div class="step-title">List Your Plants</div>
+      <div class="step-desc">Upload plant names and photos yourself, or request an Urban Farmer executive to visit, photograph, and list your entire collection professionally.</div>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">03</div>
+      <div class="step-icon"><svg viewBox="0 0 24 24"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h4M18 14v4M14 18h4" stroke-width="2"/></svg></div>
+      <div class="step-title">Deploy QR Codes In-Nursery</div>
+      <div class="step-desc">Each plant cluster gets a physical QR. Visitors scan to learn about plants and purchase directly. Orders flow to your analytics dashboard automatically.</div>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">04</div>
+      <div class="step-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" stroke-width="2"/></svg></div>
+      <div class="step-title">Grow with Smart Analytics</div>
+      <div class="step-desc">Track sales, scans, top plants, and revenue. Advanced sensors, marketplace listings, corporate tie-ups, and event supply expand your reach further.</div>
+    </div>
+  </div>
+
+  <div class="how-steps" id="steps-customer">
+    <div class="step-card reveal">
+      <div class="step-num">01</div>
+      <div class="step-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><line x1="12" y1="8" x2="12" y2="12" stroke-width="2"/><line x1="12" y1="16" x2="12.01" y2="16" stroke-width="2"/></svg></div>
+      <div class="step-title">Know Your Plant First</div>
+      <div class="step-desc">Visit a nursery and scan a plant's QR code. Get videos, facts, care guides, and origin stories before deciding to buy, so every purchase is informed.</div>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">02</div>
+      <div class="step-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" stroke-width="2"/><line x1="3" y1="6" x2="21" y2="6" stroke-width="2"/><path d="M16 10a4 4 0 01-8 0" stroke-width="2"/></svg></div>
+      <div class="step-title">Buy Online or In-Nursery</div>
+      <div class="step-desc">Pay directly from the plant's info page - online delivery or in-store pickup. Every order is confirmed, tracked, and a unique plant ID is generated for you.</div>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">03</div>
+      <div class="step-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" stroke-width="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="2"/></svg></div>
+      <div class="step-title">Download the App</div>
+      <div class="step-desc">Get the Urban Farmer app for AI plant doctor consultations, sensor monitoring, gamified care reminders, and booking gardeners or technicians anytime.</div>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">04</div>
+      <div class="step-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke-width="2"/><polyline points="9 22 9 12 15 12 15 22" stroke-width="2"/></svg></div>
+      <div class="step-title">Make Your Home Green</div>
+      <div class="step-desc">From balcony gardens to terrace farms - book gardeners, replace pots, install sensors, and join a community that grows together, intelligently.</div>
+    </div>
+  </div>
+</section>
+
+<!-- NURSERY SERVICES -->
+<section class="service-section" id="nursery-services">
+  <div class="service-header">
+    <div>
+      <div class="section-tag reveal">For Nurseries</div>
+      <h2 class="section-title reveal">A Complete Business Platform for Every Nursery</h2>
+    </div>
+    <div>
+      <p class="section-subtitle reveal" style="margin-bottom:1.5rem;">From listing plants to supplying corporates - Urban Farmer gives nurseries every tool to grow digitally and reach more customers.</p>
+      <a href="register.html?type=nursery" class="btn btn-primary reveal">Register Your Nursery</a>
+    </div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="svc-icon si-green"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke-width="2"/><polyline points="9 22 9 12 15 12 15 22" stroke-width="2"/></svg></div>
+      <div class="service-title">Marketplace Listing</div>
+      <div class="service-desc">List your nursery and entire plant catalogue on the Urban Farmer marketplace for online sales, home delivery, and city-wide visibility.</div>
+    </div>
+    <div class="service-card reveal">
+      <div class="svc-icon si-terra"><svg viewBox="0 0 24 24"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h4M18 14v4M14 18h4" stroke-width="2"/></svg></div>
+      <div class="service-title">In-Nursery QR System</div>
+      <div class="service-desc">Physical QR codes for every plant cluster. Visitors scan, learn, and buy. Orders sync to your dashboard and Google Sheets automatically.</div>
+    </div>
+    <div class="service-card reveal">
+      <div class="svc-icon si-amber"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" stroke-width="2"/></svg></div>
+      <div class="service-title">Advanced Analytics</div>
+      <div class="service-desc">Real-time dashboards tracking QR scans, sales, top-performing plants, revenue trends, and customer insights, all synced to Google Sheets.</div>
+    </div>
+    <div class="service-card reveal">
+      <div class="svc-icon si-sage"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-width="2"/></svg></div>
+      <div class="service-title">IoT Sensor Integration</div>
+      <div class="service-desc">Deploy advanced sensors across your nursery to monitor soil moisture, temperature, and plant health. Get alerts and automate care decisions.</div>
+    </div>
+    <div class="service-card reveal">
+      <div class="svc-icon si-bark"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke-width="2"/><circle cx="9" cy="7" r="4" stroke-width="2"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke-width="2"/></svg></div>
+      <div class="service-title">Corporate and Event Supply</div>
+      <div class="service-desc">Get listed for bulk plant supply, office greening projects, event decor, and corporate landscape contracts facilitated through Urban Farmer.</div>
+    </div>
+    <div class="service-card reveal">
+      <div class="svc-icon si-forest"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" stroke-width="2"/><line x1="8" y1="21" x2="16" y2="21" stroke-width="2"/><line x1="12" y1="17" x2="12" y2="21" stroke-width="2"/></svg></div>
+      <div class="service-title">Executive Visit and Listing</div>
+      <div class="service-desc">Our team visits your nursery, professionally photographs all plants, and creates complete listings with care guides, so you can focus on growing.</div>
+    </div>
+  </div>
+</section>
+
+<!-- KNOW YOUR PLANT -->
+<section class="know-section" id="know-plant">
+  <div class="know-grid">
+    <div>
+      <div class="section-tag reveal">At the Nursery</div>
+      <h2 class="section-title reveal">Know Your Plant Before You Buy</h2>
+      <p class="section-subtitle reveal" style="margin-bottom:1.5rem;">Every plant and cluster at our partner nurseries has a QR code. Scan it and get the full story - videos, facts, care guide, uses - then decide. Once you buy, your journey with that plant just begins.</p>
+      <div class="know-steps reveal">
+        <div class="know-step">
+          <div class="know-step-num">1</div>
+          <div>
+            <div class="know-step-title">Scan the QR at the nursery</div>
+            <div class="know-step-desc">Each plant cluster has a unique QR. Your phone opens a rich page with videos, botanical facts, origin, uses, and care instructions.</div>
+          </div>
+        </div>
+        <div class="know-step">
+          <div class="know-step-num">2</div>
+          <div>
+            <div class="know-step-title">Buy directly from the page</div>
+            <div class="know-step-desc">Pay online from that same page. The order goes to the nursery dashboard with your details and a unique plant ID is generated for you.</div>
+          </div>
+        </div>
+        <div class="know-step">
+          <div class="know-step-num">3</div>
+          <div>
+            <div class="know-step-title">Download the app for ongoing support</div>
+            <div class="know-step-desc">Get the Urban Farmer app for AI plant doctor, sensor monitoring, care gamification, booking gardeners, and community support throughout.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal" style="position:relative;">
+      <div class="know-phone">
+        <div class="know-floating">
+          <div class="know-floating-label">Plant ID Generated</div>
+          <div class="know-floating-val">UF-2025-TUL-0047</div>
+        </div>
+        <div class="know-phone-header">
+          <div class="know-phone-title">Know Your Plant</div>
+          <div class="know-phone-badge">Live Page</div>
+        </div>
+        <div class="know-plant-img">
+          <svg viewBox="0 0 24 24"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z" stroke-width="1.5"/></svg>
+          <span>Plant image placeholder</span>
+        </div>
+        <div class="know-plant-name">Holy Basil (Tulasi)</div>
+        <div class="know-plant-sci">Ocimum tenuiflorum</div>
+        <div class="know-tabs-mini">
+          <div class="ktab active">Care</div><div class="ktab">Facts</div><div class="ktab">Video</div><div class="ktab">Uses</div>
+        </div>
+        <div class="know-info-row">
+          <div class="know-info-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" stroke-width="2"/><line x1="12" y1="1" x2="12" y2="3" stroke-width="2"/><line x1="12" y1="21" x2="12" y2="23" stroke-width="2"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke-width="2"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke-width="2"/><line x1="1" y1="12" x2="3" y2="12" stroke-width="2"/><line x1="21" y1="12" x2="23" y2="12" stroke-width="2"/></svg>
+            <div class="know-info-label">Sunlight</div>
+            <div class="know-info-val">Full Sun</div>
+          </div>
+          <div class="know-info-item">
+            <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z" stroke-width="2"/></svg>
+            <div class="know-info-label">Watering</div>
+            <div class="know-info-val">Every 2 days</div>
+          </div>
+        </div>
+        <button class="know-buy-btn">
+          <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" stroke-width="2"/><line x1="3" y1="6" x2="21" y2="6" stroke-width="2"/><path d="M16 10a4 4 0 01-8 0" stroke-width="2"/></svg>
+          Buy Now - Rs. 120
+        </button>
+        <div class="know-app-hint">
+          <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" stroke-width="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="2"/></svg>
+          Download Urban Farmer app for ongoing plant support
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CUSTOMER ECOSYSTEM -->
+<section class="customer-section" id="customer-ecosystem">
+  <div style="text-align:center;">
+    <div class="section-tag reveal">For Customers</div>
+    <h2 class="section-title reveal" style="max-width:100%;text-align:center;margin:0 auto 1rem;">End-to-End Support for Every Urban Gardener</h2>
+    <p class="section-subtitle reveal" style="margin:0 auto;text-align:center;">From the moment you discover a plant to the day you harvest your terrace farm - Urban Farmer is with you at every step.</p>
+  </div>
+  <div class="customer-grid">
+    <div class="cc-card reveal">
+      <div class="cc-icon si-green"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><line x1="12" y1="8" x2="12" y2="12" stroke-width="2"/><line x1="12" y1="16" x2="12.01" y2="16" stroke-width="2"/></svg></div>
+      <div class="cc-title">Know Your Plant</div>
+      <div class="cc-desc">Scan QR at nurseries to get videos, facts, care guides, and uses before you buy. Every purchase becomes an informed one.</div>
+    </div>
+    <div class="cc-card reveal">
+      <div class="cc-icon si-terra"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" stroke-width="2"/><line x1="3" y1="6" x2="21" y2="6" stroke-width="2"/><path d="M16 10a4 4 0 01-8 0" stroke-width="2"/></svg></div>
+      <div class="cc-title">Shop Online and Offline</div>
+      <div class="cc-desc">Buy plants, pots, tools, and gardening supplies from the marketplace. Online delivery or pickup from partner nurseries near you.</div>
+    </div>
+    <div class="cc-card reveal">
+      <div class="cc-icon si-amber"><svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18" stroke-width="2"/></svg></div>
+      <div class="cc-title">AI and Real Doctor Consult</div>
+      <div class="cc-desc">Get instant AI plant diagnosis or book a real plant doctor consultation for sick or struggling plants. Advice you can trust.</div>
+    </div>
+    <div class="cc-card reveal">
+      <div class="cc-icon si-sage"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-width="2"/></svg></div>
+      <div class="cc-title">Advanced Plant Sensors</div>
+      <div class="cc-desc">Install smart sensors that monitor soil moisture, light, temperature, and humidity. Get real-time alerts and care recommendations.</div>
+    </div>
+    <div class="cc-card reveal">
+      <div class="cc-icon si-forest"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" stroke-width="2"/></svg></div>
+      <div class="cc-title">Gamified Plant Health</div>
+      <div class="cc-desc">Earn points, badges, and streaks for keeping your plants healthy. Compete with community members and unlock rewards for green habits.</div>
+    </div>
+    <div class="cc-card reveal">
+      <div class="cc-icon si-bark"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke-width="2"/><circle cx="9" cy="7" r="4" stroke-width="2"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke-width="2"/></svg></div>
+      <div class="cc-title">Book Gardeners and Technicians</div>
+      <div class="cc-desc">Schedule a gardener for regular maintenance, pot replacement, terrace gardening setup, balcony garden design, or sensor installation.</div>
+    </div>
+    <div class="cc-card reveal">
+      <div class="cc-icon si-green"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" stroke-width="2"/><line x1="12" y1="1" x2="12" y2="3" stroke-width="2"/><line x1="12" y1="21" x2="12" y2="23" stroke-width="2"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke-width="2"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke-width="2"/><line x1="1" y1="12" x2="3" y2="12" stroke-width="2"/><line x1="21" y1="12" x2="23" y2="12" stroke-width="2"/></svg></div>
+      <div class="cc-title">Terrace and Balcony Gardens</div>
+      <div class="cc-desc">End-to-end garden setup for your home - design, sourcing, installation, and ongoing maintenance by verified Urban Farmer professionals.</div>
+    </div>
+    <div class="cc-card reveal">
+      <div class="cc-icon si-terra"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke-width="2"/><circle cx="9" cy="7" r="4" stroke-width="2"/><line x1="19" y1="8" x2="19" y2="14" stroke-width="2"/><line x1="22" y1="11" x2="16" y2="11" stroke-width="2"/></svg></div>
+      <div class="cc-title">Community and Events</div>
+      <div class="cc-desc">Connect with urban gardeners, attend plant swaps, workshops, and events. Share your garden journey and inspire others in the community.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CORPORATE -->
+<section class="corporate-section" id="corporate">
+  <div class="corp-grid">
+    <div>
+      <div class="section-tag" style="color:var(--amber)">Corporate and Events</div>
+      <h2 class="corp-title">Green Solutions for <em>Offices, Events,</em> and Spaces</h2>
+      <p class="corp-desc">Urban Farmer partners with businesses, event planners, and institutions to deliver bulk plants, landscape design, office greening, and event decor - handled completely by our nursery network.</p>
+      <div class="corp-services">
+        <div class="corp-svc">
+          <div class="corp-svc-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" stroke-width="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16" stroke-width="2"/></svg></div>
+          <div class="corp-svc-text">Office and corporate landscape greening projects</div>
+        </div>
+        <div class="corp-svc">
+          <div class="corp-svc-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke-width="2"/></svg></div>
+          <div class="corp-svc-text">Event and wedding decor with plants and floral arrangements</div>
+        </div>
+        <div class="corp-svc">
+          <div class="corp-svc-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" stroke-width="2"/><line x1="3" y1="6" x2="21" y2="6" stroke-width="2"/><path d="M16 10a4 4 0 01-8 0" stroke-width="2"/></svg></div>
+          <div class="corp-svc-text">Bulk plant supply for hospitality and retail spaces</div>
+        </div>
+        <div class="corp-svc">
+          <div class="corp-svc-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke-width="2"/><polyline points="9 22 9 12 15 12 15 22" stroke-width="2"/></svg></div>
+          <div class="corp-svc-text">Residential community and apartment complex gardens</div>
+        </div>
+      </div>
+      <a href="register.html" class="btn btn-terra btn-lg">Partner With Us</a>
+    </div>
+    <div class="corp-visual">
+      <div class="corp-img-placeholder">
+        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" stroke-width="1.5"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16" stroke-width="1.5"/></svg>
+        <span>Corporate project image placeholder</span>
+      </div>
+      <div class="corp-img-footer">
+        <div><div class="c-label">Active Projects</div><div class="c-val">48 Corporate Partners</div></div>
+        <div><div class="c-label">Plants Supplied</div><div class="c-val">12,000 This Year</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DUAL CTA -->
+<div class="dual-cta reveal">
+  <div class="cta-card cta-green">
+    <div class="cta-tag">For Nurseries</div>
+    <div class="cta-title">Ready to List Your Nursery?</div>
+    <div class="cta-desc">Join 240+ nurseries already growing their business on Urban Farmer. Get QR codes, analytics, and marketplace access from day one.</div>
+    <a href="register.html?type=nursery" class="btn btn-white btn-lg">Register Nursery</a>
+  </div>
+  <div class="cta-card cta-terra">
+    <div class="cta-tag">For Plant Lovers</div>
+    <div class="cta-title">Start Your Green Journey Today</div>
+    <div class="cta-desc">Explore local nurseries, know your plants before buying, and build a self-sustaining urban home with intelligent support at every step.</div>
+    <a href="register.html?type=customer" class="btn btn-white-terra btn-lg">Explore Plants</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">
+        <svg viewBox="0 0 24 24"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z" stroke-width="2"/></svg>
+        <span class="footer-brand-name">Urban Farmer</span>
+      </div>
+      <p class="footer-brand-desc">Making every urban home self-sustaining and green - intelligently. From nursery to harvest, we are with you.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Platform</div>
+      <ul class="footer-links">
+        <li><a href="register.html?type=nursery">List a Nursery</a></li>
+        <li><a href="register.html?type=customer">Customer Sign Up</a></li>
+        <li><a href="login.html">Sign In</a></li>
+        <li><a href="know-your-plants.html">Know Your Plants</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="#">Book a Gardener</a></li>
+        <li><a href="#">Plant Sensors</a></li>
+        <li><a href="#">AI Plant Doctor</a></li>
+        <li><a href="#">Corporate Orders</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="#">About Urban Farmer</a></li>
+        <li><a href="#">Executive Visit</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Urban Farmer. Made with care in India.</span>
+    <span>For nurseries · For customers · For nature</span>
+  </div>
+</footer>
+
+<script>
+  function switchTab(type, evt) {
+    document.querySelectorAll('.how-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.how-steps').forEach(s => s.classList.remove('active'));
+    evt.target.classList.add('active');
+    document.getElementById('steps-' + type).classList.add('active');
+  }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  window.addEventListener('scroll', () => {
+    document.getElementById('main-nav').style.boxShadow = window.scrollY > 50 ? '0 2px 20px rgba(26,58,42,0.1)' : 'none';
+  });
+</script>
+</body>
+</html>

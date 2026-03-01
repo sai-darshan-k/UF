@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign In - Urban Farmer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #1a3a2a; --moss: #2d5a3d; --sage: #6b8f71; --leaf: #4a7c59;
+    --terra: #c17b4a; --amber: #e8a25a; --cream: #f5f0e8; --linen: #ede7d9;
+    --white: #fdfcf9; --text: #1a1a18; --text-muted: #5a5a50;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    background: var(--linen);
+    display: flex;
+  }
+  .left-panel {
+    width: 42%;
+    background: var(--forest);
+    display: flex; flex-direction: column;
+    padding: 3rem; position: relative; overflow: hidden;
+  }
+  .left-panel::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 20% 80%, rgba(107,143,113,0.25), transparent 60%),
+                radial-gradient(ellipse 50% 50% at 80% 20%, rgba(193,123,74,0.15), transparent 50%);
+  }
+  .brand {
+    display: flex; align-items: center; gap: 0.75rem;
+    text-decoration: none; position: relative; z-index: 2;
+  }
+  .brand-icon {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+  }
+  .brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700; color: var(--white);
+  }
+  .panel-content {
+    flex: 1; display: flex; flex-direction: column; justify-content: center;
+    position: relative; z-index: 2;
+  }
+  .panel-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 700; color: var(--white);
+    line-height: 1.2; margin-bottom: 1rem;
+  }
+  .panel-title em { font-style: italic; color: var(--amber); }
+  .panel-quote {
+    background: rgba(255,255,255,0.06);
+    border-left: 3px solid var(--amber);
+    border-radius: 0 12px 12px 0;
+    padding: 1.2rem 1.4rem; margin-bottom: 2rem;
+  }
+  .quote-text { font-size: 0.9rem; color: rgba(245,240,232,0.75); font-style: italic; line-height: 1.6; margin-bottom: 0.5rem; }
+  .quote-author { font-size: 0.78rem; color: rgba(245,240,232,0.45); }
+
+  .nursery-preview {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px; padding: 1.2rem;
+  }
+  .np-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--amber); margin-bottom: 0.8rem; }
+  .np-row {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .np-row:last-child { border-bottom: none; }
+  .np-icon { font-size: 1.1rem; }
+  .np-name { font-size: 0.875rem; color: var(--cream); }
+  .np-sub { font-size: 0.75rem; color: rgba(245,240,232,0.45); }
+  .np-badge {
+    margin-left: auto; font-size: 0.7rem; padding: 0.2rem 0.5rem;
+    border-radius: 100px; background: rgba(74,124,89,0.3); color: rgba(245,240,232,0.7);
+  }
+
+  .panel-bottom { position: relative; z-index: 2; font-size: 0.8rem; color: rgba(245,240,232,0.35); }
+
+  /* RIGHT */
+  .right-panel {
+    flex: 1; display: flex; align-items: center; justify-content: center; padding: 2rem;
+  }
+  .form-container { width: 100%; max-width: 420px; }
+  .form-header { text-align: center; margin-bottom: 2rem; }
+  .form-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; color: var(--forest); margin-bottom: 0.4rem;
+  }
+  .form-header p { font-size: 0.875rem; color: var(--text-muted); }
+  .form-header a { color: var(--terra); text-decoration: none; font-weight: 500; }
+
+  .type-toggle {
+    display: grid; grid-template-columns: 1fr 1fr;
+    background: var(--linen); border-radius: 14px; padding: 0.4rem; gap: 0.4rem;
+    margin-bottom: 1.5rem; border: 1.5px solid rgba(107,143,113,0.15);
+  }
+  .toggle-btn {
+    padding: 0.75rem; border-radius: 10px; border: none; background: transparent;
+    font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 500;
+    cursor: pointer; color: var(--text-muted); transition: all 0.25s;
+    display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+  }
+  .toggle-btn.active {
+    background: var(--white); color: var(--forest);
+    box-shadow: 0 2px 10px rgba(26,58,42,0.1);
+  }
+
+  .form-card {
+    background: var(--white); border-radius: 20px; padding: 2rem;
+    box-shadow: 0 4px 30px rgba(26,58,42,0.08);
+    border: 1px solid rgba(107,143,113,0.1);
+  }
+  .form-group { margin-bottom: 1.2rem; }
+  label {
+    display: block; font-size: 0.8rem; font-weight: 500; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.4rem;
+  }
+  input {
+    width: 100%; padding: 0.75rem 1rem;
+    border: 1.5px solid rgba(107,143,113,0.2);
+    border-radius: 10px; font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; color: var(--text); background: var(--white);
+    transition: all 0.2s; outline: none;
+  }
+  input:focus { border-color: var(--leaf); box-shadow: 0 0 0 3px rgba(74,124,89,0.1); }
+  input.error { border-color: #c0392b; }
+
+  .password-wrap { position: relative; }
+  .password-wrap input { padding-right: 3rem; }
+  .toggle-pw {
+    position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%);
+    cursor: pointer; font-size: 1rem; color: var(--text-muted); background: none; border: none;
+  }
+
+  .forgot-row {
+    display: flex; justify-content: flex-end; margin-top: 0.3rem;
+    margin-bottom: 0.5rem;
+  }
+  .forgot-row a { font-size: 0.8rem; color: var(--terra); text-decoration: none; }
+  .forgot-row a:hover { text-decoration: underline; }
+
+  .error-msg { font-size: 0.75rem; color: #c0392b; margin-top: 0.3rem; display: none; }
+  .error-msg.show { display: block; }
+
+  .alert-box {
+    background: rgba(192,57,43,0.08); border: 1px solid rgba(192,57,43,0.2);
+    border-radius: 10px; padding: 0.75rem 1rem;
+    font-size: 0.82rem; color: #c0392b; margin-bottom: 1.2rem; display: none;
+  }
+  .alert-box.show { display: block; }
+
+  .btn {
+    display: flex; align-items: center; justify-content: center;
+    width: 100%; padding: 0.8rem; border-radius: 100px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500;
+    cursor: pointer; border: none; transition: all 0.25s; text-decoration: none;
+  }
+  .btn-primary { background: var(--forest); color: var(--white); }
+  .btn-primary:hover { background: var(--moss); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(26,58,42,0.3); }
+
+  .divider {
+    display: flex; align-items: center; gap: 1rem; margin: 1.2rem 0;
+  }
+  .divider::before, .divider::after {
+    content: ''; flex: 1; height: 1px; background: rgba(107,143,113,0.15);
+  }
+  .divider span { font-size: 0.75rem; color: var(--text-muted); }
+
+  .demo-section {
+    background: var(--linen); border-radius: 12px; padding: 1rem;
+    margin-top: 0.5rem;
+  }
+  .demo-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 0.6rem; font-weight: 500; }
+  .demo-row { display: flex; gap: 0.5rem; }
+  .demo-btn {
+    flex: 1; padding: 0.5rem; border-radius: 8px; border: 1.5px solid rgba(107,143,113,0.2);
+    background: var(--white); cursor: pointer; font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem; color: var(--forest); transition: all 0.2s;
+  }
+  .demo-btn:hover { border-color: var(--forest); }
+
+  @media (max-width: 768px) {
+    .left-panel { display: none; }
+    .right-panel { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="left-panel">
+  <a href="index.html" class="brand">
+    <div class="brand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(245,240,232,0.7)" stroke-width="2" width="18" height="18"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/></svg></div>
+    <span class="brand-name">Urban Farmer</span>
+  </a>
+  <div class="panel-content">
+    <h2 class="panel-title">Welcome Back to<br><em>Urban Farmer</em></h2>
+    <div class="panel-quote">
+      <div class="quote-text">"Plants give us oxygen for the lungs and for the soul."</div>
+      <div class="quote-author">— Terri Guillemets</div>
+    </div>
+    <div class="nursery-preview">
+      <div class="np-label">Recently Joined Nurseries</div>
+      <div class="np-row">
+        <div class="np-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(245,240,232,0.5)" stroke-width="2" width="16" height="16"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/></svg></div>
+        <div>
+          <div class="np-name">Green Valley Nursery</div>
+          <div class="np-sub">Indiranagar, Bengaluru · 142 plants</div>
+        </div>
+        <div class="np-badge">Active</div>
+      </div>
+      <div class="np-row">
+        <div class="np-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(245,240,232,0.5)" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="4"/></svg></div>
+        <div>
+          <div class="np-name">Blooms & Beyond</div>
+          <div class="np-sub">Koramangala · 87 plants</div>
+        </div>
+        <div class="np-badge">Active</div>
+      </div>
+      <div class="np-row">
+        <div class="np-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(245,240,232,0.5)" stroke-width="2" width="16" height="16"><path d="M17 22V12M7 22V12M3 7l9-5 9 5-9 5-9-5z"/></svg></div>
+        <div>
+          <div class="np-name">Nature's Corner</div>
+          <div class="np-sub">Whitefield · 213 plants</div>
+        </div>
+        <div class="np-badge">Active</div>
+      </div>
+    </div>
+  </div>
+  <div class="panel-bottom">© 2025 Urban Farmer · Made in India 🇮🇳</div>
+</div>
+
+<div class="right-panel">
+  <div class="form-container">
+    <div class="form-header">
+      <h2>Sign In</h2>
+      <p>New to Urban Farmer? <a href="register.html">Create account</a></p>
+    </div>
+
+    <div class="type-toggle">
+      <button class="toggle-btn active" onclick="switchType('nursery', this)">Nursery Login</button>
+      <button class="toggle-btn" onclick="switchType('customer', this)">Customer Login</button>
+    </div>
+
+    <div class="form-card">
+      <div class="alert-box" id="login-alert">Incorrect email or password. Please try again.</div>
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="email" placeholder="you@example.com" />
+        <div class="error-msg" id="err-email">Please enter a valid email</div>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <div class="password-wrap">
+          <input type="password" id="password" placeholder="Your password" />
+          <button class="toggle-pw" onclick="togglePw()" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" style="vertical-align:middle"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+        <div class="forgot-row"><a href="#">Forgot password?</a></div>
+        <div class="error-msg" id="err-password">Please enter your password</div>
+      </div>
+
+      <button class="btn btn-primary" onclick="doLogin()" id="login-btn">
+        Sign In →
+      </button>
+
+      <div class="divider"><span>or use demo accounts</span></div>
+
+      <div class="demo-section">
+        <div class="demo-title">Quick Demo Access</div>
+        <div class="demo-row">
+          <button class="demo-btn" onclick="demoLogin('nursery')">Demo Nursery</button>
+          <button class="demo-btn" onclick="demoLogin('customer')">Demo Customer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let loginType = 'nursery';
+
+  function switchType(type, btn) {
+    loginType = type;
+    document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('login-alert').classList.remove('show');
+  }
+
+  function togglePw() {
+    const inp = document.getElementById('password');
+    inp.type = inp.type === 'password' ? 'text' : 'password';
+  }
+
+  function demoLogin(type) {
+    document.getElementById('email').value = type === 'nursery' ? 'demo@nursery.com' : 'demo@customer.com';
+    document.getElementById('password').value = 'Demo@1234';
+    loginType = type;
+    document.querySelectorAll('.toggle-btn').forEach((b, i) => {
+      b.classList.toggle('active', (i === 0 && type === 'nursery') || (i === 1 && type === 'customer'));
+    });
+    setTimeout(() => doLogin(true), 300);
+  }
+
+  function doLogin(isDemo = false) {
+    const email = document.getElementById('email').value.trim();
+    const pass = document.getElementById('password').value;
+    let valid = true;
+
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    document.getElementById('err-email').classList.toggle('show', !emailOk);
+    if (!emailOk) valid = false;
+
+    if (!pass) {
+      document.getElementById('err-password').classList.add('show');
+      valid = false;
+    } else {
+      document.getElementById('err-password').classList.remove('show');
+    }
+
+    if (!valid) return;
+
+    const btn = document.getElementById('login-btn');
+    btn.textContent = 'Signing in...';
+    btn.style.opacity = '0.7';
+
+    // Simulate auth
+    setTimeout(() => {
+      if (isDemo || pass.length >= 6) {
+        // Redirect based on type
+        window.location.href = loginType === 'nursery' ? 'nursery-dashboard.html' : 'customer-dashboard.html';
+      } else {
+        document.getElementById('login-alert').classList.add('show');
+        btn.textContent = 'Sign In →';
+        btn.style.opacity = '1';
+      }
+    }, 1000);
+  }
+</script>
+</body>
+</html>

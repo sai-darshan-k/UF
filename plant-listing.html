@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Green Valley Nursery - Urban Farmer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #1a3a2a; --moss: #2d5a3d; --sage: #6b8f71; --leaf: #4a7c59;
+    --terra: #c17b4a; --amber: #e8a25a; --cream: #f5f0e8; --linen: #ede7d9;
+    --white: #fdfcf9; --text: #1a1a18; --text-muted: #5a5a50;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--linen); color: var(--text); }
+
+  nav {
+    background: var(--white); padding: 1rem 5%;
+    border-bottom: 1px solid rgba(107,143,113,0.12);
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 10;
+  }
+  .nav-brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+  .nav-brand-icon { width: 34px; height: 34px; border-radius: 50%; background: var(--forest); display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
+  .nav-brand-name { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: var(--forest); }
+  .nav-back { font-size: 0.82rem; color: var(--text-muted); text-decoration: none; }
+  .nav-back:hover { color: var(--forest); }
+
+  /* NURSERY HERO */
+  .nursery-hero {
+    background: var(--forest); padding: 3rem 5% 2rem;
+    position: relative; overflow: hidden;
+  }
+  .nursery-hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 70% at 80% 50%, rgba(107,143,113,0.2), transparent);
+  }
+  .nursery-hero-content { position: relative; z-index: 2; display: flex; gap: 2rem; align-items: flex-start; }
+  .nursery-logo {
+    width: 80px; height: 80px; border-radius: 20px;
+    background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center;
+    font-size: 2.5rem; flex-shrink: 0;
+  }
+  .nursery-info { flex: 1; }
+  .nursery-verified-badge {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    background: rgba(74,124,89,0.3); color: rgba(245,240,232,0.85);
+    padding: 0.25rem 0.65rem; border-radius: 100px; font-size: 0.72rem; margin-bottom: 0.5rem;
+  }
+  .nursery-title { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2rem); color: var(--white); margin-bottom: 0.5rem; }
+  .nursery-loc { font-size: 0.875rem; color: rgba(245,240,232,0.6); margin-bottom: 1rem; }
+  .nursery-stats { display: flex; gap: 2rem; }
+  .nursery-stat-num { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--white); }
+  .nursery-stat-label { font-size: 0.72rem; color: rgba(245,240,232,0.5); text-transform: uppercase; letter-spacing: 0.06em; }
+
+  /* TABS */
+  .nursery-tabs {
+    background: var(--white); padding: 0 5%;
+    border-bottom: 1px solid rgba(107,143,113,0.1);
+    display: flex; gap: 0;
+  }
+  .ntab {
+    padding: 1rem 1.5rem; border-bottom: 2px solid transparent;
+    font-size: 0.875rem; color: var(--text-muted); cursor: pointer;
+    border-top: none; border-left: none; border-right: none;
+    background: transparent; font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s; font-weight: 400;
+  }
+  .ntab.active { color: var(--forest); border-bottom-color: var(--forest); font-weight: 500; }
+
+  /* CONTENT */
+  .nursery-content { padding: 2rem 5%; }
+
+  /* CLUSTERS */
+  .cluster-section { margin-bottom: 2.5rem; }
+  .cluster-header {
+    display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem;
+    padding-bottom: 0.75rem; border-bottom: 1px solid rgba(107,143,113,0.1);
+  }
+  .cluster-badge {
+    background: var(--forest); color: var(--white);
+    padding: 0.3rem 0.75rem; border-radius: 8px; font-size: 0.75rem; font-weight: 500;
+  }
+  .cluster-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--forest); }
+  .cluster-count { font-size: 0.8rem; color: var(--text-muted); margin-left: auto; }
+  .cluster-qr-link {
+    display: flex; align-items: center; gap: 0.4rem;
+    font-size: 0.78rem; color: var(--sage); text-decoration: none;
+    background: rgba(107,143,113,0.1); padding: 0.3rem 0.65rem; border-radius: 8px;
+    transition: all 0.2s;
+  }
+  .cluster-qr-link:hover { background: rgba(107,143,113,0.2); }
+
+  .plants-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+  .plant-card {
+    background: var(--white); border-radius: 16px; overflow: hidden;
+    border: 1px solid rgba(107,143,113,0.1); transition: all 0.25s;
+  }
+  .plant-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(26,58,42,0.08); border-color: rgba(107,143,113,0.2); }
+  .plant-img { width: 100%; height: 130px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; }
+  .plant-info { padding: 0.9rem; }
+  .plant-name { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--forest); margin-bottom: 0.1rem; }
+  .plant-sci { font-size: 0.72rem; color: var(--text-muted); font-style: italic; margin-bottom: 0.5rem; }
+  .plant-footer { display: flex; align-items: center; justify-content: space-between; }
+  .plant-price { font-weight: 600; color: var(--forest); font-size: 0.9rem; }
+  .buy-btn {
+    background: var(--forest); color: var(--white);
+    border: none; border-radius: 8px; padding: 0.35rem 0.7rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 500;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .buy-btn:hover { background: var(--terra); }
+
+  /* ABOUT TAB */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .about-card { background: var(--white); border-radius: 16px; padding: 1.5rem; border: 1px solid rgba(107,143,113,0.1); }
+  .about-card-title { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--forest); margin-bottom: 1rem; }
+  .info-row { display: flex; gap: 0.75rem; margin-bottom: 0.75rem; align-items: flex-start; }
+  .info-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .info-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); font-weight: 500; margin-bottom: 0.1rem; }
+  .info-value { font-size: 0.875rem; color: var(--forest); }
+
+  /* TOAST */
+  .toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--forest); color: var(--white); padding: 0.9rem 1.4rem; border-radius: 12px; display: none; align-items: center; gap: 0.75rem; box-shadow: 0 8px 24px rgba(26,58,42,0.25); z-index: 200; }
+  .toast.show { display: flex; }
+
+  @media (max-width: 600px) {
+    .nursery-hero-content { flex-direction: column; }
+    .about-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <div class="nav-brand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="16" height="16"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/></svg></div>
+    <span class="nav-brand-name">Urban Farmer</span>
+  </a>
+  <a href="customer-dashboard.html" class="nav-back">← Back to Explore</a>
+</nav>
+
+<!-- NURSERY HERO -->
+<div class="nursery-hero">
+  <div class="nursery-hero-content">
+    <div class="nursery-logo"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(245,240,232,0.4)" stroke-width="1.5" width="42" height="42"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/></svg></div>
+    <div class="nursery-info">
+      <div class="nursery-verified-badge">Verified Nursery</div>
+      <h1 class="nursery-title">Green Valley Nursery</h1>
+      <div class="nursery-loc">📍 42, 3rd Cross, Indiranagar, Bengaluru · Open 8 AM–7 PM</div>
+      <div class="nursery-stats">
+        <div>
+          <div class="nursery-stat-num">142</div>
+          <div class="nursery-stat-label">Plants</div>
+        </div>
+        <div>
+          <div class="nursery-stat-num">4.8 ⭐</div>
+          <div class="nursery-stat-label">Rating</div>
+        </div>
+        <div>
+          <div class="nursery-stat-num">12</div>
+          <div class="nursery-stat-label">Years Active</div>
+        </div>
+        <div>
+          <div class="nursery-stat-num">+91 98765 43210</div>
+          <div class="nursery-stat-label">Contact</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="nursery-tabs">
+  <button class="ntab active" onclick="switchTab('plants', this)">🌱 All Plants</button>
+  <button class="ntab" onclick="switchTab('clusters', this)">📍 Plant Clusters</button>
+  <button class="ntab" onclick="switchTab('about', this)">ℹ️ About</button>
+</div>
+
+<!-- CONTENT -->
+<div class="nursery-content">
+
+  <!-- PLANTS TAB -->
+  <div id="tab-plants">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;">
+      <h2 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--forest);">All Plants (142)</h2>
+      <div style="display:flex;gap:0.5rem;">
+        <input type="text" placeholder="🔍 Search plants..." style="padding:0.5rem 0.9rem;border:1px solid rgba(107,143,113,0.2);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.82rem;outline:none;background:var(--white);" />
+        <select style="padding:0.5rem;border:1px solid rgba(107,143,113,0.2);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.82rem;outline:none;background:var(--white);color:var(--text-muted);">
+          <option>All Categories</option>
+          <option>Medicinal</option>
+          <option>Flowering</option>
+          <option>Indoor</option>
+        </select>
+      </div>
+    </div>
+    <div class="plants-grid">
+      <div class="plant-card" onclick="window.location.href='tulasi.html'">
+        <div class="plant-img" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9);flex-direction:column;gap:0.3rem;"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(74,124,89,0.3)" stroke-width="1.5" width="28" height="28"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/></svg></div>
+        <div class="plant-info">
+          <div class="plant-name">Holy Basil (Tulasi)</div>
+          <div class="plant-sci">Ocimum tenuiflorum</div>
+          <div class="plant-footer">
+            <div class="plant-price">Rs. 120</div>
+            <button class="buy-btn" onclick="event.stopPropagation();addCart('Tulasi', 120)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="plant-card" onclick="window.location.href='geranium.html'">
+        <div class="plant-img" style="background:linear-gradient(135deg,#fce4ec,#f8bbd9);flex-direction:column;gap:0.3rem;"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(150,60,100,0.3)" stroke-width="1.5" width="28" height="28"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/></svg></div>
+        <div class="plant-info">
+          <div class="plant-name">Geranium</div>
+          <div class="plant-sci">Pelargonium × hortorum</div>
+          <div class="plant-footer">
+            <div class="plant-price">Rs. 180</div>
+            <button class="buy-btn" onclick="event.stopPropagation();addCart('Geranium', 180)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="plant-card">
+        <div class="plant-img" style="background:linear-gradient(135deg,#e8f5e9,#a5d6a7);flex-direction:column;gap:0.3rem;"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(74,124,89,0.3)" stroke-width="1.5" width="28" height="28"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/></svg></div>
+        <div class="plant-info">
+          <div class="plant-name">Aloe Vera</div>
+          <div class="plant-sci">Aloe barbadensis miller</div>
+          <div class="plant-footer">
+            <div class="plant-price">Rs. 150</div>
+            <button class="buy-btn" onclick="addCart('Aloe Vera', 150)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="plant-card">
+        <div class="plant-img" style="background:linear-gradient(135deg,#fffde7,#fff9c4);flex-direction:column;gap:0.3rem;"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(180,140,0,0.3)" stroke-width="1.5" width="28" height="28"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg></div>
+        <div class="plant-info">
+          <div class="plant-name">Marigold</div>
+          <div class="plant-sci">Tagetes erecta</div>
+          <div class="plant-footer">
+            <div class="plant-price">Rs. 80</div>
+            <button class="buy-btn" onclick="addCart('Marigold', 80)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="plant-card">
+        <div class="plant-img" style="background:linear-gradient(135deg,#e3f2fd,#bbdefb);flex-direction:column;gap:0.3rem;"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(74,124,89,0.3)" stroke-width="1.5" width="28" height="28"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/></svg></div>
+        <div class="plant-info">
+          <div class="plant-name">Money Plant</div>
+          <div class="plant-sci">Epipremnum aureum</div>
+          <div class="plant-footer">
+            <div class="plant-price">Rs. 95</div>
+            <button class="buy-btn" onclick="addCart('Money Plant', 95)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="plant-card">
+        <div class="plant-img" style="background:linear-gradient(135deg,#f3e5f5,#e1bee7);flex-direction:column;gap:0.3rem;"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(120,50,150,0.3)" stroke-width="1.5" width="28" height="28"><circle cx="12" cy="12" r="5"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg></div>
+        <div class="plant-info">
+          <div class="plant-name">Hibiscus</div>
+          <div class="plant-sci">Hibiscus rosa-sinensis</div>
+          <div class="plant-footer">
+            <div class="plant-price">Rs. 220</div>
+            <button class="buy-btn" onclick="addCart('Hibiscus', 220)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLUSTERS TAB -->
+  <div id="tab-clusters" style="display:none;">
+    <div class="cluster-section">
+      <div class="cluster-header">
+        <div class="cluster-badge">Cluster A</div>
+        <div class="cluster-name">Medicinal & Herbal Plants</div>
+        <div class="cluster-count">18 plants</div>
+        <a href="tulasi.html" class="cluster-qr-link">View Plant Page</a>
+      </div>
+      <div class="plants-grid">
+        <div class="plant-card" onclick="window.location.href='tulasi.html'">
+          <div class="plant-img" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9);flex-direction:column;gap:0.3rem;"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(74,124,89,0.3)" stroke-width="1.5" width="28" height="28"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/></svg></div>
+          <div class="plant-info">
+            <div class="plant-name">Holy Basil (Tulasi)</div>
+            <div class="plant-sci">Ocimum tenuiflorum</div>
+            <div class="plant-footer"><div class="plant-price">Rs. 120</div><button class="buy-btn" onclick="event.stopPropagation();addCart('Tulasi', 120)">Add</button></div>
+          </div>
+        </div>
+        <div class="plant-card">
+          <div class="plant-img" style="background:linear-gradient(135deg,#e8f5e9,#a5d6a7);flex-direction:column;gap:0.3rem;"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(74,124,89,0.3)" stroke-width="1.5" width="28" height="28"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/></svg></div>
+          <div class="plant-info">
+            <div class="plant-name">Aloe Vera</div>
+            <div class="plant-sci">Aloe barbadensis</div>
+            <div class="plant-footer"><div class="plant-price">Rs. 150</div><button class="buy-btn" onclick="addCart('Aloe Vera', 150)">Add</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cluster-section">
+      <div class="cluster-header">
+        <div class="cluster-badge">Cluster B</div>
+        <div class="cluster-name">Flowering Plants</div>
+        <div class="cluster-count">24 plants</div>
+        <a href="geranium.html" class="cluster-qr-link">View Plant Page</a>
+      </div>
+      <div class="plants-grid">
+        <div class="plant-card" onclick="window.location.href='geranium.html'">
+          <div class="plant-img" style="background:linear-gradient(135deg,#fce4ec,#f8bbd9);flex-direction:column;gap:0.3rem;"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(150,60,100,0.3)" stroke-width="1.5" width="28" height="28"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/></svg></div>
+          <div class="plant-info">
+            <div class="plant-name">Geranium</div>
+            <div class="plant-sci">Pelargonium × hortorum</div>
+            <div class="plant-footer"><div class="plant-price">Rs. 180</div><button class="buy-btn" onclick="event.stopPropagation();addCart('Geranium', 180)">Add</button></div>
+          </div>
+        </div>
+        <div class="plant-card">
+          <div class="plant-img" style="background:linear-gradient(135deg,#fffde7,#fff9c4);flex-direction:column;gap:0.3rem;"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(180,140,0,0.3)" stroke-width="1.5" width="28" height="28"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg></div>
+          <div class="plant-info">
+            <div class="plant-name">Marigold</div>
+            <div class="plant-sci">Tagetes erecta</div>
+            <div class="plant-footer"><div class="plant-price">Rs. 80</div><button class="buy-btn" onclick="addCart('Marigold', 80)">Add</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT TAB -->
+  <div id="tab-about" style="display:none;">
+    <div class="about-grid">
+      <div class="about-card">
+        <div class="about-card-title">Nursery Information</div>
+        <div class="info-row"><div class="info-icon">📍</div><div><div class="info-label">Address</div><div class="info-value">42, 3rd Cross, CMH Road, Indiranagar, Bengaluru – 560038</div></div></div>
+        <div class="info-row"><div class="info-icon">⏰</div><div><div class="info-label">Hours</div><div class="info-value">Monday–Sunday: 8:00 AM – 7:00 PM</div></div></div>
+        <div class="info-row"><div class="info-icon">📞</div><div><div class="info-label">Contact</div><div class="info-value">+91 98765 43210</div></div></div>
+        <div class="info-row"><div class="info-icon">✉️</div><div><div class="info-label">Email</div><div class="info-value">greenvalley@example.com</div></div></div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-title">About Green Valley</div>
+        <p style="font-size:0.875rem;color:var(--text-muted);line-height:1.7;">Green Valley Nursery has been serving plant lovers in Bengaluru for over 12 years. We specialize in medicinal herbs, flowering plants, and indoor varieties - all grown with care and available at fair prices.</p>
+        <div style="margin-top:1rem;display:flex;flex-wrap:wrap;gap:0.5rem;">
+          <span style="background:rgba(107,143,113,0.1);color:var(--sage);padding:0.3rem 0.7rem;border-radius:100px;font-size:0.75rem;">🌿 Medicinal</span>
+          <span style="background:rgba(107,143,113,0.1);color:var(--sage);padding:0.3rem 0.7rem;border-radius:100px;font-size:0.75rem;">🌸 Flowering</span>
+          <span style="background:rgba(107,143,113,0.1);color:var(--sage);padding:0.3rem 0.7rem;border-radius:100px;font-size:0.75rem;">🍃 Indoor</span>
+          <span style="background:rgba(107,143,113,0.1);color:var(--sage);padding:0.3rem 0.7rem;border-radius:100px;font-size:0.75rem;">🌱 Organic</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span id="toast-msg"></span></div>
+
+<script>
+  function switchTab(id, btn) {
+    ['plants', 'clusters', 'about'].forEach(t => document.getElementById('tab-' + t).style.display = 'none');
+    document.getElementById('tab-' + id).style.display = 'block';
+    document.querySelectorAll('.ntab').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+  }
+
+  function addCart(name, price) {
+    showToast('🌱 ' + name + ' added to cart! Rs.' + price);
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    document.getElementById('toast-msg').textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+</script>
+</body>
+</html>
