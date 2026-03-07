@@ -3,255 +3,158 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Explore Plants - Urban Farmer</title>
+<title>Explore Plants — Urban Farmer</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --forest: #1a3a2a; --moss: #2d5a3d; --sage: #6b8f71; --leaf: #4a7c59;
-    --terra: #c17b4a; --amber: #e8a25a; --cream: #f5f0e8; --linen: #ede7d9;
-    --white: #fdfcf9; --text: #1a1a18; --text-muted: #5a5a50;
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--linen); min-height: 100vh; }
+:root{
+  --forest:#1a3a2a;--moss:#2d5a3d;--sage:#6b8f71;--leaf:#4a7c59;
+  --terra:#c17b4a;--amber:#e8a25a;--cream:#f5f0e8;--linen:#ede7d9;
+  --white:#fdfcf9;--text:#1a1a18;--text-muted:#5a5a50;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--linen);color:var(--text);min-height:100vh;}
 
-  /* NAV */
-  nav {
-    background: var(--white); padding: 1rem 5%;
-    border-bottom: 1px solid rgba(107,143,113,0.12);
-    display: flex; align-items: center; justify-content: space-between;
-    position: sticky; top: 0; z-index: 10;
-  }
-  .nav-brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
-  .nav-brand-icon { width: 36px; height: 36px; border-radius: 50%; background: var(--forest); display: flex; align-items: center; justify-content: center; font-size: 1rem; }
-  .nav-brand-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--forest); }
-  .nav-right { display: flex; align-items: center; gap: 1rem; }
-  .nav-user {
-    display: flex; align-items: center; gap: 0.5rem;
-    background: var(--linen); border-radius: 100px; padding: 0.4rem 0.75rem 0.4rem 0.4rem;
-    cursor: pointer;
-  }
-  .nav-user-avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--sage); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; }
-  .nav-user-name { font-size: 0.82rem; color: var(--forest); font-weight: 500; }
-  .cart-btn {
-    background: var(--forest); color: var(--white); border: none; border-radius: 100px;
-    padding: 0.5rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.82rem;
-    cursor: pointer; display: flex; align-items: center; gap: 0.4rem;
-    font-weight: 500;
-  }
-  .cart-count {
-    background: var(--terra); color: white; border-radius: 50%; width: 18px; height: 18px;
-    display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700;
-  }
+/* NAV */
+nav{background:var(--white);padding:1rem 5%;border-bottom:1px solid rgba(107,143,113,.12);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20;}
+.nav-brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;}
+.nav-brand-icon{width:36px;height:36px;border-radius:50%;background:var(--forest);display:flex;align-items:center;justify-content:center;}
+.nav-brand-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--forest);}
+.nav-right{display:flex;align-items:center;gap:.9rem;}
+.nav-user{display:flex;align-items:center;gap:.5rem;background:var(--linen);border-radius:100px;padding:.4rem .75rem .4rem .4rem;cursor:pointer;}
+.nav-user-avatar{width:28px;height:28px;border-radius:50%;background:var(--sage);display:flex;align-items:center;justify-content:center;}
+.nav-user-name{font-size:.82rem;color:var(--forest);font-weight:500;}
+.cart-btn{background:var(--forest);color:var(--white);border:none;border-radius:100px;padding:.5rem 1rem;font-family:'DM Sans',sans-serif;font-size:.82rem;cursor:pointer;display:flex;align-items:center;gap:.4rem;font-weight:500;transition:all .2s;}
+.cart-btn:hover{background:var(--moss);}
+.cart-count{background:var(--terra);color:white;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;}
 
-  /* HERO BAR */
-  .hero-bar {
-    background: var(--forest); padding: 2.5rem 5%;
-    position: relative; overflow: hidden;
-  }
-  .hero-bar::before {
-    content: ''; position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 70% 50%, rgba(107,143,113,0.3), transparent 60%);
-  }
-  .hero-bar-content { position: relative; z-index: 2; }
-  .hero-bar h1 {
-    font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2rem);
-    color: var(--white); margin-bottom: 0.4rem;
-  }
-  .hero-bar h1 em { font-style: italic; color: var(--amber); }
-  .hero-bar p { font-size: 0.9rem; color: rgba(245,240,232,0.6); margin-bottom: 1.5rem; }
+/* HERO */
+.hero-bar{background:var(--forest);padding:2.5rem 5%;position:relative;overflow:hidden;}
+.hero-bar::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(107,143,113,.28),transparent 60%);}
+.hero-bar-content{position:relative;z-index:2;}
+.hero-bar h1{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2rem);color:var(--white);margin-bottom:.4rem;}
+.hero-bar h1 em{font-style:italic;color:var(--amber);}
+.hero-bar p{font-size:.875rem;color:rgba(245,240,232,.55);margin-bottom:1.5rem;}
+.search-bar{display:flex;gap:.75rem;max-width:600px;}
+.search-input{flex:1;padding:.75rem 1rem;border:none;border-radius:12px;outline:none;font-family:'DM Sans',sans-serif;font-size:.9rem;background:rgba(255,255,255,.12);color:var(--white);backdrop-filter:blur(10px);}
+.search-input::placeholder{color:rgba(245,240,232,.4);}
+.search-btn{padding:.75rem 1.5rem;border-radius:12px;border:none;background:var(--terra);color:var(--white);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:500;transition:all .2s;}
+.search-btn:hover{background:#b06a39;}
 
-  .search-bar {
-    display: flex; gap: 0.75rem; max-width: 600px;
-  }
-  .search-input {
-    flex: 1; padding: 0.75rem 1rem;
-    border: none; border-radius: 12px; outline: none;
-    font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
-    background: rgba(255,255,255,0.12); color: var(--white);
-    backdrop-filter: blur(10px);
-  }
-  .search-input::placeholder { color: rgba(245,240,232,0.45); }
-  .search-btn {
-    padding: 0.75rem 1.5rem; border-radius: 12px; border: none;
-    background: var(--terra); color: var(--white); cursor: pointer;
-    font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 500;
-    transition: all 0.2s;
-  }
-  .search-btn:hover { background: #b06a39; }
+/* FILTERS */
+.filters-bar{background:var(--white);padding:.9rem 5%;border-bottom:1px solid rgba(107,143,113,.1);display:flex;gap:.5rem;overflow-x:auto;scrollbar-width:none;}
+.filters-bar::-webkit-scrollbar{display:none;}
+.filter-chip{padding:.4rem .9rem;border-radius:100px;border:1.5px solid rgba(107,143,113,.2);background:transparent;font-family:'DM Sans',sans-serif;font-size:.78rem;color:var(--text-muted);cursor:pointer;white-space:nowrap;transition:all .2s;}
+.filter-chip:hover,.filter-chip.active{background:var(--forest);color:var(--white);border-color:var(--forest);}
 
-  /* FILTERS */
-  .filters-bar {
-    background: var(--white); padding: 1rem 5%;
-    border-bottom: 1px solid rgba(107,143,113,0.1);
-    display: flex; gap: 0.5rem; overflow-x: auto;
-    scrollbar-width: none;
-  }
-  .filters-bar::-webkit-scrollbar { display: none; }
-  .filter-chip {
-    padding: 0.45rem 1rem; border-radius: 100px; border: 1.5px solid rgba(107,143,113,0.2);
-    background: transparent; font-family: 'DM Sans', sans-serif;
-    font-size: 0.8rem; color: var(--text-muted); cursor: pointer; white-space: nowrap;
-    transition: all 0.2s;
-  }
-  .filter-chip:hover, .filter-chip.active {
-    background: var(--forest); color: var(--white); border-color: var(--forest);
-  }
+/* PAGE LAYOUT */
+.page-layout{display:flex;}
+.sidebar{width:270px;flex-shrink:0;}
+.main-content{flex:1;padding:2rem 3% 2rem 0;}
 
-  /* LAYOUT */
-  .page-layout { display: flex; gap: 0; }
-  .sidebar { width: 280px; flex-shrink: 0; }
-  .main-content { flex: 1; padding: 2rem 3% 2rem 0; }
+/* SIDEBAR */
+.sidebar-panel{background:var(--white);padding:1.5rem;border-right:1px solid rgba(107,143,113,.1);min-height:calc(100vh - 210px);}
+.sidebar-section{margin-bottom:2rem;}
+.sidebar-title{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);font-weight:500;margin-bottom:.65rem;}
+.sidebar-link{display:flex;align-items:center;gap:.6rem;padding:.55rem .75rem;border-radius:10px;cursor:pointer;font-size:.875rem;color:var(--text-muted);transition:all .2s;text-decoration:none;border:none;background:none;font-family:'DM Sans',sans-serif;width:100%;}
+.sidebar-link:hover,.sidebar-link.active{background:var(--linen);color:var(--forest);}
+.sidebar-link.active{font-weight:500;}
+.nursery-list{display:flex;flex-direction:column;gap:.65rem;}
+.nursery-item{display:flex;align-items:center;gap:.7rem;padding:.7rem;border-radius:12px;border:1px solid rgba(107,143,113,.1);cursor:pointer;transition:all .2s;background:var(--linen);}
+.nursery-item:hover{border-color:rgba(107,143,113,.3);}
+.nursery-item.active{border-color:var(--leaf);background:rgba(74,124,89,.07);}
+.nursery-icon{width:34px;height:34px;border-radius:9px;background:var(--sage);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.nursery-name{font-size:.8rem;color:var(--forest);font-weight:500;}
+.nursery-meta{font-size:.7rem;color:var(--text-muted);}
+.nursery-count{margin-left:auto;font-size:.68rem;color:var(--sage);background:rgba(107,143,113,.1);padding:.15rem .45rem;border-radius:100px;}
 
-  /* SIDEBAR */
-  .sidebar-panel {
-    background: var(--white); border-radius: 0;
-    padding: 1.5rem;
-    border-right: 1px solid rgba(107,143,113,0.1);
-    min-height: calc(100vh - 200px);
-  }
-  .sidebar-section { margin-bottom: 2rem; }
-  .sidebar-title {
-    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em;
-    color: var(--text-muted); font-weight: 500; margin-bottom: 0.75rem;
-  }
-  .sidebar-link {
-    display: flex; align-items: center; gap: 0.6rem;
-    padding: 0.55rem 0.75rem; border-radius: 10px; cursor: pointer;
-    font-size: 0.875rem; color: var(--text-muted); transition: all 0.2s;
-    text-decoration: none;
-  }
-  .sidebar-link:hover, .sidebar-link.active { background: var(--linen); color: var(--forest); }
-  .sidebar-link.active { font-weight: 500; }
+/* SECTION HEADER */
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;}
+.section-header h2{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--forest);}
 
-  .nursery-list { display: flex; flex-direction: column; gap: 0.75rem; }
-  .nursery-item {
-    display: flex; align-items: center; gap: 0.75rem;
-    padding: 0.75rem; border-radius: 12px;
-    border: 1px solid rgba(107,143,113,0.1);
-    cursor: pointer; transition: all 0.2s;
-    background: var(--linen);
-  }
-  .nursery-item:hover { border-color: rgba(107,143,113,0.3); background: rgba(107,143,113,0.05); }
-  .nursery-item.active { border-color: var(--leaf); background: rgba(74,124,89,0.08); }
-  .nursery-icon { width: 36px; height: 36px; border-radius: 10px; background: var(--sage); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
-  .nursery-name { font-size: 0.82rem; color: var(--forest); font-weight: 500; }
-  .nursery-meta { font-size: 0.72rem; color: var(--text-muted); }
-  .nursery-count { margin-left: auto; font-size: 0.7rem; color: var(--sage); background: rgba(107,143,113,0.1); padding: 0.15rem 0.45rem; border-radius: 100px; }
+/* PLANTS GRID */
+.plants-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-bottom:2rem;}
+.plant-card{background:var(--white);border-radius:16px;overflow:hidden;border:1px solid rgba(107,143,113,.1);transition:all .25s;cursor:pointer;position:relative;}
+.plant-card:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(26,58,42,.1);border-color:rgba(107,143,113,.25);}
+.plant-card.out-of-stock-card{opacity:.65;pointer-events:none;}
+.out-stock-label{position:absolute;top:0;left:0;right:0;background:rgba(198,40,40,.82);color:white;text-align:center;padding:.28rem;font-size:.66rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;z-index:3;}
 
-  /* PLANTS GRID */
-  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem; }
-  .section-header h2 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--forest); }
+.plant-img{width:100%;height:130px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.plant-img img{width:100%;height:100%;object-fit:cover;}
+.plant-img-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.3rem;width:100%;height:100%;}
+.plant-img-placeholder svg{opacity:.32;}
+.wishlist-btn{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.9);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:4;pointer-events:all;}
+.wishlist-btn:hover{background:white;transform:scale(1.1);}
 
-  .plants-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+.plant-info{padding:.9rem;}
+.plant-name{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--forest);margin-bottom:.1rem;}
+.plant-nursery{font-size:.7rem;color:var(--text-muted);margin-bottom:.5rem;}
+.plant-price-row{display:flex;align-items:center;justify-content:space-between;}
+.plant-price{font-weight:600;color:var(--forest);font-size:.9rem;}
+.add-cart-btn{width:30px;height:30px;border-radius:50%;background:var(--forest);color:white;border:none;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.add-cart-btn:hover{background:var(--terra);transform:scale(1.1);}
 
-  .plant-card {
-    background: var(--white); border-radius: 16px; overflow: hidden;
-    border: 1px solid rgba(107,143,113,0.1); transition: all 0.25s; cursor: pointer;
-  }
-  .plant-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(26,58,42,0.1); border-color: rgba(107,143,113,0.25); }
-  .plant-img {
-    width: 100%; height: 130px;
-    display: flex; align-items: center; justify-content: center; font-size: 3.5rem;
-    position: relative;
-  }
-  .wishlist-btn {
-    position: absolute; top: 8px; right: 8px;
-    width: 30px; height: 30px; border-radius: 50%;
-    background: rgba(255,255,255,0.9); border: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: center; font-size: 0.9rem;
-    transition: all 0.2s;
-  }
-  .wishlist-btn:hover { background: white; transform: scale(1.1); }
-  .plant-info { padding: 1rem; }
-  .plant-name { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--forest); margin-bottom: 0.1rem; }
-  .plant-nursery { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.5rem; }
-  .plant-price-row { display: flex; align-items: center; justify-content: space-between; }
-  .plant-price { font-weight: 600; color: var(--forest); }
-  .add-cart-btn {
-    width: 28px; height: 28px; border-radius: 50%; background: var(--forest);
-    color: white; border: none; cursor: pointer; font-size: 1rem;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s;
-  }
-  .add-cart-btn:hover { background: var(--terra); transform: scale(1.1); }
+/* NURSERY CARDS */
+.nurseries-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem;margin-bottom:2rem;}
+.nursery-card{background:var(--white);border-radius:18px;overflow:hidden;border:1px solid rgba(107,143,113,.1);transition:all .25s;}
+.nursery-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(26,58,42,.1);}
+.nursery-header{height:100px;display:flex;align-items:center;justify-content:center;position:relative;}
+.nursery-verified{position:absolute;top:10px;right:10px;background:rgba(74,124,89,.85);color:white;padding:.2rem .5rem;border-radius:6px;font-size:.66rem;font-weight:500;}
+.nursery-body{padding:1.2rem;}
+.nursery-card-name{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--forest);margin-bottom:.2rem;}
+.nursery-card-loc{font-size:.78rem;color:var(--text-muted);margin-bottom:.75rem;}
+.nursery-card-meta{display:flex;gap:1rem;margin-bottom:1rem;}
+.meta-item{font-size:.75rem;color:var(--text-muted);}
+.meta-item strong{color:var(--forest);}
+.btn-primary-nursery{display:flex;align-items:center;justify-content:center;gap:.4rem;padding:.55rem 1rem;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;border:none;background:var(--forest);color:var(--white);width:100%;transition:all .2s;text-decoration:none;}
+.btn-primary-nursery:hover{background:var(--moss);}
 
-  /* NURSERY CARDS */
-  .nurseries-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem; margin-bottom: 2rem; }
-  .nursery-card {
-    background: var(--white); border-radius: 18px; overflow: hidden;
-    border: 1px solid rgba(107,143,113,0.1); transition: all 0.25s;
-  }
-  .nursery-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(26,58,42,0.1); }
-  .nursery-header {
-    height: 100px; display: flex; align-items: center; justify-content: center;
-    font-size: 3rem; position: relative;
-  }
-  .nursery-verified {
-    position: absolute; top: 10px; right: 10px;
-    background: rgba(74,124,89,0.85); color: white;
-    padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.68rem; font-weight: 500;
-  }
-  .nursery-body { padding: 1.2rem; }
-  .nursery-card-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--forest); margin-bottom: 0.2rem; }
-  .nursery-card-loc { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.75rem; }
-  .nursery-card-meta { display: flex; gap: 1rem; margin-bottom: 1rem; }
-  .meta-item { font-size: 0.75rem; color: var(--text-muted); }
-  .meta-item strong { color: var(--forest); }
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
-    padding: 0.55rem 1rem; border-radius: 100px;
-    font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500;
-    cursor: pointer; border: none; transition: all 0.2s; text-decoration: none;
-  }
-  .btn-primary { background: var(--forest); color: var(--white); width: 100%; }
-  .btn-primary:hover { background: var(--moss); }
+/* CART SIDEBAR */
+.cart-overlay{display:none;position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.3);}
+.cart-overlay.open{display:flex;justify-content:flex-end;}
+.cart-panel{width:360px;background:var(--white);height:100%;padding:2rem;overflow-y:auto;display:flex;flex-direction:column;box-shadow:-8px 0 30px rgba(0,0,0,.15);}
+.cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;}
+.cart-header h3{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--forest);}
+.cart-close{background:none;border:none;cursor:pointer;color:var(--text-muted);display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.cart-close:hover{color:var(--forest);}
+.cart-items{flex:1;}
+.cart-item{display:flex;gap:.75rem;padding:.75rem 0;border-bottom:1px solid rgba(107,143,113,.1);}
+.cart-item-img{width:52px;height:52px;border-radius:10px;background:var(--linen);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;}
+.cart-item-img img{width:100%;height:100%;object-fit:cover;}
+.cart-item-name{font-size:.875rem;color:var(--forest);font-weight:500;margin-bottom:.15rem;}
+.cart-item-nursery{font-size:.7rem;color:var(--text-muted);}
+.cart-item-price{font-weight:600;color:var(--terra);margin-top:.25rem;font-size:.875rem;}
+.cart-qty{display:flex;align-items:center;gap:.4rem;margin-left:auto;flex-shrink:0;}
+.qty-btn{width:24px;height:24px;border-radius:50%;border:1px solid rgba(107,143,113,.2);background:var(--linen);cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.qty-btn:hover{background:rgba(107,143,113,.15);}
+.cart-footer{border-top:2px solid rgba(107,143,113,.1);padding-top:1.2rem;margin-top:1rem;}
+.cart-total{display:flex;justify-content:space-between;margin-bottom:1rem;}
+.cart-total span{font-size:.875rem;color:var(--text-muted);}
+.cart-total strong{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--forest);}
+.btn-checkout{background:var(--terra);color:white;border:none;border-radius:12px;padding:.9rem;width:100%;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:500;cursor:pointer;transition:all .2s;}
+.btn-checkout:hover{background:#b06a39;}
+.empty-cart{text-align:center;padding:3rem 1rem;color:var(--text-muted);}
+.empty-cart-icon{margin-bottom:1rem;opacity:.3;}
 
-  /* CART SIDEBAR */
-  .cart-overlay {
-    display: none; position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,0.3);
-  }
-  .cart-overlay.open { display: flex; justify-content: flex-end; }
-  .cart-panel {
-    width: 360px; background: var(--white); height: 100%;
-    padding: 2rem; overflow-y: auto; display: flex; flex-direction: column;
-    box-shadow: -8px 0 30px rgba(0,0,0,0.15);
-  }
-  .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
-  .cart-header h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--forest); }
-  .cart-close { background: none; border: none; font-size: 1.3rem; cursor: pointer; color: var(--text-muted); }
-  .cart-items { flex: 1; }
-  .cart-item {
-    display: flex; gap: 0.75rem; padding: 0.75rem 0;
-    border-bottom: 1px solid rgba(107,143,113,0.1);
-  }
-  .cart-item-img { width: 52px; height: 52px; border-radius: 10px; background: var(--linen); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
-  .cart-item-name { font-size: 0.875rem; color: var(--forest); font-weight: 500; margin-bottom: 0.15rem; }
-  .cart-item-nursery { font-size: 0.72rem; color: var(--text-muted); }
-  .cart-item-price { font-weight: 600; color: var(--terra); margin-top: 0.25rem; font-size: 0.875rem; }
-  .cart-qty {
-    display: flex; align-items: center; gap: 0.4rem; margin-left: auto;
-    flex-shrink: 0;
-  }
-  .qty-btn { width: 24px; height: 24px; border-radius: 50%; border: 1px solid rgba(107,143,113,0.2); background: var(--linen); cursor: pointer; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; }
-  .cart-footer { border-top: 2px solid rgba(107,143,113,0.1); padding-top: 1.2rem; margin-top: 1rem; }
-  .cart-total { display: flex; justify-content: space-between; margin-bottom: 1rem; }
-  .cart-total span { font-size: 0.875rem; color: var(--text-muted); }
-  .cart-total strong { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--forest); }
-  .btn-checkout { background: var(--terra); color: white; border: none; border-radius: 12px; padding: 0.9rem; width: 100%; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.2s; }
-  .btn-checkout:hover { background: #b06a39; }
+/* TOAST */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--forest);color:var(--white);padding:.9rem 1.4rem;border-radius:12px;display:none;align-items:center;gap:.75rem;box-shadow:0 8px 24px rgba(26,58,42,.25);z-index:200;font-size:.875rem;}
+.toast.show{display:flex;}
 
-  .empty-cart { text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
-  .empty-cart-icon { font-size: 3rem; margin-bottom: 1rem; }
+/* ORDERS */
+.order-item{padding:1.2rem 1.5rem;border-bottom:1px solid rgba(107,143,113,.08);}
+.order-item:last-child{border-bottom:none;}
+.order-name{font-weight:500;color:var(--forest);font-size:.9rem;}
+.order-meta{font-size:.78rem;color:var(--text-muted);margin-top:.2rem;}
+.order-right{text-align:right;}
+.order-price{font-weight:600;color:var(--forest);}
+.status-badge{font-size:.68rem;padding:.2rem .5rem;border-radius:100px;font-weight:500;margin-top:.2rem;display:inline-block;}
+.status-delivered{background:rgba(74,124,89,.1);color:var(--leaf);}
+.status-processing{background:rgba(232,162,90,.15);color:#c68a20;}
 
-  /* TOAST */
-  .toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--forest); color: var(--white); padding: 0.9rem 1.4rem; border-radius: 12px; display: none; align-items: center; gap: 0.75rem; box-shadow: 0 8px 24px rgba(26,58,42,0.25); z-index: 200; }
-  .toast.show { display: flex; }
-
-  @media (max-width: 768px) {
-    .sidebar { display: none; }
-    .main-content { padding: 1.5rem 5%; }
-    .page-layout { display: block; }
-  }
+@media(max-width:768px){
+  .sidebar{display:none;}
+  .main-content{padding:1.5rem 5%;}
+  .page-layout{display:block;}
+}
 </style>
 </head>
 <body>
@@ -268,19 +171,20 @@
       <span class="nav-user-name">Priya S.</span>
     </div>
     <button class="cart-btn" onclick="toggleCart()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="14" height="14"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> Cart <div class="cart-count" id="cart-count">0</div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="14" height="14"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      Cart <div class="cart-count" id="cart-count">0</div>
     </button>
-    <a href="login.html" style="text-decoration:none;font-size:0.82rem;color:var(--text-muted);">Sign Out</a>
+    <a href="login.html" style="text-decoration:none;font-size:.82rem;color:var(--text-muted);">Sign Out</a>
   </div>
 </nav>
 
-<!-- HERO BAR -->
+<!-- HERO -->
 <div class="hero-bar">
   <div class="hero-bar-content">
     <h1>Find Your Next<br><em>Green Companion</em></h1>
-    <p>Browse 5,000+ plants from 240+ verified nurseries near you</p>
+    <p id="hero-subtitle">Browse plants from verified nurseries near you</p>
     <div class="search-bar">
-      <input class="search-input" placeholder="Search plants, nurseries, or categories..." id="search-input" />
+      <input class="search-input" placeholder="Search plants, nurseries, or categories…" id="search-input" oninput="doSearch()"/>
       <button class="search-btn" onclick="doSearch()">Search</button>
     </div>
   </div>
@@ -288,54 +192,54 @@
 
 <!-- FILTER CHIPS -->
 <div class="filters-bar">
-  <button class="filter-chip active" onclick="filterActive(this)">All Plants</button>
-  <button class="filter-chip" onclick="filterActive(this)">Medicinal</button>
-  <button class="filter-chip" onclick="filterActive(this)">Flowering</button>
-  <button class="filter-chip" onclick="filterActive(this)">Succulent</button>
-  <button class="filter-chip" onclick="filterActive(this)">Indoor</button>
-  <button class="filter-chip" onclick="filterActive(this)">Vegetables</button>
-  <button class="filter-chip" onclick="filterActive(this)">Trees</button>
-  <button class="filter-chip" onclick="filterActive(this)">Under Rs.100</button>
-  <button class="filter-chip" onclick="filterActive(this)">Near Me</button>
+  <button class="filter-chip active" onclick="filterChip(this,'All')">All Plants</button>
+  <button class="filter-chip" onclick="filterChip(this,'Medicinal')">Medicinal</button>
+  <button class="filter-chip" onclick="filterChip(this,'Flowering')">Flowering</button>
+  <button class="filter-chip" onclick="filterChip(this,'Succulent')">Succulent</button>
+  <button class="filter-chip" onclick="filterChip(this,'Indoor')">Indoor</button>
+  <button class="filter-chip" onclick="filterChip(this,'Vegetables')">Vegetables</button>
+  <button class="filter-chip" onclick="filterChip(this,'Trees')">Trees</button>
 </div>
 
 <!-- PAGE LAYOUT -->
 <div class="page-layout">
-  <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sidebar-panel">
       <div class="sidebar-section">
         <div class="sidebar-title">Browse</div>
-        <a class="sidebar-link active" onclick="showView('plants', this)">All Plants</a>
-        <a class="sidebar-link" onclick="showView('nurseries', this)">All Nurseries</a>
-        <a class="sidebar-link" onclick="showView('favourites', this)">My Favourites</a>
-        <a class="sidebar-link" onclick="showView('orders', this)">My Orders</a>
+        <button class="sidebar-link active" onclick="showView('plants',this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="14" height="14"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/></svg>
+          All Plants
+        </button>
+        <button class="sidebar-link" onclick="showView('nurseries',this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="14" height="14"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          All Nurseries
+        </button>
+        <button class="sidebar-link" onclick="showView('favourites',this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="14" height="14"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          My Favourites
+        </button>
+        <button class="sidebar-link" onclick="showView('orders',this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="14" height="14"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          My Orders
+        </button>
       </div>
       <div class="sidebar-section">
         <div class="sidebar-title">Nearby Nurseries</div>
         <div class="nursery-list">
-          <div class="nursery-item active" onclick="filterByNursery('green-valley')">
-            <div class="nursery-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="16" height="16"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/></svg></div>
-            <div>
-              <div class="nursery-name">Green Valley</div>
-              <div class="nursery-meta">Indiranagar · 1.2 km</div>
-            </div>
-            <div class="nursery-count">142</div>
+          <div class="nursery-item active" onclick="filterByNursery('Green Valley',this)">
+            <div class="nursery-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="15" height="15"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/></svg></div>
+            <div><div class="nursery-name">Green Valley</div><div class="nursery-meta">Indiranagar · 1.2 km</div></div>
+            <div class="nursery-count" id="count-green-valley">0</div>
           </div>
-          <div class="nursery-item" onclick="filterByNursery('blooms')">
-            <div class="nursery-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="4"/><path d="M12 2a10 10 0 000 20"/></svg></div>
-            <div>
-              <div class="nursery-name">Blooms & Beyond</div>
-              <div class="nursery-meta">Koramangala · 3 km</div>
-            </div>
+          <div class="nursery-item" onclick="filterByNursery('Blooms & Beyond',this)">
+            <div class="nursery-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="15" height="15"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3"/></svg></div>
+            <div><div class="nursery-name">Blooms & Beyond</div><div class="nursery-meta">Koramangala · 3 km</div></div>
             <div class="nursery-count">87</div>
           </div>
-          <div class="nursery-item" onclick="filterByNursery('natures')">
-            <div class="nursery-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="16" height="16"><path d="M17 22V12M7 22V12M3 7l9-5 9 5-9 5-9-5z"/></svg></div>
-            <div>
-              <div class="nursery-name">Nature's Corner</div>
-              <div class="nursery-meta">Whitefield · 8 km</div>
-            </div>
+          <div class="nursery-item" onclick="filterByNursery('Nature\'s Corner',this)">
+            <div class="nursery-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="15" height="15"><path d="M17 22V12M7 22V12M3 7l9-5 9 5-9 5-9-5z"/></svg></div>
+            <div><div class="nursery-name">Nature's Corner</div><div class="nursery-meta">Whitefield · 8 km</div></div>
             <div class="nursery-count">213</div>
           </div>
         </div>
@@ -343,77 +247,80 @@
     </div>
   </aside>
 
-  <!-- MAIN -->
   <div class="main-content">
 
     <!-- PLANTS VIEW -->
     <div id="view-plants">
       <div class="section-header">
-        <h2>All Plants <span style="font-size:0.8rem;color:var(--text-muted);font-family:'DM Sans',sans-serif;font-weight:400;">(5,000+ available)</span></h2>
-        <select style="padding:0.4rem 0.75rem;border-radius:8px;border:1px solid rgba(107,143,113,0.2);font-family:'DM Sans',sans-serif;font-size:0.82rem;color:var(--text-muted);background:var(--white);outline:none;">
-          <option>Sort: Popular</option>
-          <option>Price: Low to High</option>
-          <option>Price: High to Low</option>
-          <option>Nearest First</option>
+        <h2 id="plants-title">All Plants</h2>
+        <select id="sort-select" style="padding:.4rem .75rem;border-radius:8px;border:1px solid rgba(107,143,113,.2);font-family:'DM Sans',sans-serif;font-size:.82rem;color:var(--text-muted);background:var(--white);outline:none;" onchange="renderPlants()">
+          <option value="default">Sort: Popular</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
         </select>
       </div>
-      <div class="plants-grid" id="plants-grid">
-        <!-- JS generated -->
-      </div>
+      <div class="plants-grid" id="plants-grid"></div>
     </div>
 
     <!-- NURSERIES VIEW -->
     <div id="view-nurseries" style="display:none;">
-      <div class="section-header">
-        <h2>All Nurseries</h2>
-      </div>
+      <div class="section-header"><h2>All Nurseries</h2></div>
       <div class="nurseries-grid">
         <div class="nursery-card">
-          <div class="nursery-header" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9);display:flex;align-items:center;justify-content:center;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(74,124,89,0.45)" stroke-width="1.5" width="44" height="44"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/></svg>
-            <div class="nursery-verified">✓ Verified</div>
+          <div class="nursery-header" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(74,124,89,.4)" stroke-width="1.5" width="44" height="44"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/></svg>
+            <div class="nursery-verified">Verified</div>
           </div>
           <div class="nursery-body">
             <div class="nursery-card-name">Green Valley Nursery</div>
-            <div class="nursery-card-loc">📍 3rd Cross, Indiranagar, Bengaluru</div>
-            <div class="nursery-card-meta">
-              <div class="meta-item"><strong>142</strong> Plants</div>
-              <div class="meta-item"><strong>4.8</strong> ⭐</div>
-              <div class="meta-item"><strong>1.2km</strong> away</div>
+            <div class="nursery-card-loc">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="12" height="12" style="margin-right:3px;opacity:.5;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              3rd Cross, Indiranagar, Bengaluru
             </div>
-            <a href="plant-listing.html" class="btn btn-primary">Browse Plants →</a>
+            <div class="nursery-card-meta">
+              <div class="meta-item"><strong id="ncard-count">0</strong> Plants</div>
+              <div class="meta-item"><strong>4.8</strong> ★</div>
+              <div class="meta-item"><strong>1.2 km</strong></div>
+            </div>
+            <a href="plant-listing.html" class="btn-primary-nursery">Browse Plants →</a>
           </div>
         </div>
         <div class="nursery-card">
-          <div class="nursery-header" style="background:linear-gradient(135deg,#fce4ec,#f8bbd9);display:flex;align-items:center;justify-content:center;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(150,60,100,0.4)" stroke-width="1.5" width="44" height="44"><circle cx="12" cy="12" r="5"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
-            <div class="nursery-verified">✓ Verified</div>
+          <div class="nursery-header" style="background:linear-gradient(135deg,#fce4ec,#f8bbd9);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(150,60,100,.35)" stroke-width="1.5" width="44" height="44"><circle cx="12" cy="12" r="5"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3"/></svg>
+            <div class="nursery-verified">Verified</div>
           </div>
           <div class="nursery-body">
             <div class="nursery-card-name">Blooms & Beyond</div>
-            <div class="nursery-card-loc">📍 12th Main, Koramangala, Bengaluru</div>
+            <div class="nursery-card-loc">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="12" height="12" style="margin-right:3px;opacity:.5;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              12th Main, Koramangala, Bengaluru
+            </div>
             <div class="nursery-card-meta">
               <div class="meta-item"><strong>87</strong> Plants</div>
-              <div class="meta-item"><strong>4.6</strong> ⭐</div>
-              <div class="meta-item"><strong>3km</strong> away</div>
+              <div class="meta-item"><strong>4.6</strong> ★</div>
+              <div class="meta-item"><strong>3 km</strong></div>
             </div>
-            <a href="plant-listing.html" class="btn btn-primary">Browse Plants →</a>
+            <a href="plant-listing.html" class="btn-primary-nursery">Browse Plants →</a>
           </div>
         </div>
         <div class="nursery-card">
-          <div class="nursery-header" style="background:linear-gradient(135deg,#e8f5e9,#a5d6a7);display:flex;align-items:center;justify-content:center;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(74,124,89,0.45)" stroke-width="1.5" width="44" height="44"><path d="M17 22V12M7 22V12M3 7l9-5 9 5-9 5-9-5z"/></svg>
-            <div class="nursery-verified">✓ Verified</div>
+          <div class="nursery-header" style="background:linear-gradient(135deg,#e8f5e9,#a5d6a7);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(74,124,89,.4)" stroke-width="1.5" width="44" height="44"><path d="M17 22V12M7 22V12M3 7l9-5 9 5-9 5-9-5z"/></svg>
+            <div class="nursery-verified">Verified</div>
           </div>
           <div class="nursery-body">
             <div class="nursery-card-name">Nature's Corner</div>
-            <div class="nursery-card-loc">📍 ITPL Road, Whitefield, Bengaluru</div>
+            <div class="nursery-card-loc">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="12" height="12" style="margin-right:3px;opacity:.5;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              ITPL Road, Whitefield, Bengaluru
+            </div>
             <div class="nursery-card-meta">
               <div class="meta-item"><strong>213</strong> Plants</div>
-              <div class="meta-item"><strong>4.9</strong> ⭐</div>
-              <div class="meta-item"><strong>8km</strong> away</div>
+              <div class="meta-item"><strong>4.9</strong> ★</div>
+              <div class="meta-item"><strong>8 km</strong></div>
             </div>
-            <a href="plant-listing.html" class="btn btn-primary">Browse Plants →</a>
+            <a href="plant-listing.html" class="btn-primary-nursery">Browse Plants →</a>
           </div>
         </div>
       </div>
@@ -422,36 +329,20 @@
     <!-- FAVOURITES VIEW -->
     <div id="view-favourites" style="display:none;">
       <div class="section-header"><h2>My Favourites</h2></div>
-      <div id="favourites-grid" class="plants-grid"></div>
+      <div class="plants-grid" id="favourites-grid"></div>
     </div>
 
     <!-- ORDERS VIEW -->
     <div id="view-orders" style="display:none;">
       <div class="section-header"><h2>My Orders</h2></div>
-      <div style="background:var(--white);border-radius:16px;overflow:hidden;border:1px solid rgba(107,143,113,0.1);">
-        <div style="padding:1.5rem;border-bottom:1px solid rgba(107,143,113,0.08);">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <div>
-              <div style="font-weight:500;color:var(--forest);">Tulasi × 2 + Geranium × 1</div>
-              <div style="font-size:0.78rem;color:var(--text-muted);margin-top:0.2rem;">Green Valley Nursery · 2 days ago</div>
-            </div>
-            <div style="text-align:right;">
-              <div style="font-weight:600;color:var(--forest);">Rs. 420</div>
-              <div style="font-size:0.72rem;padding:0.2rem 0.5rem;border-radius:100px;background:rgba(74,124,89,0.1);color:var(--leaf);margin-top:0.2rem;">Delivered</div>
-            </div>
-          </div>
+      <div style="background:var(--white);border-radius:16px;overflow:hidden;border:1px solid rgba(107,143,113,.1);">
+        <div class="order-item" style="display:flex;justify-content:space-between;align-items:center;">
+          <div><div class="order-name">Tulasi × 2 + Geranium × 1</div><div class="order-meta">Green Valley Nursery · 2 days ago</div></div>
+          <div class="order-right"><div class="order-price">Rs. 420</div><span class="status-badge status-delivered">Delivered</span></div>
         </div>
-        <div style="padding:1.5rem;">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <div>
-              <div style="font-weight:500;color:var(--forest);">Aloe Vera × 1</div>
-              <div style="font-size:0.78rem;color:var(--text-muted);margin-top:0.2rem;">Nature's Corner · 5 days ago</div>
-            </div>
-            <div style="text-align:right;">
-              <div style="font-weight:600;color:var(--forest);">Rs. 150</div>
-              <div style="font-size:0.72rem;padding:0.2rem 0.5rem;border-radius:100px;background:rgba(232,162,90,0.15);color:#c68a20;margin-top:0.2rem;">Processing</div>
-            </div>
-          </div>
+        <div class="order-item" style="display:flex;justify-content:space-between;align-items:center;">
+          <div><div class="order-name">Aloe Vera × 1</div><div class="order-meta">Nature's Corner · 5 days ago</div></div>
+          <div class="order-right"><div class="order-price">Rs. 150</div><span class="status-badge status-processing">Processing</span></div>
         </div>
       </div>
     </div>
@@ -463,180 +354,294 @@
 <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()">
   <div class="cart-panel" onclick="event.stopPropagation()">
     <div class="cart-header">
-      <h3>🛒 Your Cart</h3>
-      <button class="cart-close" onclick="toggleCart()">✕</button>
+      <h3>Your Cart</h3>
+      <button class="cart-close" onclick="toggleCart()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
     </div>
     <div class="cart-items" id="cart-items">
       <div class="empty-cart" id="empty-cart">
-        <div class="empty-cart-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(107,143,113,0.35)" stroke-width="1.5" width="48" height="48"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/></svg></div>
-        <div style="font-weight:500;color:var(--forest);margin-bottom:0.4rem;">Your cart is empty</div>
-        <div style="font-size:0.82rem;">Add some plants to get started!</div>
+        <div class="empty-cart-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(107,143,113,.4)" stroke-width="1.5" width="52" height="52"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div>
+        <div style="font-weight:500;color:var(--forest);margin-bottom:.4rem;">Your cart is empty</div>
+        <div style="font-size:.82rem;">Add some plants to get started!</div>
       </div>
     </div>
     <div class="cart-footer" id="cart-footer" style="display:none;">
-      <div class="cart-total">
-        <span>Total</span>
-        <strong id="cart-total">Rs. 0</strong>
-      </div>
+      <div class="cart-total"><span>Total</span><strong id="cart-total-price">Rs. 0</strong></div>
       <button class="btn-checkout" onclick="checkout()">Proceed to Checkout →</button>
     </div>
   </div>
 </div>
 
 <!-- TOAST -->
-<div class="toast" id="toast"><span id="toast-msg"></span></div>
+<div class="toast" id="toast"><span id="toast-icon">✓</span> <span id="toast-msg"></span></div>
 
 <script>
-  const plantsData = [
-    { emoji: '🌿', name: 'Holy Basil (Tulasi)', sci: 'Ocimum tenuiflorum', nursery: 'Green Valley', price: 120, bg: '#e8f5e9', href: 'tulasi.html' },
-    { emoji: '🌸', name: 'Geranium', sci: 'Pelargonium × hortorum', nursery: 'Green Valley', price: 180, bg: '#fce4ec', href: 'geranium.html' },
-    { emoji: '🌵', name: 'Aloe Vera', sci: 'Aloe barbadensis', nursery: 'Nature\'s Corner', price: 150, bg: '#e8f5e9', href: '#' },
-    { emoji: '🌼', name: 'Marigold', sci: 'Tagetes erecta', nursery: 'Blooms & Beyond', price: 80, bg: '#fffde7', href: '#' },
-    { emoji: '🌺', name: 'Hibiscus', sci: 'Hibiscus rosa-sinensis', nursery: 'Nature\'s Corner', price: 220, bg: '#fce4ec', href: '#' },
-    { emoji: '🍀', name: 'Money Plant', sci: 'Epipremnum aureum', nursery: 'Green Valley', price: 95, bg: '#e8f5e9', href: '#' },
-    { emoji: '🌹', name: 'Rose', sci: 'Rosa × hybrida', nursery: 'Blooms & Beyond', price: 350, bg: '#fce4ec', href: '#' },
-    { emoji: '🌾', name: 'Lemongrass', sci: 'Cymbopogon citratus', nursery: 'Nature\'s Corner', price: 70, bg: '#f1f8e9', href: '#' },
-  ];
+const STORAGE_KEY = 'uf_plants_v2';
+const PLANT_SVG = (color='rgba(74,124,89,0.35)') => `
+  <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" width="44" height="44">
+    <path d="M40 72V42" stroke="${color}" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M40 42C40 42 24 34 24 18a16 16 0 0132 0c0 16-16 24-16 24z" fill="${color}" fill-opacity="0.18" stroke="${color}" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M40 56C40 56 28 50 28 40" stroke="${color}" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M40 62C40 62 52 56 52 46" stroke="${color}" stroke-width="1.5" stroke-linecap="round"/>
+  </svg>`;
 
-  let cart = [];
-  let favourites = [];
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let plants = [];
+let cart = [];
+let favourites = new Set();
+let activeCategory = 'All';
+let activeNursery = null;
+let searchQuery = '';
 
-  function renderPlants(data, containerId) {
-    const grid = document.getElementById(containerId || 'plants-grid');
-    grid.innerHTML = data.map((p, i) => `
-      <div class="plant-card" onclick="${p.href !== '#' ? "window.location.href='" + p.href + "'" : ''}">
-        <div class="plant-img" style="background: linear-gradient(135deg, ${p.bg}, ${p.bg}cc);">
-          ${p.emoji}
-          <button class="wishlist-btn" onclick="event.stopPropagation();toggleFav(${i})" id="fav-${i}">🤍</button>
+function loadPlants() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch(e){}
+  return [];
+}
+
+function refreshPlants() {
+  plants = loadPlants();
+  const gvCount = plants.filter(p=>p.nursery==='Green Valley').length;
+  const el = document.getElementById('count-green-valley');
+  const nc = document.getElementById('ncard-count');
+  if(el) el.textContent = gvCount;
+  if(nc) nc.textContent = gvCount;
+  const total = plants.length;
+  document.getElementById('hero-subtitle').textContent = `Browse ${total}+ plants from verified nurseries near you`;
+}
+
+// ─── RENDER PLANTS ────────────────────────────────────────────────────────────
+function getVisible() {
+  return plants.filter(p => {
+    if (activeNursery && p.nursery !== activeNursery) return false;
+    if (activeCategory !== 'All' && p.category !== activeCategory) return false;
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      return p.name.toLowerCase().includes(q) || p.variety.toLowerCase().includes(q) || (p.category||'').toLowerCase().includes(q);
+    }
+    return true;
+  });
+}
+
+function sortPlants(arr) {
+  const s = document.getElementById('sort-select').value;
+  if (s === 'price-asc') return [...arr].sort((a,b)=>a.price-b.price);
+  if (s === 'price-desc') return [...arr].sort((a,b)=>b.price-a.price);
+  return arr;
+}
+
+function renderPlants() {
+  const grid = document.getElementById('plants-grid');
+  const visible = sortPlants(getVisible());
+  const title = document.getElementById('plants-title');
+  const titleBase = activeNursery ? `${activeNursery} — ${activeCategory==='All'?'All Plants':activeCategory}` : (activeCategory==='All'?'All Plants':activeCategory);
+  title.innerHTML = `${titleBase} <span style="font-size:.78rem;color:var(--text-muted);font-family:'DM Sans',sans-serif;font-weight:400;">(${visible.length} available)</span>`;
+
+  if (!visible.length) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--text-muted);">No plants found.</div>`;
+    return;
+  }
+
+  grid.innerHTML = visible.map((p, i) => {
+    const globalIdx = plants.indexOf(p);
+    const isFav = favourites.has(p.id);
+    const imgHTML = p.photo
+      ? `<img src="${p.photo}" alt="${p.name}">`
+      : `<div class="plant-img-placeholder" style="background:${p.bgGradient||'linear-gradient(135deg,#e8f5e9,#c8e6c9)'};">${PLANT_SVG(p.svgColor||'rgba(74,124,89,.35)')}</div>`;
+
+    const outStock = !p.inStock;
+    return `
+    <div class="plant-card ${outStock?'out-of-stock-card':''}" onclick="${p.id?`window.location.href='${p.id}.html'`:'void(0)'}">
+      ${outStock?'<div class="out-stock-label">Out of Stock</div>':''}
+      <div class="plant-img" style="background:${p.bgGradient||'linear-gradient(135deg,#e8f5e9,#c8e6c9)'};">
+        ${imgHTML}
+        <button class="wishlist-btn" onclick="event.stopPropagation();toggleFav('${p.id}',this)" title="${isFav?'Remove from favourites':'Add to favourites'}">
+          <svg viewBox="0 0 24 24" fill="${isFav?'#e53935':'none'}" stroke="${isFav?'#e53935':'rgba(100,100,100,.7)'}" stroke-width="1.8" width="14" height="14"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </button>
+      </div>
+      <div class="plant-info">
+        <div class="plant-name">${p.name}</div>
+        <div class="plant-nursery">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="10" height="10" style="opacity:.4;margin-right:2px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          ${p.nursery}
         </div>
-        <div class="plant-info">
-          <div class="plant-name">${p.name}</div>
-          <div class="plant-nursery">📍 ${p.nursery}</div>
-          <div class="plant-price-row">
-            <div class="plant-price">Rs. ${p.price}</div>
-            <button class="add-cart-btn" onclick="event.stopPropagation();addToCart(${i})" title="Add to cart">+</button>
-          </div>
+        <div class="plant-price-row">
+          <div class="plant-price">Rs. ${p.price}</div>
+          ${!outStock?`<button class="add-cart-btn" onclick="event.stopPropagation();addToCart('${p.id}')" title="Add to cart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" width="12" height="12"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>`:'<span style="font-size:.65rem;color:#c62828;font-weight:500;">Unavailable</span>'}
         </div>
       </div>
-    `).join('');
-  }
+    </div>`;
+  }).join('');
+}
 
-  function toggleFav(i) {
-    const btn = document.getElementById('fav-' + i);
-    const idx = favourites.indexOf(i);
-    if (idx === -1) {
-      favourites.push(i);
-      btn.textContent = '❤️';
-      showToast('Added to favourites.');
-    } else {
-      favourites.splice(idx, 1);
-      btn.textContent = '🤍';
-    }
-    renderFavourites();
+// ─── FAV ──────────────────────────────────────────────────────────────────────
+function toggleFav(id, btn) {
+  if (favourites.has(id)) {
+    favourites.delete(id);
+    showToast('Removed from favourites', '♡');
+  } else {
+    favourites.add(id);
+    showToast('Added to favourites', '♥');
   }
+  renderPlants();
+  renderFavourites();
+}
 
-  function renderFavourites() {
-    const fav = favourites.map(i => plantsData[i]);
-    renderPlants(fav, 'favourites-grid');
+function renderFavourites() {
+  const grid = document.getElementById('favourites-grid');
+  const favPlants = plants.filter(p => favourites.has(p.id));
+  if (!favPlants.length) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--text-muted);"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(107,143,113,.3)" stroke-width="1.5" width="48" height="48" style="display:block;margin:0 auto 1rem;"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>No favourites yet.</div>`;
+    return;
   }
-
-  function addToCart(i) {
-    const plant = plantsData[i];
-    const existing = cart.find(c => c.name === plant.name);
-    if (existing) existing.qty++;
-    else cart.push({ ...plant, qty: 1 });
-    updateCart();
-    showToast('🌱 ' + plant.name + ' added to cart!');
-  }
-
-  function updateCart() {
-    document.getElementById('cart-count').textContent = cart.reduce((a, c) => a + c.qty, 0);
-    const total = cart.reduce((a, c) => a + c.price * c.qty, 0);
-    document.getElementById('cart-total').textContent = 'Rs. ' + total;
-    const items = document.getElementById('cart-items');
-    const empty = document.getElementById('empty-cart');
-    const footer = document.getElementById('cart-footer');
-    if (cart.length === 0) {
-      empty.style.display = 'block';
-      footer.style.display = 'none';
-      return;
-    }
-    empty.style.display = 'none';
-    footer.style.display = 'block';
-    const cartHTML = cart.map((c, i) => `
-      <div class="cart-item">
-        <div class="cart-item-img">${c.emoji}</div>
-        <div style="flex:1;">
-          <div class="cart-item-name">${c.name}</div>
-          <div class="cart-item-nursery">📍 ${c.nursery}</div>
-          <div class="cart-item-price">Rs. ${c.price * c.qty}</div>
-        </div>
-        <div class="cart-qty">
-          <button class="qty-btn" onclick="changeQty(${i}, -1)">−</button>
-          <span style="font-size:0.9rem;font-weight:500;min-width:20px;text-align:center;">${c.qty}</span>
-          <button class="qty-btn" onclick="changeQty(${i}, 1)">+</button>
+  grid.innerHTML = favPlants.map(p => {
+    const imgHTML = p.photo
+      ? `<img src="${p.photo}" alt="${p.name}">`
+      : `<div class="plant-img-placeholder" style="background:${p.bgGradient||'linear-gradient(135deg,#e8f5e9,#c8e6c9)'};">${PLANT_SVG(p.svgColor||'rgba(74,124,89,.35)')}</div>`;
+    return `
+    <div class="plant-card">
+      <div class="plant-img" style="background:${p.bgGradient||'linear-gradient(135deg,#e8f5e9,#c8e6c9)'};">${imgHTML}
+        <button class="wishlist-btn" onclick="toggleFav('${p.id}',this)">
+          <svg viewBox="0 0 24 24" fill="#e53935" stroke="#e53935" stroke-width="1.8" width="14" height="14"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </button>
+      </div>
+      <div class="plant-info">
+        <div class="plant-name">${p.name}</div>
+        <div class="plant-nursery">${p.nursery}</div>
+        <div class="plant-price-row">
+          <div class="plant-price">Rs. ${p.price}</div>
+          <button class="add-cart-btn" onclick="addToCart('${p.id}')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" width="12" height="12"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
         </div>
       </div>
-    `).join('');
-    items.innerHTML = cartHTML + document.getElementById('empty-cart').outerHTML;
-    document.getElementById('empty-cart').style.display = 'none';
-  }
+    </div>`;
+  }).join('');
+}
 
-  function changeQty(i, delta) {
-    cart[i].qty += delta;
-    if (cart[i].qty <= 0) cart.splice(i, 1);
-    updateCart();
-  }
+// ─── CART ─────────────────────────────────────────────────────────────────────
+function addToCart(id) {
+  const plant = plants.find(p=>p.id===id);
+  if (!plant || !plant.inStock) return;
+  const existing = cart.find(c=>c.id===id);
+  if (existing) existing.qty++;
+  else cart.push({ ...plant, qty:1 });
+  updateCart();
+  showToast(`${plant.name} added to cart`, '✓');
+}
 
-  function toggleCart() {
-    document.getElementById('cart-overlay').classList.toggle('open');
-  }
+function updateCart() {
+  const count = cart.reduce((a,c)=>a+c.qty,0);
+  document.getElementById('cart-count').textContent = count;
+  const total = cart.reduce((a,c)=>a+c.price*c.qty,0);
+  document.getElementById('cart-total-price').textContent = 'Rs. ' + total;
+  const items = document.getElementById('cart-items');
+  const empty = document.getElementById('empty-cart');
+  const footer = document.getElementById('cart-footer');
+  if (!cart.length) { empty.style.display='block'; footer.style.display='none'; items.innerHTML = empty.outerHTML; return; }
+  empty.style.display='none'; footer.style.display='block';
+  const imgHTML = p => p.photo ? `<img src="${p.photo}" alt="${p.name}">` : PLANT_SVG(p.svgColor||'rgba(74,124,89,.5)');
+  items.innerHTML = cart.map((c,i)=>`
+    <div class="cart-item">
+      <div class="cart-item-img">${imgHTML(c)}</div>
+      <div style="flex:1;">
+        <div class="cart-item-name">${c.name}</div>
+        <div class="cart-item-nursery">${c.nursery}</div>
+        <div class="cart-item-price">Rs. ${c.price*c.qty}</div>
+      </div>
+      <div class="cart-qty">
+        <button class="qty-btn" onclick="changeQty(${i},-1)">−</button>
+        <span style="font-size:.875rem;font-weight:500;min-width:20px;text-align:center;">${c.qty}</span>
+        <button class="qty-btn" onclick="changeQty(${i},1)">+</button>
+      </div>
+    </div>`).join('');
+}
 
-  function checkout() {
-    showToast('🎉 Order placed successfully!');
-    cart = [];
-    updateCart();
-    toggleCart();
-  }
+function changeQty(i, delta) {
+  cart[i].qty += delta;
+  if (cart[i].qty <= 0) cart.splice(i,1);
+  updateCart();
+}
 
-  function showView(id, link) {
-    ['plants', 'nurseries', 'favourites', 'orders'].forEach(v => {
-      document.getElementById('view-' + v).style.display = 'none';
-    });
-    document.getElementById('view-' + id).style.display = 'block';
-    document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
-    if (link) link.classList.add('active');
-  }
+function toggleCart() {
+  document.getElementById('cart-overlay').classList.toggle('open');
+}
 
-  function filterActive(btn) {
-    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-    btn.classList.add('active');
-  }
+function checkout() {
+  showToast('Order placed successfully!', '✓');
+  cart = [];
+  updateCart();
+  toggleCart();
+}
 
-  function filterByNursery(id) {
-    document.querySelectorAll('.nursery-item').forEach(n => n.classList.remove('active'));
-    event.currentTarget.classList.add('active');
-    showView('plants', null);
-    // Show only plants from that nursery (simplified)
-  }
+// ─── VIEWS ────────────────────────────────────────────────────────────────────
+function showView(id, btn) {
+  ['plants','nurseries','favourites','orders'].forEach(v => {
+    document.getElementById('view-'+v).style.display = 'none';
+  });
+  document.getElementById('view-'+id).style.display = 'block';
+  document.querySelectorAll('.sidebar-link').forEach(l=>l.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  if (id === 'favourites') renderFavourites();
+}
 
-  function doSearch() {
-    const q = document.getElementById('search-input').value.toLowerCase();
-    if (!q) { renderPlants(plantsData); return; }
-    const filtered = plantsData.filter(p => p.name.toLowerCase().includes(q) || p.nursery.toLowerCase().includes(q));
-    renderPlants(filtered);
-    showView('plants', null);
-  }
+function filterChip(btn, category) {
+  activeCategory = category;
+  if (category === 'All') activeNursery = null; // reset nursery filter when All is clicked
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+  if (category === 'All') { document.querySelectorAll('.nursery-item').forEach(n=>n.classList.remove('active')); }
+  showView('plants', null);
+  renderPlants();
+}
 
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    document.getElementById('toast-msg').textContent = msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2500);
-  }
+function filterByNursery(name, el) {
+  activeNursery = name;
+  document.querySelectorAll('.nursery-item').forEach(n=>n.classList.remove('active'));
+  if (el) el.classList.add('active');
+  showView('plants', null);
+  renderPlants();
+}
 
-  // Init
-  renderPlants(plantsData);
+function doSearch() {
+  searchQuery = document.getElementById('search-input').value.trim();
+  showView('plants', null);
+  renderPlants();
+}
+
+function showToast(msg, icon='✓') {
+  document.getElementById('toast-msg').textContent = msg;
+  document.getElementById('toast-icon').textContent = icon;
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2600);
+}
+
+// ─── INIT + LIVE SYNC ─────────────────────────────────────────────────────────
+refreshPlants();
+renderPlants();
+
+// Poll for changes from plant-listing.html (every 2s)
+setInterval(() => {
+  const newRaw = localStorage.getItem(STORAGE_KEY);
+  const oldRaw = JSON.stringify(plants);
+  if (newRaw && newRaw !== oldRaw) {
+    refreshPlants();
+    renderPlants();
+    if (document.getElementById('view-favourites').style.display !== 'none') renderFavourites();
+  }
+}, 2000);
+
+// Also sync on focus
+window.addEventListener('focus', () => {
+  refreshPlants();
+  renderPlants();
+});
 </script>
 </body>
 </html>

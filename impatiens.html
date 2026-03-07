@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Impatiens | The Shade Star — Urban Farmer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:   #1a0c08;
+  --ink2:  #6a3820;
+  --cream: #fff8f4;
+  --white: #ffffff;
+  --card-r: 22px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --acc:  #e05020;
+  --acc2: #f0a080;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); overflow-x: hidden; }
+
+@media (min-width: 900px) {
+  body { background: #100804; }
+  .page-shell { max-width: 1280px; margin: 0 auto; background: var(--cream); box-shadow: 0 0 80px rgba(0,0,0,0.6); min-height: 100vh; }
+  .desktop-nav { display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; background: #0c0604; border-bottom: 1px solid rgba(240,160,128,0.15); position: sticky; top: 0; z-index: 200; }
+  .desktop-nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: #f0a080; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+  .desktop-nav-links { display: flex; gap: 32px; align-items: center; }
+  .desktop-nav-links a { font-size: 13px; color: rgba(255,255,255,0.5); text-decoration: none; letter-spacing: 0.3px; transition: color 0.2s; }
+  .desktop-nav-links a:hover { color: #f0a080; }
+  .desktop-cart-btn { display: flex; align-items: center; gap: 8px; background: rgba(240,160,128,0.12); border: 1px solid rgba(240,160,128,0.3); border-radius: 50px; padding: 8px 18px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: #f0a080; transition: all 0.2s; }
+  .desktop-cart-btn:hover { background: rgba(240,160,128,0.22); }
+  .desktop-cart-count { background: #c84010; color: white; border-radius: 50%; width: 20px; height: 20px; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; display: none; }
+  .desktop-cart-count.show { display: flex; }
+  .hero { min-height: 600px; padding: 60px 80px !important; flex-direction: row !important; align-items: center; text-align: left; gap: 64px; }
+  .hero-title { text-align: left !important; font-size: 72px !important; }
+  .hero-sub { text-align: left !important; max-width: 420px !important; }
+  .fortune-badge { align-self: flex-start; }
+  .hero-scroll { display: none !important; }
+  .brand-pill { margin-bottom: 24px; }
+  .hero-img-wrap { margin: 0 !important; }
+  .hero-img { width: 260px !important; height: 260px !important; }
+  .coin-ring { inset: -14px !important; }
+  .quick-bar { padding: 20px 80px !important; justify-content: space-between; }
+  .qitem { flex: none !important; }
+  .sec { padding: 52px 80px !important; }
+  .variety-sec { padding-bottom: 0 !important; }
+  .variety-header { padding: 0 80px 6px !important; }
+  .variety-intro { padding: 4px 80px 0 !important; }
+  .vpill-strip { padding: 18px 80px 0 !important; }
+  .vdots { padding: 16px 0 4px !important; }
+  .vslide { padding: 0 80px !important; }
+  .vcard { display: grid; grid-template-columns: 260px 1fr; gap: 0; overflow: hidden; align-items: center; }
+  .vimg-wrap { aspect-ratio: unset !important; height: 220px !important; min-height: unset; background: white !important; align-self: center; margin: auto 0; }
+  .vimg-wrap img { object-fit: contain !important; object-position: center center !important; padding: 16px; }
+  .vimg-ph { display: none !important; }
+  .vcard-body { padding: 0 !important; display: flex; flex-direction: column; height: 100%; }
+  .vcard-color-bar { display: none; }
+  .ben-grid { grid-template-columns: repeat(3, 1fr) !important; }
+  .fact-list { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
+  .rental-sec { padding: 64px 80px !important; }
+  .footer-rating { padding: 48px 80px !important; }
+  .fr-form { max-width: 560px; margin: 0 auto; }
+  .brand-footer { padding: 20px 80px !important; display: flex; justify-content: space-between; align-items: center; }
+  .stat-list { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 16px !important; }
+  .stat-row { background: var(--white); border-radius: 14px; padding: 14px; }
+  .cal-grid { grid-template-columns: repeat(6, 1fr) !important; }
+}
+@media (min-width: 900px) { .mobile-only { display: none !important; } }
+@media (max-width: 899px) { .desktop-only { display: none !important; } .page-shell { background: var(--cream); } }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100svh;
+  background: linear-gradient(168deg, #100804 0%, #2c1008 30%, #803018 55%, #e06028 78%, #f09060 100%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  position: relative; overflow: hidden; padding: 44px 20px 72px;
+}
+.hero::before {
+  content:''; position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 70% 50% at 20% 85%, rgba(224,96,40,.22) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 80% 10%, rgba(240,144,96,.2) 0%, transparent 55%),
+    radial-gradient(ellipse 90% 35% at 50% 105%, rgba(16,8,4,.7) 0%, transparent 65%);
+}
+.hero::after {
+  content:''; position:absolute; inset:0;
+  background: repeating-linear-gradient(-45deg, transparent, transparent 38px, rgba(240,160,96,.03) 38px, rgba(240,160,96,.03) 39px);
+}
+.leaf-float { position:absolute; opacity:.06; user-select:none; pointer-events:none; }
+@keyframes floatL { 0%,100%{transform:translateY(0)rotate(0deg)}50%{transform:translateY(-22px)rotate(10deg)} }
+.brand-pill { display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.22); border-radius:50px; padding:7px 18px; backdrop-filter:blur(10px); margin-bottom:16px; position:relative; z-index:2; animation:fadeUp .7s ease both; }
+.brand-pill span { font-size:17px; color:#fff; font-weight:500; }
+.brand-pill .dot { width:5px; height:5px; background:#f0a080; border-radius:50%; }
+.brand-pill .italic { font-family:'Cormorant Garamond',serif; font-style:italic; color:#f0a080; letter-spacing:1px; }
+.hero-title { font-family:'Cormorant Garamond',serif; font-size:clamp(42px,12vw,68px); color:var(--white); text-align:center; line-height:1.0; position:relative; z-index:2; animation:fadeUp .85s ease .1s both; }
+.hero-title em { font-style:italic; color:#f0a080; }
+.hero-img-wrap { position:relative; z-index:2; margin:24px 0 12px; animation:fadeUp .95s ease .2s both; }
+.coin-ring { position:absolute; inset:-10px; border-radius:50%; background:conic-gradient(#f0a080 0deg,#e05020 20deg,#f0a080 40deg,#e05020 60deg,#f0a080 80deg,#e05020 100deg,#f0a080 120deg,#e05020 140deg,#f0a080 160deg,#e05020 180deg,#f0a080 200deg,#e05020 220deg,#f0a080 240deg,#e05020 260deg,#f0a080 280deg,#e05020 300deg,#f0a080 320deg,#e05020 340deg,#f0a080 360deg); animation:spinRing 14s linear infinite; opacity:.75; }
+@keyframes spinRing { to{transform:rotate(360deg)} }
+.coin-ring-inner { position:absolute; inset:3px; border-radius:50%; background:linear-gradient(168deg,#803018,#100804); }
+.hero-img { width:172px; height:172px; border-radius:50%; position:relative; flex-shrink:0; overflow:hidden; box-shadow:0 10px 44px rgba(0,0,0,.45); }
+.hero-img img { width:100%; height:100%; object-fit:cover; position:relative; z-index:1; }
+.hero-img-placeholder { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; width:100%; height:100%; position:absolute; inset:0; z-index:1; background:linear-gradient(145deg,#803018,#100804); }
+.hero-sub { font-size:14.5px; color:rgba(255,255,255,.62); text-align:center; max-width:285px; line-height:1.68; position:relative; z-index:2; animation:fadeUp 1s ease .3s both; }
+.fortune-badge { display:inline-flex; align-items:center; gap:6px; background:linear-gradient(135deg,rgba(224,80,32,.28),rgba(240,160,96,.18)); border:1px solid rgba(224,80,32,.45); border-radius:50px; padding:7px 18px; font-family:'Caveat',cursive; font-size:14px; color:#f0a080; position:relative; z-index:2; margin-top:8px; animation:fadeUp 1.1s ease .4s both; }
+.hero-scroll { position:absolute; bottom:24px; left:50%; transform:translateX(-50%); z-index:2; display:flex; flex-direction:column; align-items:center; gap:5px; color:rgba(255,255,255,.35); font-size:10px; letter-spacing:2px; text-transform:uppercase; animation:scrollBounce 2s ease infinite; }
+@keyframes scrollBounce { 0%,100%{transform:translateX(-50%)translateY(0)}50%{transform:translateX(-50%)translateY(7px)} }
+
+/* ─── QUICK BAR ─── */
+.quick-bar { background:#0c0604; display:flex; overflow-x:auto; padding:16px 20px; gap:0; scrollbar-width:none; }
+.quick-bar::-webkit-scrollbar { display:none; }
+.qitem { display:flex; flex-direction:column; align-items:center; gap:3px; flex:0 0 20%; min-width:64px; }
+.qitem-icon { width:22px; height:22px; stroke:#f0a080; }
+.qitem-lbl { font-size:8.5px; color:rgba(255,255,255,.4); text-transform:uppercase; letter-spacing:.8px; white-space:nowrap; }
+.qitem-val { font-size:12px; font-weight:500; color:#f0a080; white-space:nowrap; }
+.divider { height:4px; background:linear-gradient(90deg,#803018,#e05020,#f0a080); border:none; }
+
+/* ─── SECTION ─── */
+.sec { padding:36px 20px; }
+.sec-lbl { font-family:'Caveat',cursive; font-size:15px; color:#b84010; letter-spacing:1px; }
+.sec-title { font-family:'Cormorant Garamond',serif; font-size:28px; color:var(--ink); line-height:1.2; margin-top:2px; }
+
+/* ─── IDENTITY ─── */
+.id-card { background:linear-gradient(140deg,#2c1008 0%,#803018 100%); border-radius:var(--card-r); padding:24px 20px; color:white; margin-top:18px; position:relative; overflow:hidden; }
+.id-card::after { content:'✾'; position:absolute; right:16px; bottom:10px; font-size:80px; opacity:.06; color:white; }
+.id-row { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:14px; }
+.id-name { font-family:'Cormorant Garamond',serif; font-size:26px; color:#f0a080; }
+.id-sci { font-style:italic; font-size:12px; color:rgba(255,255,255,.5); margin-top:2px; }
+.id-badge { background:#f0a080; color:#100804; font-size:10.5px; font-weight:700; padding:5px 12px; border-radius:20px; white-space:nowrap; flex-shrink:0; }
+.id-tags { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:16px; }
+.id-tag { background:rgba(255,255,255,.1); color:rgba(255,255,255,.8); font-size:11.5px; padding:4px 12px; border-radius:20px; border:1px solid rgba(255,255,255,.14); }
+.id-desc { font-size:13.5px; color:rgba(255,255,255,.7); line-height:1.72; }
+.vastu-strip { background:linear-gradient(135deg,#100804,#2c1008); border-radius:18px; padding:18px; margin-top:18px; display:flex; align-items:center; gap:14px; }
+.vastu-coin { width:56px; height:56px; border-radius:16px; background:rgba(255,255,255,.08); display:flex; align-items:center; justify-content:center; flex-shrink:0; animation:bloomPulse 3s ease-in-out infinite; }
+@keyframes bloomPulse { 0%,100%{transform:scale(1)rotate(0deg)}50%{transform:scale(1.15)rotate(9deg)} }
+.vastu-text .vastu-title { font-family:'Cormorant Garamond',serif; font-size:16px; color:#f0a080; font-style:italic; }
+.vastu-text .vastu-sub { font-size:12px; color:rgba(255,255,255,.58); line-height:1.58; margin-top:4px; }
+
+/* ─── STAT BARS ─── */
+.stat-list { display:flex; flex-direction:column; gap:13px; margin-top:18px; }
+.stat-row { display:flex; align-items:center; gap:11px; }
+.stat-ico { width:38px; height:38px; border-radius:11px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.stat-info { flex:1; }
+.stat-name { font-size:11px; color:var(--ink2); font-weight:500; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; }
+.stat-track { background:#f0d8c8; border-radius:8px; height:9px; overflow:hidden; }
+.stat-fill { height:100%; border-radius:8px; width:0%; transition:width 1.6s cubic-bezier(.22,1,.36,1); }
+.stat-num { font-size:12px; font-weight:600; color:var(--ink); min-width:34px; text-align:right; }
+
+/* ═══ VARIETY SHOWCASE ═══ */
+.variety-sec { padding:36px 0 0; overflow:hidden; }
+.variety-header { padding:0 20px 6px; }
+.variety-intro { font-size:13px; color:var(--ink2); line-height:1.6; padding:4px 20px 0; }
+.vpill-strip { display:flex; gap:9px; padding:18px 20px 0; overflow-x:auto; scrollbar-width:none; -ms-overflow-style:none; }
+.vpill-strip::-webkit-scrollbar { display:none; }
+.vpill { display:flex; align-items:center; gap:7px; padding:8px 16px; border-radius:50px; border:2px solid #f0d8c8; background:white; cursor:pointer; white-space:nowrap; font-size:12.5px; font-weight:500; color:var(--ink2); transition:all .28s cubic-bezier(.34,1.56,.64,1); flex-shrink:0; box-shadow:0 2px 8px rgba(0,0,0,.05); }
+.vpill .v-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; border:1.5px solid rgba(0,0,0,.12); }
+.vpill.active { color:white; box-shadow:0 5px 18px rgba(0,0,0,.2); transform:scale(1.06); }
+.vcarousel-outer { position:relative; margin-top:18px; overflow:hidden; touch-action:pan-y; width:100%; }
+.vcarousel-track { display:flex; transition:transform .48s cubic-bezier(.77,0,.175,1); will-change:transform; }
+.vslide { min-width:100vw; width:100vw; padding:0 16px; flex-shrink:0; box-sizing:border-box; }
+@media (min-width:900px) { .vslide { min-width: 100% !important; width: 100% !important; } }
+.vcard { border-radius:var(--card-r); overflow:hidden; box-shadow:0 8px 36px rgba(128,48,24,.14); background:white; }
+.vimg-wrap { width:100%; aspect-ratio:4/3; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+.vimg-wrap img { width:100%; height:100%; object-fit:cover; object-position:center center; position:absolute; inset:0; z-index:2; transition:transform .6s ease; }
+.vimg-wrap:active img { transform:scale(1.04); }
+.vimg-ph { position:absolute; inset:0; z-index:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; padding:20px; }
+.vimg-ph-txt { font-size:11px; color:rgba(255,255,255,.5); text-align:center; line-height:1.7; text-transform:uppercase; letter-spacing:1px; }
+.vcard-color-bar { height:6px; width:100%; }
+.vcard-body { padding:20px 18px 16px; }
+.vcard-head { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:10px; }
+.vcard-name { font-family:'Cormorant Garamond',serif; font-size:22px; color:var(--ink); line-height:1.1; }
+.vcard-name span { display:block; font-size:13px; font-family:'DM Sans',sans-serif; font-style:normal; color:var(--ink2); font-weight:400; margin-top:2px; }
+.vcard-badge { font-size:10px; font-weight:700; padding:5px 12px; border-radius:20px; white-space:nowrap; flex-shrink:0; }
+.vcard-desc { font-size:13px; color:var(--ink2); line-height:1.68; margin-bottom:14px; }
+.vtrait-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px; }
+.vtrait { background:#fff4ee; border-radius:12px; padding:10px 12px; border-left:3px solid #e05020; }
+.vtrait-lbl { font-size:9.5px; font-weight:700; text-transform:uppercase; letter-spacing:.7px; color:var(--ink2); margin-bottom:2px; }
+.vtrait-val { font-size:13px; font-weight:500; color:var(--ink); }
+.vcare-list { display:flex; flex-direction:column; gap:7px; }
+.vcare-row { display:flex; align-items:flex-start; gap:9px; background:#fff4ee; border-radius:11px; padding:9px 12px; }
+.vcare-ico { width:26px; height:26px; border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+.vcare-ico svg { width:13px; height:13px; }
+.vcare-txt { font-size:12.5px; color:var(--ink2); line-height:1.52; }
+.vcare-txt strong { color:var(--ink); font-weight:600; }
+
+/* ─── ORDER BUTTON ─── */
+.vorder-btn { display:flex; align-items:center; justify-content:center; gap:8px; width:100%; margin-top:16px; padding:13px 20px; background:white; border-radius:10px; border:1.5px solid; font-family:'DM Sans',sans-serif; font-size:13.5px; font-weight:600; cursor:pointer; transition:all .2s ease; letter-spacing:.2px; position:relative; }
+.vorder-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+.vorder-btn:active { opacity:.8; transform:scale(.98); }
+.vorder-btn.added { background: #2c1008 !important; color: white !important; border-color: #2c1008 !important; }
+.vorder-btn.added svg { stroke: white !important; }
+
+/* ─── CART TOAST ─── */
+.cart-toast { position: fixed; bottom: calc(88px + var(--safe-bottom)); left: 50%; transform: translateX(-50%) translateY(20px); background: #2c1008; color: white; border-radius: 50px; padding: 12px 24px; font-size: 13px; font-weight: 500; box-shadow: 0 8px 32px rgba(0,0,0,0.3); z-index: 800; display: flex; align-items: center; gap: 10px; opacity: 0; transition: all 0.3s ease; pointer-events: none; white-space: nowrap; }
+.cart-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.cart-toast a { color: #f0a080; text-decoration: none; font-weight: 600; border-bottom: 1px solid rgba(240,160,128,0.4); }
+@media (min-width:900px) { .cart-toast { bottom: 32px; } }
+
+/* ─── CART FAB (Mobile) ─── */
+.cart-fab-container { position: fixed; bottom: calc(90px + var(--safe-bottom)); right: 80px; z-index: 850; display: none; }
+.cart-fab-container.show { display: flex; }
+.cart-fab { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #e05020, #803018); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(224,80,32,0.4); text-decoration: none; }
+.cart-fab svg { width: 22px; height: 22px; stroke: white; stroke-width: 2; fill: none; }
+.cart-fab-badge { position: absolute; top: -4px; right: -4px; background: #f0a080; color: #100804; font-size: 9px; font-weight: 700; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid var(--cream); }
+
+.vdots { display:flex; justify-content:center; gap:6px; padding:16px 0 4px; }
+.vdot { width:8px; height:8px; border-radius:50%; background:#f0d8c8; transition:all .3s ease; cursor:pointer; }
+.vdot.active { width:22px; border-radius:4px; }
+
+/* ─── CARE CALENDAR ─── */
+.cal-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:7px; margin-top:18px; }
+.cal-cell { background:white; border-radius:13px; padding:11px 7px; text-align:center; box-shadow:0 1px 6px rgba(0,0,0,.05); border-top:3px solid #ddd; }
+.cal-cell.active { border-top-color:#e05020; background:#fff4ee; }
+.cal-cell.peak { border-top-color:#d08000; background:#fffaec; }
+.cal-mo { font-size:9.5px; font-weight:600; text-transform:uppercase; letter-spacing:.5px; color:var(--ink2); margin-bottom:5px; }
+.cal-ico-svg { width:22px; height:22px; margin:2px auto; display:flex; align-items:center; justify-content:center; }
+.cal-ico-svg svg { width:100%; height:100%; stroke:#a06040; }
+.cal-cell.active .cal-ico-svg svg { stroke:#e05020; }
+.cal-cell.peak .cal-ico-svg svg { stroke:#c07800; }
+.cal-note { font-size:8.5px; color:var(--ink2); margin-top:3px; line-height:1.3; }
+
+/* ─── BENEFITS ─── */
+.ben-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:18px; }
+.ben-card { border-radius:18px; padding:16px 14px; }
+.ben-ico { margin-bottom:7px; }
+.ben-title { font-weight:600; font-size:13.5px; margin-bottom:3px; }
+.ben-desc { font-size:11.5px; line-height:1.5; opacity:.72; }
+
+/* ─── DID YOU KNOW ─── */
+.fact-list { display:flex; flex-direction:column; gap:10px; margin-top:18px; }
+.fact-card { background:white; border-radius:18px; padding:14px 16px; display:flex; align-items:flex-start; gap:12px; box-shadow:0 2px 12px rgba(128,48,24,.07); border-left:4px solid #e05020; transform:translateX(-18px); opacity:0; transition:transform .5s ease, opacity .5s ease; }
+.fact-card.vis { transform:translateX(0); opacity:1; }
+.fact-card:nth-child(2) { border-left-color:#d08000; transition-delay:.07s; }
+.fact-card:nth-child(3) { border-left-color:#c040a0; transition-delay:.14s; }
+.fact-card:nth-child(4) { border-left-color:#40a060; transition-delay:.21s; }
+.fact-card:nth-child(5) { border-left-color:#6040c0; transition-delay:.28s; }
+.fact-emo { width:44px; height:44px; border-radius:13px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.fact-lbl { font-size:9.5px; font-weight:700; text-transform:uppercase; letter-spacing:.9px; color:var(--ink2); margin-bottom:3px; }
+.fact-txt { font-size:13px; color:var(--ink); line-height:1.58; }
+.fact-txt strong { color:#803018; }
+
+/* ═══ RENTAL SECTION ═══ */
+.rental-sec { background: linear-gradient(160deg, #100804 0%, #2c1008 45%, #803018 100%); padding: 52px 24px 60px; position: relative; overflow: hidden; }
+.rental-sec::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse 60% 50% at 80% 110%, rgba(224,80,32,.22) 0%, transparent 65%); pointer-events:none; }
+.rental-sec::after { content:''; position:absolute; inset:0; background: repeating-linear-gradient(135deg, transparent, transparent 28px, rgba(255,255,255,.012) 28px, rgba(255,255,255,.012) 29px); pointer-events:none; }
+.rental-inner { position:relative; z-index:1; max-width:560px; }
+.rental-eyebrow { display:inline-flex; align-items:center; gap:8px; background: rgba(240,160,128,0.14); border: 1px solid rgba(240,160,128,0.3); border-radius:50px; padding:6px 16px; margin-bottom:18px; }
+.rental-eyebrow-dot { width:7px; height:7px; border-radius:50%; background:#f0a080; animation:fabPulse 2.2s ease infinite; }
+.rental-eyebrow-txt { font-family:'Caveat',cursive; font-size:13px; color:#f0a080; letter-spacing:1px; }
+.rental-title { font-family:'Cormorant Garamond',serif; font-size:clamp(26px,7vw,40px); color:white; line-height:1.15; margin-bottom:14px; }
+.rental-title em { font-style:italic; color:#f0a080; }
+.rental-tagline { font-size:14px; color:rgba(255,255,255,.62); line-height:1.78; margin-bottom:28px; max-width:420px; }
+.rental-steps { display:flex; flex-direction:column; gap:0; margin-bottom:28px; }
+.rental-step { display:flex; gap:16px; align-items:flex-start; position:relative; padding-bottom:22px; }
+.rental-step:last-child { padding-bottom:0; }
+.rental-step-line { position:absolute; left:19px; top:40px; bottom:0; width:2px; background: linear-gradient(to bottom, rgba(240,160,128,0.4), transparent); }
+.rental-step:last-child .rental-step-line { display:none; }
+.rental-step-num { width:40px; height:40px; border-radius:50%; flex-shrink:0; background: rgba(240,160,128,0.15); border: 1.5px solid rgba(240,160,128,0.35); display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:600; color:#f0a080; }
+.rental-step-body { padding-top:8px; }
+.rental-step-title { font-size:14px; font-weight:600; color:white; margin-bottom:3px; }
+.rental-step-desc { font-size:12.5px; color:rgba(255,255,255,.52); line-height:1.6; }
+.rental-highlight { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius:18px; padding:18px 20px; margin-bottom:28px; display:flex; align-items:center; gap:14px; }
+.rental-highlight-icon { width:48px; height:48px; border-radius:14px; flex-shrink:0; background: rgba(240,160,128,0.15); border: 1px solid rgba(240,160,128,0.2); display:flex; align-items:center; justify-content:center; }
+.rental-highlight-icon svg { stroke:#f0a080; }
+.rental-highlight-text .rh-title { font-family:'Cormorant Garamond',serif; font-size:16px; color:#f0a080; font-style:italic; margin-bottom:4px; }
+.rental-highlight-text .rh-sub { font-size:12px; color:rgba(255,255,255,.5); line-height:1.6; }
+.rental-cta-row { display:flex; flex-direction:column; gap:12px; }
+@media (min-width:560px) { .rental-cta-row { flex-direction:row; align-items:center; } }
+.rental-cta-primary { display:inline-flex; align-items:center; gap:9px; background:white; color:#2c1008; border:none; border-radius:12px; padding:13px 24px; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600; cursor:pointer; text-decoration:none; box-shadow:0 4px 20px rgba(0,0,0,.25); transition:transform .15s ease, box-shadow .15s ease; white-space:nowrap; }
+.rental-cta-primary:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(0,0,0,.3); }
+.rental-cta-primary:active { transform:scale(.97); }
+.rental-cta-secondary { display:inline-flex; align-items:center; gap:9px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); color:rgba(255,255,255,.75); border-radius:12px; padding:13px 24px; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:500; cursor:pointer; text-decoration:none; white-space:nowrap; transition:background .2s ease; }
+.rental-cta-secondary:hover { background: rgba(255,255,255,0.14); }
+.rental-contact-strip { display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
+.rental-contact-chip { display:inline-flex; align-items:center; gap:7px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius:50px; padding:7px 14px; font-size:12px; color:rgba(255,255,255,.65); text-decoration:none; transition:background .2s ease; }
+.rental-contact-chip:hover { background: rgba(255,255,255,.12); color:white; }
+.rental-contact-chip svg { stroke:rgba(255,255,255,.45); flex-shrink:0; }
+
+/* ─── FOOTER RATING ─── */
+.footer-rating { background:#0c0604; padding:28px 24px calc(28px + var(--safe-bottom)); text-align:center; }
+.fr-title { font-family:'Cormorant Garamond',serif; font-size:18px; color:#f0a080; margin-bottom:14px; font-style:italic; }
+.fr-stars { display:flex; gap:10px; justify-content:center; margin-bottom:14px; }
+.fr-star { font-size:30px; background:none; border:none; cursor:pointer; filter:grayscale(1) opacity(.3); transition:filter .15s ease, transform .15s ease; line-height:1; -webkit-tap-highlight-color:transparent; }
+.fr-star.lit { filter:grayscale(0) opacity(1); }
+.fr-star:active { transform:scale(1.25); }
+.fr-input { width:100%; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.13); border-radius:14px; padding:11px 15px; font-size:13.5px; font-family:'DM Sans',sans-serif; color:white; resize:none; outline:none; line-height:1.5; min-height:72px; max-height:140px; transition:border-color .2s ease; margin-bottom:12px; }
+.fr-input::placeholder { color:rgba(255,255,255,.28); }
+.fr-input:focus { border-color:#e05020; background:rgba(255,255,255,.1); }
+.fr-submit { background:linear-gradient(135deg,#803018,#2c1008); border:none; border-radius:12px; padding:13px 32px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:white; cursor:pointer; box-shadow:0 3px 14px rgba(128,48,24,.3); width:100%; transition:opacity .2s ease; }
+.fr-submit:active { opacity:.85; }
+.fr-thanks { display:none; flex-direction:column; align-items:center; gap:8px; }
+.fr-thanks-ico { width:64px; height:64px; border-radius:20px; background:rgba(255,255,255,.08); display:flex; align-items:center; justify-content:center; margin:0 auto; animation:popIn .4s cubic-bezier(.34,1.56,.64,1); }
+.fr-thanks-title { font-family:'Cormorant Garamond',serif; font-size:22px; color:#f0a080; font-style:italic; }
+.fr-thanks-sub { font-size:13px; color:rgba(255,255,255,.5); }
+@keyframes popIn { from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1} }
+
+/* ─── BRAND FOOTER ─── */
+.brand-footer { background:#0c0604; padding:18px 24px calc(18px + var(--safe-bottom)); text-align:center; border-top:1px solid rgba(255,255,255,.05); }
+.brand-footer-name { font-family:'Cormorant Garamond',serif; font-size:16px; font-style:italic; color:#f0a080; letter-spacing:.5px; }
+.brand-footer-sub { font-size:10px; color:rgba(255,255,255,.25); letter-spacing:2px; text-transform:uppercase; margin-top:3px; }
+
+/* ─── CHAT FAB ─── */
+.chat-fab { position:fixed; bottom:calc(22px + var(--safe-bottom)); right:18px; z-index:900; width:58px; height:58px; border-radius:50%; background:linear-gradient(135deg,#e05020,#803018); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 28px rgba(128,48,24,.5); transition:transform .2s cubic-bezier(.34,1.56,.64,1); -webkit-tap-highlight-color:transparent; }
+.chat-fab:active { transform:scale(.92); }
+.chat-fab svg { width:26px; height:26px; color:white; }
+.fab-badge { position:absolute; top:-3px; right:-3px; width:16px; height:16px; border-radius:50%; background:#f0a080; border:2px solid white; animation:fabPulse 2s ease infinite; }
+@keyframes fabPulse { 0%,100%{transform:scale(1)}50%{transform:scale(1.2)} }
+
+/* ─── CHAT PANEL ─── */
+.chat-panel { position:fixed; bottom:0; right:0; left:0; z-index:950; background:white; border-radius:24px 24px 0 0; box-shadow:0 -8px 48px rgba(0,0,0,.18); display:flex; flex-direction:column; max-height:85svh; height:85svh; transform:translateY(100%); transition:transform .4s cubic-bezier(.22,1,.36,1); }
+.chat-panel.open { transform:translateY(0); }
+@media(min-width:900px) { .chat-panel { left:auto; right:24px; bottom:24px; width:400px; height:560px; max-height:560px; border-radius:24px; transform:translateY(calc(100% + 24px)); } .chat-panel.open { transform:translateY(0); } .chat-handle-bar { display:none; } }
+.chat-handle-bar { width:40px; height:4px; background:#f0d8c8; border-radius:2px; margin:12px auto 0; flex-shrink:0; }
+.chat-phead { display:flex; align-items:center; gap:12px; padding:14px 18px; flex-shrink:0; border-bottom:1px solid #f0d8c8; }
+.chat-pav { width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,#e05020,#803018); display:flex; align-items:center; justify-content:center; font-size:19px; flex-shrink:0; }
+.chat-pname { font-family:'Cormorant Garamond',serif; font-size:17px; color:var(--ink); font-style:italic; }
+.chat-pstatus { font-size:10.5px; color:#b84010; display:flex; align-items:center; gap:4px; margin-top:1px; }
+.pstatus-dot { width:6px; height:6px; border-radius:50%; background:#e05020; animation:statusPulse 2s ease infinite; }
+@keyframes statusPulse { 0%,100%{opacity:1}50%{opacity:.35} }
+.chat-close { margin-left:auto; background:#f8e8e0; border:none; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
+.chat-close svg { width:14px; height:14px; color:var(--ink2); }
+.chat-msgs { flex:1; overflow-y:auto; padding:16px 14px; display:flex; flex-direction:column; gap:10px; background:#fff8f4; scroll-behavior:smooth; }
+.chat-msgs::-webkit-scrollbar { width:2px; }
+.chat-msgs::-webkit-scrollbar-thumb { background:#e8c8b0; border-radius:1px; }
+.cmsg { display:flex; gap:7px; align-items:flex-end; animation:msgPop .3s cubic-bezier(.34,1.56,.64,1) both; }
+@keyframes msgPop { from{opacity:0;transform:translateY(8px)scale(.96)}to{opacity:1;transform:none} }
+.cmsg.bot { flex-direction:row; }
+.cmsg.user { flex-direction:row-reverse; }
+.cmsg-av { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0; }
+.cmsg.bot .cmsg-av { background:#e05020; }
+.cmsg.user .cmsg-av { background:#f0a080; }
+.cmsg-bbl { max-width:80%; padding:9px 13px; border-radius:16px; font-size:13px; line-height:1.55; }
+.cmsg.bot .cmsg-bbl { background:white; color:var(--ink); border-bottom-left-radius:3px; box-shadow:0 1px 8px rgba(0,0,0,.06); }
+.cmsg.user .cmsg-bbl { background:#803018; color:white; border-bottom-right-radius:3px; }
+.typing-dots { display:flex; gap:4px; padding:3px 1px; }
+.typing-dots span { width:6px; height:6px; background:#b84010; border-radius:50%; animation:typBounce 1.2s ease infinite; }
+.typing-dots span:nth-child(2) { animation-delay:.2s; } .typing-dots span:nth-child(3) { animation-delay:.4s; }
+@keyframes typBounce { 0%,60%,100%{transform:translateY(0);opacity:.45}30%{transform:translateY(-6px);opacity:1} }
+.quick-qs { display:flex; flex-wrap:wrap; gap:6px; padding:8px 14px 0; background:#fff8f4; flex-shrink:0; }
+.qq { background:white; border:1.5px solid #e8c8b0; border-radius:18px; padding:5px 12px; font-size:11px; color:#b84010; cursor:pointer; font-weight:500; white-space:nowrap; transition:all .18s ease; }
+.qq:active { background:#803018; color:white; border-color:#803018; transform:scale(.96); }
+.chat-input-row { display:flex; gap:9px; padding:12px 14px calc(12px + var(--safe-bottom)); background:white; border-top:1px solid #f0d8c8; align-items:flex-end; flex-shrink:0; }
+.chat-inp { flex:1; border:1.5px solid #e8c8b0; border-radius:16px; padding:9px 14px; font-size:14px; font-family:'DM Sans',sans-serif; color:var(--ink); resize:none; outline:none; min-height:42px; max-height:96px; line-height:1.4; background:#fff8f4; transition:border-color .2s ease; }
+.chat-inp:focus { border-color:#b84010; background:white; }
+.chat-inp::placeholder { color:#c09070; }
+.chat-send { width:42px; height:42px; border-radius:50%; background:#803018; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:transform .2s ease; }
+.chat-send:active { transform:scale(.92); }
+.chat-send svg { width:18px; height:18px; color:white; margin-left:2px; }
+.chat-send:disabled { opacity:.45; cursor:not-allowed; transform:none; }
+.chat-backdrop { position:fixed; inset:0; z-index:940; background:rgba(0,0,0,.35); backdrop-filter:blur(2px); opacity:0; pointer-events:none; transition:opacity .35s ease; }
+.chat-backdrop.show { opacity:1; pointer-events:all; }
+@media(min-width:900px) { .chat-backdrop { display: none !important; } }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)} }
+</style>
+</head>
+<body>
+<div class="page-shell">
+
+<!-- DESKTOP NAV -->
+<nav class="desktop-nav desktop-only">
+  <a href="index.html" class="desktop-nav-brand">Urban Farmer</a>
+  <div class="desktop-nav-links">
+    <a href="know-your-plants.html">All Plants</a>
+    <a href="plant-listing.html">Nurseries</a>
+    <a href="#">App</a>
+  </div>
+  <button class="desktop-cart-btn" onclick="window.location='checkout.html'">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    View Cart
+    <div class="desktop-cart-count" id="desktopCartCount">0</div>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="leaf-float" style="font-size:160px;top:-30px;left:-35px;animation:floatL 11s ease-in-out infinite;">✾</div>
+  <div class="leaf-float" style="font-size:90px;bottom:40px;right:-15px;animation:floatL 9s ease-in-out infinite 2.5s;">✾</div>
+  <div class="leaf-float" style="font-size:65px;top:38%;left:72%;animation:floatL 13s ease-in-out infinite 5s;">✾</div>
+
+  <div class="brand-pill mobile-only">
+    <span>Urban</span><div class="dot"></div><span class="italic">Farmer</span>
+  </div>
+
+  <!-- Desktop hero layout -->
+  <div class="desktop-only" style="display:flex;width:100%;align-items:center;gap:64px;position:relative;z-index:2;">
+    <div style="flex:1;">
+      <div class="brand-pill" style="animation:fadeUp .7s ease both;">
+        <span>Urban</span><div class="dot"></div><span class="italic">Farmer</span>
+      </div>
+      <h1 class="hero-title" style="text-align:left;font-size:72px;animation:fadeUp .85s ease .1s both;">Meet<br><em>Impatiens</em></h1>
+      <p class="hero-sub" style="text-align:left;max-width:400px;margin-top:16px;">The shade garden's brightest star — cheerful, prolific, and available in a vivid palette of five colours that bring life to every dark corner and balcony nook.</p>
+      <div class="fortune-badge" style="margin-top:16px;">Shade Lover &nbsp;·&nbsp; 5 Vivid Varieties &nbsp;·&nbsp; Non-Stop Colour</div>
+    </div>
+    <div style="flex:0 0 300px;display:flex;justify-content:center;">
+      <div class="hero-img-wrap" style="margin:0;">
+        <div class="coin-ring" style="inset:-14px;"></div>
+        <div class="coin-ring-inner" style="inset:3px;"></div>
+        <div class="hero-img" style="width:240px;height:240px;">
+          <img src="Impatiens.jpg" alt="Impatiens" onerror="this.style.display='none';document.getElementById('hero-ph-d').style.display='flex'">
+          <div class="hero-img-placeholder" id="hero-ph-d" style="display:none;">
+            <svg width="44" height="44" viewBox="0 0 48 48" fill="none" style="opacity:.3;"><rect x="6" y="6" width="36" height="36" rx="4" stroke="white" stroke-width="2"/><circle cx="18" cy="20" r="5" stroke="white" stroke-width="2"/><path d="M6 34L16 26L24 32L32 22L42 34" stroke="white" stroke-width="2" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile hero -->
+  <h1 class="hero-title mobile-only">Meet<br><em>Impatiens</em></h1>
+  <div class="hero-img-wrap mobile-only">
+    <div class="coin-ring"></div><div class="coin-ring-inner"></div>
+    <div class="hero-img">
+      <img src="Impatiens.jpg" alt="Impatiens" onerror="this.style.display='none';document.getElementById('hero-ph').style.display='flex'">
+      <div class="hero-img-placeholder" id="hero-ph" style="display:none;">
+        <svg width="44" height="44" viewBox="0 0 48 48" fill="none" style="opacity:.3;"><rect x="6" y="6" width="36" height="36" rx="4" stroke="white" stroke-width="2"/><circle cx="18" cy="20" r="5" stroke="white" stroke-width="2"/><path d="M6 34L16 26L24 32L32 22L42 34" stroke="white" stroke-width="2" stroke-linejoin="round"/></svg>
+        <span style="font-size:9px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1px;text-align:center;line-height:1.9;">Place<br>Impatiens<br>Image</span>
+      </div>
+    </div>
+  </div>
+  <p class="hero-sub mobile-only">The shade garden's brightest star — cheerful, prolific, and available in a vivid palette of five colours that bring life to every dark corner and balcony nook.</p>
+  <div class="fortune-badge mobile-only">Shade Lover &nbsp;·&nbsp; 5 Vivid Varieties &nbsp;·&nbsp; Non-Stop Colour</div>
+  <div class="hero-scroll mobile-only"><span>Scroll</span><span style="font-size:18px">↓</span></div>
+</section>
+
+<!-- QUICK BAR -->
+<div class="quick-bar">
+  <div class="qitem">
+    <svg class="qitem-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    <span class="qitem-lbl">Sunlight</span><span class="qitem-val">Shade / Part</span>
+  </div>
+  <div class="qitem">
+    <svg class="qitem-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+    <span class="qitem-lbl">Water</span><span class="qitem-val">Regular</span>
+  </div>
+  <div class="qitem">
+    <svg class="qitem-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>
+    <span class="qitem-lbl">Temp</span><span class="qitem-val">18–28°C</span>
+  </div>
+  <div class="qitem">
+    <svg class="qitem-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/></svg>
+    <span class="qitem-lbl">Blooms</span><span class="qitem-val">Year-Round</span>
+  </div>
+  <div class="qitem">
+    <svg class="qitem-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+    <span class="qitem-lbl">Care Level</span><span class="qitem-val">Easy</span>
+  </div>
+</div>
+
+<!-- IDENTITY -->
+<section class="sec">
+  <div class="sec-lbl">Who am I?</div>
+  <div class="sec-title">My Identity Card</div>
+  <div class="id-card">
+    <div class="id-row">
+      <div><div class="id-name">Impatiens / Busy Lizzie</div><div class="id-sci">Impatiens walleriana / Impatiens balsamina</div></div>
+      <div class="id-badge">Shade Star</div>
+    </div>
+    <div class="id-tags">
+      <span class="id-tag">Annual / Tender Perennial</span><span class="id-tag">East African Origin</span><span class="id-tag">Self-Cleaning Blooms</span><span class="id-tag">Non-Stop Flowering</span><span class="id-tag">5 Varieties</span>
+    </div>
+    <p class="id-desc">Impatiens — affectionately called Busy Lizzie — is the undisputed champion of the shade garden. Loved for its ability to bloom relentlessly in low-light conditions where most flowering plants refuse to perform, it produces cheerful, flat-faced flowers in a vivid range of colours from fiery orange to pure white. Originally from East Africa and Asia, Impatiens fills dark corners, hanging baskets, and shaded balconies with continuous, carefree colour across all five varieties.</p>
+  </div>
+  <div class="vastu-strip">
+    <div class="vastu-coin">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f0a080" stroke-width="1.5" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/></svg>
+    </div>
+    <div class="vastu-text">
+      <div class="vastu-title">Self-Cleaning — No Deadheading Needed</div>
+      <div class="vastu-sub">Unlike most flowering plants, Impatiens is entirely self-cleaning — spent flowers drop off on their own and new buds immediately replace them. This means you get a perpetually tidy, continuously blooming plant with almost zero maintenance effort.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- STAT BARS -->
+<section class="sec">
+  <div class="sec-lbl">My Stats</div>
+  <div class="sec-title">Growth Profile</div>
+  <div class="stat-list">
+    <div class="stat-row">
+      <div class="stat-ico" style="background:#fff4ee;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e05020" stroke-width="2" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+      <div class="stat-info"><div class="stat-name">Bloom Continuity</div><div class="stat-track"><div class="stat-fill" data-w="99" style="background:linear-gradient(90deg,#f08040,#e05020)"></div></div></div>
+      <div class="stat-num">9.9/10</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-ico" style="background:#fff0f4;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c04080" stroke-width="2" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/></svg></div>
+      <div class="stat-info"><div class="stat-name">Shade Tolerance</div><div class="stat-track"><div class="stat-fill" data-w="98" style="background:linear-gradient(90deg,#c04080,#901060)"></div></div></div>
+      <div class="stat-num">9.8/10</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-ico" style="background:#fff8e8;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d08000" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></div>
+      <div class="stat-info"><div class="stat-name">Ease of Care</div><div class="stat-track"><div class="stat-fill" data-w="95" style="background:linear-gradient(90deg,#d08000,#a06000)"></div></div></div>
+      <div class="stat-num">9.5/10</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-ico" style="background:#f0fff4;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#20a060" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div class="stat-info"><div class="stat-name">Container Suitability</div><div class="stat-track"><div class="stat-fill" data-w="97" style="background:linear-gradient(90deg,#20a060,#108040)"></div></div></div>
+      <div class="stat-num">9.7/10</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-ico" style="background:#f8f0ff;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8040c0" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+      <div class="stat-info"><div class="stat-name">Colour Variety</div><div class="stat-track"><div class="stat-fill" data-w="92" style="background:linear-gradient(90deg,#8040c0,#5020a0)"></div></div></div>
+      <div class="stat-num">9.2/10</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- VARIETY SHOWCASE -->
+<section class="variety-sec" id="varietySec">
+  <div class="variety-header">
+    <div class="sec-lbl">Pick Your Variety</div>
+    <div class="sec-title">Our 5 Varieties</div>
+  </div>
+  <p class="variety-intro">Five distinct expressions of Impatiens — from fiery orange to velvety red to pristine white. Each shares the same carefree, shade-loving spirit but brings its own unique mood to your garden.</p>
+  <div class="vpill-strip" id="vpillStrip"></div>
+  <div class="vcarousel-outer" id="vcarouselOuter">
+    <div class="vcarousel-track" id="vcarouselTrack"></div>
+  </div>
+  <div class="vdots" id="vdots"></div>
+</section>
+
+<hr class="divider">
+
+<!-- CARE CALENDAR -->
+<section class="sec">
+  <div class="sec-lbl">When to do what?</div>
+  <div class="sec-title">Care Calendar</div>
+  <div class="cal-grid">
+    <div class="cal-cell peak"><div class="cal-mo">Jan</div><div class="cal-ico-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2a4 4 0 0 1 4 4 4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1-4-4 4 4 0 0 1 4-4 4 4 0 0 1 4-4z"/></svg></div><div class="cal-note">Peak blooming</div></div>
+    <div class="cal-cell peak"><div class="cal-mo">Feb</div><div class="cal-ico-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><div class="cal-note">Best colour display</div></div>
+    <div class="cal-cell peak"><div class="cal-mo">Mar</div><div class="cal-ico-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></div><div class="cal-note">Continuous flush</div></div>
+    <div class="cal-cell active"><div class="cal-mo">Apr</div><div class="cal-ico-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 20h10M10 20c5.5-2.5.8-6.4 3-10"/></svg></div><div class="cal-note">Feed monthly</div></div>
+    <div class="cal-cell active"><div class="cal-mo">May</div><div class="cal-ico-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div><div class="cal-note">Watch for wilting</div></div>
+    <div class="cal-cell"><div class="cal-mo">Jun</div><div class="cal-ico-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg></div><div class="cal-note">Move to deeper shade</div></div>
+    <div class="cal-cell"><div class="cal-mo">Jul</div><div class="cal-ico-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div class="cal-note">Reduce but water daily</div></div>
+    <div class="cal-cell"><div class="cal-mo">Aug</div><div class="cal-ico-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div class="cal-note">Heat stress — shade</div></div>
+    <div class="cal-cell active"><div class="cal-mo">Sep</div><div class="cal-ico-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 20h10M10 20c5.5-2.5.8-6.4 3-10"/></svg></div><div class="cal-note">Resume feeding</div></div>
+    <div class="cal-cell active"><div class="cal-mo">Oct</div><div class="cal-ico-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div><div class="cal-note">Buds forming fast</div></div>
+    <div class="cal-cell peak"><div class="cal-mo">Nov</div><div class="cal-ico-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2a4 4 0 0 1 4 4 4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1-4-4 4 4 0 0 1 4-4 4 4 0 0 1 4-4z"/></svg></div><div class="cal-note">Full bloom returns</div></div>
+    <div class="cal-cell peak"><div class="cal-mo">Dec</div><div class="cal-ico-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg></div><div class="cal-note">Building to peak</div></div>
+  </div>
+  <div style="display:flex;gap:14px;margin-top:12px;font-size:10.5px;color:var(--ink2);">
+    <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#d08000;display:inline-block;"></span>Peak</span>
+    <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#e05020;display:inline-block;"></span>Active</span>
+    <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#ddd;display:inline-block;"></span>Rest</span>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- BENEFITS -->
+<section class="sec">
+  <div class="sec-lbl">Why do I matter?</div>
+  <div class="sec-title">My Superpowers</div>
+  <div class="ben-grid">
+    <div class="ben-card" style="background:#fff4ee;color:#1a0c08;"><div class="ben-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e05020" stroke-width="2" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><div class="ben-title">Blooms in Deep Shade</div><div class="ben-desc">The only popular flowering plant that produces vibrant, prolific blooms in full shade — perfect for north-facing balconies and shaded gardens.</div></div>
+    <div class="ben-card" style="background:#fff0f4;color:#1a0810;"><div class="ben-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c04080" stroke-width="2" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/></svg></div><div class="ben-title">Truly Self-Cleaning</div><div class="ben-desc">Spent blooms drop themselves — no deadheading required. Impatiens is the most maintenance-free flowering plant for busy gardeners.</div></div>
+    <div class="ben-card" style="background:#fff8e8;color:#1a1204;"><div class="ben-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#d08000" stroke-width="2" stroke-linecap="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg></div><div class="ben-title">Non-Stop Year-Round Colour</div><div class="ben-desc">Impatiens flowers every single month of the year in warm climates — providing uninterrupted colour even through cooler winter months.</div></div>
+    <div class="ben-card" style="background:#f0fff4;color:#04180c;"><div class="ben-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#20a060" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="ben-title">Ideal for Hanging Baskets</div><div class="ben-desc">Impatiens' mounding, cascading growth habit makes it the perfect choice for hanging baskets, window boxes, and trailing container displays.</div></div>
+    <div class="ben-card" style="background:#f8f0ff;color:#180828;"><div class="ben-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8040c0" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5" fill="#8040c0"/><circle cx="15.5" cy="8.5" r="1.5" fill="#8040c0"/><circle cx="8.5" cy="15.5" r="1.5" fill="#8040c0"/><circle cx="15.5" cy="15.5" r="1.5" fill="#8040c0"/></svg></div><div class="ben-title">5 Cheerful Colours</div><div class="ben-desc">Orange, Pink, Light Purple, Red, and White — a complete palette for mixing and matching across containers, beds, and borders.</div></div>
+    <div class="ben-card" style="background:#fff0e8;color:#280c04;"><div class="ben-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c05020" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><div class="ben-title">Fast & Forgiving</div><div class="ben-desc">Impatiens recovers quickly from wilting, establishes fast from transplant, and forgives irregular watering better than most shade plants.</div></div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- DID YOU KNOW -->
+<section class="sec">
+  <div class="sec-lbl">Psst — secrets</div>
+  <div class="sec-title">Did You Know?</div>
+  <div class="fact-list">
+    <div class="fact-card"><div class="fact-emo" style="background:#fff4ee;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e05020" stroke-width="2" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/></svg></div><div><div class="fact-lbl">The Name Means "Impatient"</div><div class="fact-txt">Impatiens gets its name from the <strong>explosive way its seed pods burst open</strong> when touched — the seeds are "impatiently" ejected up to several feet away, a clever self-dispersal mechanism.</div></div></div>
+    <div class="fact-card"><div class="fact-emo" style="background:#fff8e8;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#d08000" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div><div class="fact-lbl">Over 1,000 Species</div><div class="fact-txt">Impatiens is one of the <strong>largest genera of flowering plants</strong> with over 1,000 known species — more than almost any other genus, found across Asia, Africa, and the Americas.</div></div></div>
+    <div class="fact-card"><div class="fact-emo" style="background:#fff0f4;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c04080" stroke-width="2" stroke-linecap="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg></div><div><div class="fact-lbl">World's Best-Selling Annual</div><div class="fact-txt">Impatiens has been <strong>the best-selling annual bedding plant in the world</strong> for decades — hundreds of millions of plants are sold globally each year, more than any other flowering annual.</div></div></div>
+    <div class="fact-card"><div class="fact-emo" style="background:#f0fff4;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#20a060" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div><div class="fact-lbl">Used in Traditional Medicine</div><div class="fact-txt">In Asian traditional medicine, Impatiens balsamina has been used for <strong>centuries to treat burns, warts, and inflammation</strong> — and is still studied today for its antimicrobial compounds.</div></div></div>
+    <div class="fact-card"><div class="fact-emo" style="background:#f8f0ff;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8040c0" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><div><div class="fact-lbl">Flowers Without Petals</div><div class="fact-txt">Botanically, what appear to be Impatiens petals are actually <strong>fused sepals and petals</strong> — a unique floral structure called "zygomorphic" that evolved to precisely guide specific pollinators.</div></div></div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- RENTAL SECTION -->
+<section class="rental-sec">
+  <div class="rental-inner">
+    <div class="rental-eyebrow">
+      <span class="rental-eyebrow-dot"></span>
+      <span class="rental-eyebrow-txt">A new way to live with plants</span>
+    </div>
+    <h2 class="rental-title">You enjoy the greenery.<br><em>We handle everything else.</em></h2>
+    <p class="rental-tagline">No buying. No maintaining. No worrying. We bring curated living plant arrangements to your home, office, or event — and take care of them throughout the rental period.</p>
+    <div class="rental-steps">
+      <div class="rental-step"><div class="rental-step-line"></div><div class="rental-step-num">1</div><div class="rental-step-body"><div class="rental-step-title">We design it for your space</div><div class="rental-step-desc">Our team curates the right varieties, colours, and arrangements based on your space, light conditions, and aesthetic preference.</div></div></div>
+      <div class="rental-step"><div class="rental-step-line"></div><div class="rental-step-num">2</div><div class="rental-step-body"><div class="rental-step-title">We arrange and install</div><div class="rental-step-desc">Plants are delivered and placed exactly where they'll thrive — balconies, terraces, lobbies, events, or shaded interiors.</div></div></div>
+      <div class="rental-step"><div class="rental-step-line"></div><div class="rental-step-num">3</div><div class="rental-step-body"><div class="rental-step-title">We maintain throughout</div><div class="rental-step-desc">Watering, feeding, seasonal swaps — our team visits regularly to keep every plant healthy and every arrangement pristine.</div></div></div>
+      <div class="rental-step"><div class="rental-step-num">4</div><div class="rental-step-body"><div class="rental-step-title">You simply enjoy</div><div class="rental-step-desc">No ownership, no upkeep, no stress. At the end of your rental period, we collect everything. Want to continue? Just say the word.</div></div></div>
+    </div>
+    <div class="rental-highlight">
+      <div class="rental-highlight-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="rental-highlight-text"><div class="rh-title">Perfect for shaded homes, offices &amp; events</div><div class="rh-sub">Impatiens thrives in low-light spaces most plants can't handle — ideal for lobbies, shaded terraces, indoor planters, and event installations.</div></div>
+    </div>
+    <div class="rental-cta-row">
+      <a href="mailto:hello@urbanfarmer.in" class="rental-cta-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Write to Us
+      </a>
+      <a href="tel:+916360203017" class="rental-cta-secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.59 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Call Us
+      </a>
+    </div>
+    <div class="rental-contact-strip">
+      <a href="mailto:hello@urbanfarmer.in" class="rental-contact-chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>hello@urbanfarmer.in</a>
+      <a href="tel:+916360203017" class="rental-contact-chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.59 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>+91 63602 03017</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER RATING -->
+<footer class="footer-rating" id="footerRating">
+  <div class="fr-form" id="frForm">
+    <div class="fr-title">How was your experience?</div>
+    <div class="fr-stars" id="frStars">
+      <button class="fr-star" onclick="setFrStar(1)">⭐</button>
+      <button class="fr-star" onclick="setFrStar(2)">⭐</button>
+      <button class="fr-star" onclick="setFrStar(3)">⭐</button>
+      <button class="fr-star" onclick="setFrStar(4)">⭐</button>
+      <button class="fr-star" onclick="setFrStar(5)">⭐</button>
+    </div>
+    <textarea class="fr-input" id="frText" placeholder="Share your thoughts…" rows="3"></textarea>
+    <button class="fr-submit" onclick="submitFooterRating()">Send Feedback</button>
+  </div>
+  <div class="fr-thanks" id="frThanks">
+    <div class="fr-thanks-ico"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#f0a080" stroke-width="1.5" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+    <div class="fr-thanks-title">Thank You</div>
+    <div class="fr-thanks-sub">Your feedback helps us improve the Urban Farmer experience.</div>
+  </div>
+</footer>
+
+<div class="brand-footer">
+  <div><div class="brand-footer-name">Urban Farmer</div><div class="brand-footer-sub">BY AGRON GREENTECH</div></div>
+  <a href="checkout.html" style="display:none;" id="footerCartLink">
+    <div style="background:rgba(240,160,128,0.15);border:1px solid rgba(240,160,128,0.3);border-radius:8px;padding:8px 16px;font-size:12px;color:#f0a080;display:flex;align-items:center;gap:8px;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      View Cart (<span id="footerCartCount">0</span>)
+    </div>
+  </a>
+</div>
+
+</div><!-- end page-shell -->
+
+<!-- CART TOAST -->
+<div class="cart-toast" id="cartToast">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+  <span id="cartToastMsg">Added to cart</span>
+  <a href="checkout.html">View Cart</a>
+</div>
+
+<!-- CART FAB -->
+<div class="cart-fab-container" id="cartFabContainer">
+  <a href="checkout.html" class="cart-fab">
+    <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    <div class="cart-fab-badge" id="cartFabBadge">0</div>
+  </a>
+</div>
+
+<!-- ORDER MODAL -->
+<div class="modal-wrap" id="orderModal" onclick="closeModalByBg(event,'orderModal')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-ico-svg"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#f0a080" stroke-width="1.5" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
+    <div class="modal-title">Added to Cart</div>
+    <p class="modal-body"><strong id="orderVarietyName"></strong> Impatiens has been added to your cart.</p>
+    <div class="modal-brand">BY AGRON GREENTECH</div>
+    <a href="checkout.html" style="display:block;margin-bottom:10px;background:#f0a080;color:#100804;font-weight:700;padding:13px;border-radius:8px;text-align:center;text-decoration:none;font-family:'DM Sans',sans-serif;font-size:13.5px;">Go to Checkout</a>
+    <button class="modal-close" onclick="closeModal('orderModal')">Continue Browsing</button>
+  </div>
+</div>
+
+<!-- CHAT BACKDROP -->
+<div class="chat-backdrop" id="chatBackdrop" onclick="closeChat()"></div>
+
+<!-- CHAT PANEL -->
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-handle-bar"></div>
+  <div class="chat-phead">
+    <div class="chat-pav"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/></svg></div>
+    <div>
+      <div class="chat-pname">Impatiens</div>
+      <div class="chat-pstatus"><span class="pstatus-dot"></span> In full bloom</div>
+    </div>
+    <button class="chat-close" onclick="closeChat()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="chat-msgs" id="chatMsgs">
+    <div class="cmsg bot">
+      <div class="cmsg-av"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/></svg></div>
+      <div class="cmsg-bbl">Hello — I am Impatiens, the shade garden's star. Ask me about my five colour varieties, care tips, or how to keep me blooming all year long.</div>
+    </div>
+  </div>
+  <div class="quick-qs" id="quickQs">
+    <button class="qq" onclick="sendQQ(this)">Best for shade?</button>
+    <button class="qq" onclick="sendQQ(this)">Watering tips</button>
+    <button class="qq" onclick="sendQQ(this)">Wilting leaves?</button>
+    <button class="qq" onclick="sendQQ(this)">Which colour?</button>
+    <button class="qq" onclick="sendQQ(this)">Hanging baskets?</button>
+    <button class="qq" onclick="sendQQ(this)">No blooms?</button>
+  </div>
+  <div class="chat-input-row">
+    <textarea class="chat-inp" id="chatInp" placeholder="Ask Impatiens anything…" rows="1" onkeydown="chatKey(event)" oninput="resizeInp(this)"></textarea>
+    <button class="chat-send" id="chatSendBtn" onclick="sendChat()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- CHAT FAB -->
+<button class="chat-fab" id="chatFab" onclick="openChat()" aria-label="Chat with Impatiens">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  <div class="fab-badge"></div>
+</button>
+
+<!-- MODAL STYLES -->
+<style>
+.modal-wrap { position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,.75); display:none; align-items:flex-end; justify-content:center; }
+.modal-wrap.show { display:flex; }
+.modal-box { background:linear-gradient(160deg,#2c1008,#803018); border-radius:24px 24px 0 0; padding:32px 28px calc(32px + var(--safe-bottom)); width:100%; max-width:480px; text-align:center; border:1px solid rgba(255,255,255,.1); animation:slideUp .38s cubic-bezier(.34,1.56,.64,1) both; }
+@keyframes slideUp { from{transform:translateY(100%)}to{transform:translateY(0)} }
+@media (min-width:900px) { .modal-wrap { align-items: center; } .modal-box { border-radius: 24px; padding: 40px 48px; max-width: 540px; } }
+.modal-ico-svg { width:72px; height:72px; border-radius:20px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); display:flex; align-items:center; justify-content:center; margin:0 auto 18px; }
+.modal-title { font-family:'Cormorant Garamond',serif; font-size:26px; color:#f0a080; font-style:italic; margin-bottom:10px; }
+.modal-body { font-size:13.5px; color:rgba(255,255,255,.65); line-height:1.68; margin-bottom:12px; }
+.modal-brand { font-size:10px; color:rgba(255,255,255,.22); letter-spacing:1.5px; margin-bottom:22px; text-transform:uppercase; }
+.modal-close { background:#f0a080; border:none; border-radius:8px; padding:13px 36px; font-family:'DM Sans',sans-serif; font-size:13.5px; font-weight:600; color:#100804; cursor:pointer; width:100%; }
+</style>
+
+<!-- SVG SPRITE -->
+<svg style="display:none">
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></symbol>
+  <symbol id="i-thermo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></symbol>
+  <symbol id="i-cut" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></symbol>
+  <symbol id="i-wind" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></symbol>
+  <symbol id="i-seed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 20h10M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 1 5.2 7.7 4.8 4.8 0 0 1-5.7-5.8A4.1 4.1 0 0 0 14 6z"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+</svg>
+
+<script>
+/* ─── CART SYSTEM ─── */
+const CART_KEY = 'uf_cart';
+function getCart() { try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); } catch { return []; } }
+function saveCart(cart) { localStorage.setItem(CART_KEY, JSON.stringify(cart)); updateCartUI(); }
+function addToCart(item) {
+  const cart = getCart();
+  const existing = cart.find(c => c.id === item.id);
+  if (existing) { existing.qty += 1; } else { cart.push({ ...item, qty: 1 }); }
+  saveCart(cart); showCartToast(item.name); updateOrderBtn(item.id, true);
+}
+function getCartCount() { return getCart().reduce((s, i) => s + i.qty, 0); }
+function updateCartUI() {
+  const count = getCartCount();
+  const dc = document.getElementById('desktopCartCount');
+  if (dc) { dc.textContent = count; dc.classList.toggle('show', count > 0); }
+  const fab = document.getElementById('cartFabContainer');
+  const badge = document.getElementById('cartFabBadge');
+  if (fab) fab.classList.toggle('show', count > 0);
+  if (badge) badge.textContent = count;
+  const fl = document.getElementById('footerCartLink');
+  const fc = document.getElementById('footerCartCount');
+  if (fl) fl.style.display = count > 0 ? 'block' : 'none';
+  if (fc) fc.textContent = count;
+  const cart = getCart();
+  document.querySelectorAll('.vorder-btn[data-variety-id]').forEach(btn => {
+    btn.classList.toggle('added', cart.some(c => c.id === btn.dataset.varietyId));
+  });
+}
+let toastTimer = null;
+function showCartToast(name) {
+  const toast = document.getElementById('cartToast');
+  document.getElementById('cartToastMsg').textContent = `${name} Impatiens added`;
+  toast.classList.add('show');
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
+}
+function updateOrderBtn(id, added) {
+  const btn = document.querySelector(`.vorder-btn[data-variety-id="${id}"]`);
+  if (btn) btn.classList.toggle('added', added);
+}
+
+/* ─── VARIETIES DATA ─── */
+const VARIETIES = [
+  {
+    id: 'orange',
+    name: 'Orange',
+    sci: 'Impatiens walleriana — Orange',
+    price: 120,
+    dot: '#e07020',
+    grad: ['#e07020', '#a04010'],
+    bar: 'linear-gradient(90deg,#e07020,#a04010)',
+    badgeBg: '#ffdcb0',
+    badgeClr: '#5a2000',
+    imgBg: 'linear-gradient(145deg,#a04010,#401008)',
+    img: 'Impatiens_Orange.jpg',
+    badge: 'Bright & Energetic',
+    tagline: 'Vibrant tangerine blooms that light up the darkest corners',
+    desc: 'Orange Impatiens is the most energetic variety — its vivid tangerine-orange blooms are like little bursts of sunshine in shaded spaces. This variety is especially striking in mass plantings and hanging baskets, where the saturated orange colour creates dramatic visual impact.',
+    traits: [
+      { l: 'Flower Colour', v: 'Vivid Tangerine Orange' },
+      { l: 'Best Use', v: 'Hanging Baskets / Beds' },
+      { l: 'Light Need', v: 'Shade to Part Shade' },
+      { l: 'Mood', v: 'Energetic & Warm' }
+    ],
+    care: [
+      { icon: 'i-sun', bg: '#fff4ee', c: '#e07020', t: '<strong>Light:</strong> Bright indirect light or dappled shade. Avoid harsh afternoon sun which fades the orange colour.' },
+      { icon: 'i-drop', bg: '#e8f0ff', c: '#3060c0', t: '<strong>Water:</strong> Keep soil consistently moist. Impatiens wilts dramatically when dry but recovers quickly after watering.' },
+      { icon: 'i-seed', bg: '#fff8e8', c: '#a06010', t: '<strong>Feed:</strong> Balanced liquid fertiliser every 2–3 weeks keeps Orange Impatiens blooming vigorously throughout the season.' },
+      { icon: 'i-leaf', bg: '#f0fff4', c: '#208050', t: '<strong>Note:</strong> Self-cleaning — no deadheading needed. Simply ensure good air circulation to prevent fungal issues.' }
+    ]
+  },
+  {
+    id: 'pink',
+    name: 'Pink',
+    sci: 'Impatiens walleriana — Pink',
+    price: 115,
+    dot: '#e050a0',
+    grad: ['#e050a0', '#a01060'],
+    bar: 'linear-gradient(90deg,#e050a0,#a01060)',
+    badgeBg: '#ffd0e8',
+    badgeClr: '#580030',
+    imgBg: 'linear-gradient(145deg,#a01060,#400028)',
+    img: 'Impatiens_Pink.jpg',
+    badge: 'Cheerful & Bright',
+    tagline: 'Hot pink blooms with irresistible charm and cheerful energy',
+    desc: 'Pink Impatiens is the most popular and beloved variety — its bright, cheerful pink blooms are simply irresistible. The vivid hot-pink flowers appear in abundance from the very first week and continue non-stop, creating a lush, floriferous display that transforms any shaded spot.',
+    traits: [
+      { l: 'Flower Colour', v: 'Bright Hot Pink' },
+      { l: 'Best Use', v: 'Borders / Containers' },
+      { l: 'Light Need', v: 'Shade to Part Shade' },
+      { l: 'Mood', v: 'Cheerful & Lively' }
+    ],
+    care: [
+      { icon: 'i-sun', bg: '#fff0f4', c: '#e050a0', t: '<strong>Light:</strong> Shade to part shade. Pink tones stay vibrant in filtered light; full sun bleaches the colour.' },
+      { icon: 'i-drop', bg: '#e8f0ff', c: '#3060c0', t: '<strong>Water:</strong> Regular watering — keep evenly moist. Pink Impatiens is slightly more drought-tolerant than other varieties.' },
+      { icon: 'i-seed', bg: '#fff0f4', c: '#e050a0', t: '<strong>Feed:</strong> Monthly balanced feed. High-phosphorus fertiliser from autumn promotes the densest flower clusters.' },
+      { icon: 'i-cut', bg: '#f0fff4', c: '#208050', t: '<strong>Pinching:</strong> Pinch stem tips early in the season to encourage a bushier, more floriferous plant.' }
+    ]
+  },
+  {
+    id: 'lightpurple',
+    name: 'Light Purple',
+    sci: 'Impatiens walleriana — Light Purple',
+    price: 125,
+    dot: '#9060c0',
+    grad: ['#9060c0', '#502080'],
+    bar: 'linear-gradient(90deg,#9060c0,#502080)',
+    badgeBg: '#e8d8ff',
+    badgeClr: '#280860',
+    imgBg: 'linear-gradient(145deg,#502080,#200840)',
+    img: 'Impatiens_LightPurple.jpg',
+    badge: 'Soft & Romantic',
+    tagline: 'Delicate lavender blooms — the most refined Impatiens variety',
+    desc: 'Light Purple Impatiens brings a soft, romantic quality that sets it apart from the brighter varieties. Its pale lilac-mauve flowers have a gentle, dreamy character that creates a calming, sophisticated atmosphere in shaded garden beds and containers.',
+    traits: [
+      { l: 'Flower Colour', v: 'Pale Lilac-Mauve' },
+      { l: 'Best Use', v: 'Mixed Plantings' },
+      { l: 'Light Need', v: 'Shade preferred' },
+      { l: 'Mood', v: 'Calm & Romantic' }
+    ],
+    care: [
+      { icon: 'i-sun', bg: '#f4f0ff', c: '#7050b0', t: '<strong>Light:</strong> Deepest shade tolerance of all varieties. Purple tones are most vivid in low-light conditions.' },
+      { icon: 'i-drop', bg: '#e8f0ff', c: '#3060c0', t: '<strong>Water:</strong> Consistent moisture is key. Light Purple Impatiens is less forgiving of drought than other varieties.' },
+      { icon: 'i-thermo', bg: '#fff8e8', c: '#a06010', t: '<strong>Temperature:</strong> Prefers cooler spots. Performs best in temperatures below 28°C — ideal for north-facing spots.' },
+      { icon: 'i-seed', bg: '#f4f0ff', c: '#7050b0', t: '<strong>Feed:</strong> Low-nitrogen, high-potassium feed maintains compact habit and prolific blooming.' }
+    ]
+  },
+  {
+    id: 'red',
+    name: 'Red',
+    sci: 'Impatiens walleriana — Red',
+    price: 115,
+    dot: '#c82020',
+    grad: ['#c82020', '#880808'],
+    bar: 'linear-gradient(90deg,#c82020,#880808)',
+    badgeBg: '#ffd0d0',
+    badgeClr: '#500008',
+    imgBg: 'linear-gradient(145deg,#880808,#380404)',
+    img: 'Impatiens_Red.jpg',
+    badge: 'Bold & Striking',
+    tagline: 'Rich scarlet red — the most dramatic and commanding variety',
+    desc: 'Red Impatiens is the boldest and most striking variety — its rich, deep scarlet flowers create an immediate, commanding visual impact that draws the eye across even the darkest garden corner. This variety is the go-to choice for high-impact seasonal displays.',
+    traits: [
+      { l: 'Flower Colour', v: 'Deep Scarlet Red' },
+      { l: 'Best Use', v: 'Feature Planting' },
+      { l: 'Light Need', v: 'Shade / Part Shade' },
+      { l: 'Mood', v: 'Bold & Commanding' }
+    ],
+    care: [
+      { icon: 'i-sun', bg: '#fff0f0', c: '#c82020', t: '<strong>Light:</strong> Shade to part shade. Red colour is deepest and most saturated in lower light conditions.' },
+      { icon: 'i-drop', bg: '#e8f0ff', c: '#3060c0', t: '<strong>Water:</strong> Water deeply and regularly. Red Impatiens is the most heat-tolerant variety — handles brief dry spells.' },
+      { icon: 'i-seed', bg: '#fff0f0', c: '#c82020', t: '<strong>Feed:</strong> Monthly balanced fertiliser. Avoid excess nitrogen which promotes foliage at the expense of flowers.' },
+      { icon: 'i-shield', bg: '#f4f0ff', c: '#6040a0', t: '<strong>Watch for:</strong> Aphids are attracted to the vibrant red blooms. Check undersides of leaves weekly and treat promptly.' }
+    ]
+  },
+  {
+    id: 'white',
+    name: 'White',
+    sci: 'Impatiens walleriana — White',
+    price: 110,
+    dot: '#909090',
+    grad: ['#707070', '#404040'],
+    bar: 'linear-gradient(90deg,#909090,#505050)',
+    badgeBg: '#f0f0f0',
+    badgeClr: '#202020',
+    imgBg: 'linear-gradient(145deg,#404858,#181c24)',
+    img: 'Impatiens_White.jpg',
+    badge: 'Pure & Luminous',
+    tagline: 'Snow-white blooms that glow like lanterns in deep shade',
+    desc: 'White Impatiens is the most magical variety — its pure white blooms have an almost luminous quality in shaded settings, appearing to glow from within as they catch ambient light. This variety is extraordinarily versatile and pairs beautifully with any other colour.',
+    traits: [
+      { l: 'Flower Colour', v: 'Pure Snow White' },
+      { l: 'Best Use', v: 'Mixed Borders / Edging' },
+      { l: 'Special Quality', v: 'Glows in Deep Shade' },
+      { l: 'Mood', v: 'Serene & Luminous' }
+    ],
+    care: [
+      { icon: 'i-sun', bg: '#f4f4f8', c: '#606070', t: '<strong>Light:</strong> Most shade-tolerant variety. White blooms appear to glow in low-light and create a night-garden effect.' },
+      { icon: 'i-drop', bg: '#e8f0ff', c: '#3060c0', t: '<strong>Water:</strong> Use filtered water where possible — mineral deposits from hard water are most visible on white petals.' },
+      { icon: 'i-alert', bg: '#fff8e8', c: '#806020', t: '<strong>Watch for:</strong> Brown spotting on petals indicates Botrytis. Ensure good air circulation and avoid wetting blooms.' },
+      { icon: 'i-cut', bg: '#f4f4f8', c: '#606070', t: '<strong>Cleanliness:</strong> While self-cleaning, occasional removal of browned petals keeps the pristine white display looking sharp.' }
+    ]
+  }
+];
+
+let curV = 0;
+const isDesktop = () => window.innerWidth >= 900;
+
+function buildVarieties() {
+  const strip = document.getElementById('vpillStrip');
+  const track = document.getElementById('vcarouselTrack');
+  const dots  = document.getElementById('vdots');
+  const cart  = getCart();
+
+  VARIETIES.forEach((v, i) => {
+    // Pill
+    const pill = document.createElement('button');
+    pill.className = 'vpill' + (i === 0 ? ' active' : '');
+    pill.style.borderColor = v.dot;
+    if (i === 0) { pill.style.background = v.grad[0]; pill.style.borderColor = v.grad[0]; pill.style.color = 'white'; }
+    pill.innerHTML = `<span class="v-dot" style="background:${v.dot};"></span>${v.name}`;
+    pill.addEventListener('click', () => { stopAutoScroll(); goToV(i); });
+    strip.appendChild(pill);
+
+    const careRows = v.care.map(c => `
+      <div class="vcare-row" style="border-left:3px solid ${v.grad[0]};">
+        <div class="vcare-ico" style="background:${c.bg};"><svg width="13" height="13" style="color:${c.c};display:block;"><use href="#${c.icon}"/></svg></div>
+        <div class="vcare-txt">${c.t}</div>
+      </div>`).join('');
+
+    const traitItems = v.traits.map(t => `
+      <div class="vtrait" style="border-left-color:${v.grad[0]};background:${v.badgeBg}30;">
+        <div class="vtrait-lbl">${t.l}</div>
+        <div class="vtrait-val">${t.v}</div>
+      </div>`).join('');
+
+    const inCart = cart.some(c => c.id === v.id);
+
+    const slide = document.createElement('div');
+    slide.className = 'vslide';
+    slide.innerHTML = `
+      <div class="vcard">
+        <div class="vimg-wrap">
+          <div class="vimg-ph" style="background:${v.imgBg};">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" style="opacity:.22;"><rect x="6" y="6" width="36" height="36" rx="4" stroke="white" stroke-width="2"/><circle cx="18" cy="20" r="5" stroke="white" stroke-width="2"/><path d="M6 34L16 26L24 32L32 22L42 34" stroke="white" stroke-width="2" stroke-linejoin="round"/></svg>
+            <div class="vimg-ph-txt">${v.name} Impatiens<br>Place Image Here</div>
+          </div>
+          <img src="${v.img}" alt="${v.name} Impatiens" onerror="this.style.display='none';">
+        </div>
+        <div class="vcard-color-bar" style="background:${v.bar};"></div>
+        <div class="vcard-body">
+          <div class="vcard-head">
+            <div class="vcard-name">${v.name} Impatiens<span>${v.tagline}</span></div>
+            <div class="vcard-badge" style="background:${v.badgeBg};color:${v.badgeClr};">${v.badge}</div>
+          </div>
+          <p class="vcard-desc">${v.desc}</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:${v.grad[0]};font-weight:600;">Rs. ${v.price}</div>
+            <div style="font-size:11px;color:var(--ink2);">per plant</div>
+          </div>
+          <div class="vtrait-grid">${traitItems}</div>
+          <div class="vcare-list">${careRows}</div>
+          <button class="vorder-btn${inCart ? ' added' : ''}" data-variety-id="${v.id}" style="border-color:${v.grad[0]};color:${v.grad[0]};" onclick="handleOrder('${v.id}')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            ${inCart ? 'Added to Cart' : `Order ${v.name} Impatiens`}
+          </button>
+          ${inCart ? `<a href="checkout.html" style="display:block;text-align:center;margin-top:8px;font-size:12px;color:${v.grad[0]};text-decoration:underline;text-underline-offset:2px;">Go to checkout</a>` : ''}
+        </div>
+      </div>`;
+    track.appendChild(slide);
+
+    // Dot
+    const dot = document.createElement('div');
+    dot.className = 'vdot' + (i === 0 ? ' active' : '');
+    dot.style.background = i === 0 ? v.dot : '#f0d8c8';
+    dot.addEventListener('click', () => { stopAutoScroll(); goToV(i); });
+    dots.appendChild(dot);
+  });
+}
+
+function handleOrder(id) {
+  const v = VARIETIES.find(x => x.id === id);
+  if (!v) return;
+  const cart = getCart();
+  if (cart.some(c => c.id === id)) { window.location.href = 'checkout.html'; return; }
+  addToCart({ id: v.id, name: v.name, price: v.price, plant: 'Impatiens', color: v.grad[0], badge: v.badge });
+  const btn = document.querySelector(`.vorder-btn[data-variety-id="${id}"]`);
+  if (btn) {
+    btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Added to Cart`;
+    if (!btn.nextElementSibling || btn.nextElementSibling.tagName !== 'A') {
+      const link = document.createElement('a');
+      link.href = 'checkout.html';
+      link.style.cssText = `display:block;text-align:center;margin-top:8px;font-size:12px;color:${v.grad[0]};text-decoration:underline;text-underline-offset:2px;`;
+      link.textContent = 'Go to checkout';
+      btn.parentNode.insertBefore(link, btn.nextSibling);
+    }
+  }
+}
+
+function goToV(idx) {
+  curV = idx;
+  if (isDesktop()) {
+    document.querySelectorAll('.vslide').forEach((s, i) => s.style.display = i === idx ? 'block' : 'none');
+  } else {
+    document.getElementById('vcarouselTrack').style.transform = `translateX(calc(-${idx} * 100vw))`;
+  }
+  document.querySelectorAll('.vpill').forEach((p, i) => {
+    p.classList.toggle('active', i === idx);
+    if (i === idx) { p.style.background = VARIETIES[i].grad[0]; p.style.borderColor = VARIETIES[i].grad[0]; p.style.color = 'white'; }
+    else { p.style.background = 'white'; p.style.borderColor = VARIETIES[i].dot; p.style.color = ''; }
+  });
+  document.querySelectorAll('.vdot').forEach((d, i) => {
+    d.classList.toggle('active', i === idx);
+    d.style.background = i === idx ? VARIETIES[i].dot : '#f0d8c8';
+  });
+  document.querySelectorAll('.vpill')[idx]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+}
+
+let vtx = 0, vty = 0, autoScrollTimer = null, userInteracted = false;
+function startAutoScroll() {
+  if (autoScrollTimer || isDesktop()) return;
+  autoScrollTimer = setInterval(() => { if (!userInteracted) goToV((curV + 1) % VARIETIES.length); }, 4000);
+}
+function stopAutoScroll() {
+  userInteracted = true;
+  if (autoScrollTimer) { clearInterval(autoScrollTimer); autoScrollTimer = null; }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  buildVarieties();
+  if (isDesktop()) {
+    document.querySelectorAll('.vslide').forEach((s, i) => s.style.display = i === 0 ? 'block' : 'none');
+    document.getElementById('vcarouselTrack').style.display = 'block';
+  }
+
+  const o = document.getElementById('vcarouselOuter');
+  o.addEventListener('touchstart', e => { vtx = e.touches[0].clientX; vty = e.touches[0].clientY; stopAutoScroll(); }, { passive: true });
+  o.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - vtx;
+    const dy = e.changedTouches[0].clientY - vty;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 44) {
+      if (dx < 0 && curV < VARIETIES.length - 1) goToV(curV + 1);
+      else if (dx > 0 && curV > 0) goToV(curV - 1);
+    }
+  }, { passive: true });
+
+  const varObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting && !userInteracted && !isDesktop()) startAutoScroll();
+      else if (!e.isIntersecting && autoScrollTimer) { clearInterval(autoScrollTimer); autoScrollTimer = null; }
+    });
+  }, { threshold: 0.4 });
+  varObs.observe(document.getElementById('varietySec'));
+
+  new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.querySelectorAll('.stat-fill').forEach(f => f.style.width = f.dataset.w + '%'); }
+    });
+  }, { threshold: .3 }).observe(document.querySelector('.stat-list'));
+
+  new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.querySelectorAll('.fact-card').forEach(c => c.classList.add('vis'));
+    });
+  }, { threshold: .1 }).observe(document.querySelector('.fact-list'));
+
+  updateCartUI();
+});
+
+window.addEventListener('resize', () => {
+  if (isDesktop()) {
+    const track = document.getElementById('vcarouselTrack');
+    if (track) { track.style.display = 'block'; track.style.transform = ''; }
+    document.querySelectorAll('.vslide').forEach((s, i) => s.style.display = i === curV ? 'block' : 'none');
+  } else {
+    const track = document.getElementById('vcarouselTrack');
+    if (track) { track.style.display = 'flex'; track.style.transform = `translateX(calc(-${curV} * 100vw))`; }
+    document.querySelectorAll('.vslide').forEach(s => s.style.display = '');
+  }
+});
+
+/* ─── CHAT ─── */
+let chatOpen = false, chatTyping = false, chatHist = [];
+function openChat() { chatOpen = true; document.getElementById('chatPanel').classList.add('open'); document.getElementById('chatBackdrop').classList.add('show'); document.getElementById('chatFab').style.display = 'none'; if (!isDesktop()) document.body.style.overflow = 'hidden'; setTimeout(() => document.getElementById('chatInp').focus(), 400); }
+function closeChat() { chatOpen = false; document.getElementById('chatPanel').classList.remove('open'); document.getElementById('chatBackdrop').classList.remove('show'); document.getElementById('chatFab').style.display = ''; document.body.style.overflow = ''; }
+function resizeInp(el) { el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 96) + 'px'; }
+function chatKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChat(); } }
+function sendQQ(btn) { document.getElementById('chatInp').value = btn.textContent.trim(); document.getElementById('quickQs').style.display = 'none'; sendChat(); }
+async function sendChat() {
+  if (chatTyping) return;
+  const inp = document.getElementById('chatInp');
+  const text = inp.value.trim(); if (!text) return;
+  inp.value = ''; inp.style.height = 'auto';
+  document.getElementById('quickQs').style.display = 'none';
+  addMsg('user', text); chatHist.push({ role: 'user', content: text }); showTyping();
+  try {
+    const res = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messages: chatHist }) });
+    if (!res.ok) throw new Error();
+    const d = await res.json();
+    const reply = d.choices?.[0]?.message?.content || 'Give me a moment — please try again.';
+    removeTyping(); addMsg('bot', reply); chatHist.push({ role: 'assistant', content: reply });
+    if (chatHist.length > 14) chatHist = chatHist.slice(-14);
+  } catch { removeTyping(); addMsg('bot', 'Could not connect right now. Please try again.'); }
+}
+function addMsg(role, text) {
+  const box = document.getElementById('chatMsgs');
+  const d = document.createElement('div'); d.className = `cmsg ${role}`;
+  const av = role === 'bot' ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/></svg>` : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+  d.innerHTML = `<div class="cmsg-av">${av}</div><div class="cmsg-bbl">${text.replace(/\n/g, '<br>')}</div>`;
+  box.appendChild(d); box.scrollTop = box.scrollHeight; chatTyping = false;
+}
+function showTyping() {
+  chatTyping = true;
+  const box = document.getElementById('chatMsgs');
+  const d = document.createElement('div'); d.className = 'cmsg bot'; d.id = 'typingDiv';
+  d.innerHTML = `<div class="cmsg-av"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/></svg></div><div class="cmsg-bbl"><div class="typing-dots"><span></span><span></span><span></span></div></div>`;
+  box.appendChild(d); box.scrollTop = box.scrollHeight;
+  document.getElementById('chatSendBtn').disabled = true;
+}
+function removeTyping() { document.getElementById('typingDiv')?.remove(); document.getElementById('chatSendBtn').disabled = false; chatTyping = false; }
+
+/* ─── RATING ─── */
+let frRating = 0;
+function setFrStar(val) { frRating = val; document.querySelectorAll('.fr-star').forEach((s, i) => s.classList.toggle('lit', i < val)); }
+async function submitFooterRating() {
+  if (frRating === 0) { alert('Please tap a star to rate.'); return; }
+  try { await fetch('/api/feedback', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ overallRating: frRating, feedbackText: document.getElementById('frText').value.trim() }) }); } catch {}
+  document.getElementById('frForm').style.display = 'none';
+  document.getElementById('frThanks').style.display = 'flex';
+}
+
+/* ─── MODALS ─── */
+function closeModal(id) { document.getElementById(id).style.display = 'none'; document.body.style.overflow = ''; }
+function closeModalByBg(e, id) { if (e.target === document.getElementById(id)) closeModal(id); }
+</script>
+</body>
+</html>

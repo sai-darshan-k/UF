@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Oleander | The Mediterranean Classic — Urban Farmer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:   #1a0e08;
+  --ink2:  #5c3020;
+  --cream: #fff8f4;
+  --white: #ffffff;
+  --card-r: 22px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --acc:  #b01830;
+  --acc2: #e88090;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); overflow-x: hidden; }
+
+/* ─── DESKTOP LAYOUT WRAPPER ─── */
+@media (min-width: 900px) {
+  body { background: #100508; }
+  .page-shell {
+    max-width: 1280px; margin: 0 auto;
+    background: var(--cream);
+    box-shadow: 0 0 80px rgba(0,0,0,0.6);
+    min-height: 100vh;
+  }
+  .desktop-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 48px; background: #080205;
+    border-bottom: 1px solid rgba(232,128,144,0.15);
+    position: sticky; top: 0; z-index: 200;
+  }
+  .desktop-nav-brand {
+    font-family: 'Cormorant Garamond', serif; font-size: 20px;
+    font-style: italic; color: #e88090; text-decoration: none;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .desktop-nav-links { display: flex; gap: 32px; align-items: center; }
+  .desktop-nav-links a {
+    font-size: 13px; color: rgba(255,255,255,0.5);
+    text-decoration: none; letter-spacing: 0.3px; transition: color 0.2s;
+  }
+  .desktop-nav-links a:hover { color: #e88090; }
+  .desktop-cart-btn {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(232,128,144,0.12); border: 1px solid rgba(232,128,144,0.3);
+    border-radius: 50px; padding: 8px 18px; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: #e88090;
+    transition: all 0.2s;
+  }
+  .desktop-cart-btn:hover { background: rgba(232,128,144,0.22); }
+  .hero { min-height: 600px; padding: 60px 80px !important; flex-direction: row !important; align-items: center; text-align: left; gap: 64px; }
+  .hero-left { flex: 1; display: flex; flex-direction: column; align-items: flex-start; }
+  .hero-right { flex: 0 0 340px; display: flex; align-items: center; justify-content: center; }
+  .hero-title { text-align: left !important; font-size: 72px !important; }
+  .hero-sub { text-align: left !important; max-width: 420px !important; }
+  .fortune-badge { align-self: flex-start; }
+  .hero-scroll { display: none !important; }
+  .brand-pill { margin-bottom: 24px; }
+  .hero-img-wrap { margin: 0 !important; }
+  .hero-img { width: 260px !important; height: 260px !important; }
+  .coin-ring { inset: -14px !important; }
+  .quick-bar { padding: 20px 80px !important; justify-content: space-between; }
+  .qitem { flex: none !important; }
+  .sec { padding: 52px 80px !important; }
+  .ben-grid { grid-template-columns: repeat(3, 1fr) !important; }
+  .fact-list { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
+  .rental-sec { padding: 64px 80px !important; }
+  .footer-rating { padding: 48px 80px !important; }
+  .fr-form { max-width: 560px; margin: 0 auto; }
+  .brand-footer { padding: 20px 80px !important; display: flex; justify-content: space-between; align-items: center; }
+  .stat-list { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 16px !important; }
+  .stat-row { background: var(--white); border-radius: 14px; padding: 14px; }
+  .cal-grid { grid-template-columns: repeat(6, 1fr) !important; }
+  .warn-grid { grid-template-columns: 1fr 1fr !important; }
+}
+@media (min-width: 900px) { .mobile-only { display: none !important; } }
+@media (max-width: 899px) { .desktop-only { display: none !important; } .page-shell { background: var(--cream); } }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100svh;
+  background: linear-gradient(168deg, #080205 0%, #200810 30%, #6a1028 55%, #b01830 78%, #e05070 100%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  position: relative; overflow: hidden; padding: 44px 20px 72px;
+}
+.hero::before {
+  content:''; position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 70% 50% at 20% 85%, rgba(176,24,48,.28) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 80% 10%, rgba(224,80,112,.22) 0%, transparent 55%),
+    radial-gradient(ellipse 90% 35% at 50% 105%, rgba(8,2,5,.7) 0%, transparent 65%);
+}
+.hero::after {
+  content:''; position:absolute; inset:0;
+  background: repeating-linear-gradient(-45deg, transparent, transparent 38px, rgba(224,80,112,.03) 38px, rgba(224,80,112,.03) 39px);
+}
+.leaf-float { position:absolute; opacity:.07; user-select:none; pointer-events:none; font-family: serif; }
+@keyframes floatL{ 0%,100%{transform:translateY(0)rotate(0deg)}50%{transform:translateY(-22px)rotate(10deg)} }
+
+.brand-pill {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.22);
+  border-radius:50px; padding:7px 18px; backdrop-filter:blur(10px);
+  margin-bottom:16px; position:relative; z-index:2;
+  animation:fadeUp .7s ease both;
+}
+.brand-pill span { font-size:17px; color:#fff; font-weight:500; }
+.brand-pill .dot { width:5px; height:5px; background:#e88090; border-radius:50%; }
+.brand-pill .italic { font-family:'Cormorant Garamond',serif; font-style:italic; color:#e88090; letter-spacing:1px; }
+.hero-title {
+  font-family:'Cormorant Garamond',serif; font-size:clamp(42px,12vw,68px);
+  color:var(--white); text-align:center; line-height:1.0;
+  position:relative; z-index:2; animation:fadeUp .85s ease .1s both;
+}
+.hero-title em { font-style:italic; color:#e88090; }
+.hero-img-wrap { position:relative; z-index:2; margin:24px 0 12px; animation:fadeUp .95s ease .2s both; }
+.coin-ring {
+  position:absolute; inset:-10px; border-radius:50%;
+  background:conic-gradient(#e88090 0deg,#b01830 20deg,#e88090 40deg,#b01830 60deg,#e88090 80deg,#b01830 100deg,#e88090 120deg,#b01830 140deg,#e88090 160deg,#b01830 180deg,#e88090 200deg,#b01830 220deg,#e88090 240deg,#b01830 260deg,#e88090 280deg,#b01830 300deg,#e88090 320deg,#b01830 340deg,#e88090 360deg);
+  animation:spinRing 14s linear infinite; opacity:.75;
+}
+@keyframes spinRing{ to{transform:rotate(360deg)} }
+.coin-ring-inner { position:absolute; inset:3px; border-radius:50%; background:linear-gradient(168deg,#6a1028,#080205); }
+.hero-img { width:172px; height:172px; border-radius:50%; position:relative; flex-shrink:0; overflow:hidden; box-shadow:0 10px 44px rgba(0,0,0,.45); }
+.hero-img img { width:100%; height:100%; object-fit:cover; position:relative; z-index:1; }
+.hero-img-placeholder { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; width:100%; height:100%; position:absolute; inset:0; z-index:1; background:linear-gradient(145deg,#6a1028,#080205); }
+.hero-sub { font-size:14.5px; color:rgba(255,255,255,.62); text-align:center; max-width:285px; line-height:1.68; position:relative; z-index:2; animation:fadeUp 1s ease .3s both; }
+.fortune-badge {
+  display:inline-flex; align-items:center; gap:6px;
+  background:linear-gradient(135deg,rgba(176,24,48,.28),rgba(232,128,144,.18));
+  border:1px solid rgba(176,24,48,.45); border-radius:50px; padding:7px 18px;
+  font-family:'Caveat',cursive; font-size:14px; color:#e88090;
+  position:relative; z-index:2; margin-top:8px; animation:fadeUp 1.1s ease .4s both;
+}
+.hero-scroll { position:absolute; bottom:24px; left:50%; transform:translateX(-50%); z-index:2; display:flex; flex-direction:column; align-items:center; gap:5px; color:rgba(255,255,255,.35); font-size:10px; letter-spacing:2px; text-transform:uppercase; animation:scrollBounce 2s ease infinite; }
+@keyframes scrollBounce{ 0%,100%{transform:translateX(-50%)translateY(0)}50%{transform:translateX(-50%)translateY(7px)} }
+
+/* ─── QUICK BAR ─── */
+.quick-bar { background:#080205; display:flex; overflow-x:auto; padding:16px 20px; gap:0; scrollbar-width:none; }
+.quick-bar::-webkit-scrollbar{ display:none; }
+.qitem { display:flex; flex-direction:column; align-items:center; gap:3px; flex:0 0 20%; min-width:64px; }
+.qitem-icon { width:22px; height:22px; stroke:#e88090; }
+.qitem-lbl { font-size:8.5px; color:rgba(255,255,255,.4); text-transform:uppercase; letter-spacing:.8px; white-space:nowrap; }
+.qitem-val { font-size:12px; font-weight:500; color:#e88090; white-space:nowrap; }
+
+.divider { height:4px; background:linear-gradient(90deg,#6a1028,#b01830,#e88090); border:none; }
+
+/* ─── SECTION ─── */
+.sec { padding:36px 20px; }
+.sec-lbl { font-family:'Caveat',cursive; font-size:15px; color:#901828; letter-spacing:1px; }
+.sec-title { font-family:'Cormorant Garamond',serif; font-size:28px; color:var(--ink); line-height:1.2; margin-top:2px; }
+
+/* ─── IDENTITY ─── */
+.id-card { background:linear-gradient(140deg,#200810 0%,#6a1028 100%); border-radius:var(--card-r); padding:24px 20px; color:white; margin-top:18px; position:relative; overflow:hidden; }
+.id-card::after { content:'❀'; position:absolute; right:16px; bottom:10px; font-size:80px; opacity:.06; color:white; }
+.id-row { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:14px; }
+.id-name { font-family:'Cormorant Garamond',serif; font-size:26px; color:#e88090; }
+.id-sci { font-style:italic; font-size:12px; color:rgba(255,255,255,.5); margin-top:2px; }
+.id-badge { background:#e88090; color:#080205; font-size:10.5px; font-weight:700; padding:5px 12px; border-radius:20px; white-space:nowrap; flex-shrink:0; }
+.id-tags { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:16px; }
+.id-tag { background:rgba(255,255,255,.1); color:rgba(255,255,255,.8); font-size:11.5px; padding:4px 12px; border-radius:20px; border:1px solid rgba(255,255,255,.14); }
+.id-desc { font-size:13.5px; color:rgba(255,255,255,.7); line-height:1.72; }
+.vastu-strip { background:linear-gradient(135deg,#080205,#200810); border-radius:18px; padding:18px; margin-top:18px; display:flex; align-items:center; gap:14px; }
+.vastu-coin { width:56px; height:56px; border-radius:16px; background:rgba(255,255,255,.08); display:flex; align-items:center; justify-content:center; flex-shrink:0; animation:bloomPulse 3s ease-in-out infinite; }
+@keyframes bloomPulse{ 0%,100%{transform:scale(1)rotate(0deg)}50%{transform:scale(1.15)rotate(9deg)} }
+.vastu-text .vastu-title { font-family:'Cormorant Garamond',serif; font-size:16px; color:#e88090; font-style:italic; }
+.vastu-text .vastu-sub { font-size:12px; color:rgba(255,255,255,.58); line-height:1.58; margin-top:4px; }
+
+/* ─── STAT BARS ─── */
+.stat-list { display:flex; flex-direction:column; gap:13px; margin-top:18px; }
+.stat-row { display:flex; align-items:center; gap:11px; }
+.stat-ico { width:38px; height:38px; border-radius:11px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.stat-info { flex:1; }
+.stat-name { font-size:11px; color:var(--ink2); font-weight:500; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; }
+.stat-track { background:#f0d8d8; border-radius:8px; height:9px; overflow:hidden; }
+.stat-fill { height:100%; border-radius:8px; width:0%; transition:width 1.6s cubic-bezier(.22,1,.36,1); }
+.stat-num { font-size:12px; font-weight:600; color:var(--ink); min-width:34px; text-align:right; }
+
+/* ─── CARE CALENDAR ─── */
+.cal-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:7px; margin-top:18px; }
+.cal-cell { background:white; border-radius:13px; padding:11px 7px; text-align:center; box-shadow:0 1px 6px rgba(0,0,0,.05); border-top:3px solid #ddd; }
+.cal-cell.active { border-top-color:#b01830; background:#fff4f6; }
+.cal-cell.peak { border-top-color:#e07020; background:#fffaec; }
+.cal-mo { font-size:9.5px; font-weight:600; text-transform:uppercase; letter-spacing:.5px; color:var(--ink2); margin-bottom:5px; }
+.cal-ico-svg { width:22px; height:22px; margin:2px auto; display:flex; align-items:center; justify-content:center; }
+.cal-ico-svg svg { width:100%; height:100%; stroke:#804050; }
+.cal-cell.active .cal-ico-svg svg { stroke:#b01830; }
+.cal-cell.peak   .cal-ico-svg svg { stroke:#c07010; }
+.cal-note { font-size:8.5px; color:var(--ink2); margin-top:3px; line-height:1.3; }
+
+/* ─── WARNING BANNER ─── */
+.warn-banner {
+  background: linear-gradient(135deg, #200810, #4a0c1c);
+  border-radius: var(--card-r); padding: 20px 20px; margin-top: 18px;
+  border: 1.5px solid rgba(232,128,144,0.3); display: flex; gap: 14px; align-items: flex-start;
+}
+.warn-icon { width: 48px; height: 48px; border-radius: 14px; background: rgba(176,24,48,0.3); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.warn-icon svg { stroke: #e88090; }
+.warn-body .warn-title { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: #e88090; font-style: italic; margin-bottom: 5px; }
+.warn-body .warn-text { font-size: 12.5px; color: rgba(255,255,255,.65); line-height: 1.6; }
+.warn-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 14px; }
+.warn-card { background: rgba(255,255,255,.06); border-radius: 12px; padding: 12px 14px; border-left: 3px solid #b01830; }
+.warn-card-title { font-size: 11px; font-weight: 700; color: #e88090; text-transform: uppercase; letter-spacing: .7px; margin-bottom: 3px; }
+.warn-card-text { font-size: 12px; color: rgba(255,255,255,.6); line-height: 1.55; }
+
+/* ─── BENEFITS ─── */
+.ben-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:18px; }
+.ben-card { border-radius:18px; padding:16px 14px; }
+.ben-ico { margin-bottom:7px; }
+.ben-title { font-weight:600; font-size:13.5px; margin-bottom:3px; }
+.ben-desc { font-size:11.5px; line-height:1.5; opacity:.72; }
+
+/* ─── DID YOU KNOW ─── */
+.fact-list { display:flex; flex-direction:column; gap:10px; margin-top:18px; }
+.fact-card { background:white; border-radius:18px; padding:14px 16px; display:flex; align-items:flex-start; gap:12px; box-shadow:0 2px 12px rgba(106,16,40,.07); border-left:4px solid #b01830; transform:translateX(-18px); opacity:0; transition:transform .5s ease, opacity .5s ease; }
+.fact-card.vis { transform:translateX(0); opacity:1; }
+.fact-card:nth-child(2){ border-left-color:#e07020; transition-delay:.07s; }
+.fact-card:nth-child(3){ border-left-color:#5baae8; transition-delay:.14s; }
+.fact-card:nth-child(4){ border-left-color:#60a840; transition-delay:.21s; }
+.fact-card:nth-child(5){ border-left-color:#9060e8; transition-delay:.28s; }
+.fact-emo { width:44px; height:44px; border-radius:13px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.fact-lbl { font-size:9.5px; font-weight:700; text-transform:uppercase; letter-spacing:.9px; color:var(--ink2); margin-bottom:3px; }
+.fact-txt { font-size:13px; color:var(--ink); line-height:1.58; }
+.fact-txt strong { color:#6a1028; }
+
+/* ═══ PLANT RENTAL SECTION ═══ */
+.rental-sec {
+  background: linear-gradient(160deg, #080205 0%, #200810 45%, #6a1028 100%);
+  padding: 52px 24px 60px; position: relative; overflow: hidden;
+}
+.rental-sec::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(ellipse 60% 50% at 80% 110%, rgba(176,24,48,.22) 0%, transparent 65%);
+  pointer-events:none;
+}
+.rental-sec::after {
+  content:''; position:absolute; inset:0;
+  background: repeating-linear-gradient(135deg, transparent, transparent 28px, rgba(255,255,255,.012) 28px, rgba(255,255,255,.012) 29px);
+  pointer-events:none;
+}
+.rental-inner { position:relative; z-index:1; max-width:560px; }
+.rental-eyebrow {
+  display:inline-flex; align-items:center; gap:8px;
+  background: rgba(232,128,144,0.14); border: 1px solid rgba(232,128,144,0.3);
+  border-radius:50px; padding:6px 16px; margin-bottom:18px;
+}
+.rental-eyebrow-dot { width:7px; height:7px; border-radius:50%; background:#e88090; animation:fabPulse 2.2s ease infinite; }
+.rental-eyebrow-txt { font-family:'Caveat',cursive; font-size:13px; color:#e88090; letter-spacing:1px; }
+.rental-title { font-family:'Cormorant Garamond',serif; font-size:clamp(26px,7vw,40px); color:white; line-height:1.15; margin-bottom:14px; }
+.rental-title em { font-style:italic; color:#e88090; }
+.rental-tagline { font-size:14px; color:rgba(255,255,255,.62); line-height:1.78; margin-bottom:28px; max-width:420px; }
+.rental-steps { display:flex; flex-direction:column; gap:0; margin-bottom:28px; }
+.rental-step { display:flex; gap:16px; align-items:flex-start; position:relative; padding-bottom:22px; }
+.rental-step:last-child { padding-bottom:0; }
+.rental-step-line { position:absolute; left:19px; top:40px; bottom:0; width:2px; background: linear-gradient(to bottom, rgba(232,128,144,0.4), transparent); }
+.rental-step:last-child .rental-step-line { display:none; }
+.rental-step-num { width:40px; height:40px; border-radius:50%; flex-shrink:0; background: rgba(232,128,144,0.15); border: 1.5px solid rgba(232,128,144,0.35); display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:600; color:#e88090; }
+.rental-step-body { padding-top:8px; }
+.rental-step-title { font-size:14px; font-weight:600; color:white; margin-bottom:3px; }
+.rental-step-desc { font-size:12.5px; color:rgba(255,255,255,.52); line-height:1.6; }
+.rental-highlight { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius:18px; padding:18px 20px; margin-bottom:28px; display:flex; align-items:center; gap:14px; }
+.rental-highlight-icon { width:48px; height:48px; border-radius:14px; flex-shrink:0; background: rgba(232,128,144,0.15); border: 1px solid rgba(232,128,144,0.2); display:flex; align-items:center; justify-content:center; }
+.rental-highlight-icon svg { stroke:#e88090; }
+.rental-highlight-text .rh-title { font-family:'Cormorant Garamond',serif; font-size:16px; color:#e88090; font-style:italic; margin-bottom:4px; }
+.rental-highlight-text .rh-sub { font-size:12px; color:rgba(255,255,255,.5); line-height:1.6; }
+.rental-cta-row { display:flex; flex-direction:column; gap:12px; }
+@media (min-width:560px) { .rental-cta-row { flex-direction:row; align-items:center; } }
+.rental-cta-primary { display:inline-flex; align-items:center; gap:9px; background:white; color:#200810; border:none; border-radius:12px; padding:13px 24px; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600; cursor:pointer; text-decoration:none; box-shadow:0 4px 20px rgba(0,0,0,.25); transition:transform .15s ease, box-shadow .15s ease; white-space:nowrap; }
+.rental-cta-primary:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(0,0,0,.3); }
+.rental-cta-secondary { display:inline-flex; align-items:center; gap:9px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); color:rgba(255,255,255,.75); border-radius:12px; padding:13px 24px; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:500; cursor:pointer; text-decoration:none; white-space:nowrap; transition:background .2s ease; }
+.rental-cta-secondary:hover { background: rgba(255,255,255,.14); }
+.rental-contact-strip { display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
+.rental-contact-chip { display:inline-flex; align-items:center; gap:7px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius:50px; padding:7px 14px; font-size:12px; color:rgba(255,255,255,.65); text-decoration:none; transition:background .2s ease; }
+.rental-contact-chip:hover { background: rgba(255,255,255,.12); color:white; }
+.rental-contact-chip svg { stroke:rgba(255,255,255,.45); flex-shrink:0; }
+
+/* ─── FOOTER RATING ─── */
+.footer-rating { background:#080205; padding:28px 24px calc(28px + var(--safe-bottom)); text-align:center; }
+.fr-title { font-family:'Cormorant Garamond',serif; font-size:18px; color:#e88090; margin-bottom:14px; font-style:italic; }
+.fr-stars { display:flex; gap:10px; justify-content:center; margin-bottom:14px; }
+.fr-star { font-size:30px; background:none; border:none; cursor:pointer; filter:grayscale(1) opacity(.3); transition:filter .15s ease, transform .15s ease; line-height:1; -webkit-tap-highlight-color:transparent; }
+.fr-star.lit { filter:grayscale(0) opacity(1); }
+.fr-star:active{ transform:scale(1.25); }
+.fr-input { width:100%; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.13); border-radius:14px; padding:11px 15px; font-size:13.5px; font-family:'DM Sans',sans-serif; color:white; resize:none; outline:none; line-height:1.5; min-height:72px; max-height:140px; transition:border-color .2s ease; margin-bottom:12px; }
+.fr-input::placeholder{ color:rgba(255,255,255,.28); }
+.fr-input:focus{ border-color:#b01830; background:rgba(255,255,255,.1); }
+.fr-submit { background:linear-gradient(135deg,#6a1028,#200810); border:none; border-radius:12px; padding:13px 32px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:white; cursor:pointer; box-shadow:0 3px 14px rgba(106,16,40,.3); width:100%; transition:opacity .2s ease; }
+.fr-submit:active{ opacity:.85; }
+.fr-thanks { display:none; flex-direction:column; align-items:center; gap:8px; }
+.fr-thanks-ico { width:64px; height:64px; border-radius:20px; background:rgba(255,255,255,.08); display:flex; align-items:center; justify-content:center; margin:0 auto; animation:popIn .4s cubic-bezier(.34,1.56,.64,1); }
+.fr-thanks-title { font-family:'Cormorant Garamond',serif; font-size:22px; color:#e88090; font-style:italic; }
+.fr-thanks-sub { font-size:13px; color:rgba(255,255,255,.5); }
+@keyframes popIn{ from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1} }
+
+/* ─── BRAND FOOTER ─── */
+.brand-footer { background:#080205; padding:18px 24px calc(18px + var(--safe-bottom)); text-align:center; border-top:1px solid rgba(255,255,255,.05); }
+.brand-footer-name { font-family:'Cormorant Garamond',serif; font-size:16px; font-style:italic; color:#e88090; letter-spacing:.5px; }
+.brand-footer-sub { font-size:10px; color:rgba(255,255,255,.25); letter-spacing:2px; text-transform:uppercase; margin-top:3px; }
+
+/* ─── CHAT FAB ─── */
+.chat-fab { position:fixed; bottom:calc(22px + var(--safe-bottom)); right:18px; z-index:900; width:58px; height:58px; border-radius:50%; background:linear-gradient(135deg,#b01830,#6a1028); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 28px rgba(106,16,40,.5); transition:transform .2s cubic-bezier(.34,1.56,.64,1); -webkit-tap-highlight-color:transparent; }
+.chat-fab:active{ transform:scale(.92); }
+.chat-fab svg { width:26px; height:26px; color:white; }
+.fab-badge { position:absolute; top:-3px; right:-3px; width:16px; height:16px; border-radius:50%; background:#e88090; border:2px solid white; animation:fabPulse 2s ease infinite; }
+@keyframes fabPulse{ 0%,100%{transform:scale(1)}50%{transform:scale(1.2)} }
+
+/* ─── CHAT PANEL ─── */
+.chat-panel { position:fixed; bottom:0; right:0; left:0; z-index:950; background:white; border-radius:24px 24px 0 0; box-shadow:0 -8px 48px rgba(0,0,0,.18); display:flex; flex-direction:column; max-height:85svh; height:85svh; transform:translateY(100%); transition:transform .4s cubic-bezier(.22,1,.36,1); }
+.chat-panel.open{ transform:translateY(0); }
+@media(min-width:900px){ .chat-panel { left:auto; right:24px; bottom:24px; width:400px; height:560px; max-height:560px; border-radius:24px; transform:translateY(calc(100% + 24px)); } .chat-panel.open { transform:translateY(0); } .chat-handle-bar { display:none; } }
+.chat-handle-bar { width:40px; height:4px; background:#f0d8d8; border-radius:2px; margin:12px auto 0; flex-shrink:0; }
+.chat-phead { display:flex; align-items:center; gap:12px; padding:14px 18px; flex-shrink:0; border-bottom:1px solid #f0d8d8; }
+.chat-pav { width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,#b01830,#6a1028); display:flex; align-items:center; justify-content:center; font-size:19px; flex-shrink:0; }
+.chat-pname { font-family:'Cormorant Garamond',serif; font-size:17px; color:var(--ink); font-style:italic; }
+.chat-pstatus { font-size:10.5px; color:#901828; display:flex; align-items:center; gap:4px; margin-top:1px; }
+.pstatus-dot { width:6px; height:6px; border-radius:50%; background:#b01830; animation:statusPulse 2s ease infinite; }
+@keyframes statusPulse{ 0%,100%{opacity:1}50%{opacity:.35} }
+.chat-close { margin-left:auto; background:#f4e8e8; border:none; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
+.chat-close svg { width:14px; height:14px; color:var(--ink2); }
+.chat-msgs { flex:1; overflow-y:auto; padding:16px 14px; display:flex; flex-direction:column; gap:10px; background:#fff8f4; scroll-behavior:smooth; }
+.chat-msgs::-webkit-scrollbar{ width:2px; }
+.chat-msgs::-webkit-scrollbar-thumb{ background:#e8c8c8; border-radius:1px; }
+.cmsg { display:flex; gap:7px; align-items:flex-end; animation:msgPop .3s cubic-bezier(.34,1.56,.64,1) both; }
+@keyframes msgPop{ from{opacity:0;transform:translateY(8px)scale(.96)}to{opacity:1;transform:none} }
+.cmsg.bot{ flex-direction:row; }
+.cmsg.user{ flex-direction:row-reverse; }
+.cmsg-av { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0; }
+.cmsg.bot .cmsg-av{ background:#b01830; }
+.cmsg.user .cmsg-av{ background:#e88090; }
+.cmsg-bbl { max-width:80%; padding:9px 13px; border-radius:16px; font-size:13px; line-height:1.55; }
+.cmsg.bot .cmsg-bbl{ background:white; color:var(--ink); border-bottom-left-radius:3px; box-shadow:0 1px 8px rgba(0,0,0,.06); }
+.cmsg.user .cmsg-bbl{ background:#6a1028; color:white; border-bottom-right-radius:3px; }
+.typing-dots{ display:flex; gap:4px; padding:3px 1px; }
+.typing-dots span{ width:6px; height:6px; background:#901828; border-radius:50%; animation:typBounce 1.2s ease infinite; }
+.typing-dots span:nth-child(2){animation-delay:.2s} .typing-dots span:nth-child(3){animation-delay:.4s}
+@keyframes typBounce{ 0%,60%,100%{transform:translateY(0);opacity:.45}30%{transform:translateY(-6px);opacity:1} }
+.quick-qs { display:flex; flex-wrap:wrap; gap:6px; padding:8px 14px 0; background:#fff8f4; flex-shrink:0; }
+.qq { background:white; border:1.5px solid #e8c8c8; border-radius:18px; padding:5px 12px; font-size:11px; color:#901828; cursor:pointer; font-weight:500; white-space:nowrap; transition:all .18s ease; }
+.qq:active{ background:#6a1028; color:white; border-color:#6a1028; transform:scale(.96); }
+.chat-input-row { display:flex; gap:9px; padding:12px 14px calc(12px + var(--safe-bottom)); background:white; border-top:1px solid #f0d8d8; align-items:flex-end; flex-shrink:0; }
+.chat-inp { flex:1; border:1.5px solid #e8c8c8; border-radius:16px; padding:9px 14px; font-size:14px; font-family:'DM Sans',sans-serif; color:var(--ink); resize:none; outline:none; min-height:42px; max-height:96px; line-height:1.4; background:#fff8f4; transition:border-color .2s ease; }
+.chat-inp:focus{ border-color:#901828; background:white; }
+.chat-inp::placeholder{ color:#c09090; }
+.chat-send { width:42px; height:42px; border-radius:50%; background:#6a1028; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:transform .2s ease; }
+.chat-send:active{ transform:scale(.92); }
+.chat-send svg { width:18px; height:18px; color:white; margin-left:2px; }
+.chat-send:disabled{ opacity:.45; cursor:not-allowed; transform:none; }
+.chat-backdrop { position:fixed; inset:0; z-index:940; background:rgba(0,0,0,.35); backdrop-filter:blur(2px); opacity:0; pointer-events:none; transition:opacity .35s ease; }
+.chat-backdrop.show{ opacity:1; pointer-events:all; }
+@media(min-width:900px){ .chat-backdrop { display: none !important; } }
+
+@keyframes fadeUp{ from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)} }
+</style>
+</head>
+<body>
+
+<div class="page-shell">
+
+<!-- DESKTOP NAV -->
+<nav class="desktop-nav desktop-only">
+  <a href="index.html" class="desktop-nav-brand">
+    Urban Farmer
+  </a>
+  <div class="desktop-nav-links">
+    <a href="know-your-plants.html">All Plants</a>
+    <a href="plant-listing.html">Nurseries</a>
+    <a href="#">App</a>
+  </div>
+  <button class="desktop-cart-btn">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    View Cart
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="leaf-float" style="font-size:160px;top:-30px;left:-35px;animation:floatL 11s ease-in-out infinite;">❀</div>
+  <div class="leaf-float" style="font-size:90px;bottom:40px;right:-15px;animation:floatL 9s ease-in-out infinite 2.5s;">❀</div>
+  <div class="leaf-float" style="font-size:65px;top:38%;left:72%;animation:floatL 13s ease-in-out infinite 5s;">❀</div>
+
+  <div class="brand-pill mobile-only">
+    <span>Urban</span><div class="dot"></div><span class="italic">Farmer</span>
+  </div>
+
+  <div class="desktop-only" style="display:flex;width:100%;align-items:center;gap:64px;position:relative;z-index:2;">
+    <div style="flex:1;">
+      <div class="brand-pill">
+        <span>Urban</span><div class="dot"></div><span class="italic">Farmer</span>
+      </div>
+      <h1 class="hero-title" style="text-align:left;font-size:72px;">Meet<br><em>Oleander</em></h1>
+      <p class="hero-sub" style="text-align:left;max-width:400px;margin-top:16px;">One of the most dramatic and beautiful flowering shrubs on earth — explosively colourful, drought-hardy, and strikingly architectural in any landscape.</p>
+      <div class="fortune-badge" style="margin-top:16px;">Blooms Spring to Autumn &nbsp;·&nbsp; Stunning Colours &nbsp;·&nbsp; Drought Hardy</div>
+    </div>
+    <div style="flex:0 0 300px;display:flex;justify-content:center;">
+      <div class="hero-img-wrap" style="margin:0;">
+        <div class="coin-ring" style="inset:-14px;"></div>
+        <div class="coin-ring-inner" style="inset:3px;"></div>
+        <div class="hero-img" style="width:240px;height:240px;">
+          <img src="Oleander.jpg" alt="Oleander" onerror="this.style.display='none';document.getElementById('hero-ph-d').style.display='flex'">
+          <div class="hero-img-placeholder" id="hero-ph-d" style="display:none;">
+            <svg width="44" height="44" viewBox="0 0 48 48" fill="none" style="opacity:.3;"><rect x="6" y="6" width="36" height="36" rx="4" stroke="white" stroke-width="2"/><circle cx="18" cy="20" r="5" stroke="white" stroke-width="2"/><path d="M6 34L16 26L24 32L32 22L42 34" stroke="white" stroke-width="2" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h1 class="hero-title mobile-only">Meet<br><em>Oleander</em></h1>
+  <div class="hero-img-wrap mobile-only">
+    <div class="coin-ring"></div><div class="coin-ring-inner"></div>
+    <div class="hero-img">
+      <img src="Oleander.jpg" alt="Oleander" onerror="this.style.display='none';document.getElementById('hero-ph').style.display='flex'">
+      <div class="hero-img-placeholder" id="hero-ph" style="display:none;">
+        <svg width="44" height="44" viewBox="0 0 48 48" fill="none" style="opacity:.3;"><rect x="6" y="6" width="36" height="36" rx="4" stroke="white" stroke-width="2"/><circle cx="18" cy="20" r="5" stroke="white" stroke-width="2"/><path d="M6 34L16 26L24 32L32 22L42 34" stroke="white" stroke-width="2" stroke-linejoin="round"/></svg>
+        <span style="font-size:9px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1px;text-align:center;line-height:1.9;">Place<br>Oleander<br>Image</span>
+      </div>
+    </div>
+  </div>
+  <p class="hero-sub mobile-only">One of the most dramatic and beautiful flowering shrubs on earth — explosively colourful, drought-hardy, and strikingly architectural in any landscape.</p>
+  <div class="fortune-badge mobile-only">Blooms Spring to Autumn &nbsp;·&nbsp; Stunning Colours &nbsp;·&nbsp; Drought Hardy</div>
+  <div class="hero-scroll mobile-only"><span>Scroll</span><span style="font-size:18px">↓</span></div>
+</section>
+
+<!-- QUICK BAR -->
+<div class="quick-bar">
+  <div class="qitem">
+    <svg class="qitem-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    <span class="qitem-lbl">Sunlight</span><span class="qitem-val">Full Sun</span>
+  </div>
+  <div class="qitem">
+    <svg class="qitem-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+    <span class="qitem-lbl">Water</span><span class="qitem-val">Low–Mod</span>
+  </div>
+  <div class="qitem">
+    <svg class="qitem-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>
+    <span class="qitem-lbl">Temp</span><span class="qitem-val">15–40°C</span>
+  </div>
+  <div class="qitem">
+    <svg class="qitem-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/></svg>
+    <span class="qitem-lbl">Blooms</span><span class="qitem-val">Spr–Aut</span>
+  </div>
+  <div class="qitem">
+    <svg class="qitem-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+    <span class="qitem-lbl">Care Level</span><span class="qitem-val">Easy</span>
+  </div>
+</div>
+
+<!-- IDENTITY -->
+<section class="sec">
+  <div class="sec-lbl">Who am I?</div>
+  <div class="sec-title">My Identity Card</div>
+  <div class="id-card">
+    <div class="id-row">
+      <div><div class="id-name">Oleander</div><div class="id-sci">Nerium oleander</div></div>
+      <div class="id-badge">Mediterranean Classic</div>
+    </div>
+    <div class="id-tags">
+      <span class="id-tag">Evergreen Shrub</span><span class="id-tag">Mediterranean Origin</span><span class="id-tag">Drought Hardy</span><span class="id-tag">Long Bloomer</span><span class="id-tag">Landscape Statement</span>
+    </div>
+    <p class="id-desc">Oleander (Nerium oleander) is one of the most spectacular flowering shrubs in the world — beloved from the Mediterranean coast to tropical gardens across Asia for its bold, showy flower clusters and tough, resilient nature. With dark, leathery lance-shaped leaves and dense flower heads in shades from crimson red to soft pink, white, peach, and yellow, it brings unmatched drama to hedges, borders, courtyards, and large containers. Originally from the dry riverbanks of the Mediterranean and Southwest Asia, Oleander thrives in heat, tolerates drought, handles coastal winds, and blooms prolifically from spring through autumn. A true architectural plant that makes an immediate statement.</p>
+  </div>
+  <div class="vastu-strip">
+    <div class="vastu-coin">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#e88090" stroke-width="1.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    </div>
+    <div class="vastu-text">
+      <div class="vastu-title">Beautiful but Toxic — Handle with Care</div>
+      <div class="vastu-sub">Every part of the Oleander plant is highly toxic if ingested — leaves, flowers, stems, and even the sap. Despite this, it is perfectly safe to grow and touch with normal precautions. Always wash hands after handling, keep away from children and pets, and never burn pruned material. Its toxicity actually helps it resist pests naturally.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- STAT BARS -->
+<section class="sec">
+  <div class="sec-lbl">My Stats</div>
+  <div class="sec-title">Growth Profile</div>
+  <div class="stat-list">
+    <div class="stat-row">
+      <div class="stat-ico" style="background:#fff0f4;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b01830" stroke-width="2" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+      <div class="stat-info"><div class="stat-name">Bloom Generosity</div><div class="stat-track"><div class="stat-fill" data-w="94" style="background:linear-gradient(90deg,#e05070,#b01830)"></div></div></div>
+      <div class="stat-num">9.4/10</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-ico" style="background:#fff8e8;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c87010" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></div>
+      <div class="stat-info"><div class="stat-name">Heat &amp; Drought Tolerance</div><div class="stat-track"><div class="stat-fill" data-w="98" style="background:linear-gradient(90deg,#e07020,#b05010)"></div></div></div>
+      <div class="stat-num">9.8/10</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-ico" style="background:#f0fff4;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#20a860" stroke-width="2" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/></svg></div>
+      <div class="stat-info"><div class="stat-name">Ease of Care</div><div class="stat-track"><div class="stat-fill" data-w="90" style="background:linear-gradient(90deg,#20a860,#108040)"></div></div></div>
+      <div class="stat-num">9.0/10</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-ico" style="background:#f8f0ff;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8040c0" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5" fill="#8040c0"/><circle cx="15.5" cy="8.5" r="1.5" fill="#8040c0"/><circle cx="8.5" cy="15.5" r="1.5" fill="#8040c0"/><circle cx="15.5" cy="15.5" r="1.5" fill="#8040c0"/></svg></div>
+      <div class="stat-info"><div class="stat-name">Colour Variety</div><div class="stat-track"><div class="stat-fill" data-w="88" style="background:linear-gradient(90deg,#8040c0,#502090)"></div></div></div>
+      <div class="stat-num">8.8/10</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-ico" style="background:#e8f4ff;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3060c0" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div class="stat-info"><div class="stat-name">Landscape Impact</div><div class="stat-track"><div class="stat-fill" data-w="97" style="background:linear-gradient(90deg,#3060c0,#204090)"></div></div></div>
+      <div class="stat-num">9.7/10</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CARE CALENDAR -->
+<section class="sec">
+  <div class="sec-lbl">When to do what?</div>
+  <div class="sec-title">Care Calendar</div>
+  <div class="cal-grid">
+    <div class="cal-cell"><div class="cal-mo">Jan</div><div class="cal-ico-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div class="cal-note">Rest period</div></div>
+    <div class="cal-cell"><div class="cal-mo">Feb</div><div class="cal-ico-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg></div><div class="cal-note">Prune &amp; shape</div></div>
+    <div class="cal-cell active"><div class="cal-mo">Mar</div><div class="cal-ico-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 20h10M10 20c5.5-2.5.8-6.4 3-10"/></svg></div><div class="cal-note">New growth starts</div></div>
+    <div class="cal-cell active"><div class="cal-mo">Apr</div><div class="cal-ico-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 20h10M10 20c5.5-2.5.8-6.4 3-10"/></svg></div><div class="cal-note">Feed &amp; bud set</div></div>
+    <div class="cal-cell peak"><div class="cal-mo">May</div><div class="cal-ico-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2a4 4 0 0 1 4 4 4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1-4-4 4 4 0 0 1 4-4 4 4 0 0 1 4-4z"/></svg></div><div class="cal-note">Peak blooming</div></div>
+    <div class="cal-cell peak"><div class="cal-mo">Jun</div><div class="cal-ico-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><div class="cal-note">Prolific flush</div></div>
+    <div class="cal-cell peak"><div class="cal-mo">Jul</div><div class="cal-ico-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></div><div class="cal-note">Full heat bloom</div></div>
+    <div class="cal-cell peak"><div class="cal-mo">Aug</div><div class="cal-ico-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg></div><div class="cal-note">Continuous colour</div></div>
+    <div class="cal-cell active"><div class="cal-mo">Sep</div><div class="cal-ico-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/></svg></div><div class="cal-note">Late flush</div></div>
+    <div class="cal-cell active"><div class="cal-mo">Oct</div><div class="cal-ico-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg></div><div class="cal-note">Light prune after bloom</div></div>
+    <div class="cal-cell"><div class="cal-mo">Nov</div><div class="cal-ico-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div><div class="cal-note">Reduce watering</div></div>
+    <div class="cal-cell"><div class="cal-mo">Dec</div><div class="cal-ico-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg></div><div class="cal-note">Winter dormancy</div></div>
+  </div>
+  <div style="display:flex;gap:14px;margin-top:12px;font-size:10.5px;color:var(--ink2);">
+    <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#e07020;display:inline-block;"></span>Peak</span>
+    <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#b01830;display:inline-block;"></span>Active</span>
+    <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#ddd;display:inline-block;"></span>Rest</span>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CARE GUIDE -->
+<section class="sec">
+  <div class="sec-lbl">How do I thrive?</div>
+  <div class="sec-title">Essential Care Guide</div>
+
+  <div style="display:flex;flex-direction:column;gap:12px;margin-top:18px;">
+    <div style="background:white;border-radius:18px;padding:16px 18px;border-left:4px solid #b01830;box-shadow:0 2px 12px rgba(106,16,40,.07);">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:7px;">
+        <div style="width:36px;height:36px;border-radius:10px;background:#fff0f4;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b01830" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        </div>
+        <div style="font-size:12px;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:.6px;">Sunlight</div>
+      </div>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.65;">Oleander demands <strong style="color:var(--ink);">full sun — a minimum of 6 hours daily</strong> is essential for vigorous blooming. In partial shade, flowering becomes sparse and the plant grows leggy. South or west-facing positions are ideal. It performs best in open, exposed locations and genuinely thrives in the intense heat of Indian summers that would stress most other plants.</p>
+    </div>
+
+    <div style="background:white;border-radius:18px;padding:16px 18px;border-left:4px solid #3060c0;box-shadow:0 2px 12px rgba(106,16,40,.07);">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:7px;">
+        <div style="width:36px;height:36px;border-radius:10px;background:#e8f0ff;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3060c0" stroke-width="2" stroke-linecap="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+        </div>
+        <div style="font-size:12px;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:.6px;">Watering</div>
+      </div>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.65;">One of the most <strong style="color:var(--ink);">drought-tolerant flowering shrubs</strong> available. Established plants in the ground can survive on rainfall alone in most climates. Container plants need watering when the top 2–3 inches of soil are dry — typically every 5–7 days in summer. Oleander hates waterlogged roots; always ensure excellent drainage. Overwatering is far more dangerous than underwatering.</p>
+    </div>
+
+    <div style="background:white;border-radius:18px;padding:16px 18px;border-left:4px solid #c87010;box-shadow:0 2px 12px rgba(106,16,40,.07);">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:7px;">
+        <div style="width:36px;height:36px;border-radius:10px;background:#fff8e8;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c87010" stroke-width="2" stroke-linecap="round"><path d="M7 20h10M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/></path></svg>
+        </div>
+        <div style="font-size:12px;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:.6px;">Fertilising</div>
+      </div>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.65;">Feed with a <strong style="color:var(--ink);">balanced slow-release fertiliser in early spring</strong> when new growth begins. During the blooming season (May–September), supplement with a high-potassium liquid feed every 3–4 weeks to sustain the continuous flower flush. Avoid excessive nitrogen, which promotes lush foliage at the expense of flowers. A single spring application of well-composted organic matter around the base is highly beneficial.</p>
+    </div>
+
+    <div style="background:white;border-radius:18px;padding:16px 18px;border-left:4px solid #20a860;box-shadow:0 2px 12px rgba(106,16,40,.07);">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:7px;">
+        <div style="width:36px;height:36px;border-radius:10px;background:#f0fff4;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#20a860" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+        </div>
+        <div style="font-size:12px;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:.6px;">Pruning</div>
+      </div>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.65;">Prune in <strong style="color:var(--ink);">late winter or very early spring before new growth appears</strong> — never during the blooming season as Oleander blooms on new growth. Cut back by up to one-third to maintain a compact, bushy shape and encourage a stronger bloom flush. Remove crossing or dead branches entirely. Always wear gloves when pruning — the milky sap is an irritant and toxic. <strong style="color:#b01830;">Never burn pruned material.</strong></p>
+    </div>
+
+    <div style="background:white;border-radius:18px;padding:16px 18px;border-left:4px solid #8040c0;box-shadow:0 2px 12px rgba(106,16,40,.07);">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:7px;">
+        <div style="width:36px;height:36px;border-radius:10px;background:#f4f0ff;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8040c0" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div style="font-size:12px;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:.6px;">Soil &amp; Potting</div>
+      </div>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.65;">Well-draining soil is <strong style="color:var(--ink);">non-negotiable</strong>. In the ground, amend heavy clay soils with coarse sand and organic matter. In pots, use a coarse potting mix with added perlite or grit. Terracotta pots are ideal as they allow the soil to breathe. Repot container plants every 2–3 years or when roots begin emerging from drainage holes. Oleander is adaptable to mildly alkaline and saline soils — making it excellent for coastal gardens.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- TOXICITY WARNING -->
+<section class="sec" style="background:linear-gradient(180deg,var(--cream) 0%,#fff0f2 100%);">
+  <div class="sec-lbl">Important to know</div>
+  <div class="sec-title">Safety & Toxicity</div>
+  <div class="warn-banner">
+    <div class="warn-icon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    </div>
+    <div class="warn-body">
+      <div class="warn-title">Every Part of Oleander is Toxic</div>
+      <div class="warn-text">Oleander contains cardiac glycosides throughout every part of the plant. While it is perfectly safe to grow and admire, it must be handled with awareness and kept away from children and pets.</div>
+    </div>
+  </div>
+  <div class="warn-grid" style="margin-top:14px;display:grid;grid-template-columns:1fr;gap:10px;">
+    <div class="warn-card">
+      <div class="warn-card-title">Do: Always Wear Gloves</div>
+      <div class="warn-card-text">When pruning, deadheading, or handling any part of the plant, wear protective gloves. Wash hands thoroughly after any contact. The milky sap can cause skin irritation in sensitive individuals.</div>
+    </div>
+    <div class="warn-card" style="border-left-color:#e07020;">
+      <div class="warn-card-title" style="color:#e8a040;">Do: Keep Away from Children & Pets</div>
+      <div class="warn-card-text">Plant in locations not accessible to young children or grazing animals. Ingestion of even small amounts can cause serious illness. Cats, dogs, horses, and cattle are particularly vulnerable.</div>
+    </div>
+    <div class="warn-card" style="border-left-color:#3060c0;">
+      <div class="warn-card-title" style="color:#8090e0;">Do: Dispose of Prunings Safely</div>
+      <div class="warn-card-text">Never burn Oleander prunings — the smoke is toxic. Place all cut material in sealed bags for municipal green waste collection. Do not compost Oleander trimmings in home compost bins.</div>
+    </div>
+    <div class="warn-card" style="border-left-color:#20a860;">
+      <div class="warn-card-title" style="color:#60c080;">The Upside: Near-Zero Pest Problems</div>
+      <div class="warn-card-text">Oleander's natural toxicity makes it almost completely resistant to deer browsing, rabbits, and most common garden pests. It rarely needs pesticide treatment — a genuine advantage in low-maintenance landscapes.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- BENEFITS -->
+<section class="sec">
+  <div class="sec-lbl">Why do I matter?</div>
+  <div class="sec-title">My Superpowers</div>
+  <div class="ben-grid">
+    <div class="ben-card" style="background:#fff0f4;color:#1a0810;"><div class="ben-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#b01830" stroke-width="2" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><div class="ben-title">Months of Colour</div><div class="ben-desc">Oleander blooms continuously from late spring through autumn — providing up to 6 months of spectacular flower display without a break.</div></div>
+    <div class="ben-card" style="background:#fff8e8;color:#2a1a04;"><div class="ben-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c87010" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></div><div class="ben-title">Extreme Heat Hardy</div><div class="ben-desc">Thrives where most flowering plants fail — intense summer heat, drought, coastal salt winds, and poor soils present no challenge to a healthy Oleander.</div></div>
+    <div class="ben-card" style="background:#f0fff4;color:#041a10;"><div class="ben-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#20a860" stroke-width="2" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/></svg></div><div class="ben-title">Natural Privacy Screen</div><div class="ben-desc">Oleander grows dense and tall — up to 4–6 metres — making it the ideal natural hedge, windbreak, or privacy screen that also flowers beautifully.</div></div>
+    <div class="ben-card" style="background:#f8f0ff;color:#1a0828;"><div class="ben-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8040c0" stroke-width="2" stroke-linecap="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg></div><div class="ben-title">Aromatic Blooms</div><div class="ben-desc">Many Oleander varieties are sweetly fragrant, especially in the evening hours — filling courtyards and terraces with a soft, honey-like scent.</div></div>
+    <div class="ben-card" style="background:#e8f4ff;color:#041428;"><div class="ben-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3060c0" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="ben-title">Architectural Beauty</div><div class="ben-desc">Few plants match the Oleander's ability to create a bold structural statement — trained as a standard tree, clipped hedge, or specimen shrub, it is always magnificent.</div></div>
+    <div class="ben-card" style="background:#fff0f0;color:#280a0a;"><div class="ben-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c04040" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><div class="ben-title">Attracts Pollinators</div><div class="ben-desc">Oleander's colourful blooms draw butterflies, hoverflies, and bees in large numbers — transforming any garden into a lively ecosystem during the bloom season.</div></div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- DID YOU KNOW -->
+<section class="sec">
+  <div class="sec-lbl">Psst — secrets</div>
+  <div class="sec-title">Did You Know?</div>
+  <div class="fact-list">
+    <div class="fact-card"><div class="fact-emo" style="background:#fff0f4;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#b01830" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div><div class="fact-lbl">Ancient Origins</div><div class="fact-txt">Oleander has been cultivated for <strong>over 2,000 years</strong> — it appears in ancient Greek manuscripts, Roman frescoes, and was found preserved in Pompeii. It is one of humanity's oldest ornamental plants.</div></div></div>
+    <div class="fact-card"><div class="fact-emo" style="background:#fff8e8;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c87010" stroke-width="2" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/></svg></div><div><div class="fact-lbl">Survives on Dried Riverbeds</div><div class="fact-txt">In its native habitat, Oleander grows along <strong>completely dry seasonal watercourses</strong> where soil moisture is near zero for months. This is why it is among the world's most drought-tolerant flowering shrubs.</div></div></div>
+    <div class="fact-card"><div class="fact-emo" style="background:#e8f4ff;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3060c0" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div><div class="fact-lbl">Survived the Hiroshima Bombing</div><div class="fact-txt">Oleander was <strong>the first plant to bloom in Hiroshima</strong> after the atomic bomb in 1945 — a symbol of recovery so profound that it became the city's official flower, a tribute to resilience and renewal.</div></div></div>
+    <div class="fact-card"><div class="fact-emo" style="background:#f0fff4;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#20a860" stroke-width="2" stroke-linecap="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg></div><div><div class="fact-lbl">Used in Traditional Medicine</div><div class="fact-txt">Despite its toxicity, Oleander has been used for centuries in <strong>Ayurvedic and traditional medicine</strong> for specific cardiac conditions. Modern research is studying its compounds for potential cancer-fighting properties.</div></div></div>
+    <div class="fact-card"><div class="fact-emo" style="background:#f8e8ff;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8040c0" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><div><div class="fact-lbl">Over 400 Named Cultivars</div><div class="fact-txt">From the original wild species, horticulturalists have developed <strong>more than 400 named cultivars</strong> — spanning single and double flowers in red, pink, white, peach, yellow, salmon, and rare bicolour forms.</div></div></div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PLANT RENTAL -->
+<section class="rental-sec">
+  <div class="rental-inner">
+    <div class="rental-eyebrow">
+      <span class="rental-eyebrow-dot"></span>
+      <span class="rental-eyebrow-txt">A new way to live with plants</span>
+    </div>
+    <h2 class="rental-title">
+      You enjoy the greenery.<br><em>We handle everything else.</em>
+    </h2>
+    <p class="rental-tagline">
+      No buying. No maintaining. No worrying. We bring curated living plant arrangements to your home, office, or event — and take care of them throughout the rental period. You just sit back and enjoy the beauty.
+    </p>
+    <div class="rental-steps">
+      <div class="rental-step">
+        <div class="rental-step-line"></div>
+        <div class="rental-step-num">1</div>
+        <div class="rental-step-body">
+          <div class="rental-step-title">We design it for your space</div>
+          <div class="rental-step-desc">Our team curates the right varieties, colours, and arrangements based on your space, light conditions, and aesthetic preference.</div>
+        </div>
+      </div>
+      <div class="rental-step">
+        <div class="rental-step-line"></div>
+        <div class="rental-step-num">2</div>
+        <div class="rental-step-body">
+          <div class="rental-step-title">We arrange and install</div>
+          <div class="rental-step-desc">Plants are delivered, arranged, and placed exactly where they'll thrive and look their best — balconies, terraces, lobbies, events, or interiors.</div>
+        </div>
+      </div>
+      <div class="rental-step">
+        <div class="rental-step-line"></div>
+        <div class="rental-step-num">3</div>
+        <div class="rental-step-body">
+          <div class="rental-step-title">We maintain throughout</div>
+          <div class="rental-step-desc">Watering, feeding, pruning, seasonal swaps — our team visits regularly to keep every plant healthy and every arrangement looking pristine.</div>
+        </div>
+      </div>
+      <div class="rental-step">
+        <div class="rental-step-num">4</div>
+        <div class="rental-step-body">
+          <div class="rental-step-title">You simply enjoy</div>
+          <div class="rental-step-desc">No ownership, no upkeep, no stress. At the end of your rental period, we collect everything. Want to continue? Just say the word.</div>
+        </div>
+      </div>
+    </div>
+    <div class="rental-highlight">
+      <div class="rental-highlight-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="rental-highlight-text">
+        <div class="rh-title">Perfect for homes, offices &amp; events</div>
+        <div class="rh-sub">Bring lush seasonal colour to any space without the long-term commitment — ideal for weddings, corporate spaces, showrooms, or simply your own home.</div>
+      </div>
+    </div>
+    <div class="rental-cta-row">
+      <a href="mailto:hello@urbanfarmer.in" class="rental-cta-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Write to Us
+      </a>
+      <a href="tel:+916360203017" class="rental-cta-secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.59 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Call Us
+      </a>
+    </div>
+    <div class="rental-contact-strip">
+      <a href="mailto:hello@urbanfarmer.in" class="rental-contact-chip">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        hello@urbanfarmer.in
+      </a>
+      <a href="tel:+916360203017" class="rental-contact-chip">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.59 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        +91 63602 03017
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER RATING -->
+<footer class="footer-rating" id="footerRating">
+  <div class="fr-form" id="frForm">
+    <div class="fr-title">How was your experience?</div>
+    <div class="fr-stars" id="frStars">
+      <button class="fr-star" onclick="setFrStar(1)">⭐</button>
+      <button class="fr-star" onclick="setFrStar(2)">⭐</button>
+      <button class="fr-star" onclick="setFrStar(3)">⭐</button>
+      <button class="fr-star" onclick="setFrStar(4)">⭐</button>
+      <button class="fr-star" onclick="setFrStar(5)">⭐</button>
+    </div>
+    <textarea class="fr-input" id="frText" placeholder="Share your thoughts…" rows="3"></textarea>
+    <button class="fr-submit" onclick="submitFooterRating()">Send Feedback</button>
+  </div>
+  <div class="fr-thanks" id="frThanks">
+    <div class="fr-thanks-ico"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#e88090" stroke-width="1.5" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+    <div class="fr-thanks-title">Thank You</div>
+    <div class="fr-thanks-sub">Your feedback helps us improve the Urban Farmer experience.</div>
+  </div>
+</footer>
+
+<div class="brand-footer">
+  <div><div class="brand-footer-name">Urban Farmer</div><div class="brand-footer-sub">BY AGRON GREENTECH</div></div>
+</div>
+
+</div><!-- end page-shell -->
+
+<!-- CHAT BACKDROP -->
+<div class="chat-backdrop" id="chatBackdrop" onclick="closeChat()"></div>
+
+<!-- CHAT PANEL -->
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-handle-bar"></div>
+  <div class="chat-phead">
+    <div class="chat-pav"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div>
+    <div>
+      <div class="chat-pname">Oleander</div>
+      <div class="chat-pstatus"><span class="pstatus-dot"></span> In full bloom</div>
+    </div>
+    <button class="chat-close" onclick="closeChat()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="chat-msgs" id="chatMsgs">
+    <div class="cmsg bot">
+      <div class="cmsg-av"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/></svg></div>
+      <div class="cmsg-bbl">Hello — I am Oleander, the Mediterranean classic. Ask me about my care needs, how to get more blooms, toxicity questions, or anything else you'd like to know.</div>
+    </div>
+  </div>
+  <div class="quick-qs" id="quickQs">
+    <button class="qq" onclick="sendQQ(this)">Is it safe?</button>
+    <button class="qq" onclick="sendQQ(this)">Watering tips</button>
+    <button class="qq" onclick="sendQQ(this)">Why no blooms?</button>
+    <button class="qq" onclick="sendQQ(this)">Best for hedge?</button>
+    <button class="qq" onclick="sendQQ(this)">When to prune?</button>
+    <button class="qq" onclick="sendQQ(this)">Pot or ground?</button>
+  </div>
+  <div class="chat-input-row">
+    <textarea class="chat-inp" id="chatInp" placeholder="Ask Oleander anything…" rows="1" onkeydown="chatKey(event)" oninput="resizeInp(this)"></textarea>
+    <button class="chat-send" id="chatSendBtn" onclick="sendChat()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- CHAT FAB -->
+<button class="chat-fab" id="chatFab" onclick="openChat()" aria-label="Chat with Oleander">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  <div class="fab-badge"></div>
+</button>
+
+<!-- SVG SPRITE -->
+<svg style="display:none">
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+</svg>
+
+<script>
+/* ─── STAT BARS ─── */
+document.addEventListener('DOMContentLoaded', () => {
+  const sobs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.stat-fill').forEach(f => f.style.width = f.dataset.w + '%');
+        sobs.unobserve(e.target);
+      }
+    });
+  }, {threshold:.3});
+  document.querySelectorAll('.stat-list').forEach(el => sobs.observe(el));
+
+  const fobs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.fact-card').forEach(c => c.classList.add('vis'));
+        fobs.unobserve(e.target);
+      }
+    });
+  }, {threshold:.1});
+  document.querySelectorAll('.fact-list').forEach(el => fobs.observe(el));
+});
+
+/* ─── RATING ─── */
+let frRating = 0;
+function setFrStar(val) {
+  frRating = val;
+  document.querySelectorAll('.fr-star').forEach((s, i) => s.classList.toggle('lit', i < val));
+}
+async function submitFooterRating() {
+  if (frRating === 0) { alert('Please tap a star to rate.'); return; }
+  try { await fetch('/api/feedback', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ overallRating: frRating, feedbackText: document.getElementById('frText').value.trim() }) }); } catch {}
+  document.getElementById('frForm').style.display = 'none';
+  document.getElementById('frThanks').style.display = 'flex';
+}
+
+/* ─── CHAT ─── */
+let chatOpen = false, chatTyping = false, chatHist = [];
+function openChat() {
+  chatOpen = true;
+  document.getElementById('chatPanel').classList.add('open');
+  document.getElementById('chatBackdrop').classList.add('show');
+  document.getElementById('chatFab').style.display = 'none';
+  if (window.innerWidth < 900) document.body.style.overflow = 'hidden';
+  setTimeout(() => document.getElementById('chatInp').focus(), 400);
+}
+function closeChat() {
+  chatOpen = false;
+  document.getElementById('chatPanel').classList.remove('open');
+  document.getElementById('chatBackdrop').classList.remove('show');
+  document.getElementById('chatFab').style.display = '';
+  document.body.style.overflow = '';
+}
+function resizeInp(el) { el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 96) + 'px'; }
+function chatKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChat(); } }
+function sendQQ(btn) { document.getElementById('chatInp').value = btn.textContent.trim(); document.getElementById('quickQs').style.display = 'none'; sendChat(); }
+async function sendChat() {
+  if (chatTyping) return;
+  const inp = document.getElementById('chatInp');
+  const text = inp.value.trim(); if (!text) return;
+  inp.value = ''; inp.style.height = 'auto';
+  document.getElementById('quickQs').style.display = 'none';
+  addMsg('user', text); chatHist.push({ role: 'user', content: text }); showTyping();
+  try {
+    const res = await fetch('/api/chat', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ messages: chatHist }) });
+    if (!res.ok) throw new Error();
+    const d = await res.json();
+    const reply = d.choices?.[0]?.message?.content || 'Give me a moment — please try again.';
+    removeTyping(); addMsg('bot', reply); chatHist.push({ role: 'assistant', content: reply });
+    if (chatHist.length > 14) chatHist = chatHist.slice(-14);
+  } catch { removeTyping(); addMsg('bot', 'Could not connect right now. Please try again.'); }
+}
+function addMsg(role, text) {
+  const box = document.getElementById('chatMsgs');
+  const d = document.createElement('div'); d.className = `cmsg ${role}`;
+  const av = role === 'bot'
+    ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/></svg>`
+    : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+  d.innerHTML = `<div class="cmsg-av">${av}</div><div class="cmsg-bbl">${text.replace(/\n/g,'<br>')}</div>`;
+  box.appendChild(d); box.scrollTop = box.scrollHeight; chatTyping = false;
+}
+function showTyping() {
+  chatTyping = true;
+  const box = document.getElementById('chatMsgs');
+  const d = document.createElement('div'); d.className = 'cmsg bot'; d.id = 'typingDiv';
+  d.innerHTML = `<div class="cmsg-av"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/></svg></div><div class="cmsg-bbl"><div class="typing-dots"><span></span><span></span><span></span></div></div>`;
+  box.appendChild(d); box.scrollTop = box.scrollHeight;
+  document.getElementById('chatSendBtn').disabled = true;
+}
+function removeTyping() {
+  const t = document.getElementById('typingDiv'); if (t) t.remove();
+  document.getElementById('chatSendBtn').disabled = false; chatTyping = false;
+}
+</script>
+</body>
+</html>
