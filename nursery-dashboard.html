@@ -783,24 +783,36 @@ async function loadPlantsFromDB() {
     });
     if (!res.ok) throw new Error('DB fetch failed');
     const rows = await res.json();
-    if (rows.length === 0) {
-      const defaults = getDefaultPlants();
-      for (const p of defaults) await savePlantToDB(p);
-      savePlants(defaults);
-      return defaults;
-    }
-    const mapped = rows.map(r => ({
-      id: r.id, name: r.name, variety: r.variety,
-      category: r.category, price: r.price, stock: r.stock,
-      inStock: r.in_stock, photo: r.photo,
-      description: r.description, care: r.care,
-      cluster: r.cluster, listingType: r.listing_type,
-      nursery: r.nursery, bgGradient: r.bg_gradient,
-      svgColor: r.svg_color, varieties: r.varieties || [],
-      _manualPro: r.listing_type === 'professional'
-    }));
-    savePlants(mapped);
-    return mapped;
+
+    const dbMap = {};
+    rows.forEach(r => { dbMap[r.id] = r; });
+
+    // Always show all master plants, merged with DB overrides
+    const merged = MASTER_CATALOGUE.map(m => {
+      const r = dbMap[m.id];
+      return {
+        id: m.id,
+        name: m.name,
+        variety: m.sci,
+        category: m.category,
+        price: r ? r.price : m.basePrice,
+        nursery: r ? (r.nursery || 'Green Valley') : 'Green Valley',
+        photo: r ? r.photo : null,
+        inStock: r ? r.in_stock : true,
+        stock: r ? r.stock : 10,
+        cluster: r ? (r.cluster || 'Cluster A') : 'Cluster A',
+        description: m.desc,
+        care: m.care,
+        listingType: r ? (r.listing_type || 'immediate') : 'immediate',
+        bgGradient: CAT_BG[m.category] || CAT_BG.Other,
+        svgColor: m.svgColor || 'rgba(74,124,89,.45)',
+        varieties: r ? (r.varieties || m.varieties || []) : (m.varieties || []),
+        _manualPro: r ? (r.listing_type === 'professional') : false
+      };
+    });
+
+    savePlants(merged);
+    return merged;
   } catch(e) {
     console.warn('DB load failed, using localStorage', e);
     return loadPlants();
@@ -1245,9 +1257,12 @@ function changeCardPhoto(id,input){
   if(cardImg) cardImg.src=URL.createObjectURL(file);
   uploadAndPatch(id,file);
 }
-function deleteCardPhoto(id){
+async function deleteCardPhoto(id){
   plants=loadPlants(); const p=plants.find(x=>x.id===id); if(!p) return;
-  p.photo=null; savePlants(plants); renderMgmtGrid();
+  p.photo=null;
+  savePlants(plants);
+  await savePlantToDB(p);
+  renderMgmtGrid();
   showToast('Photo removed','✓');
 }
 
@@ -1321,9 +1336,30 @@ document.getElementById('add-modal').addEventListener('click',function(e){ if(e.
 document.getElementById('restore-modal').addEventListener('click',function(e){ if(e.target===this) closeRestoreModal(); });
 document.getElementById('catalogue-modal').addEventListener('click',function(e){ if(e.target===this) closeCatalogueModal(); });
 
-loadPlantsFromDB().then(loaded => {
-  plants = loaded;
+loadPlantsFromDB().then(async (loaded) => {
+  // Merge: ensure every master plant exists
+  const existingIds = new Set(loaded.map(p => p.id));
+  const missing = MASTER_CATALOGUE.filter(m => !existingIds.has(m.id));
+  if (missing.length) {
+    const newPlants = missing.map(m => ({
+      id: m.id, name: m.name, variety: m.sci, category: m.category,
+      price: m.basePrice, nursery: 'Green Valley', photo: null,
+      inStock: true, stock: 10,
+      cluster: 'Cluster A', description: m.desc, care: m.care,
+      listingType: 'immediate',
+      bgGradient: CAT_BG[m.category] || CAT_BG.Other,
+      svgColor: m.svgColor || 'rgba(74,124,89,.45)',
+      varieties: m.varieties || [],
+      _manualPro: false
+    }));
+    for (const p of newPlants) await savePlantToDB(p);
+    plants = [...loaded, ...newPlants];
+  } else {
+    plants = loaded;
+  }
+  savePlants(plants);
   updateStats();
+  renderMgmtGrid();
 });
 </script>
 </body>

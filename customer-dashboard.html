@@ -652,25 +652,48 @@ async function loadPlantsFromDB() {
     });
     if (!res.ok) throw new Error('DB fetch failed');
     const rows = await res.json();
-    if (rows.length === 0) {
-      // First time — seed defaults
-      const defaults = getDefaultPlants();
-      await savePlantsToDB(defaults);
-      return defaults;
-    }
-    return rows.map(r => ({
-      id: r.id, name: r.name, variety: r.variety,
-      category: r.category, price: r.price, stock: r.stock,
-      inStock: r.in_stock, photo: r.photo,
-      description: r.description, care: r.care,
-      cluster: r.cluster, listingType: r.listing_type,
-      nursery: r.nursery, bgGradient: r.bg_gradient,
-      svgColor: r.svg_color, varieties: r.varieties || []
-    }));
+
+    // Build a map of DB data by id
+    const dbMap = {};
+    rows.forEach(r => { dbMap[r.id] = r; });
+
+    // Merge every master plant with DB data (DB wins for photo/stock/price)
+    const merged = MASTER_CATALOGUE.map(m => {
+      const r = dbMap[m.id];
+      return {
+        id: m.id,
+        name: m.name,
+        variety: m.sci,
+        category: m.category,
+        price: r ? r.price : m.basePrice,
+        nursery: r ? (r.nursery || 'Green Valley') : 'Green Valley',
+        photo: r ? r.photo : null,
+        inStock: r ? r.in_stock : true,
+        stock: r ? r.stock : 10,
+        cluster: r ? (r.cluster || 'Cluster A') : 'Cluster A',
+        description: m.desc,
+        care: m.care,
+        listingType: r ? (r.listing_type || 'immediate') : 'immediate',
+        bgGradient: CAT_BG[m.category] || CAT_BG.Other,
+        svgColor: m.svgColor || 'rgba(74,124,89,.45)',
+        varieties: r ? (r.varieties || m.varieties || []) : (m.varieties || []),
+        _manualPro: r ? (r.listing_type === 'professional') : false
+      };
+    });
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+    return merged;
   } catch(e) {
-    console.warn('DB load failed, falling back to localStorage', e);
-    try { const r = localStorage.getItem(STORAGE_KEY); if (r) return JSON.parse(r); } catch(e2){}
-    return getDefaultPlants();
+    console.warn('DB load failed, using master catalogue', e);
+    return MASTER_CATALOGUE.map(m => ({
+      id: m.id, name: m.name, variety: m.sci, category: m.category,
+      price: m.basePrice, nursery: 'Green Valley', photo: null,
+      inStock: true, stock: 10, cluster: 'Cluster A',
+      description: m.desc, care: m.care, listingType: 'immediate',
+      bgGradient: CAT_BG[m.category] || CAT_BG.Other,
+      svgColor: m.svgColor || 'rgba(74,124,89,.45)',
+      varieties: m.varieties || [], _manualPro: false
+    }));
   }
 }
 
@@ -741,6 +764,7 @@ async function loadPlantsFromDB() {
 
 function getVisible() {
   return plants.filter(p => {
+    if (!p.inStock) return false; // completely hide out-of-stock
     if (activeNursery && p.nursery !== activeNursery) return false;
     if (activeCategory !== 'All' && p.category !== activeCategory) return false;
     if (searchQuery) {
@@ -1173,7 +1197,13 @@ function filterChip(btn, category) {
   showView('plants', null);
   renderPlants();
 }
-
+function refreshPlants() {
+  const gvCount = plants.filter(p => p.nursery === 'Green Valley').length;
+  const el = document.getElementById('count-green-valley');
+  if (el) el.textContent = gvCount;
+  const ncard = document.getElementById('ncard-count');
+  if (ncard) ncard.textContent = gvCount;
+}
 function filterByNursery(name, el) {
   activeNursery = name;
   document.querySelectorAll('.nursery-item').forEach(n=>n.classList.remove('active'));
@@ -1219,7 +1249,7 @@ setInterval(() => {
   });
 }, 5000);
 
-window.addEventListener('focus', () => { refreshPlants(); renderPlants(); });
+window.addEventListener('focus', () => { renderPlants(); });
 </script>
 </body>
 </html>
