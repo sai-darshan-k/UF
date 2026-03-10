@@ -1067,23 +1067,33 @@ function selectListing(type){
   document.getElementById('opt-professional').classList.toggle('selected',type==='professional');
 }
 
-const CLOUDINARY_CLOUD='dnjlsegrq', CLOUDINARY_PRESET='smart_agri_preset';
-const CLOUDINARY_UPLOAD_URL=`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`;
+const SUPABASE_URL = 'https://ujmpogomwcqbotvgdggo.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqbXBvZ29td2NxYm90dmdkZ2dvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxNDc3NzcsImV4cCI6MjA4ODcyMzc3N30.rnlT2ok31ureULFPjWm2TBp6DOB_zU7y_rL9EAf9Kbk';
+const SUPABASE_BUCKET = 'plant-photos';
 
-async function uploadToCloudinary(file){
-  const fd=new FormData(); fd.append('file',file); fd.append('upload_preset',CLOUDINARY_PRESET); fd.append('folder','urban_farmer_plants');
-  const res=await fetch(CLOUDINARY_UPLOAD_URL,{method:'POST',body:fd});
-  if(!res.ok) throw new Error('Upload failed');
-  const data=await res.json();
-  return data.secure_url.replace('/upload/','/upload/q_auto,f_auto,w_800/');
+async function uploadToSupabase(file) {
+  const ext = file.name.split('.').pop();
+  const fileName = `plants/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+  const res = await fetch(`${SUPABASE_URL}/storage/v1/object/${SUPABASE_BUCKET}/${fileName}`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+      'Content-Type': file.type,
+      'x-upsert': 'true'
+    },
+    body: file
+  });
+  if (!res.ok) { const err = await res.text(); throw new Error('Upload failed: ' + err); }
+  return `${SUPABASE_URL}/storage/v1/object/public/${SUPABASE_BUCKET}/${fileName}`;
 }
-async function uploadAndPatch(plantId,file){
-  try{
-    const url=await uploadToCloudinary(file);
-    const current=loadPlants(); const p=current.find(x=>x.id===plantId);
-    if(!p) return; p.photo=url; savePlants(current);
-    const mgmtGrid=document.getElementById('mgmt-container'); if(mgmtGrid) renderMgmtGrid();
-  }catch(e){ console.warn('[Urban Farmer] Photo upload failed',plantId,e); }
+
+async function uploadAndPatch(plantId, file) {
+  try {
+    const url = await uploadToSupabase(file);
+    const current = loadPlants(); const p = current.find(x => x.id === plantId);
+    if (!p) return; p.photo = url; savePlants(current);
+    const mgmtGrid = document.getElementById('mgmt-container'); if (mgmtGrid) renderMgmtGrid();
+  } catch(e) { console.warn('[Urban Farmer] Photo upload failed', plantId, e); }
 }
 
 function handlePhoto(input){
