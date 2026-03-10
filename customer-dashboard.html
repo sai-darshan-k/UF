@@ -445,6 +445,9 @@ nav{background:var(--white);padding:1rem 5%;border-bottom:1px solid rgba(107,143
 
 <script>
 const STORAGE_KEY = 'uf_plants_v2';
+const SUPABASE_URL = 'https://ujmpogomwcqbotvgdggo.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqbXBvZ29td2NxYm90dmdkZ2dvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxNDc3NzcsImV4cCI6MjA4ODcyMzc3N30.rnlT2ok31ureULFPjWm2TBp6DOB_zU7y_rL9EAf9Kbk';
+const SUPABASE_BUCKET = 'plant-photos';
 const PLANT_SVG = (color='rgba(74,124,89,0.35)', size=44) => `
   <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}">
     <path d="M40 72V42" stroke="${color}" stroke-width="2.5" stroke-linecap="round"/>
@@ -700,20 +703,40 @@ async function savePlantsToDB(plantsArr) {
 
 // Keep localStorage as cache
 function loadPlants() {
-  try { const r = localStorage.getItem(STORAGE_KEY); if (r) return JSON.parse(r); } catch(e){}
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) { const parsed = JSON.parse(raw); if (parsed && parsed.length > 0) return parsed; }
+  } catch(e){}
   return getDefaultPlants();
 }
-function savePlants(plantsArr) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(plantsArr));
-}
-function refreshPlants() {
-  plants = loadPlants();
-  const gvCount = plants.filter(p=>p.nursery==='Green Valley').length;
-  const el = document.getElementById('count-green-valley');
-  const nc = document.getElementById('ncard-count');
-  if(el) el.textContent = gvCount;
-  if(nc) nc.textContent = gvCount;
-  document.getElementById('hero-subtitle').textContent = `Browse ${plants.length}+ plants from verified nurseries near you`;
+
+async function loadPlantsFromDB() {
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/plants?select=*&order=created_at.asc`, {
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+      }
+    });
+    if (!res.ok) throw new Error('DB fetch failed');
+    const rows = await res.json();
+    if (!rows.length) return loadPlants();
+    const mapped = rows.map(r => ({
+      id: r.id, name: r.name, variety: r.variety,
+      category: r.category, price: r.price, stock: r.stock,
+      inStock: r.in_stock, photo: r.photo,
+      description: r.description, care: r.care,
+      cluster: r.cluster, listingType: r.listing_type,
+      nursery: r.nursery, bgGradient: r.bg_gradient,
+      svgColor: r.svg_color, varieties: r.varieties || [],
+      _manualPro: r.listing_type === 'professional'
+    }));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(mapped));
+    return mapped;
+  } catch(e) {
+    console.warn('DB load failed, using localStorage', e);
+    return loadPlants();
+  }
 }
 
 function getVisible() {
@@ -1177,18 +1200,24 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDetail(
 
 // Customer view only reads from localStorage — listing type is set by nursery dashboard
 
-refreshPlants();
-renderPlants();
-updateCart();
+loadPlantsFromDB().then(loaded => {
+  plants = loaded;
+  refreshPlants();
+  renderPlants();
+  updateCart();
+});
 
 setInterval(() => {
-  const newRaw = localStorage.getItem(STORAGE_KEY);
-  if (newRaw && newRaw !== JSON.stringify(plants)) {
-    refreshPlants();
-    renderPlants();
-    if (document.getElementById('view-favourites').style.display !== 'none') renderFavourites();
-  }
-}, 2000);
+  loadPlantsFromDB().then(loaded => {
+    const newStr = JSON.stringify(loaded);
+    if (newStr !== JSON.stringify(plants)) {
+      plants = loaded;
+      refreshPlants();
+      renderPlants();
+      if (document.getElementById('view-favourites').style.display !== 'none') renderFavourites();
+    }
+  });
+}, 5000);
 
 window.addEventListener('focus', () => { refreshPlants(); renderPlants(); });
 </script>

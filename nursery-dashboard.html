@@ -672,6 +672,9 @@ const MASTER_CATALOGUE = [
 //  STORAGE + HELPERS
 // ═══════════════════════════════════════════════════════════════
 const STORAGE_KEY = 'uf_plants_v2';
+const SUPABASE_URL = 'https://ujmpogomwcqbotvgdggo.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqbXBvZ29td2NxYm90dmdkZ2dvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxNDc3NzcsImV4cCI6MjA4ODcyMzc3N30.rnlT2ok31ureULFPjWm2TBp6DOB_zU7y_rL9EAf9Kbk';
+const SUPABASE_BUCKET = 'plant-photos';
 const PLANT_SVG = (color='rgba(74,124,89,0.35)', size=44) => `
   <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}">
     <path d="M40 72V42" stroke="${color}" stroke-width="2.5" stroke-linecap="round"/>
@@ -770,17 +773,67 @@ function savePlants(plantsArr) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(plantsArr));
 }
 
-function getDefaultPlants() {
-  return MASTER_CATALOGUE.map(m => ({
-    id: m.id, name: m.name, variety: m.sci, category: m.category,
-    price: m.basePrice, nursery: 'Green Valley', photo: null,
-    inStock: true, stock: Math.floor(Math.random()*25)+5,
-    cluster: 'Cluster A', description: m.desc, care: m.care,
-    listingType: 'immediate',
-    bgGradient: CAT_BG[m.category]||CAT_BG.Other,
-    svgColor: m.svgColor||'rgba(74,124,89,.45)',
-    varieties: m.varieties || []
-  }));
+async function loadPlantsFromDB() {
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/plants?select=*&order=created_at.asc`, {
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+      }
+    });
+    if (!res.ok) throw new Error('DB fetch failed');
+    const rows = await res.json();
+    if (rows.length === 0) {
+      const defaults = getDefaultPlants();
+      for (const p of defaults) await savePlantToDB(p);
+      savePlants(defaults);
+      return defaults;
+    }
+    const mapped = rows.map(r => ({
+      id: r.id, name: r.name, variety: r.variety,
+      category: r.category, price: r.price, stock: r.stock,
+      inStock: r.in_stock, photo: r.photo,
+      description: r.description, care: r.care,
+      cluster: r.cluster, listingType: r.listing_type,
+      nursery: r.nursery, bgGradient: r.bg_gradient,
+      svgColor: r.svg_color, varieties: r.varieties || [],
+      _manualPro: r.listing_type === 'professional'
+    }));
+    savePlants(mapped);
+    return mapped;
+  } catch(e) {
+    console.warn('DB load failed, using localStorage', e);
+    return loadPlants();
+  }
+}
+
+async function savePlantToDB(plant) {
+  const row = {
+    id: plant.id, name: plant.name, variety: plant.variety,
+    category: plant.category, price: plant.price,
+    stock: plant.stock || 0,
+    in_stock: plant.inStock !== false,
+    photo: plant.photo || null,
+    description: plant.description || '',
+    care: plant.care || '',
+    cluster: plant.cluster || 'Cluster A',
+    listing_type: plant.listingType || 'immediate',
+    nursery: plant.nursery || 'Green Valley',
+    bg_gradient: plant.bgGradient || '',
+    svg_color: plant.svgColor || '',
+    varieties: plant.varieties || []
+  };
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/plants`, {
+    method: 'POST',
+    headers: {
+      'apikey': SUPABASE_ANON_KEY,
+      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+      'Content-Type': 'application/json',
+      'Prefer': 'resolution=merge-duplicates'
+    },
+    body: JSON.stringify(row)
+  });
+  if (!res.ok) console.warn('savePlantToDB failed', await res.text());
 }
 
 let plants = loadPlants();
@@ -1054,12 +1107,14 @@ function getVarieties() {
   return out;
 }
 
-function markOOS(id) {
+async function markOOS(id) {
   plants = loadPlants();
   const p = plants.find(x=>x.id===id);
   if(!p) return;
   p.inStock=false;
-  savePlants(plants); renderMgmtGrid();
+  savePlants(plants);
+  await savePlantToDB(p);
+  renderMgmtGrid();
   showToast(`${p.name} marked as out of stock`,'⚠');
 }
 function openRestoreModal(id) {
@@ -1070,13 +1125,15 @@ function openRestoreModal(id) {
   document.getElementById('restore-modal').classList.add('open');
 }
 function closeRestoreModal(){ document.getElementById('restore-modal').classList.remove('open'); restoreTargetId=null; }
-function confirmRestore(){
+async function confirmRestore(){
   plants=loadPlants();
   const p=plants.find(x=>x.id===restoreTargetId);
   if(!p) return;
   const qty=parseInt(document.getElementById('restore-qty').value)||10;
   p.inStock=true; p.stock=qty;
-  savePlants(plants); closeRestoreModal(); renderMgmtGrid();
+  savePlants(plants);
+  await savePlantToDB(p);
+  closeRestoreModal(); renderMgmtGrid();
   showToast(`${p.name} restored to stock`,'✓');
 }
 
@@ -1129,9 +1186,6 @@ function selectListing(type){
   document.getElementById('opt-professional').classList.toggle('selected',type==='professional');
 }
 
-const SUPABASE_URL = 'https://ujmpogomwcqbotvgdggo.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqbXBvZ29td2NxYm90dmdkZ2dvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxNDc3NzcsImV4cCI6MjA4ODcyMzc3N30.rnlT2ok31ureULFPjWm2TBp6DOB_zU7y_rL9EAf9Kbk';
-const SUPABASE_BUCKET = 'plant-photos';
 
 async function uploadToSupabase(file) {
   const ext = file.name.split('.').pop();
@@ -1156,8 +1210,8 @@ async function uploadAndPatch(plantId, file) {
     const p = current.find(x => x.id === plantId);
     if (!p) return;
     p.photo = url;
-    savePlants(current);           // update localStorage cache
-    await savePlantToDB(p);        // sync to Supabase DB
+    savePlants(current);
+    await savePlantToDB(p);
     const mgmtGrid = document.getElementById('mgmt-container');
     if (mgmtGrid) renderMgmtGrid();
   } catch(e) {
@@ -1197,7 +1251,7 @@ function deleteCardPhoto(id){
   showToast('Photo removed','✓');
 }
 
-function submitPlant(){
+async function submitPlant(){
   plants=loadPlants();
   const name=document.getElementById('f-name').value.trim();
   const variety=document.getElementById('f-variety').value.trim();
@@ -1220,6 +1274,7 @@ function submitPlant(){
       varieties
     };
     savePlants(plants);
+    await savePlantToDB(plants[idx]);
     if(photoFile) uploadAndPatch(editingId,photoFile);
     showToast(`${name} updated`,'✓');
   } else {
@@ -1239,6 +1294,7 @@ function submitPlant(){
     };
     plants.unshift(newPlant);
     savePlants(plants);
+    await savePlantToDB(newPlant);
     if(photoFile) uploadAndPatch(masterId,photoFile);
     showToast(`${name} added`,'✓');
   }
@@ -1265,7 +1321,10 @@ document.getElementById('add-modal').addEventListener('click',function(e){ if(e.
 document.getElementById('restore-modal').addEventListener('click',function(e){ if(e.target===this) closeRestoreModal(); });
 document.getElementById('catalogue-modal').addEventListener('click',function(e){ if(e.target===this) closeCatalogueModal(); });
 
-updateStats();
+loadPlantsFromDB().then(loaded => {
+  plants = loaded;
+  updateStats();
+});
 </script>
 </body>
 </html>
