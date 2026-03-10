@@ -702,11 +702,73 @@ const CAT_BG = {
   Other:'linear-gradient(135deg,#ede7d9,#d7ccc8)'
 };
 
+async function loadPlantsFromDB() {
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/plants?select=*&order=created_at.asc`, {
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+      }
+    });
+    if (!res.ok) throw new Error('DB fetch failed');
+    const rows = await res.json();
+    if (rows.length === 0) {
+      // First time — seed defaults
+      const defaults = getDefaultPlants();
+      await savePlantsToDB(defaults);
+      return defaults;
+    }
+    return rows.map(r => ({
+      id: r.id, name: r.name, variety: r.variety,
+      category: r.category, price: r.price, stock: r.stock,
+      inStock: r.in_stock, photo: r.photo,
+      description: r.description, care: r.care,
+      cluster: r.cluster, listingType: r.listing_type,
+      nursery: r.nursery, bgGradient: r.bg_gradient,
+      svgColor: r.svg_color, varieties: r.varieties || []
+    }));
+  } catch(e) {
+    console.warn('DB load failed, falling back to localStorage', e);
+    try { const r = localStorage.getItem(STORAGE_KEY); if (r) return JSON.parse(r); } catch(e2){}
+    return getDefaultPlants();
+  }
+}
+
+async function savePlantToDB(plant) {
+  const row = {
+    id: plant.id, name: plant.name, variety: plant.variety,
+    category: plant.category, price: plant.price, stock: plant.stock,
+    in_stock: plant.inStock, photo: plant.photo || null,
+    description: plant.description, care: plant.care,
+    cluster: plant.cluster, listing_type: plant.listingType,
+    nursery: plant.nursery, bg_gradient: plant.bgGradient,
+    svg_color: plant.svgColor, varieties: plant.varieties || []
+  };
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/plants`, {
+    method: 'POST',
+    headers: {
+      'apikey': SUPABASE_ANON_KEY,
+      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+      'Content-Type': 'application/json',
+      'Prefer': 'resolution=merge-duplicates'
+    },
+    body: JSON.stringify(row)
+  });
+  if (!res.ok) console.warn('Save failed', await res.text());
+}
+
+async function savePlantsToDB(plantsArr) {
+  for (const p of plantsArr) { await savePlantToDB(p); }
+}
+
+// Keep localStorage as cache
 function loadPlants() {
   try { const r = localStorage.getItem(STORAGE_KEY); if (r) return JSON.parse(r); } catch(e){}
-  const d = getDefaultPlants(); savePlants(d); return d;
+  return getDefaultPlants();
 }
-function savePlants(plants) { localStorage.setItem(STORAGE_KEY, JSON.stringify(plants)); }
+function savePlants(plantsArr) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(plantsArr));
+}
 
 function getDefaultPlants() {
   return MASTER_CATALOGUE.map(m => ({
@@ -1090,10 +1152,17 @@ async function uploadToSupabase(file) {
 async function uploadAndPatch(plantId, file) {
   try {
     const url = await uploadToSupabase(file);
-    const current = loadPlants(); const p = current.find(x => x.id === plantId);
-    if (!p) return; p.photo = url; savePlants(current);
-    const mgmtGrid = document.getElementById('mgmt-container'); if (mgmtGrid) renderMgmtGrid();
-  } catch(e) { console.warn('[Urban Farmer] Photo upload failed', plantId, e); }
+    const current = loadPlants();
+    const p = current.find(x => x.id === plantId);
+    if (!p) return;
+    p.photo = url;
+    savePlants(current);           // update localStorage cache
+    await savePlantToDB(p);        // sync to Supabase DB
+    const mgmtGrid = document.getElementById('mgmt-container');
+    if (mgmtGrid) renderMgmtGrid();
+  } catch(e) {
+    console.warn('[Urban Farmer] Photo upload failed', plantId, e);
+  }
 }
 
 function handlePhoto(input){
