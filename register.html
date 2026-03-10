@@ -42,7 +42,7 @@
   .brand-icon {
     width: 44px; height: 44px; border-radius: 50%;
     background: rgba(255,255,255,0.12);
-    display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+    display: flex; align-items: center; justify-content: center;
   }
   .brand-name {
     font-family: 'Playfair Display', serif;
@@ -52,35 +52,46 @@
   .panel-content {
     flex: 1; display: flex; flex-direction: column; justify-content: center;
     position: relative; z-index: 2;
+    padding-top: 2rem;
   }
   .panel-tag {
-    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em;
-    color: var(--amber); margin-bottom: 1rem;
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--amber); margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 0.5rem;
   }
+  .panel-tag::before { content: ''; display: block; width: 20px; height: 1.5px; background: var(--amber); }
   .panel-title {
     font-family: 'Playfair Display', serif;
-    font-size: 2.2rem; font-weight: 700; color: var(--white);
-    line-height: 1.2; margin-bottom: 1.2rem;
+    font-size: 2rem; font-weight: 700; color: var(--white);
+    line-height: 1.2; margin-bottom: 0.9rem;
   }
   .panel-title em { font-style: italic; color: var(--amber); }
   .panel-desc {
-    font-size: 0.9rem; color: rgba(245,240,232,0.6); line-height: 1.7;
-    margin-bottom: 2.5rem;
+    font-size: 0.875rem; color: rgba(245,240,232,0.55); line-height: 1.7;
+    margin-bottom: 2rem;
   }
-  .panel-features { display: flex; flex-direction: column; gap: 1rem; }
+  .panel-features { display: flex; flex-direction: column; gap: 0.85rem; }
   .panel-feature {
-    display: flex; align-items: flex-start; gap: 0.75rem;
-    padding: 1rem; border-radius: 12px;
+    display: flex; align-items: flex-start; gap: 0.85rem;
+    padding: 0.9rem 1rem; border-radius: 12px;
     background: rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.08);
   }
-  .pf-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 0.1rem; }
-  .pf-title { font-size: 0.875rem; color: var(--cream); font-weight: 500; margin-bottom: 0.2rem; }
-  .pf-desc { font-size: 0.78rem; color: rgba(245,240,232,0.5); line-height: 1.5; }
+  .pf-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: rgba(232,162,90,0.15);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .pf-icon svg { stroke: var(--amber); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .pf-title { font-size: 0.85rem; color: var(--cream); font-weight: 500; margin-bottom: 0.15rem; }
+  .pf-desc { font-size: 0.76rem; color: rgba(245,240,232,0.45); line-height: 1.5; }
   .panel-bottom {
     position: relative; z-index: 2;
-    font-size: 0.8rem; color: rgba(245,240,232,0.35);
+    font-size: 0.78rem; color: rgba(245,240,232,0.3);
+    display: flex; align-items: center; gap: 0.5rem;
   }
+  .panel-bottom svg { stroke: rgba(245,240,232,0.3); }
 
   /* RIGHT PANEL */
   .right-panel {
@@ -92,7 +103,7 @@
     width: 100%; max-width: 500px;
   }
   .form-header {
-    text-align: center; margin-bottom: 2rem;
+    text-align: center; margin-bottom: 1.5rem;
   }
   .form-header h2 {
     font-family: 'Playfair Display', serif;
@@ -121,8 +132,9 @@
     font-size: 0.875rem; font-weight: 500;
     cursor: pointer; color: var(--text-muted);
     transition: all 0.25s;
-    display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
   }
+  .toggle-btn svg { stroke: currentColor; width: 15px; height: 15px; fill: none; stroke-width: 1.8; stroke-linecap: round; }
   .toggle-btn.active {
     background: var(--white);
     color: var(--forest);
@@ -141,7 +153,7 @@
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
   label {
     display: block;
-    font-size: 0.8rem; font-weight: 500;
+    font-size: 0.78rem; font-weight: 500;
     color: var(--text-muted); text-transform: uppercase;
     letter-spacing: 0.06em; margin-bottom: 0.4rem;
   }
@@ -166,17 +178,8 @@
   .error-msg { font-size: 0.75rem; color: var(--err); margin-top: 0.3rem; display: none; }
   .error-msg.show { display: block; }
 
-  .form-divider {
-    display: flex; align-items: center; gap: 1rem;
-    margin: 1.5rem 0;
-  }
-  .form-divider::before, .form-divider::after {
-    content: ''; flex: 1; height: 1px; background: rgba(107,143,113,0.15);
-  }
-  .form-divider span { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; }
-
   .section-sep {
-    font-size: 0.75rem; font-weight: 500;
+    font-size: 0.72rem; font-weight: 500;
     text-transform: uppercase; letter-spacing: 0.08em;
     color: var(--terra); margin: 1.5rem 0 1rem;
     display: flex; align-items: center; gap: 0.5rem;
@@ -220,9 +223,8 @@
   .visit-panel-title { font-size: 0.875rem; color: var(--forest); font-weight: 500; margin-bottom: 0.4rem; }
   .visit-panel-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
 
-  /* Hidden sections */
   .nursery-only { display: none; }
-  .customer-only { display: block; }
+  .customer-only { display: none; }
 
   /* Success State */
   .success-state {
@@ -234,7 +236,7 @@
     background: rgba(74,124,89,0.1);
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-size: 2.5rem; margin: 0 auto 1.5rem;
+    margin: 0 auto 1.5rem;
   }
   .success-title {
     font-family: 'Playfair Display', serif;
@@ -247,6 +249,22 @@
     .right-panel { padding: 1.5rem; }
     .form-row { grid-template-columns: 1fr; }
   }
+
+  .interest-tag {
+    background: var(--linen);
+    border: 1.5px solid rgba(107,143,113,0.2);
+    border-radius: 100px;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .interest-tag.selected {
+    background: var(--forest);
+    color: var(--white);
+    border-color: var(--forest);
+  }
 </style>
 </head>
 <body>
@@ -254,7 +272,9 @@
 <!-- LEFT PANEL -->
 <div class="left-panel">
   <a href="index.html" class="brand">
-    <div class="brand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(245,240,232,0.7)" stroke-width="2" width="18" height="18"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/></svg></div>
+    <div class="brand-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="rgba(245,240,232,0.75)" stroke-width="1.8" width="20" height="20" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/></svg>
+    </div>
     <span class="brand-name">Urban Farmer</span>
   </a>
   <div class="panel-content">
@@ -263,29 +283,38 @@
     <p class="panel-desc" id="panel-desc">Join 240+ nurseries already listing their plants on Urban Farmer. Reach more customers, track sales, and get QR codes for your plant clusters.</p>
     <div class="panel-features" id="panel-features">
       <div class="panel-feature">
-        <div class="pf-icon">🌱</div>
+        <div class="pf-icon">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+        </div>
         <div>
           <div class="pf-title">List All Your Plants</div>
           <div class="pf-desc">Add plants yourself or request our executive to visit and photograph your nursery.</div>
         </div>
       </div>
       <div class="panel-feature">
-        <div class="pf-icon">📲</div>
+        <div class="pf-icon">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h4M18 14v4M14 18h4"/></svg>
+        </div>
         <div>
           <div class="pf-title">QR Codes for Every Cluster</div>
           <div class="pf-desc">Customers scan and buy directly. Every transaction tracked in your dashboard.</div>
         </div>
       </div>
       <div class="panel-feature">
-        <div class="pf-icon">📊</div>
+        <div class="pf-icon">
+          <svg viewBox="0 0 24 24" width="18" height="18"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
         <div>
-          <div class="pf-title">Analytics & Google Sheets</div>
+          <div class="pf-title">Analytics and Google Sheets</div>
           <div class="pf-desc">Real-time data on scans, orders, and top plants synced to your Google Sheets.</div>
         </div>
       </div>
     </div>
   </div>
-  <div class="panel-bottom">© 2025 Urban Farmer · Made in India 🇮🇳</div>
+  <div class="panel-bottom">
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+    2025 Urban Farmer · Made in India
+  </div>
 </div>
 
 <!-- RIGHT PANEL -->
@@ -296,17 +325,20 @@
       <p>Already have an account? <a href="login.html">Sign in</a></p>
     </div>
 
-    <!-- TYPE TOGGLE -->
     <div class="type-toggle">
-      <button class="toggle-btn active" id="btn-nursery" onclick="switchType('nursery')">I'm a Nursery</button>
-      <button class="toggle-btn" id="btn-customer" onclick="switchType('customer')">I'm a Customer</button>
+      <button class="toggle-btn active" id="btn-nursery" onclick="switchType('nursery')">
+        <svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+        I'm a Nursery
+      </button>
+      <button class="toggle-btn" id="btn-customer" onclick="switchType('customer')">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        I'm a Customer
+      </button>
     </div>
 
-    <!-- FORM CARD -->
     <div class="form-card">
       <div id="form-body">
 
-        <!-- BASIC INFO -->
         <div class="section-sep">Basic Information</div>
         <div class="form-row">
           <div class="form-group">
@@ -369,9 +401,9 @@
             <select id="nursery-years">
               <option value="">Select years</option>
               <option>Less than 1 year</option>
-              <option>1–3 years</option>
-              <option>3–5 years</option>
-              <option>5–10 years</option>
+              <option>1 to 3 years</option>
+              <option>3 to 5 years</option>
+              <option>5 to 10 years</option>
               <option>10+ years</option>
             </select>
           </div>
@@ -380,9 +412,9 @@
             <select id="nursery-plants">
               <option value="">Select range</option>
               <option>Less than 20</option>
-              <option>20–50</option>
-              <option>50–100</option>
-              <option>100–300</option>
+              <option>20 to 50</option>
+              <option>50 to 100</option>
+              <option>100 to 300</option>
               <option>300+</option>
             </select>
           </div>
@@ -422,7 +454,6 @@
           </div>
         </div>
 
-        <!-- TERMS -->
         <div class="checkbox-group" style="margin-top: 0.5rem;">
           <input type="checkbox" id="terms" />
           <label for="terms">I agree to Urban Farmer's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
@@ -434,44 +465,32 @@
         </button>
       </div>
 
-      <!-- SUCCESS STATE -->
       <div class="success-state" id="success-state">
-        <div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--leaf)" stroke-width="2" width="40" height="40"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <div class="success-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--leaf)" stroke-width="2" width="40" height="40" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
         <div class="success-title" id="success-title">Nursery Registered!</div>
         <div class="success-desc" id="success-desc">
-          Welcome to Urban Farmer! Your nursery account has been created. Our team will verify your listing within 24 hours and get in touch.<br><br>
+          Welcome to Urban Farmer! Your nursery account has been created. Our team will verify your listing within 24 hours.<br><br>
           You'll receive a confirmation email at <strong id="success-email"></strong>.
         </div>
-        <a href="nursery-dashboard.html" class="btn btn-primary" style="margin-top: 2rem; text-decoration: none;">Go to Dashboard →</a>
+        <a href="nursery-dashboard.html" class="btn btn-primary" style="margin-top: 2rem; text-decoration: none;">Go to Dashboard</a>
       </div>
     </div>
-
-    <style>
-      .interest-tag {
-        background: var(--linen);
-        border: 1.5px solid rgba(107,143,113,0.2);
-        border-radius: 100px;
-        padding: 0.35rem 0.85rem;
-        font-size: 0.8rem;
-        cursor: pointer;
-        transition: all 0.2s;
-        user-select: none;
-      }
-      .interest-tag.selected {
-        background: var(--forest);
-        color: var(--white);
-        border-color: var(--forest);
-      }
-    </style>
   </div>
 </div>
 
 <script>
   let currentType = 'nursery';
 
-  // Check URL params
+  // Check URL params — default to nursery unless explicitly set to customer
   const params = new URLSearchParams(window.location.search);
-  if (params.get('type') === 'customer') switchType('customer');
+  const urlType = params.get('type');
+  if (urlType === 'customer') {
+    switchType('customer');
+  } else {
+    switchType('nursery');
+  }
 
   function switchType(type) {
     currentType = type;
@@ -485,19 +504,43 @@
       ? 'Create Nursery Account'
       : 'Create Customer Account';
 
-    // Update left panel
     if (type === 'nursery') {
       document.getElementById('panel-tag').textContent = 'For Nurseries';
       document.getElementById('panel-title').innerHTML = 'Grow Your<br><em>Nursery Business</em><br>Digitally';
       document.getElementById('panel-desc').textContent = 'Join 240+ nurseries already listing their plants on Urban Farmer. Reach more customers and grow faster.';
+      document.getElementById('panel-features').innerHTML = `
+        <div class="panel-feature">
+          <div class="pf-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div>
+          <div><div class="pf-title">List All Your Plants</div><div class="pf-desc">Add plants yourself or request an executive visit to photograph your nursery.</div></div>
+        </div>
+        <div class="panel-feature">
+          <div class="pf-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h4M18 14v4M14 18h4"/></svg></div>
+          <div><div class="pf-title">QR Codes for Every Cluster</div><div class="pf-desc">Customers scan and buy directly. Every transaction tracked in your dashboard.</div></div>
+        </div>
+        <div class="panel-feature">
+          <div class="pf-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          <div><div class="pf-title">Analytics and Google Sheets</div><div class="pf-desc">Real-time data on scans, orders, and top plants synced automatically.</div></div>
+        </div>`;
     } else {
       document.getElementById('panel-tag').textContent = 'For Plant Lovers';
-      document.getElementById('panel-title').innerHTML = 'Discover <em>Beautiful Plants</em> Near You';
+      document.getElementById('panel-title').innerHTML = 'Discover <em>Beautiful Plants</em><br>Near You';
       document.getElementById('panel-desc').textContent = 'Browse verified nurseries, scan plant QR codes, and buy your next green companion easily.';
+      document.getElementById('panel-features').innerHTML = `
+        <div class="panel-feature">
+          <div class="pf-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <div><div class="pf-title">Discover Local Nurseries</div><div class="pf-desc">Find verified nurseries near you with thousands of plant varieties listed.</div></div>
+        </div>
+        <div class="panel-feature">
+          <div class="pf-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h4M18 14v4M14 18h4"/></svg></div>
+          <div><div class="pf-title">Scan and Buy</div><div class="pf-desc">Scan plant QR codes for care guides, videos and purchase in one step.</div></div>
+        </div>
+        <div class="panel-feature">
+          <div class="pf-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div><div class="pf-title">AI Plant Doctor</div><div class="pf-desc">Diagnose plant problems, get care reminders, and book gardeners on demand.</div></div>
+        </div>`;
     }
   }
 
-  // Visit request toggle
   document.getElementById('req-visit').addEventListener('change', function() {
     document.getElementById('preferred-date-group').style.display = this.checked ? 'block' : 'none';
   });
@@ -516,35 +559,26 @@
 
   function submitForm() {
     let valid = true;
-
     const fname = document.getElementById('fname').value.trim();
     showErr('fname', !fname); if (!fname) valid = false;
-
     const email = document.getElementById('email').value.trim();
     showErr('email', !validateEmail(email)); if (!validateEmail(email)) valid = false;
-
     const phone = document.getElementById('phone').value.trim();
-    showErr('phone', phone.replace(/\D/g,'').length < 10); 
+    showErr('phone', phone.replace(/\D/g,'').length < 10);
     if (phone.replace(/\D/g,'').length < 10) valid = false;
-
     const pass = document.getElementById('password').value;
     showErr('password', pass.length < 8); if (pass.length < 8) valid = false;
-
     const cpass = document.getElementById('cpassword').value;
     showErr('cpassword', cpass !== pass); if (cpass !== pass) valid = false;
-
     if (currentType === 'nursery') {
       const nname = document.getElementById('nursery-name').value.trim();
       showErr('nursery-name', !nname); if (!nname) valid = false;
     }
-
     const terms = document.getElementById('terms').checked;
     document.getElementById('err-terms').classList.toggle('show', !terms);
     if (!terms) valid = false;
-
     if (!valid) return;
 
-    // Show success
     document.getElementById('form-body').style.display = 'none';
     document.getElementById('success-state').style.display = 'block';
     document.getElementById('success-email').textContent = email;
@@ -552,7 +586,7 @@
       document.getElementById('success-title').textContent = 'Welcome to Urban Farmer!';
       document.getElementById('success-desc').innerHTML = `Your customer account is ready. Start exploring nurseries near you!<br><br>Confirmation sent to <strong>${email}</strong>.`;
       document.querySelector('#success-state a').href = 'customer-dashboard.html';
-      document.querySelector('#success-state a').textContent = 'Explore Plants →';
+      document.querySelector('#success-state a').textContent = 'Explore Plants';
     }
   }
 </script>
