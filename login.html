@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sign In - Urban Farmer</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -285,6 +286,10 @@
 </div>
 
 <script>
+  const SUPABASE_URL = 'https://ujmpogomwcqbotvgdggo.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqbXBvZ29td2NxYm90dmdkZ2dvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxNDc3NzcsImV4cCI6MjA4ODcyMzc3N30.rnlT2ok31ureULFPjWm2TBp6DOB_zU7y_rL9EAf9Kbk';
+  const _sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
   let loginType = 'nursery';
 
   function switchType(type, btn) {
@@ -306,10 +311,10 @@
     document.querySelectorAll('.toggle-btn').forEach((b, i) => {
       b.classList.toggle('active', (i === 0 && type === 'nursery') || (i === 1 && type === 'customer'));
     });
-    setTimeout(() => doLogin(true), 300);
+    setTimeout(() => doLogin(), 300);
   }
 
-  function doLogin(isDemo = false) {
+  async function doLogin() {
     const email = document.getElementById('email').value.trim();
     const pass = document.getElementById('password').value;
     let valid = true;
@@ -330,18 +335,52 @@
     const btn = document.getElementById('login-btn');
     btn.textContent = 'Signing in...';
     btn.style.opacity = '0.7';
+    btn.disabled = true;
+    document.getElementById('login-alert').classList.remove('show');
 
-    // Simulate auth
-    setTimeout(() => {
-      if (isDemo || pass.length >= 6) {
-        // Redirect based on type
-        window.location.href = loginType === 'nursery' ? 'nursery-dashboard.html' : 'customer-dashboard.html';
+    try {
+      const { data, error } = await _sb.auth.signInWithPassword({ email, password: pass });
+
+      if (error) throw error;
+
+      // Fetch profile to check user type
+      const { data: profile } = await _sb
+        .from('profiles')
+        .select('type, first_name')
+        .eq('id', data.user.id)
+        .single();
+
+      // Store user info
+      localStorage.setItem('uf_user', JSON.stringify({
+        id: data.user.id,
+        email: data.user.email,
+        type: profile?.type || loginType,
+        name: profile?.first_name
+      }));
+
+      // Redirect based on actual profile type
+      const userType = profile?.type || loginType;
+      if (userType === 'nursery') {
+        window.location.href = 'nursery-dashboard.html';
       } else {
-        document.getElementById('login-alert').classList.add('show');
-        btn.textContent = 'Sign In →';
-        btn.style.opacity = '1';
+        window.location.href = 'customer-dashboard.html';
       }
-    }, 1000);
+
+    } catch (err) {
+      btn.textContent = 'Sign In →';
+      btn.style.opacity = '1';
+      btn.disabled = false;
+
+      const alertEl = document.getElementById('login-alert');
+      if (err.message?.toLowerCase().includes('email not confirmed')) {
+        alertEl.textContent = 'Please verify your email first. Check your inbox for the confirmation link.';
+      } else if (err.message?.toLowerCase().includes('invalid login')) {
+        alertEl.textContent = 'Incorrect email or password. Please try again.';
+      } else {
+        alertEl.textContent = err.message || 'Login failed. Please try again.';
+      }
+      alertEl.classList.add('show');
+    }
   }
 </script>
 </body>

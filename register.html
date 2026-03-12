@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Register - Urban Farmer</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -91,16 +92,17 @@
     font-size: 0.78rem; color: rgba(245,240,232,0.3);
     display: flex; align-items: center; gap: 0.5rem;
   }
-  .panel-bottom svg { stroke: rgba(245,240,232,0.3); }
 
   /* RIGHT PANEL */
   .right-panel {
     flex: 1;
     display: flex; align-items: center; justify-content: center;
     padding: 2rem;
+    overflow-y: auto;
   }
   .form-container {
     width: 100%; max-width: 500px;
+    padding: 1.5rem 0;
   }
   .form-header {
     text-align: center; margin-bottom: 1.5rem;
@@ -189,6 +191,15 @@
     background: rgba(193,123,74,0.2);
   }
 
+  /* Alert box */
+  .alert-box {
+    border-radius: 10px; padding: 0.75rem 1rem;
+    font-size: 0.82rem; margin-bottom: 1.2rem; display: none;
+  }
+  .alert-box.show { display: block; }
+  .alert-error { background: rgba(192,57,43,0.08); border: 1px solid rgba(192,57,43,0.2); color: #c0392b; }
+  .alert-success { background: rgba(74,124,89,0.08); border: 1px solid rgba(74,124,89,0.2); color: var(--leaf); }
+
   .btn {
     display: inline-flex; align-items: center; justify-content: center;
     padding: 0.75rem 1.5rem; border-radius: 100px;
@@ -196,7 +207,8 @@
     cursor: pointer; border: none; transition: all 0.25s; width: 100%;
   }
   .btn-primary { background: var(--forest); color: var(--white); }
-  .btn-primary:hover { background: var(--moss); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(26,58,42,0.3); }
+  .btn-primary:hover:not(:disabled) { background: var(--moss); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(26,58,42,0.3); }
+  .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
   .checkbox-group {
     display: flex; align-items: flex-start; gap: 0.6rem; margin-bottom: 1.2rem;
@@ -212,7 +224,6 @@
   }
   .checkbox-group label a { color: var(--terra); text-decoration: none; }
 
-  /* Visit Request Panel */
   .visit-panel {
     background: var(--linen);
     border-radius: 12px;
@@ -226,7 +237,6 @@
   .nursery-only { display: none; }
   .customer-only { display: none; }
 
-  /* Success State */
   .success-state {
     display: none;
     text-align: center; padding: 3rem 2rem;
@@ -244,12 +254,6 @@
   }
   .success-desc { font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; }
 
-  @media (max-width: 768px) {
-    .left-panel { display: none; }
-    .right-panel { padding: 1.5rem; }
-    .form-row { grid-template-columns: 1fr; }
-  }
-
   .interest-tag {
     background: var(--linen);
     border: 1.5px solid rgba(107,143,113,0.2);
@@ -264,6 +268,12 @@
     background: var(--forest);
     color: var(--white);
     border-color: var(--forest);
+  }
+
+  @media (max-width: 768px) {
+    .left-panel { display: none; }
+    .right-panel { padding: 1.5rem; }
+    .form-row { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -312,7 +322,7 @@
     </div>
   </div>
   <div class="panel-bottom">
-    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke-width="1.8" stroke-linecap="round" stroke="rgba(245,240,232,0.3)"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
     2025 Urban Farmer · Made in India
   </div>
 </div>
@@ -326,11 +336,11 @@
     </div>
 
     <div class="type-toggle">
-      <button class="toggle-btn active" id="btn-nursery" onclick="switchType('nursery')">
+      <button class="toggle-btn active" id="btn-nursery" onclick="window.switchType('nursery')">
         <svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
         I'm a Nursery
       </button>
-      <button class="toggle-btn" id="btn-customer" onclick="switchType('customer')">
+      <button class="toggle-btn" id="btn-customer" onclick="window.switchType('customer')">
         <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         I'm a Customer
       </button>
@@ -338,6 +348,8 @@
 
     <div class="form-card">
       <div id="form-body">
+
+        <div class="alert-box alert-error" id="form-alert"></div>
 
         <div class="section-sep">Basic Information</div>
         <div class="form-row">
@@ -460,7 +472,7 @@
         </div>
         <div class="error-msg" id="err-terms" style="margin-bottom: 1rem;">Please accept the terms to continue</div>
 
-        <button class="btn btn-primary" onclick="submitForm()">
+        <button class="btn btn-primary" id="submit-btn" onclick="submitForm()">
           <span id="submit-label">Create Nursery Account</span>
         </button>
       </div>
@@ -469,40 +481,36 @@
         <div class="success-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="var(--leaf)" stroke-width="2" width="40" height="40" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
         </div>
-        <div class="success-title" id="success-title">Nursery Registered!</div>
-        <div class="success-desc" id="success-desc">
-          Welcome to Urban Farmer! Your nursery account has been created. Our team will verify your listing within 24 hours.<br><br>
-          You'll receive a confirmation email at <strong id="success-email"></strong>.
-        </div>
-        <a href="nursery-dashboard.html" class="btn btn-primary" style="margin-top: 2rem; text-decoration: none;">Go to Dashboard</a>
+        <div class="success-title" id="success-title">Account Created!</div>
+        <div class="success-desc" id="success-desc"></div>
+        <a id="success-link" href="login.html" class="btn btn-primary" style="margin-top: 2rem; text-decoration: none;">Go to Login</a>
       </div>
     </div>
   </div>
 </div>
 
 <script>
+  // ── Supabase client ──────────────────────────────────────────
+  const SUPABASE_URL  = 'https://ujmpogomwcqbotvgdggo.supabase.co';
+  const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqbXBvZ29td2NxYm90dmdkZ2dvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxNDc3NzcsImV4cCI6MjA4ODcyMzc3N30.rnlT2ok31ureULFPjWm2TBp6DOB_zU7y_rL9EAf9Kbk';
+  const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
   let currentType = 'nursery';
 
-  // Check URL params — default to nursery unless explicitly set to customer
+  // Check URL params
+document.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(window.location.search);
-  const urlType = params.get('type');
-  if (urlType === 'customer') {
-    switchType('customer');
-  } else {
-    switchType('nursery');
-  }
+  if (params.get('type') === 'customer') switchType('customer');
+  else switchType('nursery');
+});
 
   function switchType(type) {
     currentType = type;
     document.getElementById('btn-nursery').classList.toggle('active', type === 'nursery');
     document.getElementById('btn-customer').classList.toggle('active', type === 'customer');
-
     document.querySelectorAll('.nursery-only').forEach(el => el.style.display = type === 'nursery' ? 'block' : 'none');
     document.querySelectorAll('.customer-only').forEach(el => el.style.display = type === 'customer' ? 'block' : 'none');
-
-    document.getElementById('submit-label').textContent = type === 'nursery'
-      ? 'Create Nursery Account'
-      : 'Create Customer Account';
+    document.getElementById('submit-label').textContent = type === 'nursery' ? 'Create Nursery Account' : 'Create Customer Account';
 
     if (type === 'nursery') {
       document.getElementById('panel-tag').textContent = 'For Nurseries';
@@ -540,7 +548,7 @@
         </div>`;
     }
   }
-
+  window.switchType = switchType;
   document.getElementById('req-visit').addEventListener('change', function() {
     document.getElementById('preferred-date-group').style.display = this.checked ? 'block' : 'none';
   });
@@ -557,38 +565,144 @@
     if (input) input.classList.toggle('error', show);
   }
 
-  function submitForm() {
+  function showAlert(msg, type = 'error') {
+    const el = document.getElementById('form-alert');
+    el.textContent = msg;
+    el.className = `alert-box alert-${type} show`;
+  }
+  function hideAlert() {
+    document.getElementById('form-alert').classList.remove('show');
+  }
+
+  async function submitForm() {
+    hideAlert();
     let valid = true;
+
     const fname = document.getElementById('fname').value.trim();
     showErr('fname', !fname); if (!fname) valid = false;
+
     const email = document.getElementById('email').value.trim();
     showErr('email', !validateEmail(email)); if (!validateEmail(email)) valid = false;
+
     const phone = document.getElementById('phone').value.trim();
     showErr('phone', phone.replace(/\D/g,'').length < 10);
     if (phone.replace(/\D/g,'').length < 10) valid = false;
+
     const pass = document.getElementById('password').value;
     showErr('password', pass.length < 8); if (pass.length < 8) valid = false;
+
     const cpass = document.getElementById('cpassword').value;
     showErr('cpassword', cpass !== pass); if (cpass !== pass) valid = false;
+
     if (currentType === 'nursery') {
       const nname = document.getElementById('nursery-name').value.trim();
       showErr('nursery-name', !nname); if (!nname) valid = false;
     }
+
     const terms = document.getElementById('terms').checked;
     document.getElementById('err-terms').classList.toggle('show', !terms);
     if (!terms) valid = false;
+
     if (!valid) return;
 
-    document.getElementById('form-body').style.display = 'none';
-    document.getElementById('success-state').style.display = 'block';
-    document.getElementById('success-email').textContent = email;
-    if (currentType === 'customer') {
-      document.getElementById('success-title').textContent = 'Welcome to Urban Farmer!';
-      document.getElementById('success-desc').innerHTML = `Your customer account is ready. Start exploring nurseries near you!<br><br>Confirmation sent to <strong>${email}</strong>.`;
-      document.querySelector('#success-state a').href = 'customer-dashboard.html';
-      document.querySelector('#success-state a').textContent = 'Explore Plants';
+    // ── Disable button while submitting ──
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.querySelector('#submit-label').textContent = 'Creating account…';
+
+    try {
+      // 1. Sign up with Supabase Auth
+      const { data: authData, error: authError } = await _supabase.auth.signUp({
+        email,
+        password: pass,
+        options: {
+          data: {
+            first_name: fname,
+            last_name: document.getElementById('lname').value.trim(),
+            type: currentType
+          }
+        }
+      });
+
+      if (authError) throw authError;
+
+      const userId = authData.user?.id;
+      if (!userId) throw new Error('Registration failed. Please try again.');
+
+      // 2. Build profile payload
+      const profile = {
+        id: userId,
+        type: currentType,
+        first_name: fname,
+        last_name: document.getElementById('lname').value.trim(),
+        phone
+      };
+
+      if (currentType === 'nursery') {
+        profile.nursery_name      = document.getElementById('nursery-name').value.trim();
+        profile.nursery_address   = document.getElementById('nursery-addr').value.trim();
+        profile.nursery_city      = document.getElementById('nursery-city').value.trim();
+        profile.nursery_pincode   = document.getElementById('nursery-pin').value.trim();
+        profile.nursery_years     = document.getElementById('nursery-years').value;
+        profile.nursery_plant_count = document.getElementById('nursery-plants').value;
+        profile.request_visit     = document.getElementById('req-visit').checked;
+        profile.preferred_visit_date = document.getElementById('preferred-date').value || null;
+      } else {
+        profile.customer_city    = document.getElementById('cust-city').value.trim();
+        profile.plant_interests  = Array.from(
+          document.querySelectorAll('#interest-tags .interest-tag.selected')
+        ).map(el => el.textContent);
+      }
+
+      // 3. Upsert profile row
+      const { error: profileError } = await _supabase
+        .from('profiles')
+        .upsert(profile);
+
+      if (profileError) {
+        // Non-fatal: auth succeeded, profile save failed
+        console.warn('Profile save warning:', profileError.message);
+      }
+
+      // 4. Show success
+      document.getElementById('form-body').style.display = 'none';
+      const successState = document.getElementById('success-state');
+      successState.style.display = 'block';
+
+      if (currentType === 'nursery') {
+        document.getElementById('success-title').textContent = 'Nursery Registered!';
+        document.getElementById('success-desc').innerHTML =
+          `Welcome to Urban Farmer! Your nursery account has been created.<br><br>
+           Check your email at <strong>${email}</strong> to verify your account, then sign in.`;
+        document.getElementById('success-link').href = 'login.html';
+        document.getElementById('success-link').textContent = 'Go to Login';
+      } else {
+        document.getElementById('success-title').textContent = 'Welcome to Urban Farmer!';
+        document.getElementById('success-desc').innerHTML =
+          `Your customer account is ready!<br><br>
+           Check your email at <strong>${email}</strong> to verify, then start exploring plants.`;
+        document.getElementById('success-link').href = 'login.html';
+        document.getElementById('success-link').textContent = 'Go to Login';
+      }
+
+    } catch (err) {
+      btn.disabled = false;
+      btn.querySelector('#submit-label').textContent =
+        currentType === 'nursery' ? 'Create Nursery Account' : 'Create Customer Account';
+
+      // Friendly error messages
+      let msg = err.message || 'Something went wrong. Please try again.';
+      if (msg.toLowerCase().includes('already registered') || msg.toLowerCase().includes('already been registered')) {
+        msg = 'This email is already registered. Please sign in instead.';
+      } else if (msg.toLowerCase().includes('password')) {
+        msg = 'Password must be at least 8 characters.';
+      } else if (msg.toLowerCase().includes('email')) {
+        msg = 'Please enter a valid email address.';
+      }
+      showAlert(msg);
     }
   }
+window.toggleTag = toggleTag;
 </script>
 </body>
 </html>

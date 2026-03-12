@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nursery Dashboard — Urban Farmer</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -247,7 +248,7 @@ textarea{min-height:78px;resize:vertical;}
       <svg viewBox="0 0 24 24" fill="none" stroke="rgba(245,240,232,.65)" stroke-width="2" width="15" height="15"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
     </div>
     <div><div class="profile-name">Green Valley</div><div class="profile-role">Nursery Owner</div></div>
-    <button class="logout-btn" title="Sign Out">
+    <button class="logout-btn" title="Sign Out" onclick="signOut()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
     </button>
   </div>
@@ -846,6 +847,42 @@ async function savePlantToDB(plant) {
     body: JSON.stringify(row)
   });
   if (!res.ok) console.warn('savePlantToDB failed', await res.text());
+}
+
+// Personalize from session
+(async function() {
+  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { window.location.href = 'login.html'; return; }
+
+  const { data: profile } = await sb
+    .from('profiles')
+    .select('first_name, nursery_name, type')
+    .eq('id', session.user.id)
+    .single();
+
+  if (profile?.type !== 'nursery') {
+    window.location.href = 'customer-dashboard.html'; return;
+  }
+
+  const displayName = profile?.nursery_name || profile?.first_name || session.user.email.split('@')[0];
+  const nameEl = document.querySelector('.profile-name');
+  if (nameEl) nameEl.textContent = displayName;
+
+  localStorage.setItem('uf_user', JSON.stringify({
+    id: session.user.id,
+    email: session.user.email,
+    type: 'nursery',
+    nursery_name: profile?.nursery_name,
+    name: profile?.first_name
+  }));
+})();
+
+async function signOut() {
+  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  await sb.auth.signOut();
+  localStorage.removeItem('uf_user');
+  window.location.href = 'login.html';
 }
 
 let plants = loadPlants();

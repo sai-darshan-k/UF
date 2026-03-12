@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Explore Plants — Urban Farmer</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -73,7 +74,6 @@ nav{background:var(--white);padding:1rem 5%;border-bottom:1px solid rgba(107,143
 .plant-card.out-of-stock-card{opacity:.65;}
 .out-stock-label{position:absolute;top:0;left:0;right:0;background:rgba(198,40,40,.82);color:white;text-align:center;padding:.28rem;font-size:.66rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;z-index:3;}
 
-/* Professional card */
 .plant-card.professional-card{border-color:rgba(123,47,247,.18);}
 .plant-card.professional-card:hover{border-color:rgba(123,47,247,.35);box-shadow:0 10px 30px rgba(123,47,247,.12);}
 .spark-badge{position:absolute;top:8px;left:8px;z-index:4;background:linear-gradient(135deg,#7b2ff7,#f107a3);color:white;border-radius:100px;padding:.22rem .55rem;font-size:.62rem;font-weight:600;display:flex;align-items:center;gap:.25rem;box-shadow:0 2px 8px rgba(123,47,247,.35);letter-spacing:.02em;}
@@ -136,9 +136,7 @@ nav{background:var(--white);padding:1rem 5%;border-bottom:1px solid rgba(107,143
 .empty-cart{text-align:center;padding:3rem 1rem;color:var(--text-muted);}
 .empty-cart-icon{margin-bottom:1rem;opacity:.3;}
 
-/* ═══════════════════════════════════════════════════
-   PLANT DETAIL MODAL — with varieties + qty selector
-═══════════════════════════════════════════════════ */
+/* PLANT DETAIL MODAL */
 .detail-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:60;align-items:center;justify-content:center;padding:1rem;}
 .detail-overlay.open{display:flex;}
 .detail-modal{background:var(--white);border-radius:24px;width:100%;max-width:640px;max-height:94vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.25);position:relative;}
@@ -182,7 +180,6 @@ nav{background:var(--white);padding:1rem 5%;border-bottom:1px solid rgba(107,143
 .vri-add-btn:hover{background:var(--terra);}
 .vri-add-btn.in-cart{background:rgba(74,124,89,.12);color:var(--leaf);border:1.5px solid rgba(74,124,89,.25);}
 
-/* Base price add-to-cart (no varieties) */
 .detail-footer{display:flex;align-items:center;justify-content:space-between;padding-top:1.2rem;border-top:1px solid rgba(107,143,113,.1);}
 .detail-price-block{display:flex;flex-direction:column;}
 .detail-price{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--forest);line-height:1;}
@@ -194,7 +191,6 @@ nav{background:var(--white);padding:1rem 5%;border-bottom:1px solid rgba(107,143
 .detail-add-btn:hover{background:#b06a39;transform:scale(1.03);}
 .detail-add-btn:disabled{background:rgba(107,143,113,.2);color:var(--text-muted);cursor:not-allowed;transform:none;}
 
-/* Cart summary bar inside modal */
 .modal-cart-bar{position:sticky;bottom:0;background:var(--forest);padding:1rem 1.6rem;display:flex;align-items:center;justify-content:space-between;border-radius:0 0 24px 24px;margin-top:1rem;}
 .modal-cart-bar.hidden{display:none;}
 .mcb-left{color:rgba(245,240,232,.75);font-size:.78rem;}
@@ -235,7 +231,7 @@ nav{background:var(--white);padding:1rem 5%;border-bottom:1px solid rgba(107,143
   <div class="nav-right">
     <div class="nav-user">
       <div class="nav-user-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="13" height="13"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-      <span class="nav-user-name">Priya S.</span>
+      <span class="nav-user-name" id="nav-user-name">Guest</span>
     </div>
     <button class="cart-btn" id="cart-btn" onclick="toggleCart()">
       <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="14" height="14"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
@@ -243,7 +239,7 @@ nav{background:var(--white);padding:1rem 5%;border-bottom:1px solid rgba(107,143
       <div class="cart-count" id="cart-count">0</div>
       <span class="cart-price-pill" id="cart-nav-price"></span>
     </button>
-    <a href="login.html" style="text-decoration:none;font-size:.82rem;color:var(--text-muted);">Sign Out</a>
+    <a href="#" style="text-decoration:none;font-size:.82rem;color:var(--text-muted);" id="nav-auth-btn" onclick="handleAuthAction()">Sign In</a>
   </div>
 </nav>
 
@@ -390,9 +386,7 @@ nav{background:var(--white);padding:1rem 5%;border-bottom:1px solid rgba(107,143
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════
-     PLANT DETAIL MODAL
-═══════════════════════════════════════════════════ -->
+<!-- PLANT DETAIL MODAL -->
 <div class="detail-overlay" id="detail-overlay" onclick="closeDetail()">
   <div class="detail-modal" onclick="event.stopPropagation()">
     <button class="detail-close" onclick="closeDetail()">
@@ -409,12 +403,10 @@ nav{background:var(--white);padding:1rem 5%;border-bottom:1px solid rgba(107,143
         <div class="detail-care-title">Care Guide</div>
         <div class="detail-care-text" id="detail-care"></div>
       </div>
-      <!-- Varieties section (shown when varieties exist) -->
       <div id="detail-varieties-section" class="varieties-section" style="display:none;">
         <div class="varieties-title">Available Varieties</div>
         <div class="varieties-grid" id="detail-varieties-grid"></div>
       </div>
-      <!-- Footer: base price + add to cart (shown when no varieties OR as fallback) -->
       <div class="detail-footer" id="detail-footer">
         <div class="detail-price-block">
           <div class="detail-price" id="detail-price"></div>
@@ -429,7 +421,6 @@ nav{background:var(--white);padding:1rem 5%;border-bottom:1px solid rgba(107,143
         </div>
       </div>
     </div>
-    <!-- Sticky cart summary bar -->
     <div class="modal-cart-bar hidden" id="modal-cart-bar">
       <div>
         <div class="mcb-left">In your cart from this plant</div>
@@ -443,11 +434,233 @@ nav{background:var(--white);padding:1rem 5%;border-bottom:1px solid rgba(107,143
 
 <div class="toast" id="toast"><span id="toast-icon">✓</span> <span id="toast-msg"></span></div>
 
+<!-- LOGIN PROMPT MODAL -->
+<div style="display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.45);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:1rem;" id="loginPromptOverlay" onclick="closeLoginPrompt()">
+  <div style="background:var(--white);border-radius:20px;padding:2.2rem;width:100%;max-width:380px;box-shadow:0 20px 60px rgba(26,58,42,.2);position:relative;" onclick="event.stopPropagation()">
+    <button onclick="closeLoginPrompt()" style="position:absolute;top:1rem;right:1rem;width:30px;height:30px;border-radius:50%;background:var(--linen);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div style="width:52px;height:52px;border-radius:14px;background:rgba(61,107,74,.1);display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--forest)" stroke-width="1.8" width="24" height="24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    </div>
+    <div style="font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--terra);margin-bottom:.4rem;">Sign in required</div>
+    <div style="font-family:'Playfair Display',serif;font-size:1.35rem;color:var(--forest);margin-bottom:.5rem;line-height:1.2;">Add to your cart</div>
+    <p style="font-size:.85rem;color:var(--text-muted);line-height:1.65;margin-bottom:1.6rem;">Create a free account or sign in to add plants to your cart and place orders.</p>
+    <div style="display:flex;flex-direction:column;gap:.6rem;">
+      <a href="register.html?type=customer" style="display:flex;align-items:center;justify-content:center;padding:.75rem;border-radius:10px;background:var(--forest);color:white;text-decoration:none;font-size:.875rem;font-weight:500;transition:all .2s;">Create Free Account</a>
+      <a href="login.html" style="display:flex;align-items:center;justify-content:center;padding:.75rem;border-radius:10px;background:var(--linen);color:var(--forest);text-decoration:none;font-size:.875rem;font-weight:500;border:1.5px solid rgba(26,58,42,.15);transition:all .2s;">Sign In</a>
+    </div>
+    <p style="font-size:.75rem;color:var(--text-muted);text-align:center;margin-top:1rem;">You can keep browsing as a guest without signing in.</p>
+  </div>
+</div>
+
 <script>
+// ── CONFIG ──
 const STORAGE_KEY = 'uf_plants_v2';
 const SUPABASE_URL = 'https://ujmpogomwcqbotvgdggo.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqbXBvZ29td2NxYm90dmdkZ2dvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxNDc3NzcsImV4cCI6MjA4ODcyMzc3N30.rnlT2ok31ureULFPjWm2TBp6DOB_zU7y_rL9EAf9Kbk';
 const SUPABASE_BUCKET = 'plant-photos';
+
+// ── SINGLE SUPABASE CLIENT — created once, shared everywhere ──
+const _sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// ── CART DB ──
+const CartDB = {
+  getSessionId() {
+    let sid = localStorage.getItem('uf_session_id');
+    if (!sid) { sid = 'guest_' + Math.random().toString(36).slice(2); localStorage.setItem('uf_session_id', sid); }
+    return sid;
+  },
+  async _headers() {
+    const { data: { session } } = await _sb.auth.getSession();
+    const token = session?.access_token || SUPABASE_ANON_KEY;
+    return {
+      'apikey': SUPABASE_ANON_KEY,
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    };
+  },
+  async getAll() {
+    try {
+      const user = JSON.parse(localStorage.getItem('uf_user') || 'null');
+      let url = `${SUPABASE_URL}/rest/v1/carts?select=*&order=created_at.asc`;
+      if (user) url += `&user_id=eq.${user.id}`;
+      else url += `&session_id=eq.${this.getSessionId()}`;
+      const res = await fetch(url, { headers: await this._headers() });
+      if (!res.ok) return [];
+      return await res.json();
+    } catch(e) { return []; }
+  },
+  async addItem(item) {
+    try {
+      const user = JSON.parse(localStorage.getItem('uf_user') || 'null');
+      const row = {
+        ...item,
+        user_id: user ? user.id : null,
+        session_id: user ? null : this.getSessionId()
+      };
+      const existing = await this._findExisting(item.plant_id, item.variety_idx);
+      if (existing) {
+        await fetch(`${SUPABASE_URL}/rest/v1/carts?id=eq.${existing.id}`, {
+          method: 'PATCH',
+          headers: await this._headers(),
+          body: JSON.stringify({ qty: existing.qty + (item.qty || 1), updated_at: new Date().toISOString() })
+        });
+      } else {
+        await fetch(`${SUPABASE_URL}/rest/v1/carts`, {
+          method: 'POST',
+          headers: { ...await this._headers(), 'Prefer': 'return=minimal' },
+          body: JSON.stringify(row)
+        });
+      }
+    } catch(e) { console.warn('CartDB.addItem error', e); }
+  },
+  async _findExisting(plantId, varIdx) {
+    try {
+      const user = JSON.parse(localStorage.getItem('uf_user') || 'null');
+      let url = `${SUPABASE_URL}/rest/v1/carts?plant_id=eq.${plantId}&variety_idx=eq.${varIdx ?? -1}`;
+      if (user) url += `&user_id=eq.${user.id}`;
+      else url += `&session_id=eq.${this.getSessionId()}`;
+      const res = await fetch(url, { headers: await this._headers() });
+      if (!res.ok) return null;
+      const rows = await res.json();
+      return rows[0] || null;
+    } catch(e) { return null; }
+  },
+  async updateQty(plantId, varIdx, newQty) {
+    try {
+      const existing = await this._findExisting(plantId, varIdx ?? -1);
+      if (!existing) return;
+      if (newQty <= 0) {
+        await fetch(`${SUPABASE_URL}/rest/v1/carts?id=eq.${existing.id}`, {
+          method: 'DELETE', headers: await this._headers()
+        });
+      } else {
+        await fetch(`${SUPABASE_URL}/rest/v1/carts?id=eq.${existing.id}`, {
+          method: 'PATCH',
+          headers: await this._headers(),
+          body: JSON.stringify({ qty: newQty, updated_at: new Date().toISOString() })
+        });
+      }
+    } catch(e) { console.warn('CartDB.updateQty error', e); }
+  },
+  async removeItem(plantId, varIdx) {
+    await this.updateQty(plantId, varIdx, 0);
+  },
+  async clearCart() {
+    try {
+      const user = JSON.parse(localStorage.getItem('uf_user') || 'null');
+      let url = `${SUPABASE_URL}/rest/v1/carts`;
+      if (user) url += `?user_id=eq.${user.id}`;
+      else url += `?session_id=eq.${this.getSessionId()}`;
+      await fetch(url, { method: 'DELETE', headers: await this._headers() });
+    } catch(e) { console.warn('CartDB.clearCart error', e); }
+  },
+  async mergeGuestCart(userId) {
+    try {
+      const sid = this.getSessionId();
+      const guestUrl = `${SUPABASE_URL}/rest/v1/carts?session_id=eq.${sid}`;
+      const res = await fetch(guestUrl, { headers: await this._headers() });
+      if (!res.ok) return;
+      const guestItems = await res.json();
+      for (const item of guestItems) {
+        const existing = await this._findExistingForUser(item.plant_id, item.variety_idx, userId);
+        if (existing) {
+          await fetch(`${SUPABASE_URL}/rest/v1/carts?id=eq.${existing.id}`, {
+            method: 'PATCH',
+            headers: await this._headers(),
+            body: JSON.stringify({ qty: existing.qty + item.qty, updated_at: new Date().toISOString() })
+          });
+          await fetch(`${SUPABASE_URL}/rest/v1/carts?id=eq.${item.id}`, {
+            method: 'DELETE', headers: await this._headers()
+          });
+        } else {
+          await fetch(`${SUPABASE_URL}/rest/v1/carts?id=eq.${item.id}`, {
+            method: 'PATCH',
+            headers: await this._headers(),
+            body: JSON.stringify({ user_id: userId, session_id: null, updated_at: new Date().toISOString() })
+          });
+        }
+      }
+    } catch(e) { console.warn('CartDB.mergeGuestCart error', e); }
+  },
+  async _findExistingForUser(plantId, varIdx, userId) {
+    try {
+      const url = `${SUPABASE_URL}/rest/v1/carts?plant_id=eq.${plantId}&variety_idx=eq.${varIdx ?? -1}&user_id=eq.${userId}`;
+      const res = await fetch(url, { headers: await this._headers() });
+      if (!res.ok) return null;
+      const rows = await res.json();
+      return rows[0] || null;
+    } catch(e) { return null; }
+  }
+};
+
+// ── AUTH INIT — runs first, loads cart after session is confirmed ──
+(async function() {
+  try {
+    const { data: { session } } = await _sb.auth.getSession();
+    if (session) {
+      const { data: profile } = await _sb
+        .from('profiles').select('first_name, type')
+        .eq('id', session.user.id).single();
+      if (profile?.type === 'nursery') {
+        window.location.href = 'nursery-dashboard.html';
+        return;
+      }
+      const nameEl = document.getElementById('nav-user-name');
+      if (nameEl) nameEl.textContent = profile?.first_name || session.user.email.split('@')[0];
+      localStorage.setItem('uf_user', JSON.stringify({
+        id: session.user.id, email: session.user.email,
+        type: 'customer', name: profile?.first_name
+      }));
+    } else {
+      const nameEl = document.getElementById('nav-user-name');
+      if (nameEl) nameEl.textContent = 'Guest';
+      localStorage.removeItem('uf_user');
+    }
+  } catch(e) {
+    const nameEl = document.getElementById('nav-user-name');
+    if (nameEl) nameEl.textContent = 'Guest';
+    localStorage.removeItem('uf_user');
+  }
+  updateAuthBtn();
+  // Cart loads here — AFTER session is confirmed, no race condition
+  cart = await CartDB.getAll();
+  updateCartUI();
+})();
+
+function requireLogin() {
+  const user = JSON.parse(localStorage.getItem('uf_user') || 'null');
+  if (user) return true;
+  const overlay = document.getElementById('loginPromptOverlay');
+  if (overlay) overlay.style.display = 'flex';
+  return false;
+}
+
+function closeLoginPrompt() {
+  const overlay = document.getElementById('loginPromptOverlay');
+  if (overlay) overlay.style.display = 'none';
+}
+
+async function handleAuthAction() {
+  const user = JSON.parse(localStorage.getItem('uf_user') || 'null');
+  if (user) {
+    await _sb.auth.signOut();
+    localStorage.removeItem('uf_user');
+    window.location.href = 'login.html';
+  } else {
+    window.location.href = 'login.html';
+  }
+}
+
+function updateAuthBtn() {
+  const user = JSON.parse(localStorage.getItem('uf_user') || 'null');
+  const btn = document.getElementById('nav-auth-btn');
+  if (!btn) return;
+  btn.textContent = user ? 'Sign Out' : 'Sign In';
+}
+
+// ── SVG PLACEHOLDER ──
 const PLANT_SVG = (color='rgba(74,124,89,0.35)', size=44) => `
   <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}">
     <path d="M40 72V42" stroke="${color}" stroke-width="2.5" stroke-linecap="round"/>
@@ -456,7 +669,7 @@ const PLANT_SVG = (color='rgba(74,124,89,0.35)', size=44) => `
     <path d="M40 62C40 62 52 56 52 46" stroke="${color}" stroke-width="1.5" stroke-linecap="round"/>
   </svg>`;
 
-// ── MASTER CATALOGUE (mirrors nursery-dashboard) ──
+// ── MASTER CATALOGUE ──
 const CAT_BG = {
   Flowering:'linear-gradient(135deg,#fce4ec,#f48fb1)',
   Medicinal:'linear-gradient(135deg,#e8f5e9,#a5d6a7)',
@@ -471,6 +684,7 @@ const CAT_BG = {
   'Ferns & Foliage':'linear-gradient(135deg,#e8f5e9,#c8e6c9)',
   Other:'linear-gradient(135deg,#ede7d9,#d7ccc8)'
 };
+
 const MASTER_CATALOGUE = [
   { id:"anthurium", name:"Anthurium", sci:"Anthurium andraeanum", category:"Flowering", basePrice:380, care:"Bright indirect light · Keep moist · High humidity", desc:"Bold waxy spathes in deep red. Excellent air purifier. Long-lasting cut flower.", svgColor:"#c62828", varieties:["Red","Pink","White","Purple","Orange","Salmon","Coral","Bi-colour","Chocolate","Green Splash"] },
   { id:"begonia", name:"Begonia", sci:"Begonia × semperflorens", category:"Flowering", basePrice:160, care:"Partial shade · Well-drained soil · Moderate water", desc:"Compact prolific bloomer. Excellent for borders and pots.", svgColor:"#ad1457", varieties:["Wax Begonia","Tuberous Begonia","Rex Begonia","Dragon Wing","Polka Dot","Angel Wing","Cane Begonia","Trailing Begonia","Fibrous","Double Flowered"] },
@@ -479,159 +693,32 @@ const MASTER_CATALOGUE = [
   { id:"chrysanthemum", name:"Chrysanthemum", sci:"Chrysanthemum × morifolium", category:"Flowering", basePrice:150, care:"Full sun · Regular watering · Pinch to promote bushiness", desc:"Heritage florist mum with large showy blooms. Symbol of longevity.", svgColor:"#ff8f00", varieties:["Yellow","White","Bronze","Pink","Spider","Pompon","Multiflora","Incurved","Reflexed","Anemone","Spoon","Decorative","Button","Quill","Fuji"] },
   { id:"geranium", name:"Geranium", sci:"Pelargonium × hortorum", category:"Flowering", basePrice:180, care:"Full sun · Allow soil to dry slightly · Feed monthly", desc:"Prolific bloomer with distinctive zoned foliage. Great for pots.", svgColor:"#e53935", varieties:["Red Zonal","Pink","White","Salmon","Ivy Geranium","Scented","Regal","Angel","Martha Washington","Black-eyed","Bicolour","Variegated"] },
   { id:"hibiscus", name:"Hibiscus", sci:"Hibiscus rosa-sinensis", category:"Flowering", basePrice:220, care:"Full sun · Water regularly · Prune after flowering", desc:"Large tropical blooms. State flower of Kerala. Attracts butterflies.", svgColor:"#e53935", varieties:["Red","Yellow","Orange","Pink","White","Double Red","Peach","Coral","Lavender","Hawaiian","Variegated","Snow Queen","Cooperi"] },
-  { id:"impatiens", name:"Impatiens", sci:"Impatiens walleriana", category:"Flowering", basePrice:110, care:"Partial to full shade · Keep moist · Feed fortnightly", desc:"Shade-tolerant free-flowering annual. Ideal for shaded gardens.", svgColor:"#c2185b", varieties:["Red","Pink","White","Coral","Orange","Bi-colour","Salvia","New Guinea","SunPatiens","Super Elfin","Jungle","Fiesta"] },
   { id:"jasmine", name:"Jasmine", sci:"Jasminum sambac", category:"Flowering", basePrice:200, care:"Full sun · Regular watering · Support for climbing", desc:"Intensely fragrant white blooms. Used in garlands and worship. National flower.", svgColor:"#558b2f", varieties:["Mogra","Juhi","Chameli","Star Jasmine","Arabian Jasmine","Jai","Madanban","Grand Duke","Mysore Mallige","Winter Jasmine"] },
   { id:"marigold", name:"Marigold", sci:"Tagetes erecta", category:"Flowering", basePrice:80, care:"Full sun · Water regularly · Deadhead for more blooms", desc:"Cheerful orange and yellow blooms. Natural pest deterrent. Used in puja.", svgColor:"#f9a825", varieties:["African Orange","African Yellow","French Dwarf","Crackerjack","Inca","Discovery","Lady","Lemon Drop","Marvel","Petite","Signet","Vanilla"] },
-  { id:"oleander", name:"Oleander", sci:"Nerium oleander", category:"Flowering", basePrice:250, care:"Full sun · Drought tolerant · All parts toxic — handle with care", desc:"Drought-tolerant shrub with showy blooms. Excellent hedge plant.", svgColor:"#e91e63", varieties:["Red","Pink","White","Yellow","Peach","Double Pink","Double Red","Double White","Variegated","Dwarf Pink"] },
-  { id:"poinsettia", name:"Poinsettia", sci:"Euphorbia pulcherrima", category:"Flowering", basePrice:260, care:"Bright indirect light · Avoid cold drafts · Water when dry", desc:"Classic festive plant with vivid coloured bracts. Symbol of Christmas.", svgColor:"#c62828", varieties:["Red","White","Pink","Marble","Burgundy","Orange","Salmon","Gold","Premium Red","Jingle Bells","Winter Rose"] },
   { id:"rose", name:"Rose", sci:"Rosa × hybrida", category:"Flowering", basePrice:350, care:"Full sun · Water at base · Deadhead regularly · Monthly fertiliser", desc:"Timeless blooms in countless colours. Queen of flowers. Used in perfumery.", svgColor:"#c62828", varieties:["Red Hybrid Tea","Pink Floribunda","Yellow","White","Miniature","Climbing","Grandiflora","Shrub","English Rose","Black Baccara","Blue Moon","Mr Lincoln","Double Delight","Papa Meilland","Peace"] },
   { id:"sunflower", name:"Sunflower", sci:"Helianthus annuus", category:"Flowering", basePrice:120, care:"Full sun · Moderate watering · Wind protection needed", desc:"Tall cheerful blooms that follow the sun. Rich in nectar for bees.", svgColor:"#f9a825", varieties:["Giant Single","Dwarf Sunspot","Multi-head","Teddy Bear","Moulin Rouge","Autumn Beauty","Ring of Fire","Velvet Queen","Italian White","Lemon Queen"] },
-  { id:"vinca", name:"Vinca / Periwinkle", sci:"Catharanthus roseus", category:"Flowering", basePrice:90, care:"Full sun · Moderate water · Drought tolerant", desc:"Heat-tolerant free-flowering ground cover. Used in cancer research.", svgColor:"#6a1b9a", varieties:["Pink","White","Red","Purple","Bicolour","Pacifica","Titan","Soiree","Jams N Jellies","Victory","Mediterranean"] },
-  { id:"zinnia", name:"Zinnia", sci:"Zinnia elegans", category:"Flowering", basePrice:75, care:"Full sun · Moderate water · Good air circulation", desc:"Vibrant long-lasting cut flowers. Attracts butterflies and bees.", svgColor:"#e91e63", varieties:["Giant Dahlia","Cactus","Lilliput","Cut & Come Again","Candy Stripe","Benary Giant","Oklahoma","Dreamland","Short Stuff","Zowie Yellow Flame"] },
-  { id:"dahlia", name:"Dahlia", sci:"Dahlia × hybrida", category:"Flowering", basePrice:310, care:"Full sun · Well drained · Deadhead · Stake tall varieties", desc:"Spectacular dinner-plate sized blooms in autumn. Tubers store well.", svgColor:"#ad1457", varieties:["Ball","Cactus","Pompon","Anemone","Waterlily","Dinner Plate","Collarette","Decorative","Semi-cactus","Peony","Orchid","Laciniated"] },
-  { id:"petunia", name:"Petunia", sci:"Petunia × atkinsiana", category:"Flowering", basePrice:100, care:"Full sun · Deadhead regularly · Feed fortnightly", desc:"Prolific summer bloomer for pots and hanging baskets.", svgColor:"#7b1fa2", varieties:["Wave Pink","Supertunia","Surfinia","Picotee","Double Mixed","Grandiflora","Multiflora","Milliflora","Tidal Wave","Easy Wave","Dreams","Prism Sunshine"] },
-  { id:"lotus", name:"Lotus", sci:"Nelumbo nucifera", category:"Flowering", basePrice:450, care:"Full sun · Aquatic – needs water container · Feed monthly", desc:"Sacred national flower. Aquatic blooms in pink and white. Symbol of purity.", svgColor:"#e91e63", varieties:["Pink","White","Red","Dwarf Bowl Lotus","Giant","Momo Botan","Sacred White","Chawan Basu","Ben Gibson","Single White"] },
-  { id:"ixora", name:"Ixora", sci:"Ixora coccinea", category:"Flowering", basePrice:170, care:"Full sun · Acidic well-drained soil · Regular pruning", desc:"Dense clusters of fiery flowers. Excellent hedge and border plant.", svgColor:"#e53935", varieties:["Scarlet","Pink","Yellow","Orange","Dwarf Red","Prince of Orange","Sunkist","Nora Grant","Super King","Compacta","Rosea"] },
-  { id:"heliconia", name:"Heliconia", sci:"Heliconia psittacorum", category:"Flowering", basePrice:480, care:"Partial shade · High humidity · Keep moist · Tropical conditions", desc:"Exotic tropical bird-of-paradise relative. Stunning cut flower.", svgColor:"#e65100", varieties:["Scarlet Gyro","Sassy","Golden Torch","Lobster Claw","Hanging","Christmas","Golden","Lady Di","Shogun","Parakeet"] },
-  { id:"bird_of_paradise", name:"Bird of Paradise", sci:"Strelitzia reginae", category:"Flowering", basePrice:650, care:"Full sun · Well-drained · Water deeply · Feed quarterly", desc:"Exotic orange and blue blooms resembling a tropical bird in flight.", svgColor:"#e65100", varieties:["Orange","White (Giant)","Yellow","Mandela's Gold","Juncea","Parvifolia"] },
-  { id:"adenium", name:"Adenium / Desert Rose", sci:"Adenium obesum", category:"Flowering", basePrice:320, care:"Full sun · Sandy well-drained soil · Water sparingly", desc:"Succulent shrub with spectacular blooms and swollen trunk. Bonsai favourite.", svgColor:"#e91e63", varieties:["Pink","Red","White","Bi-colour","Double Pink","Spiral","Black","Purple","Yellow Edge","Grafted Thai"] },
-  { id:"plumeria", name:"Plumeria / Frangipani", sci:"Plumeria rubra", category:"Flowering", basePrice:380, care:"Full sun · Water moderately · Drought tolerant", desc:"Fragrant temple flowers used in garlands and Hawaii leis.", svgColor:"#fce4ec", varieties:["Pink","White with Yellow","Red","Coral","Yellow","Singapore White","Tri-colour","Dark Pink","Dwarf","Black Tip"] },
-  { id:"gerbera", name:"Gerbera Daisy", sci:"Gerbera jamesonii", category:"Flowering", basePrice:160, care:"Bright light · Water at base · Feed monthly", desc:"Cheerful daisy-like blooms in rainbow colours. Popular cut flower.", svgColor:"#e53935", varieties:["Red","Yellow","Pink","Orange","White","Salmon","Purple","Bi-colour","Mega Revolution","Festival","Garvinea"] },
-  { id:"canna", name:"Canna Lily", sci:"Canna × generalis", category:"Flowering", basePrice:200, care:"Full sun · Regular watering · Rich moist soil", desc:"Bold tropical foliage and large flowers. Great border plant.", svgColor:"#e53935", varieties:["Red","Yellow","Orange","Pink","Striped","Tropical Rose","Pretoria","Bengal Tiger","Tropicanna","Australia"] },
-  { id:"portulaca", name:"Portulaca / Sun Rose", sci:"Portulaca grandiflora", category:"Flowering", basePrice:60, care:"Full sun · Sandy well-drained · Drought tolerant", desc:"Bright jewel-like blooms that open in sunlight. Perfect for rock gardens.", svgColor:"#e91e63", varieties:["Mixed","Double Mixed","Sundial","Yubi Summer","Afternoon Delight","Happy Hour","Cupcake"] },
-  { id:"gomphrena", name:"Gomphrena", sci:"Gomphrena globosa", category:"Flowering", basePrice:70, care:"Full sun · Drought tolerant · Low maintenance", desc:"Globe-shaped papery flowers that dry beautifully. Heat tolerant.", svgColor:"#6a1b9a", varieties:["Pink","White","Purple","Red","Orange","QIS Pink","Fireworks","Buddy Purple","Gnome"] },
-  { id:"verbena", name:"Verbena", sci:"Verbena × hybrida", category:"Flowering", basePrice:95, care:"Full sun · Moderate water · Good drainage", desc:"Clusters of small flowers in jewel tones. Butterfly magnet.", svgColor:"#7b1fa2", varieties:["Quartz Red","Superbena","Obsession","Imagination","Lanai","Aztec","EnduraScape"] },
-  { id:"torenia", name:"Torenia / Wishbone Flower", sci:"Torenia fournieri", category:"Flowering", basePrice:85, care:"Partial shade · Keep moist · Feed regularly", desc:"Tubular bi-coloured blooms perfect for shade gardens.", svgColor:"#7b1fa2", varieties:["Blue","White","Pink","Summer Wave","Clown","Duchess"] },
-  { id:"celosia", name:"Celosia / Cockscomb", sci:"Celosia argentea", category:"Flowering", basePrice:65, care:"Full sun · Moderate water · Warm conditions", desc:"Velvety feathery or cockscomb-shaped blooms in vivid colours.", svgColor:"#e53935", varieties:["Crested Red","Crested Yellow","Plume Mixed","Flamingo Feather","Century","Castle Pink","Kelos Fire"] },
-  { id:"crossandra", name:"Crossandra", sci:"Crossandra infundibuliformis", category:"Flowering", basePrice:130, care:"Partial shade · Keep moist · High humidity", desc:"Popular South Indian flower used in garlands. Blooms year-round.", svgColor:"#e65100", varieties:["Orange","Salmon","Yellow","Pink","Lutea"] },
-  { id:"tuberose", name:"Tuberose / Rajnigandha", sci:"Polianthes tuberosa", category:"Flowering", basePrice:180, care:"Full sun · Well-drained soil · Water regularly", desc:"Intensely fragrant white spikes. Used in perfumery and garlands.", svgColor:"#f5f0e8", varieties:["Single","Double","Mexican Single","Calcutta Double","Pearl","Prajwal","Suvasini"] },
   { id:"tulasi", name:"Holy Basil (Tulasi)", sci:"Ocimum tenuiflorum", category:"Medicinal", basePrice:120, care:"Full sun · Water daily · Keep pot-bound", desc:"Sacred and medicinal herb. Adaptogen with antibacterial properties. Worship plant.", svgColor:"#388e3c", varieties:["Krishna Tulasi","Ram Tulasi","Vana Tulasi","Kapoor Tulasi","Amrita Tulasi","Tukashmali","Vishnu Priya"] },
   { id:"aloe", name:"Aloe Vera", sci:"Aloe barbadensis miller", category:"Medicinal", basePrice:150, care:"Bright indirect light · Water sparingly · Sandy soil", desc:"Succulent with soothing gel-filled leaves. Skin care and digestive aid.", svgColor:"#558b2f", varieties:["Common Aloe","Barbadensis","Chinensis","Aristata","Blue Elf","Ferox","Vera","Striata","Soap Aloe"] },
   { id:"neem", name:"Neem", sci:"Azadirachta indica", category:"Medicinal", basePrice:200, care:"Full sun · Drought tolerant · Minimal care", desc:"Multi-purpose medicinal tree. Natural pesticide. Used in Ayurveda and toothpaste.", svgColor:"#2e7d32", varieties:["Common Neem","Dwarf Neem","Melia Neem","Grafted"] },
-  { id:"moringa", name:"Moringa / Drumstick", sci:"Moringa oleifera", category:"Medicinal", basePrice:180, care:"Full sun · Drought tolerant · Sandy well-drained soil", desc:"Highly nutritious miracle tree. Leaves, pods and flowers all edible.", svgColor:"#388e3c", varieties:["PKM-1","PKM-2","Periyakulam","Bhagya","ODC","Jaffna Long Pod"] },
-  { id:"ashwagandha", name:"Ashwagandha", sci:"Withania somnifera", category:"Medicinal", basePrice:140, care:"Full sun · Sandy well-drained soil · Water sparingly", desc:"Adaptogenic root. Key Ayurvedic herb for stress and immunity.", svgColor:"#f9a825", varieties:["WS-20","Poshita","Jawahar Ashwagandha","WS-134","Nimra"] },
-  { id:"brahmi", name:"Brahmi", sci:"Bacopa monnieri", category:"Medicinal", basePrice:110, care:"Moist soil · Partial shade · Keep wet", desc:"Memory-enhancing Ayurvedic creeper. Nootropic herb.", svgColor:"#43a047", varieties:["Water Hyssop","Coastal Waterhyssop","Mandukaparni"] },
-  { id:"giloy", name:"Giloy / Guduchi", sci:"Tinospora cordifolia", category:"Medicinal", basePrice:130, care:"Partial sun · Moderate water · Climbing support", desc:"Immunity-boosting climbing vine. COVID-19 remedy in Ayurveda.", svgColor:"#2e7d32", varieties:["Common Giloy","Tinospora sinensis","Heart-leaved"] },
-  { id:"lemongrass", name:"Lemongrass", sci:"Cymbopogon citratus", category:"Medicinal", basePrice:90, care:"Full sun · Well-drained soil · Water moderately", desc:"Fragrant grass used in teas, cooking and aromatherapy.", svgColor:"#7cb342", varieties:["West Indian","East Indian","Java Citronella","Palmarosa","Khus Grass"] },
-  { id:"curry_leaf", name:"Curry Leaf", sci:"Murraya koenigii", category:"Medicinal", basePrice:160, care:"Full sun · Well-drained soil · Feed monthly", desc:"Essential South Indian cooking herb. Antioxidant-rich leaves.", svgColor:"#388e3c", varieties:["Regular","Dwarf","Gamthi","Giant","Senkambu"] },
-  { id:"mint", name:"Mint", sci:"Mentha × piperita", category:"Medicinal", basePrice:80, care:"Partial sun · Keep moist · Contain in pot", desc:"Refreshing aromatic herb for tea and cooking. Spreads vigorously.", svgColor:"#43a047", varieties:["Peppermint","Spearmint","Apple Mint","Chocolate Mint","Pennyroyal","Watermint","Corn Mint","Moroccan"] },
-  { id:"amla", name:"Amla / Indian Gooseberry", sci:"Phyllanthus emblica", category:"Medicinal", basePrice:250, care:"Full sun · Drought tolerant · Well-drained", desc:"Highest vitamin C content of any fruit. Prized in Ayurveda.", svgColor:"#558b2f", varieties:["Chakaiya","Krishna","Kanchan","NA-4","NA-7","Banarasi","Desi","Neelam"] },
-  { id:"stevia", name:"Stevia", sci:"Stevia rebaudiana", category:"Medicinal", basePrice:120, care:"Full sun · Well-drained soil · Moderate water", desc:"Natural sweetener plant. 300 times sweeter than sugar. Zero calories.", svgColor:"#7cb342", varieties:["Morita","SteviaCal","Bertoni","SG-95"] },
-  { id:"turmeric", name:"Turmeric", sci:"Curcuma longa", category:"Medicinal", basePrice:110, care:"Partial shade · Rich moist soil · High humidity", desc:"Golden spice with powerful anti-inflammatory curcumin.", svgColor:"#f9a825", varieties:["Alleppey Finger","Rajendra Sonia","Sudharsana","Roma","Kedaram","Suvarna","Sugandham"] },
-  { id:"ginger", name:"Ginger", sci:"Zingiber officinale", category:"Medicinal", basePrice:100, care:"Partial shade · Rich moist well-drained soil", desc:"Pungent rhizome. Anti-nausea, anti-inflammatory digestive aid.", svgColor:"#f9a825", varieties:["Rio de Janeiro","Suprabha","Suruchi","Surabhi","Himgiri","Varada","IISR Mahima"] },
-  { id:"shatavari", name:"Shatavari", sci:"Asparagus racemosus", category:"Medicinal", basePrice:160, care:"Partial shade · Well-drained · Climbing support", desc:"Women's tonic herb in Ayurveda. Adaptogen and galactagogue.", svgColor:"#558b2f", varieties:["Common Shatavari","Climbing Shatavari"] },
-  { id:"garcinia", name:"Garcinia / Kudampuli", sci:"Garcinia cambogia", category:"Medicinal", basePrice:280, care:"Partial shade · Humid · Regular water", desc:"Sour fruit used in Kerala cuisine. Weight management supplement.", svgColor:"#f57f17", varieties:["Green","Yellow","Malabar Tamarind"] },
-  { id:"kalmegh", name:"Kalmegh / Andrographis", sci:"Andrographis paniculata", category:"Medicinal", basePrice:90, care:"Full sun · Well-drained · Minimal care", desc:"King of Bitters. Liver tonic and immune booster.", svgColor:"#388e3c", varieties:["Common","AP-1"] },
-  { id:"gudmar", name:"Gudmar / Gurmar", sci:"Gymnema sylvestre", category:"Medicinal", basePrice:150, care:"Full sun · Well-drained soil · Climbing support", desc:"Sugar destroyer. Used in diabetes management.", svgColor:"#2e7d32", varieties:["Common Gymnema"] },
-  { id:"ashoka_medicinal", name:"Ashoka (Medicinal)", sci:"Saraca asoca", category:"Medicinal", basePrice:320, care:"Full to partial sun · Moist soil · Humid", desc:"Sacred tree used to treat uterine disorders in Ayurveda.", svgColor:"#e65100", varieties:["Common Ashoka"] },
-  { id:"amruthaballi", name:"Betel Leaf / Pan", sci:"Piper betle", category:"Medicinal", basePrice:130, care:"Partial shade · Moist rich soil · High humidity", desc:"Medicinal leaf used in paan. Antiseptic and digestive properties.", svgColor:"#388e3c", varieties:["Calcutta Pan","Bangla Pan","Desi Pan","Ramtek","Kapoori"] },
   { id:"money_plant", name:"Money Plant", sci:"Epipremnum aureum", category:"Indoor", basePrice:95, care:"Low to bright indirect light · Water when dry · Occasional misting", desc:"Easy trailing plant symbolising good luck. NASA air-purifying plant.", svgColor:"#2e7d32", varieties:["Golden Pothos","Marble Queen","Neon","Silver Satin","N'Joy","Manjula","Pearls and Jade","Baltic Blue","Cebu Blue","Glacier"] },
   { id:"peacelily", name:"Peace Lily", sci:"Spathiphyllum wallisii", category:"Indoor", basePrice:220, care:"Low to medium light · Keep moist · No direct sun", desc:"Elegant white spathes. Top NASA air-purifying plant. Easy care.", svgColor:"#2e7d32", varieties:["Standard","Domino","Sensation (Giant)","Piccolino","Jetty","Sweet Pablo","Viscount","Mauna Loa","Lynise"] },
   { id:"snake_plant", name:"Snake Plant", sci:"Dracaena trifasciata", category:"Indoor", basePrice:185, care:"Low light · Water sparingly · Tolerates neglect", desc:"Virtually indestructible. Converts CO₂ at night. Best bedroom plant.", svgColor:"#388e3c", varieties:["Laurentii","Moonshine","Cylindrica","Hahnii","Twist","Black Gold","Bantel's Sensation","Fernwood","Gold Hahnii","Cleopatra"] },
-  { id:"zz_plant", name:"ZZ Plant", sci:"Zamioculcas zamiifolia", category:"Indoor", basePrice:310, care:"Low light · Drought tolerant · Water monthly", desc:"Glossy foliage. Thrives on complete neglect. Toxin-absorbent.", svgColor:"#2e7d32", varieties:["Classic","Raven (Black)","Zenzi","Variegated","Lucky Classic"] },
-  { id:"pothos", name:"Pothos", sci:"Epipremnum aureum cvs", category:"Indoor", basePrice:85, care:"Low to medium light · Drought tolerant · Any soil", desc:"Beginner-friendly trailing houseplant. Extremely adaptable.", svgColor:"#43a047", varieties:["Jade","Neon","Hawaiian","Manjula","Cebu Blue","Glacier","Silver Splash","Global Green","Emerald"] },
-  { id:"fern", name:"Fern", sci:"Nephrolepis exaltata", category:"Indoor", basePrice:170, care:"Indirect light · High humidity · Keep moist", desc:"Feathery fronds. Adds lush tropical feel. Natural air humidifier.", svgColor:"#2e7d32", varieties:["Boston Fern","Maidenhair","Button Fern","Bird's Nest","Staghorn","Sword Fern","Kimberly Queen","Holly Fern","Rabbit Foot","Foxtail"] },
   { id:"monstera", name:"Monstera", sci:"Monstera deliciosa", category:"Indoor", basePrice:450, care:"Bright indirect light · Water weekly · Mist leaves · Support pole", desc:"Iconic split-leaf tropical. Most photographed plant on Instagram.", svgColor:"#1b5e20", varieties:["Deliciosa","Thai Constellation","Adansonii","Albo Variegata","Borsigiana","Standleyana","Siltepecana","Peru","Dubia","Lechleriana"] },
-  { id:"rubber_plant", name:"Rubber Plant", sci:"Ficus elastica", category:"Indoor", basePrice:320, care:"Bright indirect light · Water moderately · Wipe leaves", desc:"Bold glossy leaves. Architectural statement plant. Air purifier.", svgColor:"#1b5e20", varieties:["Robusta","Burgundy","Tineke","Ruby","Shivereana","Doescheri","Black Prince","Variegata"] },
-  { id:"aglaonema", name:"Aglaonema", sci:"Aglaonema commutatum", category:"Indoor", basePrice:260, care:"Low to medium light · Moderate water · Avoid cold drafts", desc:"Beautifully patterned foliage in stunning colours. Very easy care.", svgColor:"#e53935", varieties:["Red Siam","Pink Anyamanee","Creta","Maria","Silver Bay","Ultra Pink","Chocolate","Sparkling Sarah","Diamond Bay","Emerald Beauty","Silver Queen"] },
-  { id:"dracaena", name:"Dracaena", sci:"Dracaena fragrans", category:"Indoor", basePrice:290, care:"Indirect light · Water sparingly · Avoid fluoride water", desc:"Elegant cane plant. Great for living rooms. Long-lived and easy.", svgColor:"#558b2f", varieties:["Corn Plant","Massangeana","Warneckii","Marginata","Compacta","Song of India","Reflexa","Surculosa","Deremensis","Janet Craig"] },
-  { id:"spider_plant", name:"Spider Plant", sci:"Chlorophytum comosum", category:"Indoor", basePrice:95, care:"Indirect light · Moderate water · Any well-drained soil", desc:"Cascading plantlets. Easy to propagate. Removes formaldehyde.", svgColor:"#7cb342", varieties:["Variegatum","Vittatum","Bonnie (Curly)","Hawaiian","Reverse Variegated","Zebra"] },
-  { id:"chinese_evergreen", name:"Chinese Evergreen", sci:"Aglaonema modestum", category:"Indoor", basePrice:195, care:"Low light · Moderate water · Warm humid conditions", desc:"Classic easy-care houseplant with handsome foliage. Very tolerant.", svgColor:"#2e7d32", varieties:["Green","Variegated","Silver","Cutlass","Suzy","Cory"] },
-  { id:"dieffenbachia", name:"Dieffenbachia / Dumb Cane", sci:"Dieffenbachia seguine", category:"Indoor", basePrice:220, care:"Indirect light · Keep moist · Avoid direct sun", desc:"Large patterned leaves. Fast-growing. Dramatic focal plant.", svgColor:"#388e3c", varieties:["Camille","Tropic Snow","Tropic Marianne","Sparkles","Star Bright","Compacta","Triumph","Reflector"] },
-  { id:"calathea", name:"Calathea / Prayer Plant", sci:"Calathea orbifolia", category:"Indoor", basePrice:380, care:"Bright indirect light · Distilled water · High humidity", desc:"Stunning geometric leaf patterns. Folds leaves at night like praying hands.", svgColor:"#1b5e20", varieties:["Orbifolia","Medallion","Rattlesnake","Peacock","Zebra","Musaica","Makoyana","Lancifolia","Louisae","Roseopicta","Sanderiana"] },
-  { id:"philodendron", name:"Philodendron", sci:"Philodendron hederaceum", category:"Indoor", basePrice:340, care:"Bright indirect light · Water when dry · Mist occasionally", desc:"Diverse genus with heart-shaped to massive split leaves. Collector's favourite.", svgColor:"#1b5e20", varieties:["Heart Leaf","Brasil","Birkin","Pink Princess","Prince of Orange","Gloriosum","Melanochrysum","Xanadu","Atom","Imperial Green","Moonlight","Autumn"] },
-  { id:"pothos_marble", name:"Marble Queen Pothos", sci:"Epipremnum aureum Marble Queen", category:"Indoor", basePrice:130, care:"Medium indirect light · Water when dry · Occasional fertiliser", desc:"Heavily variegated white and green trailing vine.", svgColor:"#2e7d32", varieties:["Classic Marble","Snow Queen","Manjula","Pearls and Jade"] },
-  { id:"schefflera", name:"Schefflera / Umbrella Plant", sci:"Schefflera actinophylla", category:"Indoor", basePrice:280, care:"Bright indirect light · Water moderately · Mist leaves", desc:"Glossy umbrella-like leaf clusters. Easy tree-form houseplant.", svgColor:"#1b5e20", varieties:["Arboricola","Actinophylla","Variegated","Trinette","Gold Capella","Renate"] },
-  { id:"fiddle_leaf", name:"Fiddle Leaf Fig", sci:"Ficus lyrata", category:"Indoor", basePrice:650, care:"Bright indirect light · Water weekly · No cold drafts · Stable location", desc:"Dramatic large violin-shaped leaves. Most fashionable houseplant.", svgColor:"#1b5e20", varieties:["Standard","Bambino (Dwarf)","Variegated","Column"] },
-  { id:"bromeliad", name:"Bromeliad", sci:"Bromeliaceae spp.", category:"Indoor", basePrice:290, care:"Bright indirect light · Water into cup · Well-drained", desc:"Tropical epiphyte with colourful bracts. Long-lasting indoor display.", svgColor:"#e53935", varieties:["Guzmania Red","Guzmania Orange","Vriesea","Neoregelia","Aechmea","Tillandsia","Cryptanthus","Pineapple"] },
-  { id:"kalanchoe", name:"Kalanchoe", sci:"Kalanchoe blossfeldiana", category:"Succulent & Cactus", basePrice:195, care:"Bright indirect light · Water sparingly · Deadhead after flowering", desc:"Cheerful succulent with long-lasting flower clusters. Easy care.", svgColor:"#e64a19", varieties:["Red","Yellow","Orange","Pink","White","Bi-colour","Calandiva (Double)","Flaming Katy","Christmas Kalanchoe","Paddington"] },
-  { id:"echeveria", name:"Echeveria", sci:"Echeveria spp.", category:"Succulent & Cactus", basePrice:160, care:"Full sun · Water sparingly · Sandy well-drained soil", desc:"Rosette-forming succulent in stunning silver-blue hues.", svgColor:"#7cb342", varieties:["Elegans","Perle von Nurnberg","Black Prince","Lola","Rainbow","Subsessilis","Imbricata","Afterglow","Minima","Runyonii Topsy Turvy","Blue Atoll","Romeo"] },
-  { id:"cactus", name:"Cactus", sci:"Cactaceae spp.", category:"Succulent & Cactus", basePrice:120, care:"Full sun · Water very sparingly · Sandy gritty soil", desc:"Low-maintenance architectural desert plants. Perfect for beginners.", svgColor:"#8bc34a", varieties:["Golden Barrel","Moon Cactus","Bunny Ears","Christmas Cactus","Prickly Pear","Cereus","Mammillaria","Echinopsis","Ferocactus","Opuntia","Cleistocactus","Notocactus"] },
-  { id:"jade", name:"Jade Plant", sci:"Crassula ovata", category:"Succulent & Cactus", basePrice:175, care:"Full sun · Water sparingly · Well-drained sandy soil", desc:"Bonsai-like long-lived good-luck plant. Excellent feng shui plant.", svgColor:"#2e7d32", varieties:["Classic","Gollum","Hobbit","Variegated","Ripple","Blue Bird","Minor","Arborescens"] },
-  { id:"haworthia", name:"Haworthia", sci:"Haworthia fasciata", category:"Succulent & Cactus", basePrice:145, care:"Indirect light · Water sparingly · Well-drained", desc:"Compact striped rosettes. Perfect low-light windowsill succulent.", svgColor:"#558b2f", varieties:["Zebra","Attenuata","Cooperi","Retusa","Truncata","Limifolia","Obtusa","Reinwardtii","Cymbiformis","Coarctata"] },
-  { id:"aeonium", name:"Aeonium", sci:"Aeonium arboreum", category:"Succulent & Cactus", basePrice:210, care:"Full to partial sun · Water sparingly · Cool dry conditions", desc:"Tree-like succulent with glossy rosettes. Stunning winter colour.", svgColor:"#1b5e20", varieties:["Zwartkop (Black)","Sunburst","Kiwi","Velour","Blushing Beauty","Garnet","Cyclops"] },
-  { id:"sedum", name:"Sedum / Stonecrop", sci:"Sedum spp.", category:"Succulent & Cactus", basePrice:130, care:"Full sun · Drought tolerant · Sandy soil", desc:"Ground-covering succulent ideal for rock gardens and walls.", svgColor:"#8bc34a", varieties:["Autumn Joy","Dragon's Blood","Cape Blanco","Acre","Burro's Tail","Morganianum","Rubrotinctum","Pachyphyllum","Dasyphyllum"] },
-  { id:"gasteria", name:"Gasteria", sci:"Gasteria spp.", category:"Succulent & Cactus", basePrice:140, care:"Shade tolerant · Water sparingly · Indoor friendly", desc:"Tongue-like leaves. More shade tolerant than most succulents.", svgColor:"#558b2f", varieties:["Bicolor","Carinata","Little Warty","Verrucosa","Batesiana","Excelsa"] },
-  { id:"lithops", name:"Lithops / Living Stones", sci:"Lithops spp.", category:"Succulent & Cactus", basePrice:180, care:"Full sun · Very little water · Gritty sandy mix", desc:"Fascinating stone-mimicking succulents from South Africa.", svgColor:"#8d6e63", varieties:["Mixed Species","Aucampiae","Bromfieldii","Comptonii","Karasmontana","Hookeri","Salicola"] },
-  { id:"aloe_vera_succulent", name:"Aloe Collection", sci:"Aloe spp.", category:"Succulent & Cactus", basePrice:160, care:"Full sun · Well-drained sandy soil · Water monthly", desc:"Diverse aloe genus beyond common aloe vera.", svgColor:"#558b2f", varieties:["Ferox","Aristata","Saponaria","Marlothii","Striata","Dichotoma","Capitata","Plicatilis","Cameronii","Humilis"] },
-  { id:"euphorbia_succulent", name:"Euphorbia (Succulent)", sci:"Euphorbia spp.", category:"Succulent & Cactus", basePrice:150, care:"Full sun · Very drought tolerant · Sandy soil · Handle with care (sap)", desc:"Diverse succulent euphorbias that mimic cacti.", svgColor:"#8bc34a", varieties:["Trigona","Lactea","Tirucalli (Pencil)","Ingens","Obesa","Meloformis","Horrida","Aeruginosa"] },
   { id:"tomato", name:"Tomato", sci:"Solanum lycopersicum", category:"Vegetables & Herbs", basePrice:60, care:"Full sun · Water regularly · Support with stake", desc:"Versatile kitchen staple. Can be grown in pots on balconies.", svgColor:"#e53935", varieties:["Cherry","Beefsteak","Roma","Hybrid F1","Yellow Pear","Heirloom","Indeterminate","Determinate","Grape","Green Zebra","Black Krim","Brandywine"] },
   { id:"chilli", name:"Chilli Pepper", sci:"Capsicum annuum", category:"Vegetables & Herbs", basePrice:55, care:"Full sun · Moderate water · Warm conditions", desc:"Spicy kitchen essential. Multiple harvests per season.", svgColor:"#e53935", varieties:["Red Long","Bhut Jolokia","Guntur","Kashmiri","Green Bullet","Bird's Eye","Jwala","Kanthari","Dundicut","Byadagi","Naga","Habanero"] },
-  { id:"brinjal", name:"Brinjal / Eggplant", sci:"Solanum melongena", category:"Vegetables & Herbs", basePrice:50, care:"Full sun · Regular watering · Stake when fruiting", desc:"Widely used in Indian cooking. Excellent in pots.", svgColor:"#6a1b9a", varieties:["Purple Long","Round Green","White","Thai","Baby Brinjal","Black Beauty","Japanese","Fairy Tale","Listada","Calliope"] },
-  { id:"capsicum", name:"Capsicum / Bell Pepper", sci:"Capsicum annuum (sweet)", category:"Vegetables & Herbs", basePrice:70, care:"Full sun · Regular watering · Rich fertile soil", desc:"Crisp colourful bell peppers for salads and curries.", svgColor:"#e53935", varieties:["Red","Yellow","Green","Orange","Purple","Chocolate Brown","White","Lilac","California Wonder","King of the North"] },
-  { id:"spinach", name:"Spinach", sci:"Spinacia oleracea", category:"Vegetables & Herbs", basePrice:40, care:"Partial shade · Keep moist · Cool weather crop", desc:"Nutritious iron-rich leafy green. Quick harvest in 40 days.", svgColor:"#388e3c", varieties:["Baby Spinach","Savoy","Semi-Savoy","Smooth Leaf","New Zealand","Malabar","Red Veined","Perpetual"] },
-  { id:"coriander", name:"Coriander / Dhania", sci:"Coriandrum sativum", category:"Vegetables & Herbs", basePrice:35, care:"Partial sun · Keep moist · Cooler weather preferred", desc:"Essential Indian herb. Used for cooking and garnishing.", svgColor:"#7cb342", varieties:["CO-1","CO-2","CO-3","Swathi","Sadhana","Rajendra Swathi","Hisar Anand","Pant Haritima","Sindhu"] },
-  { id:"methi", name:"Methi / Fenugreek", sci:"Trigonella foenum-graecum", category:"Vegetables & Herbs", basePrice:38, care:"Full sun · Moderate water · Well-drained soil", desc:"Bitter aromatic leafy vegetable with medicinal uses.", svgColor:"#558b2f", varieties:["Pusa Early Bunching","Methi No. 47","Rajendra Kanti","Kasuri Methi","Lam Sel 1","Rmt-303"] },
-  { id:"okra", name:"Okra / Lady's Finger", sci:"Abelmoschus esculentus", category:"Vegetables & Herbs", basePrice:45, care:"Full sun · Water regularly · Rich fertile soil", desc:"Popular South Asian vegetable. High yielding and easy to grow.", svgColor:"#558b2f", varieties:["Parbhani Kranti","Arka Anamika","Hisar Naveen","Varsha Uphar","Arka Abhay","Mahyco-10","Clemson Spineless"] },
-  { id:"bitter_gourd", name:"Bitter Gourd / Karela", sci:"Momordica charantia", category:"Vegetables & Herbs", basePrice:55, care:"Full sun · Regular watering · Trellis support", desc:"Highly medicinal vegetable. Excellent for blood sugar regulation.", svgColor:"#2e7d32", varieties:["Priya","Coimbatore Long","Pusa Hybrid-1","MDU-1","White Karela","Pusa Do Mausami","CO-1"] },
-  { id:"basil", name:"Basil", sci:"Ocimum basilicum", category:"Vegetables & Herbs", basePrice:65, care:"Full sun · Keep moist · Pinch flowers to promote leaves", desc:"Aromatic culinary herb. Used in Italian and Thai cuisine.", svgColor:"#388e3c", varieties:["Sweet Basil","Thai Basil","Genovese","Lemon Basil","Purple Basil","Cinnamon Basil","Greek","Spicy Globe","Tulsi (Holy)","Cardinal"] },
-  { id:"rosemary", name:"Rosemary", sci:"Salvia rosmarinus", category:"Vegetables & Herbs", basePrice:120, care:"Full sun · Well-drained sandy soil · Drought tolerant", desc:"Woody aromatic herb. Excellent for cooking and aromatherapy.", svgColor:"#7b1fa2", varieties:["Tuscan Blue","Arp","Prostrate","Majorca Pink","Miss Jessup's Upright","Salem","Hill Hardy"] },
-  { id:"curry_herb", name:"Celery / Ajmoda", sci:"Apium graveolens", category:"Vegetables & Herbs", basePrice:55, care:"Partial shade · Keep very moist · Rich soil", desc:"Crunchy stalks and aromatic leaves used in cooking.", svgColor:"#7cb342", varieties:["Utah","Giant Pascal","Golden Self-blanching","Greensnap","Chinese Celery"] },
-  { id:"cucumber", name:"Cucumber", sci:"Cucumis sativus", category:"Vegetables & Herbs", basePrice:50, care:"Full sun · Water daily · Trellis support", desc:"Refreshing summer vegetable. High yielding and fast growing.", svgColor:"#388e3c", varieties:["Field","Slicing","Pickling","Burpless","English","Mini","Lemon","White","Armenian","Marketmore"] },
-  { id:"pumpkin", name:"Pumpkin", sci:"Cucurbita pepo", category:"Vegetables & Herbs", basePrice:55, care:"Full sun · Rich moist soil · Lots of space", desc:"Large fruiting vine. Used in cooking and festivals.", svgColor:"#e65100", varieties:["Red","Yellow","White","Butternut","Acorn","Kabocha","Sugar Pie","Jack-o-Lantern","Hubbard"] },
-  { id:"snake_gourd", name:"Snake Gourd", sci:"Trichosanthes cucumerina", category:"Vegetables & Herbs", basePrice:45, care:"Full sun · Regular watering · Trellis essential", desc:"Long twisted gourd used extensively in South Indian cooking.", svgColor:"#2e7d32", varieties:["Short White","Long Green","CO-1","CO-2","PKM-1"] },
-  { id:"drumstick_veg", name:"Moringa / Drumstick (Veg)", sci:"Moringa oleifera", category:"Vegetables & Herbs", basePrice:130, care:"Full sun · Drought tolerant · Minimal fertiliser", desc:"Highly nutritious pods, leaves and flowers edible year-round.", svgColor:"#388e3c", varieties:["PKM-1","PKM-2","Periyakulam","ODC","Bhagya"] },
-  { id:"curry_tomato", name:"Tomato Cherry", sci:"Solanum lycopersicum var. cerasiforme", category:"Vegetables & Herbs", basePrice:65, care:"Full sun · Regular watering · Small stake support", desc:"Sweet bite-sized tomatoes ideal for salads and snacking.", svgColor:"#e53935", varieties:["Red Cherry","Yellow Cherry","Sweet Million","Sungold","Black Cherry","Grape","Juliet","Sweet 100"] },
   { id:"mango", name:"Mango", sci:"Mangifera indica", category:"Fruit Trees", basePrice:550, care:"Full sun · Drought tolerant · Annual fertiliser in Feb", desc:"King of fruits. Multiple grafted varieties available. Symbol of India.", svgColor:"#f9a825", varieties:["Alphonso","Dashehri","Kesar","Langra","Totapuri","Amrapali","Mallika","Neelum","Banganapalli","Sindoori","Rajapuri","Imam Pasand","Himayat","Malgova","Salem"] },
   { id:"guava", name:"Guava", sci:"Psidium guajava", category:"Fruit Trees", basePrice:320, care:"Full sun · Drought tolerant · Prune after fruiting", desc:"High-yield tropical fruit tree. Rich in Vitamin C.", svgColor:"#7cb342", varieties:["Lalit","Allahabad Safeda","Lucknow-49","Apple Guava","Hisar Surkha","Sardar","Arka Amulya","Arka Mridula","Smooth Green","Thailand Red"] },
-  { id:"lemon", name:"Lemon / Lime", sci:"Citrus limon / aurantifolia", category:"Fruit Trees", basePrice:280, care:"Full sun · Regular watering · Monthly fertiliser", desc:"Year-round fruiting citrus for pots and ground.", svgColor:"#f9a825", varieties:["Eureka","Kagzi Lime","Meyer Lemon","Lisbon","Vikram","Sweet Lime","Kachai","Citrus Maxima","Rough Lemon","Galgal"] },
-  { id:"banana", name:"Banana", sci:"Musa × paradisiaca", category:"Fruit Trees", basePrice:350, care:"Full sun · High water needs · Rich moist soil", desc:"Fast-growing tropical. Fruits in 12–18 months.", svgColor:"#f9a825", varieties:["Robusta","Cavendish","Red Banana","Nendran","G9 Tissue Culture","Poovan","Grand Naine","Karpuravalli","Malbhog","Rajeli"] },
-  { id:"papaya", name:"Papaya", sci:"Carica papaya", category:"Fruit Trees", basePrice:150, care:"Full sun · Well-drained soil · Monthly fertiliser", desc:"Fast-fruiting tropical with high nutritional value. Medicinal latex.", svgColor:"#ff8f00", varieties:["Red Lady","Pusa Dwarf","CO-7","Taiwan 786","Sunrise Solo","Coorg Honey Dew","Ranchi","Surya","Arka Prabhath"] },
-  { id:"coconut", name:"Coconut Palm", sci:"Cocos nucifera", category:"Fruit Trees", basePrice:480, care:"Full sun · Sandy well-drained soil · Coastal areas", desc:"Iconic tropical palm. Every part is useful. Kalpa Vriksha.", svgColor:"#795548", varieties:["Tall West Coast","Dwarf Orange","Hybrid T×D","Chowghat Orange Dwarf","Green Dwarf","Yellow Dwarf","San Ramon","Malayan"] },
-  { id:"fig", name:"Fig", sci:"Ficus carica", category:"Fruit Trees", basePrice:420, care:"Full sun · Moderate watering · Well-drained soil", desc:"Ancient fruit tree. Two harvests per year.", svgColor:"#6a1b9a", varieties:["Brown Turkey","Poona Fig","Dinkar","Conadria","Black Mission","Kadota","Adriatic","Desert King","Celeste"] },
-  { id:"pomegranate", name:"Pomegranate", sci:"Punica granatum", category:"Fruit Trees", basePrice:380, care:"Full sun · Drought tolerant · Well-drained · Minimal water", desc:"Antioxidant-rich ruby jewel fruit. Drought tolerant.", svgColor:"#c62828", varieties:["Bhagwa","Ganesh","G-137","Mridula","Ruby","Arakta","Phule Bhagawa","Wonderful","Muscat Red"] },
-  { id:"jackfruit", name:"Jackfruit", sci:"Artocarpus heterophyllus", category:"Fruit Trees", basePrice:450, care:"Full sun · Moderate water · Rich deep soil", desc:"World's largest tree fruit. National fruit of Bangladesh. Vegan meat substitute.", svgColor:"#f9a825", varieties:["Singapore Jack","Vietnam Super Early","Desi","Honey Jack","Vietnam Softest","J-31","Bali"] },
-  { id:"sapota", name:"Sapota / Chiku", sci:"Manilkara zapota", category:"Fruit Trees", basePrice:350, care:"Full sun · Drought tolerant · Deep soil", desc:"Sweet caramel-flavoured brown fruit. Easy to grow.", svgColor:"#795548", varieties:["Cricket Ball","Kalipatti","CO-1","Baramasi","DHS-1","Jonnavalasa","Bhavapuri"] },
-  { id:"chickoo", name:"Avocado", sci:"Persea americana", category:"Fruit Trees", basePrice:580, care:"Full sun · Well-drained · Moderate water · Frost free", desc:"Creamy nutritious subtropical fruit. Health food staple.", svgColor:"#1b5e20", varieties:["Hass","Fuerte","Pinkerton","Reed","Zutano","Ettinger","Bacon"] },
-  { id:"dragon_fruit", name:"Dragon Fruit", sci:"Hylocereus undatus", category:"Fruit Trees", basePrice:380, care:"Full sun · Well-drained · Water moderately · Trellis support", desc:"Exotic cactus fruit. Spectacular night-blooming flowers.", svgColor:"#e91e63", varieties:["White Flesh Red Skin","Red Flesh Red Skin","Yellow Skin White Flesh","Vietnam White","American Beauty","Selenicereus"] },
-  { id:"mulberry", name:"Mulberry", sci:"Morus indica", category:"Fruit Trees", basePrice:280, care:"Full sun · Moderate water · Prune annually", desc:"Sweet-tart fruits. Leaves used for silkworm rearing.", svgColor:"#6a1b9a", varieties:["Black Mulberry","Red Mulberry","White Mulberry","V1","M5","S36","Annanagar Local"] },
-  { id:"starfruit", name:"Starfruit / Carambola", sci:"Averrhoa carambola", category:"Fruit Trees", basePrice:320, care:"Full sun · Regular water · Humid tropical", desc:"Star-shaped exotic fruit. Sweet-sour flavour.", svgColor:"#f9a825", varieties:["Arkin","Fwang Tung","Kembangan","Malaysian Sweet","Dah Pon","Maher"] },
-  { id:"custard_apple", name:"Custard Apple / Sitaphal", sci:"Annona squamosa", category:"Fruit Trees", basePrice:350, care:"Full sun · Drought tolerant · Sandy loam", desc:"Sweet creamy fruit rich in Vitamin C and B6.", svgColor:"#7cb342", varieties:["Red Sitaphal","Balanagar","APK-1","CO-1","Arka Sahan","British Guiana","Washington"] },
-  { id:"ashoka_tree", name:"Ashoka Tree", sci:"Saraca asoca", category:"Ornamental Trees", basePrice:380, care:"Full to partial sun · Regular water · Humid", desc:"Sacred ornamental tree with clusters of fragrant flowers. Temple tree.", svgColor:"#e65100", varieties:["Common Ashoka","Polyalthia (False Ashoka)"] },
-  { id:"gulmohur", name:"Gulmohar / Royal Poinciana", sci:"Delonix regia", category:"Ornamental Trees", basePrice:320, care:"Full sun · Drought tolerant · Deep roots", desc:"Spectacular scarlet umbrella tree. One of world's most beautiful trees.", svgColor:"#e53935", varieties:["Red Flamboyant","Yellow (Peltophorum)","Dwarf Gulmohar"] },
-  { id:"neem_tree", name:"Neem Tree", sci:"Azadirachta indica", category:"Ornamental Trees", basePrice:250, care:"Full sun · Drought tolerant · Any soil", desc:"Multi-purpose village pharmacy tree. Shade and medicinal properties.", svgColor:"#2e7d32", varieties:["Common Neem","Dwarf Neem","Village Neem"] },
-  { id:"champak", name:"Champak / Champa", sci:"Michelia champaca", category:"Ornamental Trees", basePrice:450, care:"Full to partial sun · Moist well-drained soil · Humid", desc:"Intensely fragrant golden flowers. Sacred in Buddhism and Hinduism.", svgColor:"#f9a825", varieties:["Yellow Champa","White Champa","Orange Champa","Forest Champa"] },
-  { id:"peepal", name:"Peepal / Sacred Fig", sci:"Ficus religiosa", category:"Ornamental Trees", basePrice:280, care:"Full sun · Any soil · Very drought tolerant", desc:"Sacred tree in Buddhism, Hinduism and Jainism. Spiritual significance.", svgColor:"#2e7d32", varieties:["Common Peepal","Golden","Variegated"] },
-  { id:"banyan", name:"Banyan Tree", sci:"Ficus benghalensis", category:"Ornamental Trees", basePrice:350, care:"Full sun · Deep well-drained soil · Ample space", desc:"National tree of India. Largest trees by canopy area.", svgColor:"#1b5e20", varieties:["Common Banyan","Audrey Banyan","Natasha"] },
-  { id:"copper_pod", name:"Copper Pod / Peltophorum", sci:"Peltophorum pterocarpum", category:"Ornamental Trees", basePrice:290, care:"Full sun · Drought tolerant · Any soil type", desc:"Golden yellow flowering tree. Coppery seed pods.", svgColor:"#f9a825", varieties:["Common","Ferrugineum"] },
-  { id:"palms", name:"Palm Trees", sci:"Arecaceae spp.", category:"Ornamental Trees", basePrice:650, care:"Full sun · Sandy well-drained · Minimal care", desc:"Tropical palms for landscapes, avenues and gardens.", svgColor:"#795548", varieties:["Royal Palm","Queen Palm","Areca Palm","Bismarck Palm","Date Palm","Fan Palm","Bottle Palm","Foxtail Palm","Sylvester Palm","Livistona","Sabal"] },
-  { id:"tamarind", name:"Tamarind", sci:"Tamarindus indica", category:"Ornamental Trees", basePrice:320, care:"Full sun · Drought tolerant · Deep fertile soil", desc:"Long-lived shade tree with sour edible pods. Used extensively in Indian cuisine.", svgColor:"#795548", varieties:["Sweet Tamarind","Urigam","CO-1","Pratishtha","Yogeshwari"] },
-  { id:"bonsai", name:"Bonsai Trees", sci:"Various species", category:"Ornamental Trees", basePrice:800, care:"Full to partial sun · Specific to species · Regular shaping", desc:"Miniature trees in artistic containers. Living sculptures.", svgColor:"#1b5e20", varieties:["Ficus Bonsai","Jade Bonsai","Azalea Bonsai","Juniper Bonsai","Bougainvillea Bonsai","Fukien Tea","Serissa","Bamboo Bonsai","Sageretia","Snow Rose"] },
-  { id:"lotus_aquatic", name:"Lotus", sci:"Nelumbo nucifera", category:"Aquatic", basePrice:450, care:"Full sun · Aquatic container · Regular fertiliser in water", desc:"Sacred national flower. Blooms float above water. Symbol of enlightenment.", svgColor:"#e91e63", varieties:["Pink","White","Red","Dwarf Bowl Lotus","Giant","Momo Botan","Sacred White","Chawan Basu","Mrs Perry D Slocum","Camellia"] },
-  { id:"water_lily", name:"Water Lily", sci:"Nymphaea spp.", category:"Aquatic", basePrice:380, care:"Full sun · Still water · Deep container · Monthly aquatic fertiliser", desc:"Floating blooms on ponds and water features. Habitat for fish.", svgColor:"#e91e63", varieties:["Pink","White","Yellow","Purple","Red","Blue","Night Blooming","Tropical Blue","Perry's Baby Red","Chromatella","Attraction"] },
-  { id:"water_hyacinth", name:"Water Hyacinth", sci:"Eichhornia crassipes", category:"Aquatic", basePrice:120, care:"Floating aquatic · Full sun · Still or slow water", desc:"Beautiful floating plant with purple flowers. Natural water purifier.", svgColor:"#7b1fa2", varieties:["Common","Dwarf"] },
-  { id:"papyrus", name:"Papyrus", sci:"Cyperus papyrus", category:"Aquatic", basePrice:280, care:"Full sun · Water or boggy soil · Regular water", desc:"Ancient Egyptian paper plant. Dramatic umbrella-like flower heads.", svgColor:"#7cb342", varieties:["Dwarf Papyrus","Giant Papyrus","Cyperus alternifolius","Umbrella Sedge"] },
-  { id:"taro", name:"Taro / Colocasia", sci:"Colocasia esculenta", category:"Aquatic", basePrice:160, care:"Partial shade · Boggy or submerged · Warm humid", desc:"Tropical aroid with huge elephant ear leaves. Edible corm.", svgColor:"#1b5e20", varieties:["Green","Black Magic","Mojito","Pink China","Tea Cup","Nancy's Revenge","Hawaiian Punch","Fontanesii"] },
-  { id:"money_plant_climber", name:"Money Plant (Climbing)", sci:"Epipremnum aureum", category:"Climbers & Creepers", basePrice:95, care:"Indirect light · Water when dry · Any support", desc:"Classic lucky climbing plant. Grows on walls, poles and moss sticks.", svgColor:"#2e7d32", varieties:["Golden","Marble Queen","Neon","N'Joy","Silver Satin","Manjula","Cebu Blue"] },
-  { id:"rangoon_creeper", name:"Rangoon Creeper / Madhumalti", sci:"Combretum indicum", category:"Climbers & Creepers", basePrice:220, care:"Full sun · Moderate water · Strong support", desc:"Fragrant flowers that change from white to pink to red on the same plant.", svgColor:"#e91e63", varieties:["Common","Double Flower"] },
-  { id:"morning_glory", name:"Morning Glory", sci:"Ipomoea purpurea", category:"Climbers & Creepers", basePrice:60, care:"Full sun · Moderate water · Trellis support", desc:"Fast-growing annual with trumpet flowers that open at dawn.", svgColor:"#7b1fa2", varieties:["Blue","Purple","Pink","White","Bi-colour","Heavenly Blue","Grandpa Ott","Crimson Rambler","Scarlett O'Hara"] },
-  { id:"passion_flower", name:"Passion Flower", sci:"Passiflora incarnata", category:"Climbers & Creepers", basePrice:280, care:"Full sun · Moderate water · Trellis support · Prune annually", desc:"Intricate flowers with cultural and religious symbolism.", svgColor:"#7b1fa2", varieties:["Purple","Blue","Yellow","Red","White","Maypop","Fredrick","Incense","Lady Margaret"] },
-  { id:"thunbergia", name:"Thunbergia / Black-Eyed Susan Vine", sci:"Thunbergia alata", category:"Climbers & Creepers", basePrice:90, care:"Full sun · Regular water · Trellis or fence", desc:"Cheerful golden blooms with dark centres covering trellises.", svgColor:"#f9a825", varieties:["Orange","Yellow","White","Red","Cream","Sunny Susy","African Sunset","Blushing Susie"] },
-  { id:"quisqualis", name:"Quisqualis / Drunken Sailor", sci:"Quisqualis indica", category:"Climbers & Creepers", basePrice:190, care:"Full sun · Moderate water · Strong support", desc:"Multi-coloured climbing shrub with pendulous fragrant flowers.", svgColor:"#e91e63", varieties:["Red & White","Single","Double"] },
-  { id:"bamboo", name:"Bamboo", sci:"Bambusa spp.", category:"Grass & Bamboo", basePrice:380, care:"Full sun · Water regularly · Rich moist soil", desc:"Fast-growing architectural grass. Excellent for privacy screens.", svgColor:"#2e7d32", varieties:["Golden Bamboo","Black Bamboo","Green Bamboo","Clumping Bamboo","Lucky Bamboo","Buddha Belly","Striped","Dwarf Bamboo","Moso","Madake"] },
-  { id:"ornamental_grass", name:"Ornamental Grass", sci:"Various grasses", category:"Grass & Bamboo", basePrice:150, care:"Full sun · Drought tolerant · Low maintenance", desc:"Architectural grasses for borders and containers.", svgColor:"#7cb342", varieties:["Pampas Grass","Fountain Grass","Blue Fescue","Japanese Forest Grass","Zebra Grass","Muhly Grass","Switchgrass","Feather Reed Grass","Mexican Feather","Lemon Grass"] },
+  { id:"kalanchoe", name:"Kalanchoe", sci:"Kalanchoe blossfeldiana", category:"Succulent & Cactus", basePrice:195, care:"Bright indirect light · Water sparingly · Deadhead after flowering", desc:"Cheerful succulent with long-lasting flower clusters. Easy care.", svgColor:"#e64a19", varieties:["Red","Yellow","Orange","Pink","White","Bi-colour","Calandiva (Double)","Flaming Katy","Christmas Kalanchoe","Paddington"] },
+  { id:"cactus", name:"Cactus", sci:"Cactaceae spp.", category:"Succulent & Cactus", basePrice:120, care:"Full sun · Water very sparingly · Sandy gritty soil", desc:"Low-maintenance architectural desert plants. Perfect for beginners.", svgColor:"#8bc34a", varieties:["Golden Barrel","Moon Cactus","Bunny Ears","Christmas Cactus","Prickly Pear","Cereus","Mammillaria","Echinopsis","Ferocactus","Opuntia","Cleistocactus","Notocactus"] },
   { id:"areca_palm", name:"Areca Palm", sci:"Dypsis lutescens", category:"Ferns & Foliage", basePrice:380, care:"Bright indirect light · Water regularly · Monthly fertiliser", desc:"Popular indoor palm creating tropical atmosphere. Removes indoor toxins.", svgColor:"#558b2f", varieties:["Standard","Compact","Triple Trunk","Dwarf"] },
-  { id:"boston_fern", name:"Boston Fern", sci:"Nephrolepis exaltata Bostoniensis", category:"Ferns & Foliage", basePrice:180, care:"Bright indirect light · High humidity · Keep moist", desc:"Classic hanging basket fern with arching feathery fronds.", svgColor:"#2e7d32", varieties:["Bostoniensis","Fluffy Ruffles","Dallas","Roosevelt","Childsii","Florida Ruffle","Green Lady"] },
-  { id:"elephant_ear", name:"Elephant Ear / Alocasia", sci:"Alocasia macrorrhiza", category:"Ferns & Foliage", basePrice:450, care:"Bright indirect light · Keep moist · High humidity", desc:"Giant tropical foliage plant creating dramatic impact.", svgColor:"#1b5e20", varieties:["Giant Taro","Amazonica","Polly","Zebrina","Black Velvet","Dragon Scale","Stingray","Silver Dragon","Regal Shield","Wentii"] },
   { id:"croton", name:"Croton", sci:"Codiaeum variegatum", category:"Ferns & Foliage", basePrice:220, care:"Full to bright light · Regular water · Avoid cold drafts", desc:"Vivid multicoloured foliage. No two leaves are alike.", svgColor:"#e65100", varieties:["Petra","Mammy","Excellent","Gold Dust","Iceton","Eleanor Roosevelt","Zanzibar","Magnificent","Gold Star","Sunny Star"] },
-  { id:"caladium", name:"Caladium", sci:"Caladium bicolor", category:"Ferns & Foliage", basePrice:280, care:"Partial shade · Keep moist · Warm humid conditions", desc:"Spectacular heart-shaped leaves in pink, red and white patterns.", svgColor:"#e91e63", varieties:["Florida Sweetheart","Carolyn Whorton","Candidum","Florida Fantasy","White Queen","Red Flash","Florida Cardinal","Miss Muffet"] },
-  { id:"syngonium", name:"Syngonium / Arrowhead", sci:"Syngonium podophyllum", category:"Ferns & Foliage", basePrice:165, care:"Indirect light · Keep moist · High humidity", desc:"Arrow-shaped leaves that transform as the plant matures.", svgColor:"#7cb342", varieties:["White Butterfly","Pink Splash","Neon Robusta","Maria Allusion","Gold Allusion","Berry Allusion","Mini Pixie","Confetti","Aurea"] },
+  { id:"bamboo", name:"Bamboo", sci:"Bambusa spp.", category:"Grass & Bamboo", basePrice:380, care:"Full sun · Water regularly · Rich moist soil", desc:"Fast-growing architectural grass. Excellent for privacy screens.", svgColor:"#2e7d32", varieties:["Golden Bamboo","Black Bamboo","Green Bamboo","Clumping Bamboo","Lucky Bamboo","Buddha Belly","Striped","Dwarf Bamboo","Moso","Madake"] },
+  { id:"lotus_aquatic", name:"Lotus", sci:"Nelumbo nucifera", category:"Aquatic", basePrice:450, care:"Full sun · Aquatic container · Regular fertiliser in water", desc:"Sacred national flower. Blooms float above water. Symbol of enlightenment.", svgColor:"#e91e63", varieties:["Pink","White","Red","Dwarf Bowl Lotus","Giant","Momo Botan","Sacred White","Chawan Basu","Mrs Perry D Slocum","Camellia"] },
+  { id:"bougainvillea_climber", name:"Rangoon Creeper", sci:"Combretum indicum", category:"Climbers & Creepers", basePrice:220, care:"Full sun · Moderate water · Strong support", desc:"Fragrant flowers that change from white to pink to red on the same plant.", svgColor:"#e91e63", varieties:["Common","Double Flower"] },
+  { id:"gulmohur", name:"Gulmohar / Royal Poinciana", sci:"Delonix regia", category:"Ornamental Trees", basePrice:320, care:"Full sun · Drought tolerant · Deep roots", desc:"Spectacular scarlet umbrella tree. One of world's most beautiful trees.", svgColor:"#e53935", varieties:["Red Flamboyant","Yellow (Peltophorum)","Dwarf Gulmohar"] },
 ];
 
-function getDefaultPlants() {
-  return MASTER_CATALOGUE.map(m => ({
-    id: m.id, name: m.name, variety: m.sci, category: m.category,
-    price: m.basePrice, nursery: 'Green Valley', photo: null,
-    inStock: true, stock: Math.floor(Math.random()*25)+5,
-    cluster: 'Cluster A', description: m.desc, care: m.care,
-    listingType: 'immediate',
-    bgGradient: CAT_BG[m.category]||CAT_BG.Other,
-    svgColor: m.svgColor||'rgba(74,124,89,.45)',
-    varieties: m.varieties || [],
-    _manualPro: false
-  }));
-}
-
+// ── STATE ──
 let plants = [];
 let cart = [];
 let favourites = new Set();
@@ -639,40 +726,29 @@ let activeCategory = 'All';
 let activeNursery = null;
 let searchQuery = '';
 let detailPlantId = null;
-// Per-variety qty tracking in modal: { cartKey: qty }
 let detailQtyMap = {};
 
+// ── DB LOAD ──
 async function loadPlantsFromDB() {
   try {
     const res = await fetch(`${SUPABASE_URL}/rest/v1/plants?select=*&order=created_at.asc`, {
-      headers: {
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-      }
+      headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` }
     });
     if (!res.ok) throw new Error('DB fetch failed');
     const rows = await res.json();
-
-    // Build a map of DB data by id
     const dbMap = {};
     rows.forEach(r => { dbMap[r.id] = r; });
-
-    // Merge every master plant with DB data (DB wins for photo/stock/price)
     const merged = MASTER_CATALOGUE.map(m => {
       const r = dbMap[m.id];
       return {
-        id: m.id,
-        name: m.name,
-        variety: m.sci,
-        category: m.category,
+        id: m.id, name: m.name, variety: m.sci, category: m.category,
         price: r ? r.price : m.basePrice,
         nursery: r ? (r.nursery || 'Green Valley') : 'Green Valley',
         photo: r ? r.photo : null,
         inStock: r ? r.in_stock : true,
         stock: r ? r.stock : 10,
         cluster: r ? (r.cluster || 'Cluster A') : 'Cluster A',
-        description: m.desc,
-        care: m.care,
+        description: m.desc, care: m.care,
         listingType: r ? (r.listing_type || 'immediate') : 'immediate',
         bgGradient: CAT_BG[m.category] || CAT_BG.Other,
         svgColor: m.svgColor || 'rgba(74,124,89,.45)',
@@ -680,7 +756,6 @@ async function loadPlantsFromDB() {
         _manualPro: r ? (r.listing_type === 'professional') : false
       };
     });
-
     localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
     return merged;
   } catch(e) {
@@ -697,74 +772,10 @@ async function loadPlantsFromDB() {
   }
 }
 
-async function savePlantToDB(plant) {
-  const row = {
-    id: plant.id, name: plant.name, variety: plant.variety,
-    category: plant.category, price: plant.price, stock: plant.stock,
-    in_stock: plant.inStock, photo: plant.photo || null,
-    description: plant.description, care: plant.care,
-    cluster: plant.cluster, listing_type: plant.listingType,
-    nursery: plant.nursery, bg_gradient: plant.bgGradient,
-    svg_color: plant.svgColor, varieties: plant.varieties || []
-  };
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/plants`, {
-    method: 'POST',
-    headers: {
-      'apikey': SUPABASE_ANON_KEY,
-      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-      'Content-Type': 'application/json',
-      'Prefer': 'resolution=merge-duplicates'
-    },
-    body: JSON.stringify(row)
-  });
-  if (!res.ok) console.warn('Save failed', await res.text());
-}
-
-async function savePlantsToDB(plantsArr) {
-  for (const p of plantsArr) { await savePlantToDB(p); }
-}
-
-// Keep localStorage as cache
-function loadPlants() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) { const parsed = JSON.parse(raw); if (parsed && parsed.length > 0) return parsed; }
-  } catch(e){}
-  return getDefaultPlants();
-}
-
-async function loadPlantsFromDB() {
-  try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/plants?select=*&order=created_at.asc`, {
-      headers: {
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-      }
-    });
-    if (!res.ok) throw new Error('DB fetch failed');
-    const rows = await res.json();
-    if (!rows.length) return loadPlants();
-    const mapped = rows.map(r => ({
-      id: r.id, name: r.name, variety: r.variety,
-      category: r.category, price: r.price, stock: r.stock,
-      inStock: r.in_stock, photo: r.photo,
-      description: r.description, care: r.care,
-      cluster: r.cluster, listingType: r.listing_type,
-      nursery: r.nursery, bgGradient: r.bg_gradient,
-      svgColor: r.svg_color, varieties: r.varieties || [],
-      _manualPro: r.listing_type === 'professional'
-    }));
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(mapped));
-    return mapped;
-  } catch(e) {
-    console.warn('DB load failed, using localStorage', e);
-    return loadPlants();
-  }
-}
-
+// ── RENDER PLANTS ──
 function getVisible() {
   return plants.filter(p => {
-    if (!p.inStock) return false; // completely hide out-of-stock
+    if (!p.inStock) return false;
     if (activeNursery && p.nursery !== activeNursery) return false;
     if (activeCategory !== 'All' && p.category !== activeCategory) return false;
     if (searchQuery) {
@@ -803,36 +814,20 @@ function renderPlants() {
     const varieties = p.varieties || [];
     const varietyNames = varieties.map(v => typeof v === 'object' ? v.name : v);
     const plantPageUrl = `${p.id}.html#varietySec`;
-
     const imgInner = p.photo
       ? `<img src="${p.photo}" alt="${p.name}">`
       : `<div class="plant-img-placeholder">${PLANT_SVG(p.svgColor||'rgba(74,124,89,.35)')}</div>`;
-
-    // Show up to 3 variety chips
     const varChips = varietyNames.slice(0,3).map(v=>`<span class="pvp-chip">${v}</span>`).join('');
     const moreChip = varietyNames.length > 3 ? `<span class="pvp-chip">+${varietyNames.length-3}</span>` : '';
-    const varietyPreview = varietyNames.length
-      ? `<div class="plant-variety-preview">${varChips}${moreChip}</div>`
-      : '';
-
+    const varietyPreview = varietyNames.length ? `<div class="plant-variety-preview">${varChips}${moreChip}</div>` : '';
     const priceLabel = isPro ? 'View Options' : (varieties.length ? `From Rs. ${p.price}` : `Rs. ${p.price}`);
-
-    const sparkBadge = isPro
-      ? `<div class="spark-badge">✦ Pro Listing</div>`
-      : '';
-
+    const sparkBadge = isPro ? `<div class="spark-badge">✦ Pro Listing</div>` : '';
     const actionBtn = outStock
       ? `<span style="font-size:.65rem;color:#c62828;font-weight:500;">Unavailable</span>`
       : isPro
-        ? `<button class="add-cart-btn" style="background:linear-gradient(135deg,#7b2ff7,#f107a3);" onclick="event.stopPropagation();window.location.href='${plantPageUrl}'" title="View varieties">
-            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" width="12" height="12"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-           </button>`
-        : `<button class="add-cart-btn" onclick="event.stopPropagation();quickAdd('${p.id}')" title="Quick add">
-            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" width="12" height="12"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-           </button>`;
-
+        ? `<button class="add-cart-btn" style="background:linear-gradient(135deg,#7b2ff7,#f107a3);" onclick="event.stopPropagation();window.location.href='${plantPageUrl}'" title="View varieties"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" width="12" height="12"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>`
+        : `<button class="add-cart-btn" onclick="event.stopPropagation();quickAdd('${p.id}')" title="Quick add"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" width="12" height="12"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>`;
     const cardClick = isPro ? `window.location.href='${plantPageUrl}'` : `openDetail('${p.id}')`;
-
     return `
     <div class="plant-card ${outStock?'out-of-stock-card':''} ${isPro?'professional-card':''}" onclick="${cardClick}">
       ${outStock?'<div class="out-stock-label">Out of Stock</div>':''}
@@ -845,9 +840,7 @@ function renderPlants() {
       </div>
       <div class="plant-info">
         <div class="plant-name">${p.name}</div>
-        <div class="plant-nursery">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="10" height="10" style="opacity:.4;margin-right:2px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>${p.nursery}
-        </div>
+        <div class="plant-nursery"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="10" height="10" style="opacity:.4;margin-right:2px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>${p.nursery}</div>
         ${varietyPreview}
         <div class="plant-price-row">
           <div class="plant-price">${priceLabel}</div>
@@ -858,29 +851,22 @@ function renderPlants() {
   }).join('');
 }
 
-// Quick-add: if no varieties, add base plant directly; if varieties, open detail
 function quickAdd(id) {
   const p = plants.find(x=>x.id===id);
   if (!p || !p.inStock) return;
-  const varieties = p.varieties || [];
-  if (varieties.length > 0) {
-    openDetail(id);
-    return;
-  }
+  if ((p.varieties||[]).length > 0) { openDetail(id); return; }
+  if (!requireLogin()) return;
   addToCartItem(id, null, null, 1);
   showToast(`${p.name} added to cart`, '✓');
 }
 
-// ═══════════════════════════════════════════════════════════════
-//  DETAIL MODAL
-// ═══════════════════════════════════════════════════════════════
+// ── DETAIL MODAL ──
 function openDetail(id) {
   const p = plants.find(x=>x.id===id);
   if (!p) return;
   detailPlantId = id;
   detailQtyMap = {};
 
-  // Image
   const imgEl = document.getElementById('detail-img');
   imgEl.style.background = '#fff';
   imgEl.innerHTML = p.photo
@@ -890,34 +876,23 @@ function openDetail(id) {
   document.getElementById('detail-category').textContent = p.category;
   document.getElementById('detail-name').textContent = p.name;
   document.getElementById('detail-sci').textContent = p.variety;
-
-  // Meta row
   document.getElementById('detail-meta-row').innerHTML = `
-    <span class="detail-meta-chip">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="11" height="11" style="opacity:.5;"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
-      ${p.nursery}
-    </span>
+    <span class="detail-meta-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="11" height="11" style="opacity:.5;"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>${p.nursery}</span>
     <span class="detail-meta-chip">${p.cluster||'Cluster A'}</span>
     ${p.stock ? `<span class="detail-meta-chip">${p.stock} in stock</span>` : ''}
     <span class="detail-meta-chip" style="background:${p.inStock?'rgba(74,124,89,.1)':'rgba(198,40,40,.1)'};color:${p.inStock?'var(--leaf)':'#c62828'};">${p.inStock?'In Stock':'Out of Stock'}</span>`;
-
   document.getElementById('detail-desc').textContent = p.description || 'A beautiful plant for your home or garden.';
   document.getElementById('detail-care').textContent = p.care || 'Regular watering · Adequate sunlight';
 
   const varieties = p.varieties || [];
-
   if (varieties.length > 0) {
-    // Show varieties section
     document.getElementById('detail-varieties-section').style.display = 'block';
-    // Hide base add-to-cart footer
     document.getElementById('detail-footer').style.display = 'none';
     renderVarietiesGrid(p, varieties);
   } else {
-    // No varieties — show base price add to cart
     document.getElementById('detail-varieties-section').style.display = 'none';
     document.getElementById('detail-footer').style.display = 'flex';
     document.getElementById('detail-price').textContent = `Rs. ${p.price}`;
-
     const stockBadge = document.getElementById('detail-stock-badge');
     const addBtn = document.getElementById('detail-add-btn');
     if (p.inStock) {
@@ -926,6 +901,7 @@ function openDetail(id) {
       addBtn.disabled = false;
       addBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add to Cart`;
       addBtn.onclick = () => {
+        if (!requireLogin()) return;
         addToCartItem(id, null, null, 1);
         updateModalCartBar(p);
         showToast(`${p.name} added to cart`, '✓');
@@ -951,7 +927,7 @@ function renderVarietiesGrid(p, varieties) {
     const cartKey = `${p.id}__${i}`;
     const qtyInCart = getCartQty(p.id, i);
     detailQtyMap[cartKey] = qtyInCart;
-
+    const safeVName = vName.replace(/'/g, "\\'");
     return `<div class="variety-row-item ${qtyInCart>0?'selected':''}" id="vri-${cartKey.replace(/[^a-z0-9]/gi,'_')}">
       <div>
         <div class="vri-name">${vName}</div>
@@ -959,16 +935,15 @@ function renderVarietiesGrid(p, varieties) {
       </div>
       <div class="vri-right">
         ${qtyInCart > 0
-          ? `<div class="qty-control" id="qtyctl-${cartKey.replace(/[^a-z0-9]/gi,'_')}">
-              <button class="qty-control-btn" onclick="changeVarietyQty('${p.id}',${i},${vPrice},${vName.replace(/'/g,'\\\'')>0?0:-1},-1)">−</button>
-              <span class="qty-control-num" id="qtyn-${cartKey.replace(/[^a-z0-9]/gi,'_')}">${qtyInCart}</span>
-              <button class="qty-control-btn" onclick="changeVarietyQty('${p.id}',${i},${vPrice},'${vName.replace(/'/g,"\\'")}',1)">+</button>
+          ? `<div class="qty-control">
+              <button class="qty-control-btn" onclick="changeVarietyQty('${p.id}',${i},${vPrice},'${safeVName}',-1)">−</button>
+              <span class="qty-control-num">${qtyInCart}</span>
+              <button class="qty-control-btn" onclick="changeVarietyQty('${p.id}',${i},${vPrice},'${safeVName}',1)">+</button>
              </div>`
           : ''
         }
         <button class="vri-add-btn ${qtyInCart>0?'in-cart':''}"
-          id="vribtn-${cartKey.replace(/[^a-z0-9]/gi,'_')}"
-          onclick="addVarietyToCart('${p.id}',${i},${vPrice},'${vName.replace(/'/g,"\\'")}')">
+          onclick="addVarietyToCart('${p.id}',${i},${vPrice},'${safeVName}')">
           ${qtyInCart>0 ? `✓ ${qtyInCart} in cart` : '+ Add'}
         </button>
       </div>
@@ -976,39 +951,40 @@ function renderVarietiesGrid(p, varieties) {
   }).join('');
 }
 
-function addVarietyToCart(plantId, varIdx, varPrice, varName) {
+async function addVarietyToCart(plantId, varIdx, varPrice, varName) {
   const p = plants.find(x=>x.id===plantId);
   if (!p || !p.inStock) return;
-  addToCartItem(plantId, varIdx, varName, 1, varPrice);
+  if (!requireLogin()) return;
+  await addToCartItem(plantId, varIdx, varName, 1, varPrice);
   updateModalCartBar(p);
   renderVarietiesGrid(p, p.varieties);
   showToast(`${p.name} — ${varName} added`, '✓');
 }
 
-function changeVarietyQty(plantId, varIdx, varPrice, varName, delta) {
-  const p = plants.find(x=>x.id===plantId);
+async function changeVarietyQty(plantId, varIdx, varPrice, varName, delta) {
+  const p = plants.find(x => x.id === plantId);
   if (!p) return;
-  const existing = cart.find(c => c.id === plantId && c.varIdx === varIdx);
+  const existing = cart.find(c => (c.plant_id || c.id) === plantId && (c.variety_idx ?? c.varIdx) === varIdx);
   if (existing) {
-    existing.qty += delta;
-    if (existing.qty <= 0) cart.splice(cart.indexOf(existing), 1);
+    const newQty = existing.qty + delta;
+    await CartDB.updateQty(plantId, varIdx, newQty);
+    cart = await CartDB.getAll();
   }
-  updateCart();
+  updateCartUI();
   updateModalCartBar(p);
   renderVarietiesGrid(p, p.varieties);
 }
 
 function getCartQty(plantId, varIdx) {
-  const item = cart.find(c => c.id === plantId && c.varIdx === varIdx);
+  const item = cart.find(c => (c.plant_id || c.id) === plantId && (c.variety_idx ?? c.varIdx) === varIdx);
   return item ? item.qty : 0;
 }
 
 function updateModalCartBar(p) {
   const bar = document.getElementById('modal-cart-bar');
-  const plantCartItems = cart.filter(c => c.id === p.id);
+  const plantCartItems = cart.filter(c => (c.plant_id || c.id) === p.id);
   const totalQty = plantCartItems.reduce((a,c)=>a+c.qty, 0);
   const totalPrice = plantCartItems.reduce((a,c)=>a+c.price*c.qty, 0);
-
   if (totalQty > 0) {
     bar.classList.remove('hidden');
     document.getElementById('mcb-count').textContent = `${totalQty} item${totalQty>1?'s':''} selected`;
@@ -1025,42 +1001,30 @@ function closeDetail() {
   detailQtyMap = {};
 }
 
-// ═══════════════════════════════════════════════════════════════
-//  CART
-// ═══════════════════════════════════════════════════════════════
-function addToCartItem(id, varIdx, varName, qty, overridePrice) {
-  const plant = plants.find(p=>p.id===id);
+// ── CART UI ──
+async function addToCartItem(id, varIdx, varName, qty, overridePrice) {
+  const plant = plants.find(p => p.id === id);
   if (!plant || !plant.inStock) return;
-
   const price = overridePrice !== undefined ? overridePrice : plant.price;
   const key = varIdx !== null && varIdx !== undefined ? varIdx : -1;
-
-  const existing = cart.find(c => c.id === id && c.varIdx === key);
-  if (existing) {
-    existing.qty += qty;
-  } else {
-    cart.push({
-      id, name: plant.name, nursery: plant.nursery,
-      photo: plant.photo, svgColor: plant.svgColor,
-      price, qty,
-      varIdx: key,
-      varName: varName || null
-    });
-  }
-  updateCart();
+  await CartDB.addItem({
+    plant_id: id,
+    plant_name: plant.name,
+    variety_idx: key,
+    variety_name: varName || null,
+    price: price,
+    qty: qty || 1,
+    photo: plant.photo || null,
+    svg_color: plant.svgColor || null,
+    nursery: plant.nursery || null
+  });
+  cart = await CartDB.getAll();
+  updateCartUI();
 }
 
-function addToCart(id) {
-  const plant = plants.find(p=>p.id===id);
-  if (!plant || !plant.inStock) return;
-  addToCartItem(id, null, null, 1);
-  showToast(`${plant.name} added to cart`, '✓');
-}
-
-function updateCart() {
-  const count = cart.reduce((a,c)=>a+c.qty,0);
-  const total = cart.reduce((a,c)=>a+c.price*c.qty,0);
-
+function updateCartUI() {
+  const count = cart.reduce((a,c)=>a+c.qty, 0);
+  const total = cart.reduce((a,c)=>a+c.price*c.qty, 0);
   document.getElementById('cart-count').textContent = count;
   const pricePill = document.getElementById('cart-nav-price');
   if (count > 0) {
@@ -1085,19 +1049,20 @@ function updateCart() {
   }
 
   footer.style.display = 'block';
-  items.innerHTML = cart.map((c,i)=>{
+  items.innerHTML = cart.map((c,i) => {
     const thumbInner = c.photo
-      ? `<img src="${c.photo}" alt="${c.name}">`
-      : `<div class="cart-item-img-placeholder">${PLANT_SVG(c.svgColor||'rgba(74,124,89,.5)', 28)}</div>`;
-    const displayName = c.varName ? `${c.name}` : c.name;
-    const varLabel = c.varName ? `<div class="cart-item-variety">${c.varName}</div>` : '';
+      ? `<img src="${c.photo}" alt="${c.plant_name||c.name||''}">`
+      : `<div class="cart-item-img-placeholder">${PLANT_SVG(c.svg_color||c.svgColor||'rgba(74,124,89,.5)', 28)}</div>`;
+    const displayName = c.plant_name || c.name || '';
+    const varLabel = (c.variety_name || c.varName)
+      ? `<div class="cart-item-variety">${c.variety_name || c.varName}</div>` : '';
     return `
     <div class="cart-item">
       <div class="cart-item-img" style="background:#fff;">${thumbInner}</div>
       <div style="flex:1;">
         <div class="cart-item-name">${displayName}</div>
         ${varLabel}
-        <div class="cart-item-nursery">${c.nursery}</div>
+        <div class="cart-item-nursery">${c.nursery||''}</div>
         <div class="cart-item-price">Rs. ${c.price*c.qty}</div>
       </div>
       <div class="cart-qty">
@@ -1109,27 +1074,28 @@ function updateCart() {
   }).join('');
 }
 
-function changeQty(i, delta) {
-  cart[i].qty += delta;
-  if (cart[i].qty <= 0) cart.splice(i,1);
-  updateCart();
-  // Refresh modal if open
+async function changeQty(i, delta) {
+  const item = cart[i];
+  if (!item) return;
+  const newQty = item.qty + delta;
+  await CartDB.updateQty(item.plant_id || item.id, item.variety_idx ?? -1, newQty);
+  cart = await CartDB.getAll();
+  updateCartUI();
   if (detailPlantId) {
-    const p = plants.find(x=>x.id===detailPlantId);
+    const p = plants.find(x => x.id === detailPlantId);
     if (p) {
       updateModalCartBar(p);
-      if (p.varieties && p.varieties.length) renderVarietiesGrid(p, p.varieties);
+      if (p.varieties?.length) renderVarietiesGrid(p, p.varieties);
     }
   }
 }
 
 function toggleCart() { document.getElementById('cart-overlay').classList.toggle('open'); }
 
-function checkout() {
-  showToast('Order placed successfully!', '✓');
-  cart = [];
-  updateCart();
-  toggleCart();
+async function checkout() {
+  const user = JSON.parse(localStorage.getItem('uf_user') || 'null');
+  if (!user) { toggleCart(); requireLogin(); return; }
+  window.location.href = 'checkout.html';
 }
 
 function toggleFav(id, btn) {
@@ -1157,8 +1123,7 @@ function renderFavourites() {
     return `
     <div class="plant-card ${isPro?'professional-card':''}" onclick="${cardClick}">
       <div class="plant-img">
-        ${imgInner}
-        ${sparkBadge}
+        ${imgInner}${sparkBadge}
         <button class="wishlist-btn" onclick="event.stopPropagation();toggleFav('${p.id}',this)">
           <svg viewBox="0 0 24 24" fill="#e53935" stroke="#e53935" stroke-width="1.8" width="14" height="14"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
         </button>
@@ -1197,6 +1162,7 @@ function filterChip(btn, category) {
   showView('plants', null);
   renderPlants();
 }
+
 function refreshPlants() {
   const gvCount = plants.filter(p => p.nursery === 'Green Valley').length;
   const el = document.getElementById('count-green-valley');
@@ -1204,6 +1170,7 @@ function refreshPlants() {
   const ncard = document.getElementById('ncard-count');
   if (ncard) ncard.textContent = gvCount;
 }
+
 function filterByNursery(name, el) {
   activeNursery = name;
   document.querySelectorAll('.nursery-item').forEach(n=>n.classList.remove('active'));
@@ -1228,15 +1195,15 @@ function showToast(msg, icon='✓') {
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDetail(); });
 
-// Customer view only reads from localStorage — listing type is set by nursery dashboard
-
+// ── INIT ──
 loadPlantsFromDB().then(loaded => {
   plants = loaded;
   refreshPlants();
   renderPlants();
-  updateCart();
+  updateAuthBtn();
 });
 
+// Poll every 5s — plants + cart sync
 setInterval(() => {
   loadPlantsFromDB().then(loaded => {
     const newStr = JSON.stringify(loaded);
@@ -1247,6 +1214,7 @@ setInterval(() => {
       if (document.getElementById('view-favourites').style.display !== 'none') renderFavourites();
     }
   });
+  CartDB.getAll().then(items => { cart = items; updateCartUI(); });
 }, 5000);
 
 window.addEventListener('focus', () => { renderPlants(); });
