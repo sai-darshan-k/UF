@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Geranium | The Garden Classic — Urban Farmer</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&family=Caveat:wght@600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -273,6 +274,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
   border-color: #0e2808 !important;
 }
 .vorder-btn.added svg { stroke: white !important; }
+.vorder-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
 /* ─── CART TOAST ─── */
 .cart-toast {
@@ -534,12 +536,11 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
 <!-- DESKTOP NAV -->
 <nav class="desktop-nav desktop-only">
   <a href="index.html" class="desktop-nav-brand">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d=""/></svg>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/></svg>
     Urban Farmer
   </a>
   <div class="desktop-nav-links">
-    <a href="know-your-plants.html">All Plants</a>
-    <a href="plant-listing.html">Nurseries</a>
+    <a href="customer-dashboard.html">All Plants</a>
     <a href="#">App</a>
   </div>
   <button class="desktop-cart-btn" onclick="window.location='checkout.html'">
@@ -758,96 +759,45 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
 
 <hr class="divider">
 
-<!-- ═══ PLANT RENTAL / AGRON GREENTECH SERVICE SECTION ═══ -->
+<!-- PLANT RENTAL SECTION -->
 <section class="rental-sec">
   <div class="rental-inner">
-
     <div class="rental-eyebrow">
       <span class="rental-eyebrow-dot"></span>
       <span class="rental-eyebrow-txt">A new way to live with plants</span>
     </div>
-
-    <h2 class="rental-title">
-      You enjoy the greenery.<br><em>We handle everything else.</em>
-    </h2>
-
-    <p class="rental-tagline">
-      No buying. No maintaining. No worrying. We bring curated living plant arrangements to your home, office, or event — and take care of them throughout the rental period. You just sit back and enjoy the beauty.
-    </p>
-
+    <h2 class="rental-title">You enjoy the greenery.<br><em>We handle everything else.</em></h2>
+    <p class="rental-tagline">No buying. No maintaining. No worrying. We bring curated living plant arrangements to your home, office, or event — and take care of them throughout the rental period.</p>
     <div class="rental-steps">
-      <div class="rental-step">
-        <div class="rental-step-line"></div>
-        <div class="rental-step-num">1</div>
-        <div class="rental-step-body">
-          <div class="rental-step-title">We design it for your space</div>
-          <div class="rental-step-desc">Our team curates the right varieties, colours, and arrangements based on your space, light conditions, and aesthetic preference.</div>
-        </div>
-      </div>
-      <div class="rental-step">
-        <div class="rental-step-line"></div>
-        <div class="rental-step-num">2</div>
-        <div class="rental-step-body">
-          <div class="rental-step-title">We arrange and install</div>
-          <div class="rental-step-desc">Plants are delivered, arranged, and placed exactly where they'll thrive and look their best — balconies, terraces, lobbies, events, or interiors.</div>
-        </div>
-      </div>
-      <div class="rental-step">
-        <div class="rental-step-line"></div>
-        <div class="rental-step-num">3</div>
-        <div class="rental-step-body">
-          <div class="rental-step-title">We maintain throughout</div>
-          <div class="rental-step-desc">Watering, feeding, deadheading, seasonal swaps — our team visits regularly to keep every plant healthy and every arrangement looking pristine.</div>
-        </div>
-      </div>
-      <div class="rental-step">
-        <div class="rental-step-num">4</div>
-        <div class="rental-step-body">
-          <div class="rental-step-title">You simply enjoy</div>
-          <div class="rental-step-desc">No ownership, no upkeep, no stress. At the end of your rental period, we collect everything. Want to continue? Just say the word.</div>
-        </div>
-      </div>
+      <div class="rental-step"><div class="rental-step-line"></div><div class="rental-step-num">1</div><div class="rental-step-body"><div class="rental-step-title">We design it for your space</div><div class="rental-step-desc">Our team curates the right varieties, colours, and arrangements based on your space, light conditions, and aesthetic preference.</div></div></div>
+      <div class="rental-step"><div class="rental-step-line"></div><div class="rental-step-num">2</div><div class="rental-step-body"><div class="rental-step-title">We arrange and install</div><div class="rental-step-desc">Plants are delivered, arranged, and placed exactly where they'll thrive and look their best.</div></div></div>
+      <div class="rental-step"><div class="rental-step-line"></div><div class="rental-step-num">3</div><div class="rental-step-body"><div class="rental-step-title">We maintain throughout</div><div class="rental-step-desc">Watering, feeding, deadheading, seasonal swaps — our team visits regularly to keep every plant healthy.</div></div></div>
+      <div class="rental-step"><div class="rental-step-num">4</div><div class="rental-step-body"><div class="rental-step-title">You simply enjoy</div><div class="rental-step-desc">No ownership, no upkeep, no stress. At the end of your rental period, we collect everything.</div></div></div>
     </div>
-
     <div class="rental-highlight">
-      <div class="rental-highlight-icon">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-        </svg>
-      </div>
-      <div class="rental-highlight-text">
-        <div class="rh-title">Perfect for homes, offices &amp; events</div>
-        <div class="rh-sub">Bring lush seasonal colour to any space without the long-term commitment — ideal for weddings, corporate spaces, showrooms, or simply your own home.</div>
-      </div>
+      <div class="rental-highlight-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="rental-highlight-text"><div class="rh-title">Perfect for homes, offices &amp; events</div><div class="rh-sub">Bring lush seasonal colour to any space without the long-term commitment.</div></div>
     </div>
-
     <div class="rental-cta-row">
-      <a href="/cdn-cgi/l/email-protection#ff9c9091919a9c8bbf9e988d9091d19691" class="rental-cta-primary">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-          <polyline points="22,6 12,13 2,6"/>
-        </svg>
+      <a href="mailto:hello@urbanfarmer.in" class="rental-cta-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         Write to Us
       </a>
       <a href="tel:+916360203017" class="rental-cta-secondary">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.59 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-        </svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.59 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         Call Us
       </a>
     </div>
-
     <div class="rental-contact-strip">
-      <a href="/cdn-cgi/l/email-protection#a8cbc7c6c6cdcbdce8c9cfdac7c686c1c6" class="rental-contact-chip">
+      <a href="mailto:hello@urbanfarmer.in" class="rental-contact-chip">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        <span class="__cf_email__" data-cfemail="294a4647474c4a5d69484e5b4647074047">[email&#160;protected]</span>
+        hello@urbanfarmer.in
       </a>
       <a href="tel:+916360203017" class="rental-contact-chip">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.59 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         +91 63602 03017
       </a>
     </div>
-
   </div>
 </section>
 
@@ -899,18 +849,6 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
   </a>
 </div>
 
-<!-- ORDER MODAL -->
-<div class="modal-wrap" id="orderModal" onclick="closeModalByBg(event,'orderModal')">
-  <div class="modal-box" onclick="event.stopPropagation()">
-    <div class="modal-ico-svg"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#f0a0b8" stroke-width="1.5" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
-    <div class="modal-title">Added to Cart</div>
-    <p class="modal-body"><strong id="orderVarietyName"></strong> Geranium has been added to your cart. You can continue browsing other varieties or proceed to checkout.</p>
-    <div class="modal-brand">BY AGRON GREENTECH</div>
-    <a href="checkout.html" style="display:block;margin-bottom:10px;background:#f0a0b8;color:#060e04;font-weight:700;padding:13px;border-radius:8px;text-align:center;text-decoration:none;font-family:'DM Sans',sans-serif;font-size:13.5px;">Go to Checkout</a>
-    <button class="modal-close" style="background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.7);border:none;border-radius:8px;padding:13px;width:100%;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13.5px;" onclick="closeModal('orderModal')">Continue Browsing</button>
-  </div>
-</div>
-
 <!-- CHAT BACKDROP -->
 <div class="chat-backdrop" id="chatBackdrop" onclick="closeChat()"></div>
 
@@ -953,16 +891,13 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
   <div class="fab-badge"></div>
 </button>
 
-<!-- MODAL STYLES (inline) -->
+<!-- MODAL STYLES -->
 <style>
 .modal-wrap { position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,.75); display:none; align-items:flex-end; justify-content:center; }
 .modal-wrap.show{ display:flex; }
 .modal-box { background:linear-gradient(160deg,#0e2808,#2a6018); border-radius:24px 24px 0 0; padding:32px 28px calc(32px + var(--safe-bottom)); width:100%; max-width:480px; text-align:center; border:1px solid rgba(255,255,255,.1); animation:slideUp .38s cubic-bezier(.34,1.56,.64,1) both; }
 @keyframes slideUp{ from{transform:translateY(100%)}to{transform:translateY(0)} }
-@media (min-width:900px) {
-  .modal-wrap { align-items: center; }
-  .modal-box { border-radius: 24px; padding: 40px 48px; max-width: 540px; }
-}
+@media (min-width:900px) { .modal-wrap { align-items: center; } .modal-box { border-radius: 24px; padding: 40px 48px; max-width: 540px; } }
 .modal-ico-svg { width:72px; height:72px; border-radius:20px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); display:flex; align-items:center; justify-content:center; margin:0 auto 18px; }
 .modal-title{ font-family:'Cormorant Garamond',serif; font-size:26px; color:#f0a0b8; font-style:italic; margin-bottom:10px; }
 .modal-body{ font-size:13.5px; color:rgba(255,255,255,.65); line-height:1.68; margin-bottom:12px; }
@@ -983,49 +918,124 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
   <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
 </svg>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-/* ─── CART SYSTEM ─── */
-const CART_KEY = 'uf_cart';
-function getCart() { try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); } catch { return []; } }
-function saveCart(cart) { localStorage.setItem(CART_KEY, JSON.stringify(cart)); updateCartUI(); }
-function addToCart(item) {
-  const cart = getCart();
-  const existing = cart.find(c => c.id === item.id);
-  if (existing) { existing.qty += 1; } else { cart.push({ ...item, qty: 1 }); }
-  saveCart(cart);
-  showCartToast(item.name);
-  updateOrderBtn(item.id, true);
+<script>
+/* ═══════════════════════════════════════════════════════
+   CART SYSTEM — Supabase (matches checkout.html schema)
+   carts table: plant_id, plant_name, variety_idx,
+                variety_name, price, qty, photo,
+                svg_color, nursery, user_id / session_id
+   ═══════════════════════════════════════════════════════ */
+const SUPABASE_URL_G  = 'https://ujmpogomwcqbotvgdggo.supabase.co';
+const SUPABASE_ANON_KEY_G = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqbXBvZ29td2NxYm90dmdkZ2dvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxNDc3NzcsImV4cCI6MjA4ODcyMzc3N30.rnlT2ok31ureULFPjWm2TBp6DOB_zU7y_rL9EAf9Kbk';
+const _sbG = window.supabase.createClient(SUPABASE_URL_G, SUPABASE_ANON_KEY_G);
+
+function _sessionId() {
+  let s = localStorage.getItem('uf_session_id');
+  if (!s) { s = 'guest_' + Math.random().toString(36).slice(2) + Date.now(); localStorage.setItem('uf_session_id', s); }
+  return s;
 }
-function getCartCount() { return getCart().reduce((s, i) => s + i.qty, 0); }
+function _userId() {
+  const u = JSON.parse(localStorage.getItem('uf_user') || 'null');
+  return u?.id || null;
+}
+function _cartFilter(q) {
+  const uid = _userId();
+  return uid ? q.eq('user_id', uid) : q.eq('session_id', _sessionId());
+}
+
+// In-memory cache of cart rows (loaded once on DOMContentLoaded)
+let _cartRows = [];
+
+async function _loadCart() {
+  try {
+    let q = _sbG.from('carts').select('*').order('created_at');
+    q = _cartFilter(q);
+    const { data, error } = await q;
+    if (error) throw error;
+    _cartRows = data || [];
+  } catch (e) { console.warn('Cart load error', e); _cartRows = []; }
+}
+
+function getCartCount() { return _cartRows.reduce((s, r) => s + (r.qty || 1), 0); }
+
+// Is this variety (by its index in VARIETIES[]) already in cart?
+function isVarietyInCart(varietyIdx) {
+  return _cartRows.some(r => r.plant_id === 'geranium' && r.variety_idx === varietyIdx);
+}
+
+/* Add a variety to the Supabase cart */
+async function addToCart(varietyIdx) {
+  const v = VARIETIES[varietyIdx];
+  if (!v) return null;
+  try {
+    const uid = _userId(), sid = _sessionId();
+    const existing = _cartRows.find(r => r.plant_id === 'geranium' && r.variety_idx === varietyIdx);
+
+    if (existing) {
+      // Increment qty
+      const { data, error } = await _sbG.from('carts')
+        .update({ qty: existing.qty + 1, updated_at: new Date().toISOString() })
+        .eq('id', existing.id).select().single();
+      if (error) throw error;
+      const i = _cartRows.findIndex(r => r.id === existing.id);
+      if (i !== -1) _cartRows[i] = data;
+      return data;
+    }
+
+    // New row — matches checkout.html's expected schema exactly
+    const row = {
+      plant_id:     'geranium',
+      plant_name:   v.name + ' Geranium',   // e.g. "Coral Orange Geranium"
+      variety_idx:  varietyIdx,              // numeric index (checkout reads this)
+      variety_name: v.name,                  // e.g. "Coral Orange"
+      price:        v.price,
+      qty:          1,
+      photo:        null,
+      svg_color:    v.grad[0],               // e.g. "#e07040" (used for colour dot)
+      nursery:      null,
+      updated_at:   new Date().toISOString()
+    };
+    if (uid) row.user_id = uid; else row.session_id = sid;
+
+    const { data, error } = await _sbG.from('carts').insert(row).select().single();
+    if (error) throw error;
+    _cartRows.push(data);
+    return data;
+  } catch (e) { console.warn('addToCart error', e); return null; }
+}
+
+/* Update all cart-related UI elements */
 function updateCartUI() {
   const count = getCartCount();
+  // Desktop nav
   const dc = document.getElementById('desktopCartCount');
   if (dc) { dc.textContent = count; dc.classList.toggle('show', count > 0); }
-  const fab = document.getElementById('cartFabContainer');
-  const badge = document.getElementById('cartFabBadge');
-  if (fab) { fab.classList.toggle('show', count > 0); }
+  // Mobile FAB
+  const fab = document.getElementById('cartFabContainer'), badge = document.getElementById('cartFabBadge');
+  if (fab) fab.classList.toggle('show', count > 0);
   if (badge) badge.textContent = count;
-  const fl = document.getElementById('footerCartLink');
-  const fc = document.getElementById('footerCartCount');
+  // Footer cart link
+  const fl = document.getElementById('footerCartLink'), fc = document.getElementById('footerCartCount');
   if (fl) fl.style.display = count > 0 ? 'block' : 'none';
   if (fc) fc.textContent = count;
-  const cart = getCart();
-  document.querySelectorAll('.vorder-btn[data-variety-id]').forEach(btn => {
-    const inCart = cart.some(c => c.id === btn.dataset.varietyId);
+  // Per-variety order buttons
+  document.querySelectorAll('.vorder-btn[data-variety-idx]').forEach(btn => {
+    const idx = parseInt(btn.dataset.varietyIdx, 10);
+    const inCart = isVarietyInCart(idx);
     btn.classList.toggle('added', inCart);
+    if (inCart) {
+      btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Added to Cart`;
+    }
   });
 }
-let toastTimer = null;
-function showCartToast(name) {
-  const toast = document.getElementById('cartToast');
-  document.getElementById('cartToastMsg').textContent = `${name} Geranium added`;
-  toast.classList.add('show');
-  if (toastTimer) clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
-}
-function updateOrderBtn(id, added) {
-  const btn = document.querySelector(`.vorder-btn[data-variety-id="${id}"]`);
-  if (btn) btn.classList.toggle('added', added);
+
+let _toastTimer = null;
+function showCartToast(varName) {
+  const t = document.getElementById('cartToast');
+  document.getElementById('cartToastMsg').textContent = varName + ' Geranium added';
+  t.classList.add('show');
+  if (_toastTimer) clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
 }
 
 /* ─── VARIETIES DATA ─── */
@@ -1048,9 +1058,9 @@ function buildVarieties() {
   const strip = document.getElementById('vpillStrip');
   const track = document.getElementById('vcarouselTrack');
   const dots  = document.getElementById('vdots');
-  const cart  = getCart();
 
   VARIETIES.forEach((v, i) => {
+    // Pill
     const pill = document.createElement('button');
     pill.className = 'vpill' + (i === 0 ? ' active' : '');
     pill.style.borderColor = v.dot;
@@ -1059,6 +1069,7 @@ function buildVarieties() {
     pill.addEventListener('click', () => { stopAutoScroll(); goToV(i); });
     strip.appendChild(pill);
 
+    // Care rows
     const careRows = v.care.map(c => `
       <div class="vcare-row" style="border-left:3px solid ${v.grad[0]};">
         <div class="vcare-ico" style="background:${c.bg};">
@@ -1073,9 +1084,14 @@ function buildVarieties() {
         <div class="vtrait-val">${t.v}</div>
       </div>`).join('');
 
-    const inCart = cart.some(c => c.id === v.id);
-    const btnClass = `vorder-btn${inCart ? ' added' : ''}`;
-    const btnLabel = inCart ? 'Added to Cart' : `Order ${v.name} Geranium`;
+    const inCart = isVarietyInCart(i);
+    const btnLabel = inCart
+      ? `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Added to Cart`
+      : `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Order ${v.name} Geranium`;
+
+    const checkoutLink = inCart
+      ? `<a href="checkout.html" style="display:block;text-align:center;margin-top:8px;font-size:12px;color:${v.grad[0]};text-decoration:underline;text-underline-offset:2px;">Go to checkout →</a>`
+      : '';
 
     const slide = document.createElement('div');
     slide.className = 'vslide';
@@ -1101,15 +1117,18 @@ function buildVarieties() {
           </div>
           <div class="vtrait-grid">${traitItems}</div>
           <div class="vcare-list">${careRows}</div>
-          <button class="${btnClass}" data-variety-id="${v.id}" style="border-color:${v.grad[0]};color:${v.grad[0]};" onclick="handleOrder('${v.id}')">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <button class="vorder-btn${inCart?' added':''}"
+            data-variety-idx="${i}"
+            style="border-color:${v.grad[0]};color:${v.grad[0]};"
+            onclick="handleOrder(${i})">
             ${btnLabel}
           </button>
-          ${inCart ? `<a href="checkout.html" style="display:block;text-align:center;margin-top:8px;font-size:12px;color:${v.grad[0]};text-decoration:underline;text-underline-offset:2px;">Go to checkout</a>` : ''}
+          ${checkoutLink}
         </div>
       </div>`;
     track.appendChild(slide);
 
+    // Dot
     const dot = document.createElement('div');
     dot.className = 'vdot' + (i === 0 ? ' active' : '');
     dot.style.background = i === 0 ? v.dot : '#d8f0d0';
@@ -1118,23 +1137,44 @@ function buildVarieties() {
   });
 }
 
-function handleOrder(id) {
-  const v = VARIETIES.find(x => x.id === id);
+/* Handle order button click — async, writes to Supabase */
+async function handleOrder(varietyIdx) {
+  const v = VARIETIES[varietyIdx];
   if (!v) return;
-  const btn = document.querySelector(`.vorder-btn[data-variety-id="${id}"]`);
-  const cart = getCart();
-  const inCart = cart.some(c => c.id === id);
-  if (inCart) { window.location.href = 'checkout.html'; return; }
-  addToCart({ id: v.id, name: v.name, price: v.price, plant: 'Geranium', color: v.grad[0], badge: v.badge });
-  if (btn) {
-    btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Added to Cart`;
-    if (!btn.nextElementSibling || btn.nextElementSibling.tagName !== 'A') {
-      const link = document.createElement('a');
-      link.href = 'checkout.html';
-      link.style.cssText = `display:block;text-align:center;margin-top:8px;font-size:12px;color:${v.grad[0]};text-decoration:underline;text-underline-offset:2px;`;
-      link.textContent = 'Go to checkout';
-      btn.parentNode.insertBefore(link, btn.nextSibling);
+
+  // If already in cart → go to checkout
+  if (isVarietyInCart(varietyIdx)) {
+    window.location.href = 'checkout.html';
+    return;
+  }
+
+  // Disable the button while adding
+  const btn = document.querySelector(`.vorder-btn[data-variety-idx="${varietyIdx}"]`);
+  if (btn) { btn.disabled = true; btn.style.opacity = '0.6'; }
+
+  const result = await addToCart(varietyIdx);
+
+  if (btn) { btn.disabled = false; btn.style.opacity = ''; }
+
+  if (result) {
+    updateCartUI();
+    showCartToast(v.name);
+    // Update the button and add checkout link
+    if (btn) {
+      btn.classList.add('added');
+      btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Added to Cart`;
+      if (!btn.nextElementSibling || btn.nextElementSibling.tagName !== 'A') {
+        const link = document.createElement('a');
+        link.href = 'checkout.html';
+        link.style.cssText = `display:block;text-align:center;margin-top:8px;font-size:12px;color:${v.grad[0]};text-decoration:underline;text-underline-offset:2px;`;
+        link.textContent = 'Go to checkout →';
+        btn.parentNode.insertBefore(link, btn.nextSibling);
+      }
     }
+  } else {
+    // Fallback error hint
+    if (btn) { btn.style.borderColor = '#c83060'; }
+    setTimeout(() => { if (btn) btn.style.borderColor = ''; }, 2000);
   }
 }
 
@@ -1157,7 +1197,7 @@ function goToV(idx) {
     d.style.background = i === idx ? VARIETIES[i].dot : '#d8f0d0';
   });
   const pillEl = document.querySelectorAll('.vpill')[idx];
-  if (pillEl) pillEl.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+  if (pillEl) pillEl.scrollIntoView({ behavior:'smooth', inline:'center', block:'nearest' });
 }
 
 let vtx = 0, vty = 0, autoScrollTimer = null, userInteracted = false;
@@ -1170,7 +1210,11 @@ function stopAutoScroll() {
   if (autoScrollTimer) { clearInterval(autoScrollTimer); autoScrollTimer = null; }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  // Load Supabase session + cart first so buttons render correctly
+  await _sbG.auth.getSession();
+  await _loadCart();
+
   buildVarieties();
 
   if (isDesktop()) {
@@ -1229,60 +1273,55 @@ window.addEventListener('resize', () => {
 });
 
 /* ─── CHAT ─── */
-let chatOpen=false, chatTyping=false, chatHist=[];
+let chatOpen=false,chatTyping=false,chatHist=[];
 const CHAT_API='/api/chat';
-function openChat(){ chatOpen=true; document.getElementById('chatPanel').classList.add('open'); document.getElementById('chatBackdrop').classList.add('show'); document.getElementById('chatFab').style.display='none'; if(!isDesktop()) document.body.style.overflow='hidden'; setTimeout(()=>document.getElementById('chatInp').focus(),400); }
-function closeChat(){ chatOpen=false; document.getElementById('chatPanel').classList.remove('open'); document.getElementById('chatBackdrop').classList.remove('show'); document.getElementById('chatFab').style.display=''; document.body.style.overflow=''; }
-function resizeInp(el){ el.style.height='auto'; el.style.height=Math.min(el.scrollHeight,96)+'px'; }
-function chatKey(e){ if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat();} }
-function sendQQ(btn){ document.getElementById('chatInp').value=btn.textContent.trim(); document.getElementById('quickQs').style.display='none'; sendChat(); }
+function openChat(){chatOpen=true;document.getElementById('chatPanel').classList.add('open');document.getElementById('chatBackdrop').classList.add('show');document.getElementById('chatFab').style.display='none';if(!isDesktop())document.body.style.overflow='hidden';setTimeout(()=>document.getElementById('chatInp').focus(),400);}
+function closeChat(){chatOpen=false;document.getElementById('chatPanel').classList.remove('open');document.getElementById('chatBackdrop').classList.remove('show');document.getElementById('chatFab').style.display='';document.body.style.overflow='';}
+function resizeInp(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,96)+'px';}
+function chatKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat();}}
+function sendQQ(btn){document.getElementById('chatInp').value=btn.textContent.trim();document.getElementById('quickQs').style.display='none';sendChat();}
 async function sendChat(){
   if(chatTyping)return;
   const inp=document.getElementById('chatInp');
-  const text=inp.value.trim(); if(!text)return;
-  inp.value=''; inp.style.height='auto';
+  const text=inp.value.trim();if(!text)return;
+  inp.value='';inp.style.height='auto';
   document.getElementById('quickQs').style.display='none';
-  addMsg('user',text); chatHist.push({role:'user',content:text}); showTyping();
+  addMsg('user',text);chatHist.push({role:'user',content:text});showTyping();
   try{
     const res=await fetch(CHAT_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:chatHist})});
     if(!res.ok)throw new Error();
     const d=await res.json();
     const reply=d.choices?.[0]?.message?.content||'Give me a moment — please try again.';
-    removeTyping(); addMsg('bot',reply); chatHist.push({role:'assistant',content:reply});
+    removeTyping();addMsg('bot',reply);chatHist.push({role:'assistant',content:reply});
     if(chatHist.length>14)chatHist=chatHist.slice(-14);
-  }catch{ removeTyping(); addMsg('bot','Could not connect right now. Please try again.'); }
+  }catch{removeTyping();addMsg('bot','Could not connect right now. Please try again.');}
 }
 function addMsg(role,text){
   const box=document.getElementById('chatMsgs');
-  const d=document.createElement('div'); d.className=`cmsg ${role}`;
+  const d=document.createElement('div');d.className=`cmsg ${role}`;
   const avIcon=role==='bot'?`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/></svg>`:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
   d.innerHTML=`<div class="cmsg-av">${avIcon}</div><div class="cmsg-bbl">${text.replace(/\n/g,'<br>')}</div>`;
-  box.appendChild(d); box.scrollTop=box.scrollHeight; chatTyping=false;
+  box.appendChild(d);box.scrollTop=box.scrollHeight;chatTyping=false;
 }
 function showTyping(){
   chatTyping=true;
   const box=document.getElementById('chatMsgs');
-  const d=document.createElement('div'); d.className='cmsg bot'; d.id='typingDiv';
+  const d=document.createElement('div');d.className='cmsg bot';d.id='typingDiv';
   d.innerHTML=`<div class="cmsg-av"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/></svg></div><div class="cmsg-bbl"><div class="typing-dots"><span></span><span></span><span></span></div></div>`;
-  box.appendChild(d); box.scrollTop=box.scrollHeight;
+  box.appendChild(d);box.scrollTop=box.scrollHeight;
   document.getElementById('chatSendBtn').disabled=true;
 }
-function removeTyping(){ const t=document.getElementById('typingDiv'); if(t)t.remove(); document.getElementById('chatSendBtn').disabled=false; chatTyping=false; }
+function removeTyping(){const t=document.getElementById('typingDiv');if(t)t.remove();document.getElementById('chatSendBtn').disabled=false;chatTyping=false;}
 
 /* ─── RATING ─── */
 let frRating=0;
-function setFrStar(val){ frRating=val; document.querySelectorAll('.fr-star').forEach((s,i)=>s.classList.toggle('lit',i<val)); }
+function setFrStar(val){frRating=val;document.querySelectorAll('.fr-star').forEach((s,i)=>s.classList.toggle('lit',i<val));}
 async function submitFooterRating(){
   if(frRating===0){alert('Please tap a star to rate.');return;}
   try{await fetch('/api/feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({overallRating:frRating,feedbackText:document.getElementById('frText').value.trim()})});}catch{}
   document.getElementById('frForm').style.display='none';
   document.getElementById('frThanks').style.display='flex';
 }
-
-/* ─── MODALS ─── */
-function openOrderModal(varName){ document.getElementById('orderVarietyName').textContent=varName; document.getElementById('orderModal').style.display='flex'; document.body.style.overflow='hidden'; }
-function closeModal(id){ document.getElementById(id).style.display='none'; document.body.style.overflow=''; }
-function closeModalByBg(e,id){ if(e.target===document.getElementById(id))closeModal(id); }
 </script>
 </body>
 </html>

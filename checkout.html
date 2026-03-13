@@ -742,8 +742,12 @@ function calcTotal() {
 function getItemColor(item) { return item.svg_color || item.color || '#2a6018'; }
 function getItemDisplayName(item) {
   const name = item.plant_name || item.name || 'Plant';
-  const variety = item.variety_name ? ` — ${item.variety_name}` : '';
-  return name + variety;
+  // If plant_name already contains variety_name (e.g. "Coral Orange Geranium"
+  // contains "Coral Orange"), don't repeat it. Otherwise append with dash.
+  if (item.variety_name && !name.toLowerCase().startsWith(item.variety_name.toLowerCase())) {
+    return name + ' — ' + item.variety_name;
+  }
+  return name;
 }
 
 /* ─── RENDER ─── */

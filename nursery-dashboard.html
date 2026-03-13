@@ -15,6 +15,8 @@
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'DM Sans',sans-serif;background:var(--linen);color:var(--text);display:flex;min-height:100vh;}
+
+/* ── SIDEBAR ── */
 .sidebar{width:var(--sidebar);background:var(--forest);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:10;}
 .sidebar-brand{padding:1.4rem 1.5rem;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;gap:.75rem;text-decoration:none;}
 .sidebar-brand-icon{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;}
@@ -22,7 +24,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--linen);color:var(--text);
 .sidebar-brand-sub{font-size:.68rem;color:rgba(245,240,232,.4);margin-top:.1rem;}
 .sidebar-nav{flex:1;padding:1.2rem 0;overflow-y:auto;}
 .nav-section-label{font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;color:rgba(245,240,232,.3);padding:0 1.2rem;margin-bottom:.4rem;margin-top:1.4rem;}
-.nav-section-label:first-child{margin-top:0;}
 .nav-item{display:flex;align-items:center;gap:.7rem;padding:.65rem 1.2rem;margin:.08rem .65rem;border-radius:10px;cursor:pointer;font-size:.862rem;color:rgba(245,240,232,.58);transition:all .2s;text-decoration:none;border:none;background:none;font-family:'DM Sans',sans-serif;width:calc(100% - 1.3rem);position:relative;}
 .nav-item:hover{background:rgba(255,255,255,.05);color:var(--cream);}
 .nav-item.active{background:rgba(255,255,255,.1);color:var(--white);}
@@ -35,6 +36,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--linen);color:var(--text);
 .profile-role{font-size:.68rem;color:rgba(245,240,232,.4);}
 .logout-btn{margin-left:auto;background:none;border:none;color:rgba(245,240,232,.38);cursor:pointer;padding:.2rem;transition:all .2s;}
 .logout-btn:hover{color:rgba(245,240,232,.75);}
+
+/* ── MAIN ── */
 .main{margin-left:var(--sidebar);flex:1;display:flex;flex-direction:column;min-height:100vh;}
 .topbar{background:var(--white);padding:1rem 2rem;border-bottom:1px solid rgba(107,143,113,.1);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:5;}
 .topbar-title{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--forest);}
@@ -42,9 +45,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--linen);color:var(--text);
 .topbar-status{display:flex;align-items:center;gap:.4rem;background:rgba(74,124,89,.1);border:1px solid rgba(74,124,89,.18);border-radius:100px;padding:.32rem .75rem;font-size:.75rem;color:var(--leaf);}
 .status-dot{width:7px;height:7px;border-radius:50%;background:#4caf50;animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
-.notif-btn{width:34px;height:34px;border-radius:50%;background:var(--linen);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative;}
-.notif-dot{position:absolute;top:4px;right:4px;width:7px;height:7px;border-radius:50%;background:var(--terra);border:2px solid var(--white);}
 .content{padding:2rem;flex:1;}
+
+/* ── STATS ── */
 .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-bottom:2rem;}
 .stat-card{background:var(--white);border-radius:16px;padding:1.3rem;border:1px solid rgba(107,143,113,.1);display:flex;align-items:flex-start;gap:.9rem;}
 .stat-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
@@ -54,6 +57,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--linen);color:var(--text);
 .stat-num{font-family:'Playfair Display',serif;font-size:1.55rem;color:var(--forest);line-height:1;}
 .stat-label{font-size:.75rem;color:var(--text-muted);margin-top:.25rem;}
 .stat-change{font-size:.72rem;color:#4caf50;margin-top:.18rem;font-weight:500;}
+
+/* ── BUTTONS ── */
 .btn{display:inline-flex;align-items:center;gap:.4rem;padding:.55rem 1.2rem;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:.84rem;font-weight:500;cursor:pointer;border:none;transition:all .2s;text-decoration:none;}
 .btn-primary{background:var(--forest);color:var(--white);}
 .btn-primary:hover{background:var(--moss);}
@@ -63,88 +68,93 @@ body{font-family:'DM Sans',sans-serif;background:var(--linen);color:var(--text);
 .btn-terra:hover{background:#b06a39;}
 .btn-sm{padding:.38rem .85rem;font-size:.76rem;}
 .btn-danger{background:rgba(198,40,40,.08);color:#c62828;border:1.5px solid rgba(198,40,40,.2);}
-.btn-danger:hover{background:#c62828;color:white;}
+.btn-danger:hover{background:#c62828;color:white;border-color:#c62828;}
 .btn-restore{background:rgba(74,124,89,.1);color:var(--leaf);border:1.5px solid rgba(74,124,89,.2);}
 .btn-restore:hover{background:var(--leaf);color:white;}
-.btn-pro{background:linear-gradient(135deg,rgba(123,47,247,.1),rgba(241,7,163,.08));color:#7b2ff7;border:1.5px solid rgba(123,47,247,.2);}
-.btn-pro:hover{background:linear-gradient(135deg,#7b2ff7,#f107a3);color:white;border-color:transparent;}
-.tab-row{display:flex;gap:.2rem;background:var(--linen);border-radius:11px;padding:.28rem;margin-bottom:1.5rem;width:fit-content;border:1px solid rgba(107,143,113,.1);flex-wrap:wrap;}
-.tab{padding:.5rem 1.1rem;border-radius:8px;font-size:.85rem;font-weight:500;cursor:pointer;border:none;background:transparent;color:var(--text-muted);transition:all .2s;font-family:'DM Sans',sans-serif;white-space:nowrap;}
-.tab.active{background:var(--white);color:var(--forest);box-shadow:0 1px 5px rgba(26,58,42,.08);}
+
+/* ── SECTION HEADER ── */
 .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;flex-wrap:wrap;gap:.75rem;}
 .section-header h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--forest);}
+
+/* ── TABS ── */
+.tab-row{display:flex;gap:.2rem;background:var(--linen);border-radius:11px;padding:.28rem;width:fit-content;border:1px solid rgba(107,143,113,.1);}
+.tab{padding:.5rem 1.1rem;border-radius:8px;font-size:.85rem;font-weight:500;cursor:pointer;border:none;background:transparent;color:var(--text-muted);transition:all .2s;font-family:'DM Sans',sans-serif;}
+.tab.active{background:var(--white);color:var(--forest);box-shadow:0 1px 5px rgba(26,58,42,.08);}
+
+/* ── CATEGORY SECTIONS ── */
 .category-section{margin-bottom:2.5rem;}
 .category-header{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;padding-bottom:.6rem;border-bottom:2px solid rgba(107,143,113,.12);}
 .category-icon{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .category-title{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--forest);}
 .category-count{font-size:.72rem;color:var(--text-muted);background:var(--linen);padding:.18rem .55rem;border-radius:100px;border:1px solid rgba(107,143,113,.15);}
+
+/* ── PLANT CARDS (MANAGEMENT) ── */
 .plants-grid-mgmt{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1rem;}
 .plant-card-mgmt{background:var(--white);border-radius:16px;overflow:hidden;border:1px solid rgba(107,143,113,.1);transition:all .25s;position:relative;}
 .plant-card-mgmt:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(26,58,42,.09);}
 .plant-card-mgmt.oos{opacity:.6;filter:grayscale(.3);}
-.plant-card-mgmt.pro-card{border-color:rgba(123,47,247,.2);}
-.plant-card-mgmt.pro-card:hover{box-shadow:0 8px 28px rgba(123,47,247,.12);}
+.plant-card-mgmt.not-added{border-style:dashed;border-color:rgba(107,143,113,.28);background:rgba(107,143,113,.02);}
+.plant-card-mgmt.not-added:hover{border-color:var(--sage);background:rgba(107,143,113,.06);}
+.not-added-banner{position:absolute;top:0;left:0;right:0;background:rgba(107,143,113,.12);color:var(--sage);text-align:center;padding:.28rem;font-size:.66rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;z-index:4;}
 .oos-banner{position:absolute;top:0;left:0;right:0;background:rgba(198,40,40,.85);color:white;text-align:center;padding:.28rem;font-size:.66rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;z-index:4;}
-.pro-banner{position:absolute;top:0;left:0;right:0;background:linear-gradient(135deg,#7b2ff7,#f107a3);color:white;text-align:center;padding:.28rem;font-size:.66rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;z-index:4;}
-.card-img-mgmt{width:100%;height:130px;position:relative;overflow:hidden;flex-shrink:0;background:#fff;}
-.card-img-mgmt img{position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%;object-fit:contain;object-position:center;display:block;padding:8px;}
+
+/* ── CARD IMAGE ── */
+.card-img-mgmt{width:100%;height:140px;position:relative;overflow:hidden;background:#fff;}
+.card-img-mgmt img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;object-position:center;padding:8px;}
+
+/* Photo overlay on hover */
 .card-img-mgmt .photo-overlay{position:absolute;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;gap:.5rem;z-index:5;}
 .card-img-mgmt:hover .photo-overlay{display:flex;}
-.photo-overlay-btn{background:rgba(255,255,255,.9);border:none;border-radius:8px;padding:.35rem .7rem;font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:500;cursor:pointer;color:#1a1a18;display:flex;align-items:center;gap:.25rem;transition:all .15s;}
+.photo-overlay-btn{background:rgba(255,255,255,.92);border:none;border-radius:8px;padding:.35rem .7rem;font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:500;cursor:pointer;color:#1a1a18;display:flex;align-items:center;gap:.25rem;transition:all .15s;position:relative;overflow:hidden;}
 .photo-overlay-btn:hover{background:white;transform:scale(1.05);}
-.photo-overlay-btn.del{color:#c62828;}
+.photo-overlay-btn input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;}
+.photo-overlay-btn.del-btn{color:#c62828;}
+.photo-overlay-btn.del-btn:hover{background:#c62828;color:white;}
+
+/* No-photo placeholder */
 .card-img-placeholder{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.35rem;}
 .card-img-placeholder svg{opacity:.3;}
-.card-img-placeholder span{font-size:.64rem;color:rgba(107,143,113,.5);text-transform:uppercase;letter-spacing:.07em;}
+.card-img-placeholder .cat-label{font-size:.62rem;color:rgba(107,143,113,.5);text-transform:uppercase;letter-spacing:.07em;}
+
+/* Upload hint (shown on not-added cards) */
+.upload-hint-overlay{position:absolute;inset:0;background:rgba(26,58,42,.0);display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;opacity:0;transition:opacity .2s;}
+.card-img-mgmt:hover .upload-hint-overlay{opacity:1;}
+.upload-hint-pill{background:rgba(26,58,42,.75);color:white;font-size:.62rem;padding:.2rem .6rem;border-radius:100px;white-space:nowrap;cursor:pointer;position:relative;}
+.upload-hint-pill input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;}
+
 .plant-status-badge{position:absolute;top:8px;right:8px;padding:.2rem .55rem;border-radius:100px;font-size:.65rem;font-weight:600;z-index:3;}
 .psb-active{background:rgba(74,124,89,.9);color:white;}
-.psb-pending{background:rgba(232,162,90,.9);color:white;}
 .psb-oos{background:rgba(198,40,40,.85);color:white;}
-.psb-pro{background:linear-gradient(135deg,#7b2ff7,#f107a3);color:white;}
+
 .card-body-mgmt{padding:.8rem;}
 .plant-name-mgmt{font-family:'Playfair Display',serif;font-size:.9rem;color:var(--forest);margin-bottom:.1rem;line-height:1.3;}
 .plant-sci-mgmt{font-size:.68rem;color:var(--text-muted);font-style:italic;margin-bottom:.4rem;}
-.plant-variety-tags{display:flex;flex-wrap:wrap;gap:.25rem;margin-bottom:.45rem;}
-.variety-tag{font-size:.6rem;background:rgba(107,143,113,.1);color:var(--sage);border-radius:4px;padding:.12rem .4rem;white-space:nowrap;}
 .plant-meta-mgmt{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;}
 .plant-price-mgmt{font-weight:600;color:var(--forest);font-size:.875rem;}
 .plant-stock-mgmt{font-size:.7rem;color:var(--text-muted);}
 .plant-actions-mgmt{display:flex;gap:.4rem;}
-.add-new-card{cursor:pointer;border:2px dashed rgba(107,143,113,.28);background:rgba(107,143,113,.03);}
-.add-new-card:hover{border-color:var(--sage);background:rgba(107,143,113,.07);transform:translateY(-2px);}
-.add-new-card .card-img-mgmt{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;background:transparent;position:relative;}
+
+/* ── FORMS ── */
 .form-group{margin-bottom:.9rem;}
 .form-group.half{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;}
 label{display:block;font-size:.73rem;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.38rem;}
 input,select,textarea{width:100%;padding:.62rem .9rem;border:1.5px solid rgba(107,143,113,.2);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.875rem;color:var(--text);background:var(--white);outline:none;transition:all .2s;}
 input:focus,select:focus,textarea:focus{border-color:var(--leaf);box-shadow:0 0 0 3px rgba(74,124,89,.08);}
 textarea{min-height:78px;resize:vertical;}
-.photo-upload{border:2px dashed rgba(107,143,113,.22);border-radius:12px;padding:1.6rem;text-align:center;cursor:pointer;transition:all .2s;position:relative;}
-.photo-upload:hover{border-color:var(--sage);}
-.photo-upload input{position:absolute;inset:0;opacity:0;cursor:pointer;}
-.listing-opts{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:.3rem;}
-.listing-opt{border:2px solid rgba(107,143,113,.15);border-radius:12px;padding:.9rem;cursor:pointer;transition:all .2s;text-align:center;}
-.listing-opt:hover{border-color:var(--sage);}
-.listing-opt.selected{border-color:var(--forest);background:rgba(26,58,42,.04);}
-.listing-opt-title{font-size:.82rem;font-weight:500;color:var(--forest);margin-top:.3rem;}
-.listing-opt-desc{font-size:.68rem;color:var(--text-muted);margin-top:.15rem;}
-.varieties-section{margin-top:.75rem;background:rgba(107,143,113,.04);border:1.5px solid rgba(107,143,113,.15);border-radius:10px;padding:.85rem;}
-.varieties-section-title{font-size:.72rem;font-weight:600;color:var(--forest);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem;}
-.variety-row{display:flex;gap:.5rem;align-items:center;margin-bottom:.45rem;}
-.variety-row input{margin-bottom:0;padding:.45rem .75rem;font-size:.8rem;}
-.variety-row .remove-variety{background:rgba(198,40,40,.08);border:1px solid rgba(198,40,40,.18);border-radius:7px;color:#c62828;cursor:pointer;padding:.3rem .6rem;font-size:.7rem;white-space:nowrap;transition:all .15s;}
-.variety-row .remove-variety:hover{background:#c62828;color:white;}
-.add-variety-btn{font-size:.76rem;color:var(--leaf);background:rgba(74,124,89,.08);border:1.5px dashed rgba(74,124,89,.3);border-radius:8px;padding:.38rem .85rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:all .2s;}
-.add-variety-btn:hover{background:rgba(74,124,89,.14);}
-#photo-preview-img{width:100%;height:160px;object-fit:contain;object-position:center;border-radius:10px;margin-top:.6rem;display:none;background:var(--linen);}
-#photo-change-row{display:none;gap:.5rem;margin-top:.5rem;}
+
+/* ── PHOTO UPLOAD (in modal) ── */
+.photo-upload-area{border:2px dashed rgba(107,143,113,.22);border-radius:12px;padding:1.6rem;text-align:center;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
+.photo-upload-area:hover{border-color:var(--sage);background:rgba(107,143,113,.03);}
+.photo-upload-area input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;}
+#photo-preview-img{width:100%;height:160px;object-fit:contain;border-radius:10px;margin-top:.6rem;display:none;background:var(--linen);}
+#photo-change-row{display:none;gap:.5rem;margin-top:.5rem;flex-wrap:wrap;}
 .btn-change-photo{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .85rem;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:500;cursor:pointer;border:1.5px solid rgba(107,143,113,.25);background:var(--white);color:var(--forest);position:relative;overflow:hidden;transition:all .2s;}
-.btn-change-photo:hover{border-color:var(--leaf);}
 .btn-change-photo input{position:absolute;inset:0;opacity:0;cursor:pointer;}
 .btn-delete-photo{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .85rem;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:500;cursor:pointer;border:1.5px solid rgba(198,40,40,.2);background:rgba(198,40,40,.06);color:#c62828;transition:all .2s;}
 .btn-delete-photo:hover{background:#c62828;color:white;border-color:#c62828;}
-.visit-hero{background:linear-gradient(135deg,var(--forest),var(--moss));border-radius:16px;padding:2rem;margin-bottom:2rem;position:relative;overflow:hidden;}
-.visit-hero::before{content:'';position:absolute;right:-2rem;bottom:-3rem;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.04);}
+
+/* ── VISIT PAGE ── */
+.visit-hero{background:linear-gradient(135deg,var(--forest),var(--moss));border-radius:16px;padding:2rem;margin-bottom:2rem;}
 .visit-hero h3{font-family:'Playfair Display',serif;font-size:1.35rem;color:white;margin-bottom:.5rem;}
 .visit-hero p{font-size:.875rem;color:rgba(245,240,232,.65);line-height:1.65;}
 .visit-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem;}
@@ -152,55 +162,73 @@ textarea{min-height:78px;resize:vertical;}
 .visit-step-num{font-family:'Playfair Display',serif;font-size:2rem;color:var(--forest);margin-bottom:.4rem;}
 .visit-step-title{font-size:.85rem;font-weight:500;color:var(--forest);margin-bottom:.25rem;}
 .visit-step-desc{font-size:.75rem;color:var(--text-muted);line-height:1.5;}
+
+/* ── ORDERS ── */
 .orders-table-wrap{background:var(--white);border-radius:18px;overflow:hidden;border:1px solid rgba(107,143,113,.1);}
 .table-header{display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr 1fr;padding:1rem 1.5rem;background:var(--linen);border-bottom:1px solid rgba(107,143,113,.1);font-size:.72rem;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);}
-.table-row{display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr 1fr;padding:.95rem 1.5rem;border-bottom:1px solid rgba(107,143,113,.06);align-items:center;font-size:.862rem;transition:background .2s;}
+.table-row{display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr 1fr;padding:.95rem 1.5rem;border-bottom:1px solid rgba(107,143,113,.06);align-items:center;font-size:.862rem;}
 .table-row:last-child{border-bottom:none;}
-.table-row:hover{background:rgba(107,143,113,.03);}
-.order-plant{font-weight:500;color:var(--forest);}
 .order-amount{font-weight:600;color:var(--forest);}
 .order-status{display:inline-flex;align-items:center;gap:.3rem;padding:.22rem .55rem;border-radius:100px;font-size:.7rem;font-weight:500;}
 .os-confirmed{background:rgba(74,124,89,.1);color:var(--leaf);}
 .os-pending{background:rgba(232,162,90,.14);color:#c68a20;}
-.os-dispatched{background:rgba(107,79,58,.08);color:var(--bark);}
+
+/* ── MODALS ── */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;align-items:center;justify-content:center;padding:1rem;}
 .modal-overlay.open{display:flex;}
-.modal{background:var(--white);border-radius:20px;padding:2rem;width:100%;max-width:560px;max-height:92vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2);}
+.modal{background:var(--white);border-radius:20px;padding:2rem;width:100%;max-width:520px;max-height:92vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2);position:relative;}
 .modal h3{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--forest);margin-bottom:1.4rem;}
-.modal-close-btn{position:absolute;top:1rem;right:1rem;background:var(--linen);border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-muted);}
-.modal-close-btn:hover{background:#e0d9cc;}
+.modal-close-btn{position:absolute;top:1rem;right:1rem;background:var(--linen);border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-muted);transition:all .2s;}
+.modal-close-btn:hover{background:rgba(107,143,113,.15);}
 .modal-actions{display:flex;gap:.75rem;margin-top:1.4rem;}
 .btn-cancel-m{background:var(--linen);color:var(--text-muted);border:none;border-radius:100px;padding:.55rem 1.2rem;font-family:'DM Sans',sans-serif;font-size:.84rem;cursor:pointer;}
-.btn-cancel-m:hover{background:#e0d9cc;}
+
+/* ── VARIETIES ── */
+.varieties-section{margin-top:.75rem;background:rgba(107,143,113,.04);border:1.5px solid rgba(107,143,113,.15);border-radius:10px;padding:.85rem;}
+.varieties-section-title{font-size:.72rem;font-weight:600;color:var(--forest);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem;}
+.variety-row{display:flex;gap:.5rem;align-items:center;margin-bottom:.45rem;}
+.variety-row input{margin-bottom:0;padding:.45rem .75rem;font-size:.8rem;}
+.variety-row .remove-variety{background:rgba(198,40,40,.08);border:1px solid rgba(198,40,40,.18);border-radius:7px;color:#c62828;cursor:pointer;padding:.3rem .6rem;font-size:.7rem;white-space:nowrap;font-family:'DM Sans',sans-serif;}
+.add-variety-btn{font-size:.76rem;color:var(--leaf);background:rgba(74,124,89,.08);border:1.5px dashed rgba(74,124,89,.3);border-radius:8px;padding:.38rem .85rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:all .2s;margin-top:.2rem;}
+.add-variety-btn:hover{background:rgba(74,124,89,.14);}
+
+/* ── PROFILE CARD ── */
 .profile-card{background:var(--white);border-radius:20px;padding:2rem;border:1px solid rgba(107,143,113,.1);max-width:600px;}
+
+/* ── TOAST ── */
 .toast{position:fixed;bottom:2rem;right:2rem;background:var(--forest);color:var(--white);padding:.9rem 1.4rem;border-radius:12px;display:none;align-items:center;gap:.65rem;box-shadow:0 8px 24px rgba(26,58,42,.25);z-index:300;font-size:.875rem;animation:slideIn .3s ease;}
 .toast.show{display:flex;}
 @keyframes slideIn{from{transform:translateX(80px);opacity:0}to{transform:translateX(0);opacity:1}}
-.catalogue-modal{max-width:700px;}
-.catalogue-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:.85rem;max-height:55vh;overflow-y:auto;padding-right:.4rem;}
-.catalogue-card{border:2px solid rgba(107,143,113,.12);border-radius:14px;padding:.9rem;cursor:pointer;transition:all .2s;background:var(--white);}
-.catalogue-card:hover{border-color:var(--sage);background:rgba(107,143,113,.04);}
-.catalogue-card.selected{border-color:var(--forest);background:rgba(26,58,42,.05);}
-.catalogue-card-name{font-family:'Playfair Display',serif;font-size:.88rem;color:var(--forest);margin-bottom:.15rem;}
-.catalogue-card-sci{font-size:.68rem;color:var(--text-muted);font-style:italic;margin-bottom:.4rem;}
-.catalogue-card-tags{display:flex;flex-wrap:wrap;gap:.2rem;}
-.cat-chip{font-size:.58rem;padding:.1rem .35rem;border-radius:4px;background:rgba(107,143,113,.1);color:var(--sage);}
-.cat-filter-row{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem;}
-.cat-filter-btn{padding:.3rem .75rem;border-radius:100px;border:1.5px solid rgba(107,143,113,.2);background:transparent;font-family:'DM Sans',sans-serif;font-size:.74rem;color:var(--text-muted);cursor:pointer;transition:all .2s;}
-.cat-filter-btn.active{background:var(--forest);color:white;border-color:var(--forest);}
+
+/* ── UPLOAD PROGRESS ── */
+.upload-progress{display:none;margin-top:.6rem;}
+.upload-progress.show{display:block;}
+.progress-bar-wrap{background:rgba(107,143,113,.15);border-radius:100px;height:5px;overflow:hidden;}
+.progress-bar-fill{background:var(--leaf);height:100%;border-radius:100px;transition:width .3s ease;width:0%;}
+.progress-label{font-size:.72rem;color:var(--text-muted);margin-top:.3rem;}
+
+/* ── LISTING TYPE TOGGLE ── */
+.listing-type-toggle{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;}
+.lt-btn{display:flex;align-items:flex-start;gap:.6rem;padding:.75rem .9rem;border-radius:12px;border:1.5px solid rgba(107,143,113,.2);background:var(--white);cursor:pointer;text-align:left;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.lt-btn:hover{border-color:var(--sage);background:rgba(107,143,113,.04);}
+.lt-btn.active{border-color:var(--leaf);background:rgba(74,124,89,.06);box-shadow:0 0 0 2px rgba(74,124,89,.12);}
+.lt-icon{display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem;color:var(--sage);}
+.lt-btn.active .lt-icon{color:var(--leaf);}
+.lt-title{font-size:.82rem;font-weight:600;color:var(--forest);margin-bottom:.12rem;}
+.lt-desc{font-size:.7rem;color:var(--text-muted);line-height:1.4;}
+.lt-btn.active .lt-title{color:var(--leaf);}
+
 @media(max-width:900px){
   .sidebar{display:none;}
   .main{margin-left:0;}
   .stats-row{grid-template-columns:1fr 1fr;}
-  .table-header,.table-row{grid-template-columns:2fr 1fr 1fr;}
-  .table-row>div:nth-child(2),.table-header>div:nth-child(2){display:none;}
-  .table-row>div:nth-child(4),.table-header>div:nth-child(4){display:none;}
   .visit-steps{grid-template-columns:1fr;}
 }
 </style>
 </head>
 <body>
 
+<!-- ══ SIDEBAR ══ -->
 <aside class="sidebar">
   <a href="index.html" class="sidebar-brand">
     <div class="sidebar-brand-icon">
@@ -223,10 +251,6 @@ textarea{min-height:78px;resize:vertical;}
       My Plants
       <span class="nav-badge" id="nav-plants-count">0</span>
     </button>
-    <button class="nav-item" onclick="openCatalogueModal()">
-      <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></span>
-      Add Plant
-    </button>
     <button class="nav-item" onclick="showSection('visit',this)">
       <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
       Request Visit
@@ -247,54 +271,75 @@ textarea{min-height:78px;resize:vertical;}
     <div class="profile-avatar">
       <svg viewBox="0 0 24 24" fill="none" stroke="rgba(245,240,232,.65)" stroke-width="2" width="15" height="15"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
     </div>
-    <div><div class="profile-name">Green Valley</div><div class="profile-role">Nursery Owner</div></div>
-    <button class="logout-btn" title="Sign Out" onclick="signOut()">
+    <div>
+      <div class="profile-name" id="sidebar-nursery-name">Loading…</div>
+      <div class="profile-role">Nursery Owner</div>
+    </div>
+    <button class="logout-btn" onclick="signOut()" title="Sign out">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
     </button>
   </div>
 </aside>
 
+<!-- ══ MAIN ══ -->
 <div class="main">
   <header class="topbar">
     <div class="topbar-title" id="page-title">Dashboard Overview</div>
     <div class="topbar-right">
       <div class="topbar-status"><div class="status-dot"></div>Nursery Active</div>
-      <button class="notif-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="var(--forest)" stroke-width="2" width="15" height="15"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
-        <div class="notif-dot"></div>
-      </button>
     </div>
   </header>
 
   <div class="content">
-    <!-- DASHBOARD -->
+
+    <!-- ── DASHBOARD ── -->
     <div id="section-dashboard">
       <div class="stats-row">
         <div class="stat-card">
-          <div class="stat-icon si-green"><svg viewBox="0 0 24 24" fill="none" stroke="var(--leaf)" stroke-width="2" width="20" height="20"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/></svg></div>
-          <div><div class="stat-num" id="stat-listed">0</div><div class="stat-label">Plants Listed</div><div class="stat-change" id="stat-instock-text"></div></div>
+          <div class="stat-icon si-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--leaf)" stroke-width="2" width="20" height="20"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/></svg>
+          </div>
+          <div>
+            <div class="stat-num" id="stat-listed">0</div>
+            <div class="stat-label">Plants in My Catalogue</div>
+            <div class="stat-change" id="stat-instock-text">0 in stock</div>
+          </div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon si-terra"><svg viewBox="0 0 24 24" fill="none" stroke="var(--terra)" stroke-width="2" width="20" height="20"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div>
-          <div><div class="stat-num">47</div><div class="stat-label">Total Orders</div><div class="stat-change">↑ 8 this week</div></div>
+          <div class="stat-icon si-terra">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--terra)" stroke-width="2" width="20" height="20"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          </div>
+          <div>
+            <div class="stat-num">47</div>
+            <div class="stat-label">Total Orders</div>
+            <div class="stat-change">↑ 8 this week</div>
+          </div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon si-bark"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bark)" stroke-width="2" width="20" height="20"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
-          <div><div class="stat-num">8.4K</div><div class="stat-label">Revenue (Rs.)</div><div class="stat-change">↑ Rs.1.2K this week</div></div>
+          <div class="stat-icon si-bark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--bark)" stroke-width="2" width="20" height="20"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          </div>
+          <div>
+            <div class="stat-num">8.4K</div>
+            <div class="stat-label">Revenue (Rs.)</div>
+            <div class="stat-change">↑ Rs.1.2K this week</div>
+          </div>
         </div>
       </div>
+
       <div style="display:grid;grid-template-columns:2fr 1fr;gap:1.5rem;">
         <div style="background:var(--white);border-radius:16px;padding:1.5rem;border:1px solid rgba(107,143,113,.1);">
-          <div class="section-header" style="margin-bottom:1rem;"><h3>Recent Orders</h3><button class="btn btn-outline btn-sm" onclick="showSection('orders',null)">View All</button></div>
+          <div class="section-header" style="margin-bottom:1rem;">
+            <h3>Recent Orders</h3>
+            <button class="btn btn-outline btn-sm" onclick="showSection('orders',null)">View All</button>
+          </div>
           <div style="display:flex;flex-direction:column;gap:.65rem;">
             <div style="display:flex;align-items:center;gap:.9rem;padding:.7rem;background:var(--linen);border-radius:10px;">
-              <div style="width:38px;height:38px;background:rgba(74,124,89,.1);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--leaf)" stroke-width="2" width="17" height="17"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/></svg></div>
               <div style="flex:1;"><div style="font-weight:500;color:var(--forest);font-size:.85rem;">Tulasi × 2</div><div style="font-size:.72rem;color:var(--text-muted);">Ravi Kumar · Online</div></div>
               <div style="font-weight:600;color:var(--forest);font-size:.875rem;">Rs. 240</div>
               <span class="order-status os-confirmed">Confirmed</span>
             </div>
             <div style="display:flex;align-items:center;gap:.9rem;padding:.7rem;background:var(--linen);border-radius:10px;">
-              <div style="width:38px;height:38px;background:rgba(252,228,236,.5);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(150,60,100,.5)" stroke-width="2" width="17" height="17"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/></svg></div>
               <div style="flex:1;"><div style="font-weight:500;color:var(--forest);font-size:.85rem;">Geranium × 1</div><div style="font-size:.72rem;color:var(--text-muted);">Anjali S. · Website</div></div>
               <div style="font-weight:600;color:var(--forest);font-size:.875rem;">Rs. 180</div>
               <span class="order-status os-pending">Pending</span>
@@ -302,10 +347,10 @@ textarea{min-height:78px;resize:vertical;}
           </div>
         </div>
         <div style="display:flex;flex-direction:column;gap:1rem;">
-          <div style="background:var(--forest);border-radius:16px;padding:1.4rem;position:relative;overflow:hidden;">
-            <div style="font-family:'Playfair Display',serif;font-size:.95rem;color:white;margin-bottom:.4rem;">Add New Plant</div>
-            <div style="font-size:.75rem;color:rgba(245,240,232,.58);margin-bottom:1rem;line-height:1.5;">Choose from catalogue or list custom.</div>
-            <button class="btn btn-terra btn-sm" onclick="openCatalogueModal()">+ Add Plant</button>
+          <div style="background:var(--forest);border-radius:16px;padding:1.4rem;">
+            <div style="font-family:'Playfair Display',serif;font-size:.95rem;color:white;margin-bottom:.4rem;">Manage My Catalogue</div>
+            <div style="font-size:.75rem;color:rgba(245,240,232,.58);margin-bottom:1rem;line-height:1.5;">Add stock, upload photos, set prices — visible only to your nursery.</div>
+            <button class="btn btn-terra btn-sm" onclick="showSection('plants',null)">Go to Plants</button>
           </div>
           <div style="background:var(--linen);border-radius:16px;padding:1.4rem;border:1px solid rgba(193,123,74,.18);">
             <div style="font-family:'Playfair Display',serif;font-size:.95rem;color:var(--forest);margin-bottom:.4rem;">Request Executive Visit</div>
@@ -316,23 +361,32 @@ textarea{min-height:78px;resize:vertical;}
       </div>
     </div>
 
-    <!-- MY PLANTS -->
+    <!-- ── MY PLANTS ── -->
     <div id="section-plants" style="display:none;">
       <div class="section-header">
-        <h3>My Plant Catalogue <span id="plant-count-label" style="font-size:.78rem;color:var(--text-muted);font-family:'DM Sans',sans-serif;font-weight:400;"></span></h3>
-        <div style="display:flex;gap:.75rem;align-items:center;">
-          <input type="text" id="mgmt-search" placeholder="Search plants…" style="width:200px;padding:.42rem .85rem;" oninput="renderMgmtGrid()">
-          <button class="btn btn-primary btn-sm" onclick="openCatalogueModal()">+ Add Plant</button>
+        <h3>
+          My Plant Catalogue
+          <span id="plant-count-label" style="font-size:.78rem;color:var(--text-muted);font-family:'DM Sans',sans-serif;font-weight:400;"></span>
+        </h3>
+        <div style="display:flex;gap:.75rem;align-items:center;flex-wrap:wrap;">
+          <div class="tab-row">
+            <button class="tab active" onclick="setPlantTab('active',this)">Active</button>
+            <button class="tab" onclick="setPlantTab('oos',this)">Out of Stock</button>
+            <button class="tab" onclick="setPlantTab('all',this)">All Plants</button>
+          </div>
+          <input type="text" id="mgmt-search" placeholder="Search…"
+            style="width:170px;padding:.42rem .85rem;font-size:.82rem;"
+            oninput="renderMgmtGrid()">
         </div>
       </div>
       <div id="mgmt-container"></div>
     </div>
 
-    <!-- VISIT -->
+    <!-- ── VISIT ── -->
     <div id="section-visit" style="display:none;">
       <div class="visit-hero">
         <h3>Request an Executive Visit</h3>
-        <p>Our Urban Farmer team will visit your nursery, professionally photograph all your plants, and list them — within 48 hours.</p>
+        <p>Our Urban Farmer team will visit your nursery, professionally photograph all your plants, and list them within 48 hours.</p>
       </div>
       <div class="visit-steps">
         <div class="visit-step"><div class="visit-step-num">1</div><div class="visit-step-title">Book a Slot</div><div class="visit-step-desc">Choose your preferred date and time window.</div></div>
@@ -342,10 +396,22 @@ textarea{min-height:78px;resize:vertical;}
       <div style="background:var(--white);border-radius:16px;padding:1.5rem;border:1px solid rgba(107,143,113,.1);max-width:600px;">
         <div class="form-group half">
           <div><label>Preferred Visit Date</label><input type="date" id="visit-date"></div>
-          <div><label>Preferred Time</label><select><option>9:00 AM – 11:00 AM</option><option>11:00 AM – 1:00 PM</option><option>2:00 PM – 4:00 PM</option><option>4:00 PM – 6:00 PM</option></select></div>
+          <div><label>Preferred Time</label>
+            <select>
+              <option>9:00 AM – 11:00 AM</option>
+              <option>11:00 AM – 1:00 PM</option>
+              <option>2:00 PM – 4:00 PM</option>
+              <option>4:00 PM – 6:00 PM</option>
+            </select>
+          </div>
         </div>
         <div class="form-group half">
-          <div><label>Estimated Plants</label><select><option>Less than 20</option><option>20–50</option><option>50–100</option><option>100–200</option><option>200+</option></select></div>
+          <div><label>Estimated Plants</label>
+            <select>
+              <option>Less than 20</option><option>20–50</option>
+              <option>50–100</option><option>100–200</option><option>200+</option>
+            </select>
+          </div>
           <div><label>Contact Person</label><input type="text" placeholder="Name &amp; mobile"></div>
         </div>
         <div class="form-group"><label>Special Instructions</label><textarea placeholder="Parking, timing preferences…"></textarea></div>
@@ -356,26 +422,44 @@ textarea{min-height:78px;resize:vertical;}
       </div>
     </div>
 
-    <!-- ORDERS -->
+    <!-- ── ORDERS ── -->
     <div id="section-orders" style="display:none;">
       <div class="section-header"><h3>Orders &amp; Sales</h3></div>
       <div class="orders-table-wrap">
         <div class="table-header"><div>Plant / Item</div><div>Customer</div><div>Amount</div><div>Via</div><div>Status</div></div>
-        <div class="table-row"><div class="order-plant">Holy Basil (Tulasi) × 2</div><div style="color:var(--text-muted);">Ravi Kumar</div><div class="order-amount">Rs. 240</div><div style="font-size:.75rem;color:var(--sage);">Website</div><div><span class="order-status os-confirmed">✓ Confirmed</span></div></div>
-        <div class="table-row"><div class="order-plant">Geranium × 1</div><div style="color:var(--text-muted);">Anjali Singh</div><div class="order-amount">Rs. 180</div><div style="font-size:.75rem;color:var(--terra);">Website</div><div><span class="order-status os-pending">⏳ Pending</span></div></div>
-        <div class="table-row"><div class="order-plant">Aloe Vera × 3</div><div style="color:var(--text-muted);">Meena Reddy</div><div class="order-amount">Rs. 450</div><div style="font-size:.75rem;color:var(--sage);">Website</div><div><span class="order-status os-dispatched">Dispatched</span></div></div>
+        <div class="table-row">
+          <div style="font-weight:500;color:var(--forest);">Holy Basil (Tulasi) × 2</div>
+          <div style="color:var(--text-muted);">Ravi Kumar</div>
+          <div class="order-amount">Rs. 240</div>
+          <div style="font-size:.75rem;color:var(--sage);">Website</div>
+          <div><span class="order-status os-confirmed">✓ Confirmed</span></div>
+        </div>
+        <div class="table-row">
+          <div style="font-weight:500;color:var(--forest);">Geranium × 1</div>
+          <div style="color:var(--text-muted);">Anjali Singh</div>
+          <div class="order-amount">Rs. 180</div>
+          <div style="font-size:.75rem;color:var(--terra);">Website</div>
+          <div><span class="order-status os-pending">⏳ Pending</span></div>
+        </div>
+        <div class="table-row">
+          <div style="font-weight:500;color:var(--forest);">Aloe Vera × 3</div>
+          <div style="color:var(--text-muted);">Meena Reddy</div>
+          <div class="order-amount">Rs. 450</div>
+          <div style="font-size:.75rem;color:var(--sage);">Website</div>
+          <div><span class="order-status os-confirmed">✓ Confirmed</span></div>
+        </div>
       </div>
     </div>
 
-    <!-- SETTINGS -->
+    <!-- ── SETTINGS ── -->
     <div id="section-settings" style="display:none;">
       <div class="profile-card">
         <h3 style="font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--forest);margin-bottom:1.4rem;">Nursery Settings</h3>
         <div class="form-group half">
-          <div><label>Nursery Name</label><input type="text" value="Green Valley Nursery"></div>
-          <div><label>Contact Mobile</label><input type="tel" value="+91 98765 43210"></div>
+          <div><label>Nursery Name</label><input type="text" id="settings-name"></div>
+          <div><label>Contact Mobile</label><input type="tel" id="settings-phone"></div>
         </div>
-        <div class="form-group"><label>Address</label><textarea>42, 3rd Cross, Indiranagar, Bengaluru – 560038</textarea></div>
+        <div class="form-group"><label>Address</label><textarea id="settings-address"></textarea></div>
         <div class="form-group half">
           <div><label>Opening Time</label><input type="time" value="08:00"></div>
           <div><label>Closing Time</label><input type="time" value="19:00"></div>
@@ -383,306 +467,201 @@ textarea{min-height:78px;resize:vertical;}
         <button class="btn btn-primary" style="margin-top:.5rem;" onclick="showToast('Settings saved','✓')">Save Changes</button>
       </div>
     </div>
-  </div>
-</div>
 
-<!-- CATALOGUE BROWSER MODAL -->
-<div class="modal-overlay" id="catalogue-modal">
-  <div class="modal catalogue-modal" style="position:relative;">
-    <button class="modal-close-btn" onclick="closeCatalogueModal()">
+  </div><!-- /content -->
+</div><!-- /main -->
+
+
+<!-- ══ EDIT / ADD PLANT MODAL ══ -->
+<div class="modal-overlay" id="edit-modal">
+  <div class="modal">
+    <button class="modal-close-btn" onclick="closeEditModal()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
-    <h3>Add a Plant to Your Catalogue</h3>
-    <div class="cat-filter-row" id="cat-filter-row"></div>
-    <input type="text" id="cat-search" placeholder="Search plant name or variety…" style="margin-bottom:.9rem;" oninput="renderCatalogueGrid()">
-    <div class="catalogue-grid" id="catalogue-grid"></div>
-    <div style="display:flex;gap:.75rem;margin-top:1.2rem;align-items:center;">
-      <button class="btn-cancel-m" onclick="closeCatalogueModal()">Cancel</button>
-      <button class="btn btn-primary" onclick="proceedFromCatalogue()" id="catalogue-proceed-btn" disabled style="opacity:.5;">Select a plant →</button>
-      <span style="font-size:.75rem;color:var(--text-muted);margin-left:auto;">or <button onclick="closeCatalogueModal();openAddModal()" style="background:none;border:none;color:var(--leaf);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;">add a custom plant</button></span>
-    </div>
-  </div>
-</div>
+    <h3 id="modal-title">Edit Plant</h3>
+    <p style="font-size:.8rem;color:var(--text-muted);margin-top:-.8rem;margin-bottom:1.2rem;" id="modal-plant-sci"></p>
 
-<!-- ADD / EDIT PLANT MODAL -->
-<div class="modal-overlay" id="add-modal">
-  <div class="modal" style="position:relative;">
-    <button class="modal-close-btn" onclick="closeAddModal()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-    <h3 id="modal-title">Add New Plant</h3>
+    <!-- ── PHOTO — stored only in nursery_inventory.custom_photo ── -->
     <div class="form-group">
-      <label>Plant Photo</label>
-      <div class="photo-upload" id="photo-upload-area">
-        <input type="file" id="photo-input" accept="image/*" onchange="handlePhoto(this)">
+      <label>
+        Plant Photo
+        <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:.72rem;"> — only visible under YOUR nursery listing</span>
+      </label>
+
+      <!-- Upload drop zone (shown when no photo) -->
+      <div class="photo-upload-area" id="photo-upload-area">
+        <input type="file" id="photo-input" accept="image/*" onchange="handleModalPhoto(this)">
         <svg viewBox="0 0 24 24" fill="none" stroke="rgba(107,143,113,.4)" stroke-width="1.5" width="28" height="28" style="margin-bottom:.4rem;"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-        <div style="font-size:.82rem;color:var(--text-muted);">Click to upload a photo</div>
+        <div style="font-size:.82rem;color:var(--text-muted);">Click or drag to upload a photo</div>
+        <div style="font-size:.7rem;color:var(--text-muted);margin-top:.25rem;opacity:.7;">JPEG / PNG / WebP — max 5 MB</div>
       </div>
+
+      <!-- Preview (shown when photo selected/exists) -->
       <img id="photo-preview-img" alt="">
+
+      <!-- Upload progress -->
+      <div class="upload-progress" id="upload-progress">
+        <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progress-bar-fill"></div></div>
+        <div class="progress-label" id="progress-label">Uploading…</div>
+      </div>
+
+      <!-- Change / Remove row -->
       <div id="photo-change-row">
         <label class="btn-change-photo">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
           Change Photo
-          <input type="file" accept="image/*" onchange="handlePhoto(this)">
+          <input type="file" accept="image/*" onchange="handleModalPhoto(this)">
         </label>
-        <button type="button" class="btn-delete-photo" onclick="deletePhoto()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+        <button type="button" class="btn-delete-photo" onclick="deleteModalPhoto()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>
           Remove Photo
         </button>
       </div>
     </div>
+
+    <!-- Price / Stock / Cluster -->
     <div class="form-group half">
-      <div><label>Plant Name *</label><input type="text" id="f-name" placeholder="e.g. Lavender"></div>
-      <div><label>Scientific Name *</label><input type="text" id="f-variety" placeholder="e.g. Lavandula angustifolia"></div>
+      <div><label>Price (Rs.) *</label><input type="number" id="f-price" min="1" placeholder="e.g. 180"></div>
+      <div><label>Stock Quantity</label><input type="number" id="f-stock" min="0" placeholder="e.g. 20"></div>
     </div>
-    <div class="form-group half">
-      <div>
-        <label>Category *</label>
-        <select id="f-cat">
-          <option value="">Select category</option>
-          <option>Flowering</option><option>Medicinal</option><option>Indoor</option>
-          <option>Succulent & Cactus</option><option>Vegetables & Herbs</option><option>Fruit Trees</option><option>Ornamental Trees</option><option>Aquatic</option><option>Climbers & Creepers</option><option>Grass & Bamboo</option><option>Ferns & Foliage</option><option>Other</option>
-        </select>
-      </div>
-      <div><label>Price (Rs.) *</label><input type="number" id="f-price" placeholder="180" min="1"></div>
+    <div class="form-group">
+      <label>Cluster / Zone</label>
+      <input type="text" id="f-cluster" placeholder="e.g. Cluster A">
     </div>
-    <div class="form-group half">
-      <div><label>Stock Quantity</label><input type="number" id="f-stock" placeholder="20" min="0"></div>
-      <div><label>Cluster / Zone</label><input type="text" id="f-cluster" placeholder="e.g. Cluster A"></div>
-    </div>
-    <div class="form-group"><label>Description</label><textarea id="f-desc" placeholder="Brief plant description…"></textarea></div>
-    <div class="form-group"><label>Care Instructions</label><input type="text" id="f-care" placeholder="Full sun · Water weekly · Prune monthly"></div>
+
+    <!-- Listing Type -->
     <div class="form-group">
       <label>Listing Type</label>
-      <div class="listing-opts">
-        <div class="listing-opt selected" id="opt-immediate" onclick="selectListing('immediate')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--terra)" stroke-width="2" width="22" height="22"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          <div class="listing-opt-title">Immediate</div>
-          <div class="listing-opt-desc">Goes live instantly</div>
-        </div>
-        <div class="listing-opt" id="opt-professional" onclick="selectListing('professional')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--leaf)" stroke-width="2" width="22" height="22"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          <div class="listing-opt-title">Professional</div>
-          <div class="listing-opt-desc">Pending photo review</div>
-        </div>
+      <div class="listing-type-toggle" id="listing-type-toggle">
+        <button type="button" class="lt-btn active" data-val="immediate" onclick="setListingType('immediate',this)">
+          <span class="lt-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </span>
+          <div>
+            <div class="lt-title">Immediate</div>
+            <div class="lt-desc">Listed with your photos &amp; details right now</div>
+          </div>
+        </button>
+        <button type="button" class="lt-btn" data-val="professional" onclick="setListingType('professional',this)">
+          <span class="lt-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </span>
+          <div>
+            <div class="lt-title">Professional</div>
+            <div class="lt-desc">Links to plant's dedicated page for full details</div>
+          </div>
+        </button>
       </div>
     </div>
-    <div class="varieties-section" id="varieties-section">
-      <div class="varieties-section-title">Varieties / Sub-types <span style="font-weight:400;color:var(--text-muted);text-transform:none;letter-spacing:0;font-size:.7rem;">(add each variety with its own price)</span></div>
+
+    <!-- Varieties -->
+    <div class="varieties-section">
+      <div class="varieties-section-title">
+        Varieties / Sub-types
+        <span style="font-weight:400;color:var(--text-muted);text-transform:none;letter-spacing:0;font-size:.7rem;">(name + individual price)</span>
+      </div>
       <div id="varieties-list"></div>
       <button type="button" class="add-variety-btn" onclick="addVarietyRow()">+ Add Variety</button>
     </div>
+
     <div class="modal-actions">
-      <button class="btn-cancel-m" onclick="closeAddModal()">Cancel</button>
-      <button class="btn btn-primary" onclick="submitPlant()" id="submit-btn">Add Plant</button>
+      <button class="btn-cancel-m" onclick="closeEditModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveInventory()" id="save-btn">Save to My Catalogue</button>
     </div>
   </div>
 </div>
 
-<!-- RESTORE MODAL -->
+
+<!-- ══ RESTORE MODAL ══ -->
 <div class="modal-overlay" id="restore-modal">
-  <div class="modal" style="max-width:380px;position:relative;">
-    <button class="modal-close-btn" onclick="closeRestoreModal()">
+  <div class="modal" style="max-width:360px;">
+    <button class="modal-close-btn" onclick="document.getElementById('restore-modal').classList.remove('open')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
     <h3>Restore Plant</h3>
-    <p style="font-size:.862rem;color:var(--text-muted);margin-bottom:1.2rem;">Restoring <strong id="restore-name"></strong> to stock.</p>
+    <p style="font-size:.862rem;color:var(--text-muted);margin-bottom:1.2rem;">Restoring <strong id="restore-name"></strong> to your active stock.</p>
     <div class="form-group"><label>Stock Quantity</label><input type="number" id="restore-qty" value="10" min="1"></div>
     <div class="modal-actions">
-      <button class="btn-cancel-m" onclick="closeRestoreModal()">Cancel</button>
+      <button class="btn-cancel-m" onclick="document.getElementById('restore-modal').classList.remove('open')">Cancel</button>
       <button class="btn btn-primary" onclick="confirmRestore()">Restore to Stock</button>
     </div>
   </div>
 </div>
 
+
 <div class="toast" id="toast"><span id="toast-icon">✓</span> <span id="toast-msg"></span></div>
 
+
 <script>
-// ═══════════════════════════════════════════════════════════════
-//  COMPREHENSIVE MASTER PLANT CATALOGUE — India's nursery plants
-// ═══════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════════════
+// CONFIG
+// ══════════════════════════════════════════════════════════════════
+const SUPABASE_URL  = 'https://ujmpogomwcqbotvgdggo.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqbXBvZ29td2NxYm90dmdkZ2dvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxNDc3NzcsImV4cCI6MjA4ODcyMzc3N30.rnlT2ok31ureULFPjWm2TBp6DOB_zU7y_rL9EAf9Kbk';
+const BUCKET        = 'plant-photos';
+
+const _sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+// ══════════════════════════════════════════════════════════════════
+// MASTER CATALOGUE  — source of truth for names, categories, defaults
+// Photos are NEVER read from here. Each nursery's own photo lives
+// solely in nursery_inventory.custom_photo.
+// ══════════════════════════════════════════════════════════════════
 const MASTER_CATALOGUE = [
-  // ── FLOWERING ──
-  { id:"anthurium", name:"Anthurium", sci:"Anthurium andraeanum", category:"Flowering", basePrice:380, care:"Bright indirect light · Keep moist · High humidity", desc:"Bold waxy spathes in deep red. Excellent air purifier. Long-lasting cut flower.", svgColor:"#c62828", varieties:["Red","Pink","White","Purple","Orange","Salmon","Coral","Bi-colour","Chocolate","Green Splash"] },
-  { id:"begonia", name:"Begonia", sci:"Begonia × semperflorens", category:"Flowering", basePrice:160, care:"Partial shade · Well-drained soil · Moderate water", desc:"Compact prolific bloomer. Excellent for borders and pots.", svgColor:"#ad1457", varieties:["Wax Begonia","Tuberous Begonia","Rex Begonia","Dragon Wing","Polka Dot","Angel Wing","Cane Begonia","Trailing Begonia","Fibrous","Double Flowered"] },
-  { id:"bougainvillea", name:"Bougainvillea", sci:"Bougainvillea spectabilis", category:"Flowering", basePrice:290, care:"Full sun · Allow to dry between watering · Light pruning", desc:"Vigorous climber with brilliant papery bracts. Drought tolerant once established.", svgColor:"#6a1b9a", varieties:["Magenta","White","Salmon","Yellow","Bi-colour","Orange","Crimson","Lilac","Purple","Double Magenta","Variegated","Thai Gold"] },
-  { id:"carnation", name:"Carnation", sci:"Dianthus caryophyllus", category:"Flowering", basePrice:140, care:"Full sun · Moderate watering · Good drainage", desc:"Classic fragrant blooms with ruffled petals. Popular cut flower.", svgColor:"#e91e63", varieties:["Red","Pink","White","Yellow","Purple","Striped","Bi-colour","Coral","Lavender","Salmon","Clove Pink","Border Carnation"] },
-  { id:"chrysanthemum", name:"Chrysanthemum", sci:"Chrysanthemum × morifolium", category:"Flowering", basePrice:150, care:"Full sun · Regular watering · Pinch to promote bushiness", desc:"Heritage florist mum with large showy blooms. Symbol of longevity.", svgColor:"#ff8f00", varieties:["Yellow","White","Bronze","Pink","Spider","Pompon","Multiflora","Incurved","Reflexed","Anemone","Spoon","Decorative","Button","Quill","Fuji"] },
-  { id:"geranium", name:"Geranium", sci:"Pelargonium × hortorum", category:"Flowering", basePrice:180, care:"Full sun · Allow soil to dry slightly · Feed monthly", desc:"Prolific bloomer with distinctive zoned foliage. Great for pots.", svgColor:"#e53935", varieties:["Red Zonal","Pink","White","Salmon","Ivy Geranium","Scented","Regal","Angel","Martha Washington","Black-eyed","Bicolour","Variegated"] },
-  { id:"hibiscus", name:"Hibiscus", sci:"Hibiscus rosa-sinensis", category:"Flowering", basePrice:220, care:"Full sun · Water regularly · Prune after flowering", desc:"Large tropical blooms. State flower of Kerala. Attracts butterflies.", svgColor:"#e53935", varieties:["Red","Yellow","Orange","Pink","White","Double Red","Peach","Coral","Lavender","Hawaiian","Variegated","Snow Queen","Cooperi"] },
-  { id:"impatiens", name:"Impatiens", sci:"Impatiens walleriana", category:"Flowering", basePrice:110, care:"Partial to full shade · Keep moist · Feed fortnightly", desc:"Shade-tolerant free-flowering annual. Ideal for shaded gardens.", svgColor:"#c2185b", varieties:["Red","Pink","White","Coral","Orange","Bi-colour","Salvia","New Guinea","SunPatiens","Super Elfin","Jungle","Fiesta"] },
-  { id:"jasmine", name:"Jasmine", sci:"Jasminum sambac", category:"Flowering", basePrice:200, care:"Full sun · Regular watering · Support for climbing", desc:"Intensely fragrant white blooms. Used in garlands and worship. National flower.", svgColor:"#558b2f", varieties:["Mogra","Juhi","Chameli","Star Jasmine","Arabian Jasmine","Jai","Madanban","Grand Duke","Mysore Mallige","Winter Jasmine"] },
-  { id:"marigold", name:"Marigold", sci:"Tagetes erecta", category:"Flowering", basePrice:80, care:"Full sun · Water regularly · Deadhead for more blooms", desc:"Cheerful orange and yellow blooms. Natural pest deterrent. Used in puja.", svgColor:"#f9a825", varieties:["African Orange","African Yellow","French Dwarf","Crackerjack","Inca","Discovery","Lady","Lemon Drop","Marvel","Petite","Signet","Vanilla"] },
-  { id:"oleander", name:"Oleander", sci:"Nerium oleander", category:"Flowering", basePrice:250, care:"Full sun · Drought tolerant · All parts toxic — handle with care", desc:"Drought-tolerant shrub with showy blooms. Excellent hedge plant.", svgColor:"#e91e63", varieties:["Red","Pink","White","Yellow","Peach","Double Pink","Double Red","Double White","Variegated","Dwarf Pink"] },
-  { id:"poinsettia", name:"Poinsettia", sci:"Euphorbia pulcherrima", category:"Flowering", basePrice:260, care:"Bright indirect light · Avoid cold drafts · Water when dry", desc:"Classic festive plant with vivid coloured bracts. Symbol of Christmas.", svgColor:"#c62828", varieties:["Red","White","Pink","Marble","Burgundy","Orange","Salmon","Gold","Premium Red","Jingle Bells","Winter Rose"] },
-  { id:"rose", name:"Rose", sci:"Rosa × hybrida", category:"Flowering", basePrice:350, care:"Full sun · Water at base · Deadhead regularly · Monthly fertiliser", desc:"Timeless blooms in countless colours. Queen of flowers. Used in perfumery.", svgColor:"#c62828", varieties:["Red Hybrid Tea","Pink Floribunda","Yellow","White","Miniature","Climbing","Grandiflora","Shrub","English Rose","Black Baccara","Blue Moon","Mr Lincoln","Double Delight","Papa Meilland","Peace"] },
-  { id:"sunflower", name:"Sunflower", sci:"Helianthus annuus", category:"Flowering", basePrice:120, care:"Full sun · Moderate watering · Wind protection needed", desc:"Tall cheerful blooms that follow the sun. Rich in nectar for bees.", svgColor:"#f9a825", varieties:["Giant Single","Dwarf Sunspot","Multi-head","Teddy Bear","Moulin Rouge","Autumn Beauty","Ring of Fire","Velvet Queen","Italian White","Lemon Queen"] },
-  { id:"vinca", name:"Vinca / Periwinkle", sci:"Catharanthus roseus", category:"Flowering", basePrice:90, care:"Full sun · Moderate water · Drought tolerant", desc:"Heat-tolerant free-flowering ground cover. Used in cancer research.", svgColor:"#6a1b9a", varieties:["Pink","White","Red","Purple","Bicolour","Pacifica","Titan","Soiree","Jams N Jellies","Victory","Mediterranean"] },
-  { id:"zinnia", name:"Zinnia", sci:"Zinnia elegans", category:"Flowering", basePrice:75, care:"Full sun · Moderate water · Good air circulation", desc:"Vibrant long-lasting cut flowers. Attracts butterflies and bees.", svgColor:"#e91e63", varieties:["Giant Dahlia","Cactus","Lilliput","Cut & Come Again","Candy Stripe","Benary Giant","Oklahoma","Dreamland","Short Stuff","Zowie Yellow Flame"] },
-  { id:"dahlia", name:"Dahlia", sci:"Dahlia × hybrida", category:"Flowering", basePrice:310, care:"Full sun · Well drained · Deadhead · Stake tall varieties", desc:"Spectacular dinner-plate sized blooms in autumn. Tubers store well.", svgColor:"#ad1457", varieties:["Ball","Cactus","Pompon","Anemone","Waterlily","Dinner Plate","Collarette","Decorative","Semi-cactus","Peony","Orchid","Laciniated"] },
-  { id:"petunia", name:"Petunia", sci:"Petunia × atkinsiana", category:"Flowering", basePrice:100, care:"Full sun · Deadhead regularly · Feed fortnightly", desc:"Prolific summer bloomer for pots and hanging baskets.", svgColor:"#7b1fa2", varieties:["Wave Pink","Supertunia","Surfinia","Picotee","Double Mixed","Grandiflora","Multiflora","Milliflora","Tidal Wave","Easy Wave","Dreams","Prism Sunshine"] },
-  { id:"lotus", name:"Lotus", sci:"Nelumbo nucifera", category:"Flowering", basePrice:450, care:"Full sun · Aquatic – needs water container · Feed monthly", desc:"Sacred national flower. Aquatic blooms in pink and white. Symbol of purity.", svgColor:"#e91e63", varieties:["Pink","White","Red","Dwarf Bowl Lotus","Giant","Momo Botan","Sacred White","Chawan Basu","Ben Gibson","Single White"] },
-  { id:"ixora", name:"Ixora", sci:"Ixora coccinea", category:"Flowering", basePrice:170, care:"Full sun · Acidic well-drained soil · Regular pruning", desc:"Dense clusters of fiery flowers. Excellent hedge and border plant.", svgColor:"#e53935", varieties:["Scarlet","Pink","Yellow","Orange","Dwarf Red","Prince of Orange","Sunkist","Nora Grant","Super King","Compacta","Rosea"] },
-  { id:"heliconia", name:"Heliconia", sci:"Heliconia psittacorum", category:"Flowering", basePrice:480, care:"Partial shade · High humidity · Keep moist · Tropical conditions", desc:"Exotic tropical bird-of-paradise relative. Stunning cut flower.", svgColor:"#e65100", varieties:["Scarlet Gyro","Sassy","Golden Torch","Lobster Claw","Hanging","Christmas","Golden","Lady Di","Shogun","Parakeet"] },
-  { id:"bird_of_paradise", name:"Bird of Paradise", sci:"Strelitzia reginae", category:"Flowering", basePrice:650, care:"Full sun · Well-drained · Water deeply · Feed quarterly", desc:"Exotic orange and blue blooms resembling a tropical bird in flight.", svgColor:"#e65100", varieties:["Orange","White (Giant)","Yellow","Mandela's Gold","Juncea","Parvifolia"] },
-  { id:"adenium", name:"Adenium / Desert Rose", sci:"Adenium obesum", category:"Flowering", basePrice:320, care:"Full sun · Sandy well-drained soil · Water sparingly", desc:"Succulent shrub with spectacular blooms and swollen trunk. Bonsai favourite.", svgColor:"#e91e63", varieties:["Pink","Red","White","Bi-colour","Double Pink","Spiral","Black","Purple","Yellow Edge","Grafted Thai"] },
-  { id:"plumeria", name:"Plumeria / Frangipani", sci:"Plumeria rubra", category:"Flowering", basePrice:380, care:"Full sun · Water moderately · Drought tolerant", desc:"Fragrant temple flowers used in garlands and Hawaii leis.", svgColor:"#fce4ec", varieties:["Pink","White with Yellow","Red","Coral","Yellow","Singapore White","Tri-colour","Dark Pink","Dwarf","Black Tip"] },
-  { id:"gerbera", name:"Gerbera Daisy", sci:"Gerbera jamesonii", category:"Flowering", basePrice:160, care:"Bright light · Water at base · Feed monthly", desc:"Cheerful daisy-like blooms in rainbow colours. Popular cut flower.", svgColor:"#e53935", varieties:["Red","Yellow","Pink","Orange","White","Salmon","Purple","Bi-colour","Mega Revolution","Festival","Garvinea"] },
-  { id:"canna", name:"Canna Lily", sci:"Canna × generalis", category:"Flowering", basePrice:200, care:"Full sun · Regular watering · Rich moist soil", desc:"Bold tropical foliage and large flowers. Great border plant.", svgColor:"#e53935", varieties:["Red","Yellow","Orange","Pink","Striped","Tropical Rose","Pretoria","Bengal Tiger","Tropicanna","Australia"] },
-  { id:"portulaca", name:"Portulaca / Sun Rose", sci:"Portulaca grandiflora", category:"Flowering", basePrice:60, care:"Full sun · Sandy well-drained · Drought tolerant", desc:"Bright jewel-like blooms that open in sunlight. Perfect for rock gardens.", svgColor:"#e91e63", varieties:["Mixed","Double Mixed","Sundial","Yubi Summer","Afternoon Delight","Happy Hour","Cupcake"] },
-  { id:"gomphrena", name:"Gomphrena", sci:"Gomphrena globosa", category:"Flowering", basePrice:70, care:"Full sun · Drought tolerant · Low maintenance", desc:"Globe-shaped papery flowers that dry beautifully. Heat tolerant.", svgColor:"#6a1b9a", varieties:["Pink","White","Purple","Red","Orange","QIS Pink","Fireworks","Buddy Purple","Gnome"] },
-  { id:"verbena", name:"Verbena", sci:"Verbena × hybrida", category:"Flowering", basePrice:95, care:"Full sun · Moderate water · Good drainage", desc:"Clusters of small flowers in jewel tones. Butterfly magnet.", svgColor:"#7b1fa2", varieties:["Quartz Red","Superbena","Obsession","Imagination","Lanai","Aztec","EnduraScape"] },
-  { id:"torenia", name:"Torenia / Wishbone Flower", sci:"Torenia fournieri", category:"Flowering", basePrice:85, care:"Partial shade · Keep moist · Feed regularly", desc:"Tubular bi-coloured blooms perfect for shade gardens.", svgColor:"#7b1fa2", varieties:["Blue","White","Pink","Summer Wave","Clown","Duchess"] },
-  { id:"celosia", name:"Celosia / Cockscomb", sci:"Celosia argentea", category:"Flowering", basePrice:65, care:"Full sun · Moderate water · Warm conditions", desc:"Velvety feathery or cockscomb-shaped blooms in vivid colours.", svgColor:"#e53935", varieties:["Crested Red","Crested Yellow","Plume Mixed","Flamingo Feather","Century","Castle Pink","Kelos Fire"] },
-  { id:"crossandra", name:"Crossandra", sci:"Crossandra infundibuliformis", category:"Flowering", basePrice:130, care:"Partial shade · Keep moist · High humidity", desc:"Popular South Indian flower used in garlands. Blooms year-round.", svgColor:"#e65100", varieties:["Orange","Salmon","Yellow","Pink","Lutea"] },
-  { id:"tuberose", name:"Tuberose / Rajnigandha", sci:"Polianthes tuberosa", category:"Flowering", basePrice:180, care:"Full sun · Well-drained soil · Water regularly", desc:"Intensely fragrant white spikes. Used in perfumery and garlands.", svgColor:"#f5f0e8", varieties:["Single","Double","Mexican Single","Calcutta Double","Pearl","Prajwal","Suvasini"] },
-
-  // ── MEDICINAL ──
-  { id:"tulasi", name:"Holy Basil (Tulasi)", sci:"Ocimum tenuiflorum", category:"Medicinal", basePrice:120, care:"Full sun · Water daily · Keep pot-bound", desc:"Sacred and medicinal herb. Adaptogen with antibacterial properties. Worship plant.", svgColor:"#388e3c", varieties:["Krishna Tulasi","Ram Tulasi","Vana Tulasi","Kapoor Tulasi","Amrita Tulasi","Tukashmali","Vishnu Priya"] },
-  { id:"aloe", name:"Aloe Vera", sci:"Aloe barbadensis miller", category:"Medicinal", basePrice:150, care:"Bright indirect light · Water sparingly · Sandy soil", desc:"Succulent with soothing gel-filled leaves. Skin care and digestive aid.", svgColor:"#558b2f", varieties:["Common Aloe","Barbadensis","Chinensis","Aristata","Blue Elf","Ferox","Vera","Striata","Soap Aloe"] },
-  { id:"neem", name:"Neem", sci:"Azadirachta indica", category:"Medicinal", basePrice:200, care:"Full sun · Drought tolerant · Minimal care", desc:"Multi-purpose medicinal tree. Natural pesticide. Used in Ayurveda and toothpaste.", svgColor:"#2e7d32", varieties:["Common Neem","Dwarf Neem","Melia Neem","Grafted"] },
-  { id:"moringa", name:"Moringa / Drumstick", sci:"Moringa oleifera", category:"Medicinal", basePrice:180, care:"Full sun · Drought tolerant · Sandy well-drained soil", desc:"Highly nutritious miracle tree. Leaves, pods and flowers all edible.", svgColor:"#388e3c", varieties:["PKM-1","PKM-2","Periyakulam","Bhagya","ODC","Jaffna Long Pod"] },
-  { id:"ashwagandha", name:"Ashwagandha", sci:"Withania somnifera", category:"Medicinal", basePrice:140, care:"Full sun · Sandy well-drained soil · Water sparingly", desc:"Adaptogenic root. Key Ayurvedic herb for stress and immunity.", svgColor:"#f9a825", varieties:["WS-20","Poshita","Jawahar Ashwagandha","WS-134","Nimra"] },
-  { id:"brahmi", name:"Brahmi", sci:"Bacopa monnieri", category:"Medicinal", basePrice:110, care:"Moist soil · Partial shade · Keep wet", desc:"Memory-enhancing Ayurvedic creeper. Nootropic herb.", svgColor:"#43a047", varieties:["Water Hyssop","Coastal Waterhyssop","Mandukaparni"] },
-  { id:"giloy", name:"Giloy / Guduchi", sci:"Tinospora cordifolia", category:"Medicinal", basePrice:130, care:"Partial sun · Moderate water · Climbing support", desc:"Immunity-boosting climbing vine. COVID-19 remedy in Ayurveda.", svgColor:"#2e7d32", varieties:["Common Giloy","Tinospora sinensis","Heart-leaved"] },
-  { id:"lemongrass", name:"Lemongrass", sci:"Cymbopogon citratus", category:"Medicinal", basePrice:90, care:"Full sun · Well-drained soil · Water moderately", desc:"Fragrant grass used in teas, cooking and aromatherapy.", svgColor:"#7cb342", varieties:["West Indian","East Indian","Java Citronella","Palmarosa","Khus Grass"] },
-  { id:"curry_leaf", name:"Curry Leaf", sci:"Murraya koenigii", category:"Medicinal", basePrice:160, care:"Full sun · Well-drained soil · Feed monthly", desc:"Essential South Indian cooking herb. Antioxidant-rich leaves.", svgColor:"#388e3c", varieties:["Regular","Dwarf","Gamthi","Giant","Senkambu"] },
-  { id:"mint", name:"Mint", sci:"Mentha × piperita", category:"Medicinal", basePrice:80, care:"Partial sun · Keep moist · Contain in pot", desc:"Refreshing aromatic herb for tea and cooking. Spreads vigorously.", svgColor:"#43a047", varieties:["Peppermint","Spearmint","Apple Mint","Chocolate Mint","Pennyroyal","Watermint","Corn Mint","Moroccan"] },
-  { id:"amla", name:"Amla / Indian Gooseberry", sci:"Phyllanthus emblica", category:"Medicinal", basePrice:250, care:"Full sun · Drought tolerant · Well-drained", desc:"Highest vitamin C content of any fruit. Prized in Ayurveda.", svgColor:"#558b2f", varieties:["Chakaiya","Krishna","Kanchan","NA-4","NA-7","Banarasi","Desi","Neelam"] },
-  { id:"stevia", name:"Stevia", sci:"Stevia rebaudiana", category:"Medicinal", basePrice:120, care:"Full sun · Well-drained soil · Moderate water", desc:"Natural sweetener plant. 300 times sweeter than sugar. Zero calories.", svgColor:"#7cb342", varieties:["Morita","SteviaCal","Bertoni","SG-95"] },
-  { id:"turmeric", name:"Turmeric", sci:"Curcuma longa", category:"Medicinal", basePrice:110, care:"Partial shade · Rich moist soil · High humidity", desc:"Golden spice with powerful anti-inflammatory curcumin.", svgColor:"#f9a825", varieties:["Alleppey Finger","Rajendra Sonia","Sudharsana","Roma","Kedaram","Suvarna","Sugandham"] },
-  { id:"ginger", name:"Ginger", sci:"Zingiber officinale", category:"Medicinal", basePrice:100, care:"Partial shade · Rich moist well-drained soil", desc:"Pungent rhizome. Anti-nausea, anti-inflammatory digestive aid.", svgColor:"#f9a825", varieties:["Rio de Janeiro","Suprabha","Suruchi","Surabhi","Himgiri","Varada","IISR Mahima"] },
-  { id:"shatavari", name:"Shatavari", sci:"Asparagus racemosus", category:"Medicinal", basePrice:160, care:"Partial shade · Well-drained · Climbing support", desc:"Women's tonic herb in Ayurveda. Adaptogen and galactagogue.", svgColor:"#558b2f", varieties:["Common Shatavari","Climbing Shatavari"] },
-  { id:"garcinia", name:"Garcinia / Kudampuli", sci:"Garcinia cambogia", category:"Medicinal", basePrice:280, care:"Partial shade · Humid · Regular water", desc:"Sour fruit used in Kerala cuisine. Weight management supplement.", svgColor:"#f57f17", varieties:["Green","Yellow","Malabar Tamarind"] },
-  { id:"kalmegh", name:"Kalmegh / Andrographis", sci:"Andrographis paniculata", category:"Medicinal", basePrice:90, care:"Full sun · Well-drained · Minimal care", desc:"King of Bitters. Liver tonic and immune booster.", svgColor:"#388e3c", varieties:["Common","AP-1"] },
-  { id:"gudmar", name:"Gudmar / Gurmar", sci:"Gymnema sylvestre", category:"Medicinal", basePrice:150, care:"Full sun · Well-drained soil · Climbing support", desc:"Sugar destroyer. Used in diabetes management.", svgColor:"#2e7d32", varieties:["Common Gymnema"] },
-  { id:"ashoka_medicinal", name:"Ashoka (Medicinal)", sci:"Saraca asoca", category:"Medicinal", basePrice:320, care:"Full to partial sun · Moist soil · Humid", desc:"Sacred tree used to treat uterine disorders in Ayurveda.", svgColor:"#e65100", varieties:["Common Ashoka"] },
-  { id:"amruthaballi", name:"Betel Leaf / Pan", sci:"Piper betle", category:"Medicinal", basePrice:130, care:"Partial shade · Moist rich soil · High humidity", desc:"Medicinal leaf used in paan. Antiseptic and digestive properties.", svgColor:"#388e3c", varieties:["Calcutta Pan","Bangla Pan","Desi Pan","Ramtek","Kapoori"] },
-
-  // ── INDOOR ──
-  { id:"money_plant", name:"Money Plant", sci:"Epipremnum aureum", category:"Indoor", basePrice:95, care:"Low to bright indirect light · Water when dry · Occasional misting", desc:"Easy trailing plant symbolising good luck. NASA air-purifying plant.", svgColor:"#2e7d32", varieties:["Golden Pothos","Marble Queen","Neon","Silver Satin","N'Joy","Manjula","Pearls and Jade","Baltic Blue","Cebu Blue","Glacier"] },
-  { id:"peacelily", name:"Peace Lily", sci:"Spathiphyllum wallisii", category:"Indoor", basePrice:220, care:"Low to medium light · Keep moist · No direct sun", desc:"Elegant white spathes. Top NASA air-purifying plant. Easy care.", svgColor:"#2e7d32", varieties:["Standard","Domino","Sensation (Giant)","Piccolino","Jetty","Sweet Pablo","Viscount","Mauna Loa","Lynise"] },
-  { id:"snake_plant", name:"Snake Plant", sci:"Dracaena trifasciata", category:"Indoor", basePrice:185, care:"Low light · Water sparingly · Tolerates neglect", desc:"Virtually indestructible. Converts CO₂ at night. Best bedroom plant.", svgColor:"#388e3c", varieties:["Laurentii","Moonshine","Cylindrica","Hahnii","Twist","Black Gold","Bantel's Sensation","Fernwood","Gold Hahnii","Cleopatra"] },
-  { id:"zz_plant", name:"ZZ Plant", sci:"Zamioculcas zamiifolia", category:"Indoor", basePrice:310, care:"Low light · Drought tolerant · Water monthly", desc:"Glossy foliage. Thrives on complete neglect. Toxin-absorbent.", svgColor:"#2e7d32", varieties:["Classic","Raven (Black)","Zenzi","Variegated","Lucky Classic"] },
-  { id:"pothos", name:"Pothos", sci:"Epipremnum aureum cvs", category:"Indoor", basePrice:85, care:"Low to medium light · Drought tolerant · Any soil", desc:"Beginner-friendly trailing houseplant. Extremely adaptable.", svgColor:"#43a047", varieties:["Jade","Neon","Hawaiian","Manjula","Cebu Blue","Glacier","Silver Splash","Global Green","Emerald"] },
-  { id:"fern", name:"Fern", sci:"Nephrolepis exaltata", category:"Indoor", basePrice:170, care:"Indirect light · High humidity · Keep moist", desc:"Feathery fronds. Adds lush tropical feel. Natural air humidifier.", svgColor:"#2e7d32", varieties:["Boston Fern","Maidenhair","Button Fern","Bird's Nest","Staghorn","Sword Fern","Kimberly Queen","Holly Fern","Rabbit Foot","Foxtail"] },
-  { id:"monstera", name:"Monstera", sci:"Monstera deliciosa", category:"Indoor", basePrice:450, care:"Bright indirect light · Water weekly · Mist leaves · Support pole", desc:"Iconic split-leaf tropical. Most photographed plant on Instagram.", svgColor:"#1b5e20", varieties:["Deliciosa","Thai Constellation","Adansonii","Albo Variegata","Borsigiana","Standleyana","Siltepecana","Peru","Dubia","Lechleriana"] },
-  { id:"rubber_plant", name:"Rubber Plant", sci:"Ficus elastica", category:"Indoor", basePrice:320, care:"Bright indirect light · Water moderately · Wipe leaves", desc:"Bold glossy leaves. Architectural statement plant. Air purifier.", svgColor:"#1b5e20", varieties:["Robusta","Burgundy","Tineke","Ruby","Shivereana","Doescheri","Black Prince","Variegata"] },
-  { id:"aglaonema", name:"Aglaonema", sci:"Aglaonema commutatum", category:"Indoor", basePrice:260, care:"Low to medium light · Moderate water · Avoid cold drafts", desc:"Beautifully patterned foliage in stunning colours. Very easy care.", svgColor:"#e53935", varieties:["Red Siam","Pink Anyamanee","Creta","Maria","Silver Bay","Ultra Pink","Chocolate","Sparkling Sarah","Diamond Bay","Emerald Beauty","Silver Queen"] },
-  { id:"dracaena", name:"Dracaena", sci:"Dracaena fragrans", category:"Indoor", basePrice:290, care:"Indirect light · Water sparingly · Avoid fluoride water", desc:"Elegant cane plant. Great for living rooms. Long-lived and easy.", svgColor:"#558b2f", varieties:["Corn Plant","Massangeana","Warneckii","Marginata","Compacta","Song of India","Reflexa","Surculosa","Deremensis","Janet Craig"] },
-  { id:"spider_plant", name:"Spider Plant", sci:"Chlorophytum comosum", category:"Indoor", basePrice:95, care:"Indirect light · Moderate water · Any well-drained soil", desc:"Cascading plantlets. Easy to propagate. Removes formaldehyde.", svgColor:"#7cb342", varieties:["Variegatum","Vittatum","Bonnie (Curly)","Hawaiian","Reverse Variegated","Zebra"] },
-  { id:"chinese_evergreen", name:"Chinese Evergreen", sci:"Aglaonema modestum", category:"Indoor", basePrice:195, care:"Low light · Moderate water · Warm humid conditions", desc:"Classic easy-care houseplant with handsome foliage. Very tolerant.", svgColor:"#2e7d32", varieties:["Green","Variegated","Silver","Cutlass","Suzy","Cory"] },
-  { id:"dieffenbachia", name:"Dieffenbachia / Dumb Cane", sci:"Dieffenbachia seguine", category:"Indoor", basePrice:220, care:"Indirect light · Keep moist · Avoid direct sun", desc:"Large patterned leaves. Fast-growing. Dramatic focal plant.", svgColor:"#388e3c", varieties:["Camille","Tropic Snow","Tropic Marianne","Sparkles","Star Bright","Compacta","Triumph","Reflector"] },
-  { id:"calathea", name:"Calathea / Prayer Plant", sci:"Calathea orbifolia", category:"Indoor", basePrice:380, care:"Bright indirect light · Distilled water · High humidity", desc:"Stunning geometric leaf patterns. Folds leaves at night like praying hands.", svgColor:"#1b5e20", varieties:["Orbifolia","Medallion","Rattlesnake","Peacock","Zebra","Musaica","Makoyana","Lancifolia","Louisae","Roseopicta","Sanderiana"] },
-  { id:"philodendron", name:"Philodendron", sci:"Philodendron hederaceum", category:"Indoor", basePrice:340, care:"Bright indirect light · Water when dry · Mist occasionally", desc:"Diverse genus with heart-shaped to massive split leaves. Collector's favourite.", svgColor:"#1b5e20", varieties:["Heart Leaf","Brasil","Birkin","Pink Princess","Prince of Orange","Gloriosum","Melanochrysum","Xanadu","Atom","Imperial Green","Moonlight","Autumn"] },
-  { id:"pothos_marble", name:"Marble Queen Pothos", sci:"Epipremnum aureum Marble Queen", category:"Indoor", basePrice:130, care:"Medium indirect light · Water when dry · Occasional fertiliser", desc:"Heavily variegated white and green trailing vine.", svgColor:"#2e7d32", varieties:["Classic Marble","Snow Queen","Manjula","Pearls and Jade"] },
-  { id:"schefflera", name:"Schefflera / Umbrella Plant", sci:"Schefflera actinophylla", category:"Indoor", basePrice:280, care:"Bright indirect light · Water moderately · Mist leaves", desc:"Glossy umbrella-like leaf clusters. Easy tree-form houseplant.", svgColor:"#1b5e20", varieties:["Arboricola","Actinophylla","Variegated","Trinette","Gold Capella","Renate"] },
-  { id:"fiddle_leaf", name:"Fiddle Leaf Fig", sci:"Ficus lyrata", category:"Indoor", basePrice:650, care:"Bright indirect light · Water weekly · No cold drafts · Stable location", desc:"Dramatic large violin-shaped leaves. Most fashionable houseplant.", svgColor:"#1b5e20", varieties:["Standard","Bambino (Dwarf)","Variegated","Column"] },
-  { id:"bromeliad", name:"Bromeliad", sci:"Bromeliaceae spp.", category:"Indoor", basePrice:290, care:"Bright indirect light · Water into cup · Well-drained", desc:"Tropical epiphyte with colourful bracts. Long-lasting indoor display.", svgColor:"#e53935", varieties:["Guzmania Red","Guzmania Orange","Vriesea","Neoregelia","Aechmea","Tillandsia","Cryptanthus","Pineapple"] },
-
-  // ── SUCCULENT & CACTUS ──
-  { id:"kalanchoe", name:"Kalanchoe", sci:"Kalanchoe blossfeldiana", category:"Succulent & Cactus", basePrice:195, care:"Bright indirect light · Water sparingly · Deadhead after flowering", desc:"Cheerful succulent with long-lasting flower clusters. Easy care.", svgColor:"#e64a19", varieties:["Red","Yellow","Orange","Pink","White","Bi-colour","Calandiva (Double)","Flaming Katy","Christmas Kalanchoe","Paddington"] },
-  { id:"echeveria", name:"Echeveria", sci:"Echeveria spp.", category:"Succulent & Cactus", basePrice:160, care:"Full sun · Water sparingly · Sandy well-drained soil", desc:"Rosette-forming succulent in stunning silver-blue hues.", svgColor:"#7cb342", varieties:["Elegans","Perle von Nurnberg","Black Prince","Lola","Rainbow","Subsessilis","Imbricata","Afterglow","Minima","Runyonii Topsy Turvy","Blue Atoll","Romeo"] },
-  { id:"cactus", name:"Cactus", sci:"Cactaceae spp.", category:"Succulent & Cactus", basePrice:120, care:"Full sun · Water very sparingly · Sandy gritty soil", desc:"Low-maintenance architectural desert plants. Perfect for beginners.", svgColor:"#8bc34a", varieties:["Golden Barrel","Moon Cactus","Bunny Ears","Christmas Cactus","Prickly Pear","Cereus","Mammillaria","Echinopsis","Ferocactus","Opuntia","Cleistocactus","Notocactus"] },
-  { id:"jade", name:"Jade Plant", sci:"Crassula ovata", category:"Succulent & Cactus", basePrice:175, care:"Full sun · Water sparingly · Well-drained sandy soil", desc:"Bonsai-like long-lived good-luck plant. Excellent feng shui plant.", svgColor:"#2e7d32", varieties:["Classic","Gollum","Hobbit","Variegated","Ripple","Blue Bird","Minor","Arborescens"] },
-  { id:"haworthia", name:"Haworthia", sci:"Haworthia fasciata", category:"Succulent & Cactus", basePrice:145, care:"Indirect light · Water sparingly · Well-drained", desc:"Compact striped rosettes. Perfect low-light windowsill succulent.", svgColor:"#558b2f", varieties:["Zebra","Attenuata","Cooperi","Retusa","Truncata","Limifolia","Obtusa","Reinwardtii","Cymbiformis","Coarctata"] },
-  { id:"aeonium", name:"Aeonium", sci:"Aeonium arboreum", category:"Succulent & Cactus", basePrice:210, care:"Full to partial sun · Water sparingly · Cool dry conditions", desc:"Tree-like succulent with glossy rosettes. Stunning winter colour.", svgColor:"#1b5e20", varieties:["Zwartkop (Black)","Sunburst","Kiwi","Velour","Blushing Beauty","Garnet","Cyclops"] },
-  { id:"sedum", name:"Sedum / Stonecrop", sci:"Sedum spp.", category:"Succulent & Cactus", basePrice:130, care:"Full sun · Drought tolerant · Sandy soil", desc:"Ground-covering succulent ideal for rock gardens and walls.", svgColor:"#8bc34a", varieties:["Autumn Joy","Dragon's Blood","Cape Blanco","Acre","Burro's Tail","Morganianum","Rubrotinctum","Pachyphyllum","Dasyphyllum"] },
-  { id:"gasteria", name:"Gasteria", sci:"Gasteria spp.", category:"Succulent & Cactus", basePrice:140, care:"Shade tolerant · Water sparingly · Indoor friendly", desc:"Tongue-like leaves. More shade tolerant than most succulents.", svgColor:"#558b2f", varieties:["Bicolor","Carinata","Little Warty","Verrucosa","Batesiana","Excelsa"] },
-  { id:"lithops", name:"Lithops / Living Stones", sci:"Lithops spp.", category:"Succulent & Cactus", basePrice:180, care:"Full sun · Very little water · Gritty sandy mix", desc:"Fascinating stone-mimicking succulents from South Africa.", svgColor:"#8d6e63", varieties:["Mixed Species","Aucampiae","Bromfieldii","Comptonii","Karasmontana","Hookeri","Salicola"] },
-  { id:"aloe_vera_succulent", name:"Aloe Collection", sci:"Aloe spp.", category:"Succulent & Cactus", basePrice:160, care:"Full sun · Well-drained sandy soil · Water monthly", desc:"Diverse aloe genus beyond common aloe vera.", svgColor:"#558b2f", varieties:["Ferox","Aristata","Saponaria","Marlothii","Striata","Dichotoma","Capitata","Plicatilis","Cameronii","Humilis"] },
-  { id:"euphorbia_succulent", name:"Euphorbia (Succulent)", sci:"Euphorbia spp.", category:"Succulent & Cactus", basePrice:150, care:"Full sun · Very drought tolerant · Sandy soil · Handle with care (sap)", desc:"Diverse succulent euphorbias that mimic cacti.", svgColor:"#8bc34a", varieties:["Trigona","Lactea","Tirucalli (Pencil)","Ingens","Obesa","Meloformis","Horrida","Aeruginosa"] },
-
-  // ── VEGETABLES & HERBS ──
-  { id:"tomato", name:"Tomato", sci:"Solanum lycopersicum", category:"Vegetables & Herbs", basePrice:60, care:"Full sun · Water regularly · Support with stake", desc:"Versatile kitchen staple. Can be grown in pots on balconies.", svgColor:"#e53935", varieties:["Cherry","Beefsteak","Roma","Hybrid F1","Yellow Pear","Heirloom","Indeterminate","Determinate","Grape","Green Zebra","Black Krim","Brandywine"] },
-  { id:"chilli", name:"Chilli Pepper", sci:"Capsicum annuum", category:"Vegetables & Herbs", basePrice:55, care:"Full sun · Moderate water · Warm conditions", desc:"Spicy kitchen essential. Multiple harvests per season.", svgColor:"#e53935", varieties:["Red Long","Bhut Jolokia","Guntur","Kashmiri","Green Bullet","Bird's Eye","Jwala","Kanthari","Dundicut","Byadagi","Naga","Habanero"] },
-  { id:"brinjal", name:"Brinjal / Eggplant", sci:"Solanum melongena", category:"Vegetables & Herbs", basePrice:50, care:"Full sun · Regular watering · Stake when fruiting", desc:"Widely used in Indian cooking. Excellent in pots.", svgColor:"#6a1b9a", varieties:["Purple Long","Round Green","White","Thai","Baby Brinjal","Black Beauty","Japanese","Fairy Tale","Listada","Calliope"] },
-  { id:"capsicum", name:"Capsicum / Bell Pepper", sci:"Capsicum annuum (sweet)", category:"Vegetables & Herbs", basePrice:70, care:"Full sun · Regular watering · Rich fertile soil", desc:"Crisp colourful bell peppers for salads and curries.", svgColor:"#e53935", varieties:["Red","Yellow","Green","Orange","Purple","Chocolate Brown","White","Lilac","California Wonder","King of the North"] },
-  { id:"spinach", name:"Spinach", sci:"Spinacia oleracea", category:"Vegetables & Herbs", basePrice:40, care:"Partial shade · Keep moist · Cool weather crop", desc:"Nutritious iron-rich leafy green. Quick harvest in 40 days.", svgColor:"#388e3c", varieties:["Baby Spinach","Savoy","Semi-Savoy","Smooth Leaf","New Zealand","Malabar","Red Veined","Perpetual"] },
-  { id:"coriander", name:"Coriander / Dhania", sci:"Coriandrum sativum", category:"Vegetables & Herbs", basePrice:35, care:"Partial sun · Keep moist · Cooler weather preferred", desc:"Essential Indian herb. Used for cooking and garnishing.", svgColor:"#7cb342", varieties:["CO-1","CO-2","CO-3","Swathi","Sadhana","Rajendra Swathi","Hisar Anand","Pant Haritima","Sindhu"] },
-  { id:"methi", name:"Methi / Fenugreek", sci:"Trigonella foenum-graecum", category:"Vegetables & Herbs", basePrice:38, care:"Full sun · Moderate water · Well-drained soil", desc:"Bitter aromatic leafy vegetable with medicinal uses.", svgColor:"#558b2f", varieties:["Pusa Early Bunching","Methi No. 47","Rajendra Kanti","Kasuri Methi","Lam Sel 1","Rmt-303"] },
-  { id:"okra", name:"Okra / Lady's Finger", sci:"Abelmoschus esculentus", category:"Vegetables & Herbs", basePrice:45, care:"Full sun · Water regularly · Rich fertile soil", desc:"Popular South Asian vegetable. High yielding and easy to grow.", svgColor:"#558b2f", varieties:["Parbhani Kranti","Arka Anamika","Hisar Naveen","Varsha Uphar","Arka Abhay","Mahyco-10","Clemson Spineless"] },
-  { id:"bitter_gourd", name:"Bitter Gourd / Karela", sci:"Momordica charantia", category:"Vegetables & Herbs", basePrice:55, care:"Full sun · Regular watering · Trellis support", desc:"Highly medicinal vegetable. Excellent for blood sugar regulation.", svgColor:"#2e7d32", varieties:["Priya","Coimbatore Long","Pusa Hybrid-1","MDU-1","White Karela","Pusa Do Mausami","CO-1"] },
-  { id:"basil", name:"Basil", sci:"Ocimum basilicum", category:"Vegetables & Herbs", basePrice:65, care:"Full sun · Keep moist · Pinch flowers to promote leaves", desc:"Aromatic culinary herb. Used in Italian and Thai cuisine.", svgColor:"#388e3c", varieties:["Sweet Basil","Thai Basil","Genovese","Lemon Basil","Purple Basil","Cinnamon Basil","Greek","Spicy Globe","Tulsi (Holy)","Cardinal"] },
-  { id:"rosemary", name:"Rosemary", sci:"Salvia rosmarinus", category:"Vegetables & Herbs", basePrice:120, care:"Full sun · Well-drained sandy soil · Drought tolerant", desc:"Woody aromatic herb. Excellent for cooking and aromatherapy.", svgColor:"#7b1fa2", varieties:["Tuscan Blue","Arp","Prostrate","Majorca Pink","Miss Jessup's Upright","Salem","Hill Hardy"] },
-  { id:"curry_herb", name:"Celery / Ajmoda", sci:"Apium graveolens", category:"Vegetables & Herbs", basePrice:55, care:"Partial shade · Keep very moist · Rich soil", desc:"Crunchy stalks and aromatic leaves used in cooking.", svgColor:"#7cb342", varieties:["Utah","Giant Pascal","Golden Self-blanching","Greensnap","Chinese Celery"] },
-  { id:"cucumber", name:"Cucumber", sci:"Cucumis sativus", category:"Vegetables & Herbs", basePrice:50, care:"Full sun · Water daily · Trellis support", desc:"Refreshing summer vegetable. High yielding and fast growing.", svgColor:"#388e3c", varieties:["Field","Slicing","Pickling","Burpless","English","Mini","Lemon","White","Armenian","Marketmore"] },
-  { id:"pumpkin", name:"Pumpkin", sci:"Cucurbita pepo", category:"Vegetables & Herbs", basePrice:55, care:"Full sun · Rich moist soil · Lots of space", desc:"Large fruiting vine. Used in cooking and festivals.", svgColor:"#e65100", varieties:["Red","Yellow","White","Butternut","Acorn","Kabocha","Sugar Pie","Jack-o-Lantern","Hubbard"] },
-  { id:"snake_gourd", name:"Snake Gourd", sci:"Trichosanthes cucumerina", category:"Vegetables & Herbs", basePrice:45, care:"Full sun · Regular watering · Trellis essential", desc:"Long twisted gourd used extensively in South Indian cooking.", svgColor:"#2e7d32", varieties:["Short White","Long Green","CO-1","CO-2","PKM-1"] },
-  { id:"drumstick_veg", name:"Moringa / Drumstick (Veg)", sci:"Moringa oleifera", category:"Vegetables & Herbs", basePrice:130, care:"Full sun · Drought tolerant · Minimal fertiliser", desc:"Highly nutritious pods, leaves and flowers edible year-round.", svgColor:"#388e3c", varieties:["PKM-1","PKM-2","Periyakulam","ODC","Bhagya"] },
-  { id:"curry_tomato", name:"Tomato Cherry", sci:"Solanum lycopersicum var. cerasiforme", category:"Vegetables & Herbs", basePrice:65, care:"Full sun · Regular watering · Small stake support", desc:"Sweet bite-sized tomatoes ideal for salads and snacking.", svgColor:"#e53935", varieties:["Red Cherry","Yellow Cherry","Sweet Million","Sungold","Black Cherry","Grape","Juliet","Sweet 100"] },
-
-  // ── FRUIT TREES ──
-  { id:"mango", name:"Mango", sci:"Mangifera indica", category:"Fruit Trees", basePrice:550, care:"Full sun · Drought tolerant · Annual fertiliser in Feb", desc:"King of fruits. Multiple grafted varieties available. Symbol of India.", svgColor:"#f9a825", varieties:["Alphonso","Dashehri","Kesar","Langra","Totapuri","Amrapali","Mallika","Neelum","Banganapalli","Sindoori","Rajapuri","Imam Pasand","Himayat","Malgova","Salem"] },
-  { id:"guava", name:"Guava", sci:"Psidium guajava", category:"Fruit Trees", basePrice:320, care:"Full sun · Drought tolerant · Prune after fruiting", desc:"High-yield tropical fruit tree. Rich in Vitamin C.", svgColor:"#7cb342", varieties:["Lalit","Allahabad Safeda","Lucknow-49","Apple Guava","Hisar Surkha","Sardar","Arka Amulya","Arka Mridula","Smooth Green","Thailand Red"] },
-  { id:"lemon", name:"Lemon / Lime", sci:"Citrus limon / aurantifolia", category:"Fruit Trees", basePrice:280, care:"Full sun · Regular watering · Monthly fertiliser", desc:"Year-round fruiting citrus for pots and ground.", svgColor:"#f9a825", varieties:["Eureka","Kagzi Lime","Meyer Lemon","Lisbon","Vikram","Sweet Lime","Kachai","Citrus Maxima","Rough Lemon","Galgal"] },
-  { id:"banana", name:"Banana", sci:"Musa × paradisiaca", category:"Fruit Trees", basePrice:350, care:"Full sun · High water needs · Rich moist soil", desc:"Fast-growing tropical. Fruits in 12–18 months.", svgColor:"#f9a825", varieties:["Robusta","Cavendish","Red Banana","Nendran","G9 Tissue Culture","Poovan","Grand Naine","Karpuravalli","Malbhog","Rajeli"] },
-  { id:"papaya", name:"Papaya", sci:"Carica papaya", category:"Fruit Trees", basePrice:150, care:"Full sun · Well-drained soil · Monthly fertiliser", desc:"Fast-fruiting tropical with high nutritional value. Medicinal latex.", svgColor:"#ff8f00", varieties:["Red Lady","Pusa Dwarf","CO-7","Taiwan 786","Sunrise Solo","Coorg Honey Dew","Ranchi","Surya","Arka Prabhath"] },
-  { id:"coconut", name:"Coconut Palm", sci:"Cocos nucifera", category:"Fruit Trees", basePrice:480, care:"Full sun · Sandy well-drained soil · Coastal areas", desc:"Iconic tropical palm. Every part is useful. Kalpa Vriksha.", svgColor:"#795548", varieties:["Tall West Coast","Dwarf Orange","Hybrid T×D","Chowghat Orange Dwarf","Green Dwarf","Yellow Dwarf","San Ramon","Malayan"] },
-  { id:"fig", name:"Fig", sci:"Ficus carica", category:"Fruit Trees", basePrice:420, care:"Full sun · Moderate watering · Well-drained soil", desc:"Ancient fruit tree. Two harvests per year.", svgColor:"#6a1b9a", varieties:["Brown Turkey","Poona Fig","Dinkar","Conadria","Black Mission","Kadota","Adriatic","Desert King","Celeste"] },
-  { id:"pomegranate", name:"Pomegranate", sci:"Punica granatum", category:"Fruit Trees", basePrice:380, care:"Full sun · Drought tolerant · Well-drained · Minimal water", desc:"Antioxidant-rich ruby jewel fruit. Drought tolerant.", svgColor:"#c62828", varieties:["Bhagwa","Ganesh","G-137","Mridula","Ruby","Arakta","Phule Bhagawa","Wonderful","Muscat Red"] },
-  { id:"jackfruit", name:"Jackfruit", sci:"Artocarpus heterophyllus", category:"Fruit Trees", basePrice:450, care:"Full sun · Moderate water · Rich deep soil", desc:"World's largest tree fruit. National fruit of Bangladesh. Vegan meat substitute.", svgColor:"#f9a825", varieties:["Singapore Jack","Vietnam Super Early","Desi","Honey Jack","Vietnam Softest","J-31","Bali"] },
-  { id:"sapota", name:"Sapota / Chiku", sci:"Manilkara zapota", category:"Fruit Trees", basePrice:350, care:"Full sun · Drought tolerant · Deep soil", desc:"Sweet caramel-flavoured brown fruit. Easy to grow.", svgColor:"#795548", varieties:["Cricket Ball","Kalipatti","CO-1","Baramasi","DHS-1","Jonnavalasa","Bhavapuri"] },
-  { id:"chickoo", name:"Avocado", sci:"Persea americana", category:"Fruit Trees", basePrice:580, care:"Full sun · Well-drained · Moderate water · Frost free", desc:"Creamy nutritious subtropical fruit. Health food staple.", svgColor:"#1b5e20", varieties:["Hass","Fuerte","Pinkerton","Reed","Zutano","Ettinger","Bacon"] },
-  { id:"dragon_fruit", name:"Dragon Fruit", sci:"Hylocereus undatus", category:"Fruit Trees", basePrice:380, care:"Full sun · Well-drained · Water moderately · Trellis support", desc:"Exotic cactus fruit. Spectacular night-blooming flowers.", svgColor:"#e91e63", varieties:["White Flesh Red Skin","Red Flesh Red Skin","Yellow Skin White Flesh","Vietnam White","American Beauty","Selenicereus"] },
-  { id:"mulberry", name:"Mulberry", sci:"Morus indica", category:"Fruit Trees", basePrice:280, care:"Full sun · Moderate water · Prune annually", desc:"Sweet-tart fruits. Leaves used for silkworm rearing.", svgColor:"#6a1b9a", varieties:["Black Mulberry","Red Mulberry","White Mulberry","V1","M5","S36","Annanagar Local"] },
-  { id:"starfruit", name:"Starfruit / Carambola", sci:"Averrhoa carambola", category:"Fruit Trees", basePrice:320, care:"Full sun · Regular water · Humid tropical", desc:"Star-shaped exotic fruit. Sweet-sour flavour.", svgColor:"#f9a825", varieties:["Arkin","Fwang Tung","Kembangan","Malaysian Sweet","Dah Pon","Maher"] },
-  { id:"custard_apple", name:"Custard Apple / Sitaphal", sci:"Annona squamosa", category:"Fruit Trees", basePrice:350, care:"Full sun · Drought tolerant · Sandy loam", desc:"Sweet creamy fruit rich in Vitamin C and B6.", svgColor:"#7cb342", varieties:["Red Sitaphal","Balanagar","APK-1","CO-1","Arka Sahan","British Guiana","Washington"] },
-
-  // ── ORNAMENTAL TREES ──
-  { id:"ashoka_tree", name:"Ashoka Tree", sci:"Saraca asoca", category:"Ornamental Trees", basePrice:380, care:"Full to partial sun · Regular water · Humid", desc:"Sacred ornamental tree with clusters of fragrant flowers. Temple tree.", svgColor:"#e65100", varieties:["Common Ashoka","Polyalthia (False Ashoka)"] },
-  { id:"gulmohur", name:"Gulmohar / Royal Poinciana", sci:"Delonix regia", category:"Ornamental Trees", basePrice:320, care:"Full sun · Drought tolerant · Deep roots", desc:"Spectacular scarlet umbrella tree. One of world's most beautiful trees.", svgColor:"#e53935", varieties:["Red Flamboyant","Yellow (Peltophorum)","Dwarf Gulmohar"] },
-  { id:"neem_tree", name:"Neem Tree", sci:"Azadirachta indica", category:"Ornamental Trees", basePrice:250, care:"Full sun · Drought tolerant · Any soil", desc:"Multi-purpose village pharmacy tree. Shade and medicinal properties.", svgColor:"#2e7d32", varieties:["Common Neem","Dwarf Neem","Village Neem"] },
-  { id:"champak", name:"Champak / Champa", sci:"Michelia champaca", category:"Ornamental Trees", basePrice:450, care:"Full to partial sun · Moist well-drained soil · Humid", desc:"Intensely fragrant golden flowers. Sacred in Buddhism and Hinduism.", svgColor:"#f9a825", varieties:["Yellow Champa","White Champa","Orange Champa","Forest Champa"] },
-  { id:"peepal", name:"Peepal / Sacred Fig", sci:"Ficus religiosa", category:"Ornamental Trees", basePrice:280, care:"Full sun · Any soil · Very drought tolerant", desc:"Sacred tree in Buddhism, Hinduism and Jainism. Spiritual significance.", svgColor:"#2e7d32", varieties:["Common Peepal","Golden","Variegated"] },
-  { id:"banyan", name:"Banyan Tree", sci:"Ficus benghalensis", category:"Ornamental Trees", basePrice:350, care:"Full sun · Deep well-drained soil · Ample space", desc:"National tree of India. Largest trees by canopy area.", svgColor:"#1b5e20", varieties:["Common Banyan","Audrey Banyan (Ficus benghalensis)","Natasha"] },
-  { id:"copper_pod", name:"Copper Pod / Peltophorum", sci:"Peltophorum pterocarpum", category:"Ornamental Trees", basePrice:290, care:"Full sun · Drought tolerant · Any soil type", desc:"Golden yellow flowering tree. Coppery seed pods.", svgColor:"#f9a825", varieties:["Common","Ferrugineum"] },
-  { id:"palms", name:"Palm Trees", sci:"Arecaceae spp.", category:"Ornamental Trees", basePrice:650, care:"Full sun · Sandy well-drained · Minimal care", desc:"Tropical palms for landscapes, avenues and gardens.", svgColor:"#795548", varieties:["Royal Palm","Queen Palm","Areca Palm","Bismarck Palm","Date Palm","Fan Palm","Bottle Palm","Foxtail Palm","Sylvester Palm","Livistona","Sabal"] },
-  { id:"tamarind", name:"Tamarind", sci:"Tamarindus indica", category:"Ornamental Trees", basePrice:320, care:"Full sun · Drought tolerant · Deep fertile soil", desc:"Long-lived shade tree with sour edible pods. Used extensively in Indian cuisine.", svgColor:"#795548", varieties:["Sweet Tamarind","Urigam","CO-1","Pratishtha","Yogeshwari"] },
-  { id:"bonsai", name:"Bonsai Trees", sci:"Various species", category:"Ornamental Trees", basePrice:800, care:"Full to partial sun · Specific to species · Regular shaping", desc:"Miniature trees in artistic containers. Living sculptures.", svgColor:"#1b5e20", varieties:["Ficus Bonsai","Jade Bonsai","Azalea Bonsai","Juniper Bonsai","Bougainvillea Bonsai","Fukien Tea","Serissa","Bamboo Bonsai","Sageretia","Snow Rose"] },
-
-  // ── AQUATIC ──
-  { id:"lotus_aquatic", name:"Lotus", sci:"Nelumbo nucifera", category:"Aquatic", basePrice:450, care:"Full sun · Aquatic container · Regular fertiliser in water", desc:"Sacred national flower. Blooms float above water. Symbol of enlightenment.", svgColor:"#e91e63", varieties:["Pink","White","Red","Dwarf Bowl Lotus","Giant","Momo Botan","Sacred White","Chawan Basu","Mrs Perry D Slocum","Camellia"] },
-  { id:"water_lily", name:"Water Lily", sci:"Nymphaea spp.", category:"Aquatic", basePrice:380, care:"Full sun · Still water · Deep container · Monthly aquatic fertiliser", desc:"Floating blooms on ponds and water features. Habitat for fish.", svgColor:"#e91e63", varieties:["Pink","White","Yellow","Purple","Red","Blue","Night Blooming","Tropical Blue","Perry's Baby Red","Chromatella","Attraction"] },
-  { id:"water_hyacinth", name:"Water Hyacinth", sci:"Eichhornia crassipes", category:"Aquatic", basePrice:120, care:"Floating aquatic · Full sun · Still or slow water", desc:"Beautiful floating plant with purple flowers. Natural water purifier.", svgColor:"#7b1fa2", varieties:["Common","Dwarf"] },
-  { id:"papyrus", name:"Papyrus", sci:"Cyperus papyrus", category:"Aquatic", basePrice:280, care:"Full sun · Water or boggy soil · Regular water", desc:"Ancient Egyptian paper plant. Dramatic umbrella-like flower heads.", svgColor:"#7cb342", varieties:["Dwarf Papyrus","Giant Papyrus","Cyperus alternifolius","Umbrella Sedge"] },
-  { id:"taro", name:"Taro / Colocasia", sci:"Colocasia esculenta", category:"Aquatic", basePrice:160, care:"Partial shade · Boggy or submerged · Warm humid", desc:"Tropical aroid with huge elephant ear leaves. Edible corm.", svgColor:"#1b5e20", varieties:["Green","Black Magic","Mojito","Pink China","Tea Cup","Nancy's Revenge","Hawaiian Punch","Fontanesii"] },
-
-  // ── CLIMBERS & CREEPERS ──
-  { id:"money_plant_climber", name:"Money Plant (Climbing)", sci:"Epipremnum aureum", category:"Climbers & Creepers", basePrice:95, care:"Indirect light · Water when dry · Any support", desc:"Classic lucky climbing plant. Grows on walls, poles and moss sticks.", svgColor:"#2e7d32", varieties:["Golden","Marble Queen","Neon","N'Joy","Silver Satin","Manjula","Cebu Blue"] },
-  { id:"rangoon_creeper", name:"Rangoon Creeper / Madhumalti", sci:"Combretum indicum", category:"Climbers & Creepers", basePrice:220, care:"Full sun · Moderate water · Strong support", desc:"Fragrant flowers that change from white to pink to red on the same plant.", svgColor:"#e91e63", varieties:["Common","Double Flower"] },
-  { id:"morning_glory", name:"Morning Glory", sci:"Ipomoea purpurea", category:"Climbers & Creepers", basePrice:60, care:"Full sun · Moderate water · Trellis support", desc:"Fast-growing annual with trumpet flowers that open at dawn.", svgColor:"#7b1fa2", varieties:["Blue","Purple","Pink","White","Bi-colour","Heavenly Blue","Grandpa Ott","Crimson Rambler","Scarlett O'Hara"] },
-  { id:"passion_flower", name:"Passion Flower", sci:"Passiflora incarnata", category:"Climbers & Creepers", basePrice:280, care:"Full sun · Moderate water · Trellis support · Prune annually", desc:"Intricate flowers with cultural and religious symbolism.", svgColor:"#7b1fa2", varieties:["Purple","Blue","Yellow","Red","White","Maypop","Fredrick","Incense","Lady Margaret"] },
-  { id:"thunbergia", name:"Thunbergia / Black-Eyed Susan Vine", sci:"Thunbergia alata", category:"Climbers & Creepers", basePrice:90, care:"Full sun · Regular water · Trellis or fence", desc:"Cheerful golden blooms with dark centres covering trellises.", svgColor:"#f9a825", varieties:["Orange","Yellow","White","Red","Cream","Sunny Susy","African Sunset","Blushing Susie"] },
-  { id:"quisqualis", name:"Quisqualis / Drunken Sailor", sci:"Quisqualis indica", category:"Climbers & Creepers", basePrice:190, care:"Full sun · Moderate water · Strong support", desc:"Multi-coloured climbing shrub with pendulous fragrant flowers.", svgColor:"#e91e63", varieties:["Red & White","Single","Double"] },
-
-  // ── GRASS & BAMBOO ──
-  { id:"bamboo", name:"Bamboo", sci:"Bambusa spp.", category:"Grass & Bamboo", basePrice:380, care:"Full sun · Water regularly · Rich moist soil", desc:"Fast-growing architectural grass. Excellent for privacy screens.", svgColor:"#2e7d32", varieties:["Golden Bamboo","Black Bamboo","Green Bamboo","Clumping Bamboo","Lucky Bamboo","Buddha Belly","Striped","Dwarf Bamboo","Moso","Madake"] },
-  { id:"ornamental_grass", name:"Ornamental Grass", sci:"Various grasses", category:"Grass & Bamboo", basePrice:150, care:"Full sun · Drought tolerant · Low maintenance", desc:"Architectural grasses for borders and containers.", svgColor:"#7cb342", varieties:["Pampas Grass","Fountain Grass","Blue Fescue","Japanese Forest Grass","Zebra Grass","Muhly Grass","Switchgrass","Feather Reed Grass","Mexican Feather","Lemon Grass"] },
-
-  // ── FERNS & FOLIAGE ──
-  { id:"areca_palm", name:"Areca Palm", sci:"Dypsis lutescens", category:"Ferns & Foliage", basePrice:380, care:"Bright indirect light · Water regularly · Monthly fertiliser", desc:"Popular indoor palm creating tropical atmosphere. Removes indoor toxins.", svgColor:"#558b2f", varieties:["Standard","Compact","Triple Trunk","Dwarf"] },
-  { id:"boston_fern", name:"Boston Fern", sci:"Nephrolepis exaltata Bostoniensis", category:"Ferns & Foliage", basePrice:180, care:"Bright indirect light · High humidity · Keep moist", desc:"Classic hanging basket fern with arching feathery fronds.", svgColor:"#2e7d32", varieties:["Bostoniensis","Fluffy Ruffles","Dallas","Roosevelt","Childsii","Florida Ruffle","Green Lady"] },
-  { id:"elephant_ear", name:"Elephant Ear / Alocasia", sci:"Alocasia macrorrhiza", category:"Ferns & Foliage", basePrice:450, care:"Bright indirect light · Keep moist · High humidity", desc:"Giant tropical foliage plant creating dramatic impact.", svgColor:"#1b5e20", varieties:["Giant Taro","Amazonica","Polly","Zebrina","Black Velvet","Dragon Scale","Stingray","Silver Dragon","Regal Shield","Wentii"] },
-  { id:"croton", name:"Croton", sci:"Codiaeum variegatum", category:"Ferns & Foliage", basePrice:220, care:"Full to bright light · Regular water · Avoid cold drafts", desc:"Vivid multicoloured foliage. No two leaves are alike.", svgColor:"#e65100", varieties:["Petra","Mammy","Excellent","Gold Dust","Iceton","Eleanor Roosevelt","Zanzibar","Magnificent","Gold Star","Sunny Star"] },
-  { id:"caladium", name:"Caladium", sci:"Caladium bicolor", category:"Ferns & Foliage", basePrice:280, care:"Partial shade · Keep moist · Warm humid conditions", desc:"Spectacular heart-shaped leaves in pink, red and white patterns.", svgColor:"#e91e63", varieties:["Florida Sweetheart","Carolyn Whorton","Candidum","Florida Fantasy","White Queen","Red Flash","Florida Cardinal","Miss Muffet"] },
-  { id:"syngonium", name:"Syngonium / Arrowhead", sci:"Syngonium podophyllum", category:"Ferns & Foliage", basePrice:165, care:"Indirect light · Keep moist · High humidity", desc:"Arrow-shaped leaves that transform as the plant matures.", svgColor:"#7cb342", varieties:["White Butterfly","Pink Splash","Neon Robusta","Maria Allusion","Gold Allusion","Berry Allusion","Mini Pixie","Confetti","Aurea"] },
+  { id:"anthurium",    name:"Anthurium",             sci:"Anthurium andraeanum",        category:"Flowering",          basePrice:380, svgColor:"#c62828", care:"Bright indirect light · Keep moist · High humidity",   desc:"Bold waxy spathes. Excellent air purifier.",                     varieties:["Red","Pink","White","Purple","Orange","Salmon"] },
+  { id:"begonia",      name:"Begonia",               sci:"Begonia × semperflorens",     category:"Flowering",          basePrice:160, svgColor:"#ad1457", care:"Partial shade · Well-drained · Moderate water",        desc:"Compact prolific bloomer. Excellent for borders and pots.",      varieties:["Wax Begonia","Rex Begonia","Dragon Wing","Cane Begonia"] },
+  { id:"bougainvillea",name:"Bougainvillea",         sci:"Bougainvillea spectabilis",   category:"Flowering",          basePrice:290, svgColor:"#6a1b9a", care:"Full sun · Allow to dry · Light pruning",              desc:"Vigorous climber with brilliant papery bracts.",                 varieties:["Magenta","White","Salmon","Yellow","Orange","Crimson"] },
+  { id:"chrysanthemum",name:"Chrysanthemum",         sci:"Chrysanthemum × morifolium",  category:"Flowering",          basePrice:150, svgColor:"#ff8f00", care:"Full sun · Regular watering · Pinch tips",             desc:"Heritage florist mum. Symbol of longevity.",                    varieties:["Yellow","White","Bronze","Pink","Pompon","Button"] },
+  { id:"geranium",     name:"Geranium",              sci:"Pelargonium × hortorum",      category:"Flowering",          basePrice:180, svgColor:"#e53935", care:"Full sun · Allow soil to dry · Feed monthly",           desc:"Prolific bloomer with zoned foliage. Great for pots.",           varieties:["Red Zonal","Pink","White","Salmon","Ivy","Regal"] },
+  { id:"hibiscus",     name:"Hibiscus",              sci:"Hibiscus rosa-sinensis",      category:"Flowering",          basePrice:220, svgColor:"#e53935", care:"Full sun · Water regularly · Prune after flowering",    desc:"Large tropical blooms. State flower of Kerala.",                varieties:["Red","Yellow","Orange","Pink","White","Double Red"] },
+  { id:"jasmine",      name:"Jasmine",               sci:"Jasminum sambac",             category:"Flowering",          basePrice:200, svgColor:"#558b2f", care:"Full sun · Regular watering · Support for climbing",   desc:"Intensely fragrant white blooms. National flower.",              varieties:["Mogra","Juhi","Star Jasmine","Arabian","Jai","Grand Duke"] },
+  { id:"marigold",     name:"Marigold",              sci:"Tagetes erecta",              category:"Flowering",          basePrice:80,  svgColor:"#f9a825", care:"Full sun · Water regularly · Deadhead",                desc:"Cheerful orange and yellow blooms. Natural pest deterrent.",     varieties:["African Orange","African Yellow","French Dwarf","Crackerjack"] },
+  { id:"rose",         name:"Rose",                  sci:"Rosa × hybrida",              category:"Flowering",          basePrice:350, svgColor:"#c62828", care:"Full sun · Water at base · Deadhead · Fertilise monthly", desc:"Timeless blooms. Queen of flowers.",                          varieties:["Red Hybrid Tea","Pink Floribunda","Yellow","White","Miniature","Climbing"] },
+  { id:"sunflower",    name:"Sunflower",             sci:"Helianthus annuus",           category:"Flowering",          basePrice:120, svgColor:"#f9a825", care:"Full sun · Moderate water · Wind protection",           desc:"Tall cheerful blooms that follow the sun.",                     varieties:["Giant Single","Dwarf Sunspot","Multi-head","Teddy Bear"] },
+  { id:"ixora",        name:"Ixora",                 sci:"Ixora coccinea",              category:"Flowering",          basePrice:170, svgColor:"#e53935", care:"Full sun · Acidic soil · Regular pruning",              desc:"Dense clusters of fiery flowers. Excellent hedge plant.",        varieties:["Scarlet","Pink","Yellow","Orange","Dwarf Red"] },
+  { id:"adenium",      name:"Adenium / Desert Rose", sci:"Adenium obesum",              category:"Flowering",          basePrice:320, svgColor:"#e91e63", care:"Full sun · Sandy soil · Water sparingly",               desc:"Succulent shrub with spectacular blooms.",                       varieties:["Pink","Red","White","Bi-colour","Double Pink","Grafted Thai"] },
+  { id:"plumeria",     name:"Plumeria / Frangipani", sci:"Plumeria rubra",              category:"Flowering",          basePrice:380, svgColor:"#fce4ec", care:"Full sun · Moderate water · Drought tolerant",          desc:"Fragrant temple flowers used in garlands.",                     varieties:["Pink","White with Yellow","Red","Coral","Yellow","Dwarf"] },
+  { id:"dahlia",       name:"Dahlia",                sci:"Dahlia × hybrida",            category:"Flowering",          basePrice:310, svgColor:"#ad1457", care:"Full sun · Well drained · Deadhead · Stake",            desc:"Spectacular dinner-plate sized blooms in autumn.",              varieties:["Ball","Cactus","Pompon","Decorative","Waterlily"] },
+  { id:"carnation",    name:"Carnation",             sci:"Dianthus caryophyllus",       category:"Flowering",          basePrice:140, svgColor:"#e91e63", care:"Full sun · Moderate watering · Good drainage",          desc:"Classic fragrant blooms with ruffled petals.",                  varieties:["Red","Pink","White","Yellow","Purple","Striped"] },
+  { id:"tulasi",       name:"Holy Basil (Tulasi)",   sci:"Ocimum tenuiflorum",          category:"Medicinal",          basePrice:120, svgColor:"#388e3c", care:"Full sun · Water daily · Keep pot-bound",               desc:"Sacred and medicinal herb. Adaptogen with antibacterial properties.", varieties:["Krishna Tulasi","Ram Tulasi","Vana Tulasi","Kapoor Tulasi"] },
+  { id:"aloe",         name:"Aloe Vera",             sci:"Aloe barbadensis miller",     category:"Medicinal",          basePrice:150, svgColor:"#558b2f", care:"Bright indirect light · Water sparingly · Sandy soil", desc:"Soothing gel-filled leaves. Skin care and digestive aid.",      varieties:["Common Aloe","Barbadensis","Chinensis","Blue Elf","Vera"] },
+  { id:"neem",         name:"Neem",                  sci:"Azadirachta indica",          category:"Medicinal",          basePrice:200, svgColor:"#2e7d32", care:"Full sun · Drought tolerant · Minimal care",            desc:"Multi-purpose medicinal tree. Natural pesticide.",              varieties:["Common Neem","Dwarf Neem","Grafted"] },
+  { id:"moringa",      name:"Moringa / Drumstick",   sci:"Moringa oleifera",            category:"Medicinal",          basePrice:180, svgColor:"#388e3c", care:"Full sun · Drought tolerant · Sandy well-drained",      desc:"Highly nutritious miracle tree. All parts edible.",             varieties:["PKM-1","PKM-2","Periyakulam","ODC"] },
+  { id:"lemongrass",   name:"Lemongrass",            sci:"Cymbopogon citratus",         category:"Medicinal",          basePrice:90,  svgColor:"#7cb342", care:"Full sun · Well-drained · Water moderately",            desc:"Fragrant grass used in teas and aromatherapy.",                 varieties:["West Indian","East Indian","Palmarosa"] },
+  { id:"curry_leaf",   name:"Curry Leaf",            sci:"Murraya koenigii",            category:"Medicinal",          basePrice:160, svgColor:"#388e3c", care:"Full sun · Well-drained · Feed monthly",                desc:"Essential South Indian cooking herb. Antioxidant-rich.",        varieties:["Regular","Dwarf","Gamthi","Giant"] },
+  { id:"mint",         name:"Mint",                  sci:"Mentha × piperita",           category:"Medicinal",          basePrice:80,  svgColor:"#43a047", care:"Partial sun · Keep moist · Contain in pot",            desc:"Refreshing aromatic herb for tea and cooking.",                 varieties:["Peppermint","Spearmint","Apple Mint","Chocolate Mint"] },
+  { id:"money_plant",  name:"Money Plant",           sci:"Epipremnum aureum",           category:"Indoor",             basePrice:95,  svgColor:"#2e7d32", care:"Low to bright indirect light · Water when dry",         desc:"Easy trailing plant. NASA air-purifying plant.",                varieties:["Golden Pothos","Marble Queen","Neon","Silver Satin","N'Joy"] },
+  { id:"peacelily",    name:"Peace Lily",            sci:"Spathiphyllum wallisii",      category:"Indoor",             basePrice:220, svgColor:"#2e7d32", care:"Low to medium light · Keep moist · No direct sun",     desc:"Elegant white spathes. Top NASA air-purifying plant.",          varieties:["Standard","Domino","Sensation Giant","Piccolino"] },
+  { id:"snake_plant",  name:"Snake Plant",           sci:"Dracaena trifasciata",        category:"Indoor",             basePrice:185, svgColor:"#388e3c", care:"Low light · Water sparingly · Tolerates neglect",       desc:"Converts CO₂ at night. Best bedroom plant.",                    varieties:["Laurentii","Moonshine","Cylindrica","Hahnii","Black Gold"] },
+  { id:"monstera",     name:"Monstera",              sci:"Monstera deliciosa",          category:"Indoor",             basePrice:450, svgColor:"#1b5e20", care:"Bright indirect light · Water weekly · Mist · Pole",   desc:"Iconic split-leaf tropical.",                                   varieties:["Deliciosa","Thai Constellation","Adansonii","Albo Variegata"] },
+  { id:"aglaonema",    name:"Aglaonema",             sci:"Aglaonema commutatum",        category:"Indoor",             basePrice:260, svgColor:"#e53935", care:"Low to medium light · Moderate water · No cold drafts", desc:"Beautifully patterned foliage. Very easy care.",               varieties:["Red Siam","Pink Anyamanee","Creta","Maria","Silver Bay"] },
+  { id:"calathea",     name:"Calathea / Prayer Plant",sci:"Calathea orbifolia",         category:"Indoor",             basePrice:380, svgColor:"#1b5e20", care:"Bright indirect light · Distilled water · High humidity",desc:"Stunning geometric leaf patterns. Folds at night.",            varieties:["Orbifolia","Medallion","Rattlesnake","Peacock","Zebra"] },
+  { id:"philodendron", name:"Philodendron",          sci:"Philodendron hederaceum",     category:"Indoor",             basePrice:340, svgColor:"#1b5e20", care:"Bright indirect light · Water when dry · Mist",         desc:"Diverse genus. Heart-shaped to massive split leaves.",          varieties:["Heart Leaf","Brasil","Birkin","Pink Princess","Xanadu"] },
+  { id:"kalanchoe",    name:"Kalanchoe",             sci:"Kalanchoe blossfeldiana",     category:"Succulent & Cactus", basePrice:195, svgColor:"#e64a19", care:"Bright indirect light · Water sparingly · Deadhead",   desc:"Cheerful succulent with long-lasting flower clusters.",         varieties:["Red","Yellow","Orange","Pink","White","Calandiva Double"] },
+  { id:"echeveria",    name:"Echeveria",             sci:"Echeveria spp.",              category:"Succulent & Cactus", basePrice:160, svgColor:"#7cb342", care:"Full sun · Water sparingly · Sandy soil",               desc:"Rosette-forming succulent in silver-blue hues.",               varieties:["Elegans","Perle von Nurnberg","Black Prince","Lola"] },
+  { id:"cactus",       name:"Cactus",                sci:"Cactaceae spp.",              category:"Succulent & Cactus", basePrice:120, svgColor:"#8bc34a", care:"Full sun · Water very sparingly · Sandy gritty soil",   desc:"Low-maintenance architectural desert plants.",                  varieties:["Golden Barrel","Moon Cactus","Bunny Ears","Christmas Cactus"] },
+  { id:"jade",         name:"Jade Plant",            sci:"Crassula ovata",              category:"Succulent & Cactus", basePrice:175, svgColor:"#2e7d32", care:"Full sun · Water sparingly · Well-drained",             desc:"Bonsai-like long-lived good-luck plant.",                       varieties:["Classic","Gollum","Hobbit","Variegated"] },
+  { id:"tomato",       name:"Tomato",                sci:"Solanum lycopersicum",        category:"Vegetables & Herbs", basePrice:60,  svgColor:"#e53935", care:"Full sun · Water regularly · Support with stake",       desc:"Versatile kitchen staple. Can be grown in pots.",              varieties:["Cherry","Beefsteak","Roma","Hybrid F1","Yellow Pear"] },
+  { id:"chilli",       name:"Chilli Pepper",         sci:"Capsicum annuum",             category:"Vegetables & Herbs", basePrice:55,  svgColor:"#e53935", care:"Full sun · Moderate water · Warm conditions",           desc:"Spicy kitchen essential. Multiple harvests per season.",        varieties:["Red Long","Bhut Jolokia","Guntur","Kashmiri","Jwala"] },
+  { id:"basil",        name:"Basil",                 sci:"Ocimum basilicum",            category:"Vegetables & Herbs", basePrice:65,  svgColor:"#388e3c", care:"Full sun · Keep moist · Pinch flowers",                 desc:"Aromatic culinary herb used in Italian and Thai cuisine.",      varieties:["Sweet Basil","Thai Basil","Genovese","Lemon","Purple"] },
+  { id:"coriander",    name:"Coriander / Dhania",    sci:"Coriandrum sativum",          category:"Vegetables & Herbs", basePrice:35,  svgColor:"#7cb342", care:"Partial sun · Keep moist · Cool weather preferred",     desc:"Essential Indian herb for cooking and garnishing.",             varieties:["CO-1","CO-2","Swathi","Sadhana"] },
+  { id:"mango",        name:"Mango",                 sci:"Mangifera indica",            category:"Fruit Trees",        basePrice:550, svgColor:"#f9a825", care:"Full sun · Drought tolerant · Annual fertiliser Feb",   desc:"King of fruits. Multiple grafted varieties.",                  varieties:["Alphonso","Dashehri","Kesar","Langra","Amrapali","Banganapalli"] },
+  { id:"guava",        name:"Guava",                 sci:"Psidium guajava",             category:"Fruit Trees",        basePrice:320, svgColor:"#7cb342", care:"Full sun · Drought tolerant · Prune after fruiting",    desc:"High-yield tropical fruit tree. Rich in Vitamin C.",           varieties:["Lalit","Allahabad Safeda","Lucknow-49","Apple Guava"] },
+  { id:"lemon",        name:"Lemon / Lime",          sci:"Citrus limon / aurantifolia", category:"Fruit Trees",        basePrice:280, svgColor:"#f9a825", care:"Full sun · Regular watering · Monthly fertiliser",      desc:"Year-round fruiting citrus for pots and ground.",              varieties:["Eureka","Kagzi Lime","Meyer Lemon","Sweet Lime"] },
+  { id:"papaya",       name:"Papaya",                sci:"Carica papaya",               category:"Fruit Trees",        basePrice:150, svgColor:"#ff8f00", care:"Full sun · Well-drained · Monthly fertiliser",           desc:"Fast-fruiting tropical with high nutritional value.",          varieties:["Red Lady","Pusa Dwarf","CO-7","Taiwan 786"] },
+  { id:"pomegranate",  name:"Pomegranate",           sci:"Punica granatum",             category:"Fruit Trees",        basePrice:380, svgColor:"#c62828", care:"Full sun · Drought tolerant · Well-drained",            desc:"Antioxidant-rich ruby jewel fruit.",                            varieties:["Bhagwa","Ganesh","Mridula","Ruby","Arakta"] },
+  { id:"gulmohur",     name:"Gulmohar",              sci:"Delonix regia",               category:"Ornamental Trees",   basePrice:320, svgColor:"#e53935", care:"Full sun · Drought tolerant · Deep roots",              desc:"Spectacular scarlet umbrella tree.",                            varieties:["Red Flamboyant","Yellow","Dwarf"] },
+  { id:"ashoka_tree",  name:"Ashoka Tree",           sci:"Saraca asoca",                category:"Ornamental Trees",   basePrice:380, svgColor:"#e65100", care:"Full to partial sun · Regular water · Humid",           desc:"Sacred ornamental tree with fragrant flowers.",                varieties:["Common Ashoka","Polyalthia"] },
+  { id:"bonsai",       name:"Bonsai Trees",          sci:"Various species",             category:"Ornamental Trees",   basePrice:800, svgColor:"#1b5e20", care:"Full to partial sun · Species-specific · Regular shaping",desc:"Miniature trees in artistic containers.",                      varieties:["Ficus","Jade","Bougainvillea","Juniper","Snow Rose"] },
+  { id:"lotus_aquatic",name:"Lotus",                 sci:"Nelumbo nucifera",            category:"Aquatic",            basePrice:450, svgColor:"#e91e63", care:"Full sun · Aquatic container · Monthly aquatic fertiliser",desc:"Sacred national flower. Symbol of enlightenment.",            varieties:["Pink","White","Red","Dwarf Bowl","Giant"] },
+  { id:"water_lily",   name:"Water Lily",            sci:"Nymphaea spp.",               category:"Aquatic",            basePrice:380, svgColor:"#e91e63", care:"Full sun · Still water · Deep container",               desc:"Floating blooms on ponds and water features.",                 varieties:["Pink","White","Yellow","Purple","Tropical Blue"] },
+  { id:"bamboo",       name:"Bamboo",                sci:"Bambusa spp.",                category:"Grass & Bamboo",     basePrice:380, svgColor:"#2e7d32", care:"Full sun · Water regularly · Rich moist soil",          desc:"Fast-growing architectural grass. Excellent for privacy.",     varieties:["Golden","Black","Green","Clumping","Lucky","Buddha Belly"] },
+  { id:"areca_palm",   name:"Areca Palm",            sci:"Dypsis lutescens",            category:"Ferns & Foliage",    basePrice:380, svgColor:"#558b2f", care:"Bright indirect light · Water regularly · Monthly fertiliser",desc:"Popular indoor palm. Removes indoor toxins.",                varieties:["Standard","Compact","Triple Trunk","Dwarf"] },
+  { id:"croton",       name:"Croton",                sci:"Codiaeum variegatum",         category:"Ferns & Foliage",    basePrice:220, svgColor:"#e65100", care:"Full to bright light · Regular water · No cold drafts",  desc:"Vivid multicoloured foliage. No two leaves alike.",           varieties:["Petra","Mammy","Excellent","Gold Dust","Zanzibar"] },
+  { id:"boston_fern",  name:"Boston Fern",           sci:"Nephrolepis exaltata",        category:"Ferns & Foliage",    basePrice:180, svgColor:"#2e7d32", care:"Bright indirect light · High humidity · Keep moist",    desc:"Classic hanging basket fern with arching fronds.",             varieties:["Bostoniensis","Fluffy Ruffles","Dallas","Green Lady"] },
+  { id:"rangoon",      name:"Rangoon Creeper",       sci:"Combretum indicum",           category:"Climbers & Creepers",basePrice:220, svgColor:"#e91e63", care:"Full sun · Moderate water · Strong support",            desc:"Flowers change white → pink → red on same plant.",            varieties:["Common","Double Flower"] },
+  { id:"morning_glory",name:"Morning Glory",         sci:"Ipomoea purpurea",            category:"Climbers & Creepers",basePrice:60,  svgColor:"#7b1fa2", care:"Full sun · Moderate water · Trellis support",           desc:"Fast-growing annual with trumpet flowers at dawn.",            varieties:["Blue","Purple","Pink","White","Heavenly Blue"] },
 ];
-
-// ═══════════════════════════════════════════════════════════════
-//  STORAGE + HELPERS
-// ═══════════════════════════════════════════════════════════════
-const STORAGE_KEY = 'uf_plants_v2';
-const SUPABASE_URL = 'https://ujmpogomwcqbotvgdggo.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqbXBvZ29td2NxYm90dmdkZ2dvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxNDc3NzcsImV4cCI6MjA4ODcyMzc3N30.rnlT2ok31ureULFPjWm2TBp6DOB_zU7y_rL9EAf9Kbk';
-const SUPABASE_BUCKET = 'plant-photos';
-const PLANT_SVG = (color='rgba(74,124,89,0.35)', size=44) => `
-  <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}">
-    <path d="M40 72V42" stroke="${color}" stroke-width="2.5" stroke-linecap="round"/>
-    <path d="M40 42C40 42 24 34 24 18a16 16 0 0132 0c0 16-16 24-16 24z" fill="${color}" fill-opacity="0.18" stroke="${color}" stroke-width="2" stroke-linejoin="round"/>
-    <path d="M40 56C40 56 28 50 28 40" stroke="${color}" stroke-width="1.5" stroke-linecap="round"/>
-    <path d="M40 62C40 62 52 56 52 46" stroke="${color}" stroke-width="1.5" stroke-linecap="round"/>
-  </svg>`;
 
 const CAT_COLORS = {
   Flowering:'#e91e63', Medicinal:'#388e3c', Indoor:'#1565c0',
@@ -691,712 +670,626 @@ const CAT_COLORS = {
   Aquatic:'#0288d1', 'Climbers & Creepers':'#6a1b9a',
   'Grass & Bamboo':'#558b2f', 'Ferns & Foliage':'#2e7d32', Other:'#607d8b'
 };
-const CAT_BG = {
-  Flowering:'linear-gradient(135deg,#fce4ec,#f48fb1)',
-  Medicinal:'linear-gradient(135deg,#e8f5e9,#a5d6a7)',
-  Indoor:'linear-gradient(135deg,#e3f2fd,#90caf9)',
-  'Succulent & Cactus':'linear-gradient(135deg,#fbe9e7,#ffccbc)',
-  'Vegetables & Herbs':'linear-gradient(135deg,#fffde7,#ffe082)',
-  'Fruit Trees':'linear-gradient(135deg,#fff8e1,#ffecb3)',
-  'Ornamental Trees':'linear-gradient(135deg,#efebe9,#bcaaa4)',
-  Aquatic:'linear-gradient(135deg,#e1f5fe,#81d4fa)',
-  'Climbers & Creepers':'linear-gradient(135deg,#f3e5f5,#ce93d8)',
-  'Grass & Bamboo':'linear-gradient(135deg,#f1f8e9,#c5e1a5)',
-  'Ferns & Foliage':'linear-gradient(135deg,#e8f5e9,#c8e6c9)',
-  Other:'linear-gradient(135deg,#ede7d9,#d7ccc8)'
-};
 
-async function loadPlantsFromDB() {
-  try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/plants?select=*&order=created_at.asc`, {
-      headers: {
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-      }
-    });
-    if (!res.ok) throw new Error('DB fetch failed');
-    const rows = await res.json();
-    if (rows.length === 0) {
-      // First time — seed defaults
-      const defaults = getDefaultPlants();
-      await savePlantsToDB(defaults);
-      return defaults;
-    }
-    return rows.map(r => ({
-      id: r.id, name: r.name, variety: r.variety,
-      category: r.category, price: r.price, stock: r.stock,
-      inStock: r.in_stock, photo: r.photo,
-      description: r.description, care: r.care,
-      cluster: r.cluster, listingType: r.listing_type,
-      nursery: r.nursery, bgGradient: r.bg_gradient,
-      svgColor: r.svg_color, varieties: r.varieties || []
-    }));
-  } catch(e) {
-    console.warn('DB load failed, falling back to localStorage', e);
-    try { const r = localStorage.getItem(STORAGE_KEY); if (r) return JSON.parse(r); } catch(e2){}
-    return getDefaultPlants();
-  }
-}
+// SVG placeholder — shown when no custom_photo exists
+const PLANT_SVG = (color='rgba(74,124,89,0.35)', size=44) =>
+  `<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}">
+    <path d="M40 72V42" stroke="${color}" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M40 42C40 42 24 34 24 18a16 16 0 0132 0c0 16-16 24-16 24z" fill="${color}" fill-opacity="0.18" stroke="${color}" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M40 56C40 56 28 50 28 40" stroke="${color}" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M40 62C40 62 52 56 52 46" stroke="${color}" stroke-width="1.5" stroke-linecap="round"/>
+  </svg>`;
 
-async function savePlantToDB(plant) {
-  const row = {
-    id: plant.id, name: plant.name, variety: plant.variety,
-    category: plant.category, price: plant.price, stock: plant.stock,
-    in_stock: plant.inStock, photo: plant.photo || null,
-    description: plant.description, care: plant.care,
-    cluster: plant.cluster, listing_type: plant.listingType,
-    nursery: plant.nursery, bg_gradient: plant.bgGradient,
-    svg_color: plant.svgColor, varieties: plant.varieties || []
-  };
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/plants`, {
-    method: 'POST',
-    headers: {
-      'apikey': SUPABASE_ANON_KEY,
-      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-      'Content-Type': 'application/json',
-      'Prefer': 'resolution=merge-duplicates'
-    },
-    body: JSON.stringify(row)
-  });
-  if (!res.ok) console.warn('Save failed', await res.text());
-}
+// ══════════════════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════════════════
+let currentUser = null;   // { id, email, nursery_name, phone, address }
+let inventory   = {};     // plant_id → nursery_inventory row (THIS nursery ONLY)
+let editingId   = null;   // plant_id currently open in modal
+let photoFile   = null;   // File object chosen in modal (not yet uploaded)
+let pendingDeletePhoto = false; // user clicked "Remove Photo"
+let restoreId   = null;
+let plantTab    = 'active';
 
-async function savePlantsToDB(plantsArr) {
-  for (const p of plantsArr) { await savePlantToDB(p); }
-}
-
-// Keep localStorage as cache
-function loadPlants() {
-  try { const r = localStorage.getItem(STORAGE_KEY); if (r) return JSON.parse(r); } catch(e){}
-  return getDefaultPlants();
-}
-function savePlants(plantsArr) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(plantsArr));
-}
-
-async function loadPlantsFromDB() {
-  try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/plants?select=*&order=created_at.asc`, {
-      headers: {
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-      }
-    });
-    if (!res.ok) throw new Error('DB fetch failed');
-    const rows = await res.json();
-
-    const dbMap = {};
-    rows.forEach(r => { dbMap[r.id] = r; });
-
-    // Always show all master plants, merged with DB overrides
-    const merged = MASTER_CATALOGUE.map(m => {
-      const r = dbMap[m.id];
-      return {
-        id: m.id,
-        name: m.name,
-        variety: m.sci,
-        category: m.category,
-        price: r ? r.price : m.basePrice,
-        nursery: r ? (r.nursery || 'Green Valley') : 'Green Valley',
-        photo: r ? r.photo : null,
-        inStock: r ? r.in_stock : true,
-        stock: r ? r.stock : 10,
-        cluster: r ? (r.cluster || 'Cluster A') : 'Cluster A',
-        description: m.desc,
-        care: m.care,
-        listingType: r ? (r.listing_type || 'immediate') : 'immediate',
-        bgGradient: CAT_BG[m.category] || CAT_BG.Other,
-        svgColor: m.svgColor || 'rgba(74,124,89,.45)',
-        varieties: r ? (r.varieties || m.varieties || []) : (m.varieties || []),
-        _manualPro: r ? (r.listing_type === 'professional') : false
-      };
-    });
-
-    savePlants(merged);
-    return merged;
-  } catch(e) {
-    console.warn('DB load failed, using localStorage', e);
-    return loadPlants();
-  }
-}
-
-async function savePlantToDB(plant) {
-  const row = {
-    id: plant.id, name: plant.name, variety: plant.variety,
-    category: plant.category, price: plant.price,
-    stock: plant.stock || 0,
-    in_stock: plant.inStock !== false,
-    photo: plant.photo || null,
-    description: plant.description || '',
-    care: plant.care || '',
-    cluster: plant.cluster || 'Cluster A',
-    listing_type: plant.listingType || 'immediate',
-    nursery: plant.nursery || 'Green Valley',
-    bg_gradient: plant.bgGradient || '',
-    svg_color: plant.svgColor || '',
-    varieties: plant.varieties || []
-  };
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/plants`, {
-    method: 'POST',
-    headers: {
-      'apikey': SUPABASE_ANON_KEY,
-      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-      'Content-Type': 'application/json',
-      'Prefer': 'resolution=merge-duplicates'
-    },
-    body: JSON.stringify(row)
-  });
-  if (!res.ok) console.warn('savePlantToDB failed', await res.text());
-}
-
-// Personalize from session
-(async function() {
-  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  const { data: { session } } = await sb.auth.getSession();
+// ══════════════════════════════════════════════════════════════════
+// AUTH INIT
+// ══════════════════════════════════════════════════════════════════
+(async function init() {
+  const { data: { session } } = await _sb.auth.getSession();
   if (!session) { window.location.href = 'login.html'; return; }
 
-  const { data: profile } = await sb
-    .from('profiles')
-    .select('first_name, nursery_name, type')
-    .eq('id', session.user.id)
-    .single();
+  const { data: profile } = await _sb.from('profiles')
+    .select('first_name, nursery_name, type, nursery_address, phone')
+    .eq('id', session.user.id).single();
 
   if (profile?.type !== 'nursery') {
     window.location.href = 'customer-dashboard.html'; return;
   }
 
-  const displayName = profile?.nursery_name || profile?.first_name || session.user.email.split('@')[0];
-  const nameEl = document.querySelector('.profile-name');
-  if (nameEl) nameEl.textContent = displayName;
-
-  localStorage.setItem('uf_user', JSON.stringify({
+  currentUser = {
     id: session.user.id,
     email: session.user.email,
-    type: 'nursery',
-    nursery_name: profile?.nursery_name,
-    name: profile?.first_name
-  }));
-})();
+    nursery_name: profile.nursery_name || profile.first_name || session.user.email.split('@')[0],
+    address: profile.nursery_address || '',
+    phone: profile.phone || ''
+  };
 
-async function signOut() {
-  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  await sb.auth.signOut();
-  localStorage.removeItem('uf_user');
-  window.location.href = 'login.html';
-}
+  document.getElementById('sidebar-nursery-name').textContent = currentUser.nursery_name;
+  document.getElementById('settings-name').value    = currentUser.nursery_name;
+  document.getElementById('settings-phone').value   = currentUser.phone;
+  document.getElementById('settings-address').value = currentUser.address;
 
-let plants = loadPlants();
-let editingId = null;
-let selectedListing = 'immediate';
-let photoDataURL = null;
-let photoFile = null;
-let restoreTargetId = null;
-let selectedCatalogueId = null;
-let catalogueCatFilter = 'All';
-
-(function() {
-  try {
-    let dirty = false;
-    plants.forEach(p => {
-      if(p.photo && p.photo.startsWith('data:')){ p.photo=null; dirty=true; }
-      if(!p.listingType){ p.listingType='immediate'; dirty=true; }
-    });
-    if(dirty){ savePlants(plants); }
-  } catch(e){}
-})();
-// Migration: any plant not manually marked professional reverts to immediate
-(function resetToImmediate(){
-  try {
-    const stored = loadPlants();
-    let changed = false;
-    stored.forEach(p => {
-      if(p.listingType === 'professional' && !p._manualPro){
-        p.listingType = 'immediate'; changed = true;
-      }
-    });
-    if(changed){ savePlants(stored); plants = stored; }
-  } catch(e){}
-})();
-
-const SECTIONS = ['dashboard','plants','visit','orders','settings'];
-function showSection(id, navEl) {
-  SECTIONS.forEach(s => { const el=document.getElementById('section-'+s); if(el) el.style.display='none'; });
-  const t = document.getElementById('section-'+id);
-  if(t) t.style.display='block';
-  const TITLES = {dashboard:'Dashboard Overview',plants:'My Plant Catalogue',visit:'Request Executive Visit',orders:'Orders & Sales',settings:'Nursery Settings'};
-  document.getElementById('page-title').textContent = TITLES[id]||id;
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  if(navEl) navEl.classList.add('active');
-  if(id==='plants') renderMgmtGrid();
+  await loadInventory();
   updateStats();
+  renderMgmtGrid();
+})();
+
+// ══════════════════════════════════════════════════════════════════
+// LOAD DATA — only THIS nursery's nursery_inventory rows
+// NO cross-nursery photo or data read
+// ══════════════════════════════════════════════════════════════════
+async function loadInventory() {
+  if (!currentUser) return;
+  try {
+    const { data: rows, error } = await _sb
+      .from('nursery_inventory')
+      .select('*')
+      .eq('nursery_id', currentUser.id);
+
+    if (error) throw error;
+    inventory = {};
+    (rows || []).forEach(r => { inventory[r.plant_id] = r; });
+  } catch (e) {
+    console.warn('loadInventory error', e);
+    showToast('Could not load inventory', '⚠');
+  }
 }
 
-function updateStats() {
-  plants = loadPlants();
-  const total = plants.length;
-  const inStock = plants.filter(p=>p.inStock).length;
-  document.getElementById('stat-listed').textContent = total;
-  document.getElementById('stat-instock-text').textContent = inStock + ' in stock';
-  document.getElementById('nav-plants-count').textContent = total;
-  const lbl = document.getElementById('plant-count-label');
-  if(lbl) lbl.textContent = `(${total} total · ${inStock} in stock)`;
+// ══════════════════════════════════════════════════════════════════
+// RENDER MANAGEMENT GRID
+// ══════════════════════════════════════════════════════════════════
+function setPlantTab(tab, el) {
+  plantTab = tab;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  if (el) el.classList.add('active');
+  renderMgmtGrid();
 }
 
 function renderMgmtGrid() {
-  plants = loadPlants();
-  const q = (document.getElementById('mgmt-search')?.value||'').toLowerCase();
-  const filtered = plants.filter(p => !q || p.name.toLowerCase().includes(q) || p.variety.toLowerCase().includes(q));
+  const q = (document.getElementById('mgmt-search')?.value || '').toLowerCase();
   const container = document.getElementById('mgmt-container');
-  if(!container) return;
+  if (!container) return;
 
-  const cats = Object.keys(CAT_COLORS);
-  const catIcons = {
-    Flowering:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>',
-    Medicinal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/></svg>',
-    Indoor:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>',
-    'Succulent & Cactus':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M12 22V12M7 12C7 12 4 9 4 5a4 4 0 018 0M17 12C17 12 20 9 20 5a4 4 0 00-8 0"/></svg>',
-    'Vegetables & Herbs':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>',
-    'Fruit Trees':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M17 22V12M7 22V12M3 7l9-5 9 5-9 5-9-5z"/></svg>',
-    'Ornamental Trees':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M17 22V12M7 22V12M3 7l9-5 9 5-9 5-9-5z"/></svg>',
-    Aquatic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M12 2C12 2 4 10 4 14a8 8 0 0016 0c0-4-8-12-8-12z"/></svg>',
-    'Climbers & Creepers':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/></svg>',
-    'Grass & Bamboo':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><line x1="12" y1="2" x2="12" y2="22"/><line x1="7" y1="6" x2="12" y2="8"/><line x1="17" y1="10" x2="12" y2="12"/><line x1="7" y1="14" x2="12" y2="16"/></svg>',
-    'Ferns & Foliage':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M2 22 L12 12M12 12C12 12 18 6 20 2c0 0-8 2-12 8S2 22 2 22"/></svg>',
-    Other:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><circle cx="12" cy="12" r="10"/></svg>'
-  };
+  // Filter by search
+  let visible = MASTER_CATALOGUE.filter(m =>
+    !q || m.name.toLowerCase().includes(q) || m.sci.toLowerCase().includes(q)
+  );
 
+  // Filter by tab
+  if (plantTab === 'active') {
+    visible = visible.filter(m => {
+      const inv = inventory[m.id];
+      return inv && inv.in_stock && !inv.removed;
+    });
+  } else if (plantTab === 'oos') {
+    visible = visible.filter(m => {
+      const inv = inventory[m.id];
+      return inv && !inv.in_stock && !inv.removed;
+    });
+  }
+  // 'all' = show every master plant
+
+  // Group by category
+  const cats = [...new Set(MASTER_CATALOGUE.map(m => m.category))];
   let html = '';
+
   cats.forEach(cat => {
-    const catPlants = filtered.filter(p => (p.category||'Other') === cat);
-    if(!catPlants.length) return;
-    const color = CAT_COLORS[cat]||'#607d8b';
+    const catItems = visible.filter(m => m.category === cat);
+    if (!catItems.length) return;
+
+    const color = CAT_COLORS[cat] || '#607d8b';
     html += `<div class="category-section">
       <div class="category-header">
-        <div class="category-icon" style="background:${color}22;">${catIcons[cat]||''}</div>
+        <div class="category-icon" style="background:${color}22;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" width="15" height="15">
+            <path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/>
+          </svg>
+        </div>
         <span class="category-title">${cat}</span>
-        <span class="category-count">${catPlants.length} plant${catPlants.length!==1?'s':''}</span>
+        <span class="category-count">${catItems.length} plant${catItems.length!==1?'s':''}</span>
       </div>
       <div class="plants-grid-mgmt">`;
 
-    catPlants.forEach(p => {
-      const isPro = p.listingType === 'professional';
-      const imgInner = p.photo
-        ? `<img src="${p.photo}" alt="${p.name}">
-           <div class="photo-overlay">
-             <label class="photo-overlay-btn" onclick="event.stopPropagation()">
-               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Change
-               <input type="file" accept="image/*" onchange="changeCardPhoto('${p.id}',this)">
-             </label>
-             <button class="photo-overlay-btn del" onclick="event.stopPropagation();deleteCardPhoto('${p.id}')">
-               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>Delete
-             </button>
-           </div>`
-        : `<div class="card-img-placeholder">${PLANT_SVG(p.svgColor||'rgba(74,124,89,.35)')}<span>${cat}</span></div>`;
+    catItems.forEach(m => {
+      const inv    = inventory[m.id];
+      const added  = !!inv && !inv.removed;
+      const inStk  = !!inv?.in_stock;
+      // ── PHOTO: only this nursery's custom_photo, never a shared/master photo ──
+      const photo  = inv?.custom_photo || null;
+      const price  = inv?.price || m.basePrice;
+      const stock  = inv?.stock ?? 0;
+      const isPro  = inv?.listing_type === 'professional';
 
-      const badge = p.inStock
-        ? (isPro ? `<span class="plant-status-badge psb-pro">✦ Pro</span>` : `<span class="plant-status-badge psb-active">Active</span>`)
-        : `<span class="plant-status-badge psb-oos">Out of Stock</span>`;
+      // Image area HTML
+      let imgAreaHtml;
+      if (photo) {
+        // Has a photo — show it with hover overlay for change/delete
+        imgAreaHtml = `
+          <img src="${photo}" alt="${m.name}">
+          <div class="photo-overlay">
+            <label class="photo-overlay-btn" title="Change photo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Change
+              <input type="file" accept="image/*" onchange="quickUploadPhoto('${m.id}',this)" onclick="event.stopPropagation()">
+            </label>
+            <button class="photo-overlay-btn del-btn" onclick="event.stopPropagation();quickDeletePhoto('${m.id}')" title="Remove photo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>
+              Remove
+            </button>
+          </div>`;
+      } else {
+        // No photo — show SVG placeholder
+        imgAreaHtml = `
+          <div class="card-img-placeholder">
+            ${PLANT_SVG(m.svgColor || 'rgba(74,124,89,.35)')}
+            <span class="cat-label">${cat}</span>
+          </div>
+          ${added ? `<div class="upload-hint-overlay">
+            <label class="upload-hint-pill" onclick="event.stopPropagation()">
+              📷 Upload Photo
+              <input type="file" accept="image/*" onchange="quickUploadPhoto('${m.id}',this)">
+            </label>
+          </div>` : ''}`;
+      }
 
-      const actionBtns = p.inStock
-        ? `<button class="btn btn-primary btn-sm" style="flex:1;" onclick="openEditModal('${p.id}')">Edit</button>
-           <button class="btn btn-danger btn-sm" onclick="markOOS('${p.id}')">
-             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="11" height="11"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-           </button>`
-        : `<button class="btn btn-restore btn-sm" style="flex:1;" onclick="openRestoreModal('${p.id}')">
-             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11" style="margin-right:3px;"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>Restore
-           </button>`;
+      const topBanner = added
+        ? (!inStk ? `<div class="oos-banner">Out of Stock</div>` : '')
+        : `<div class="not-added-banner">Not in my catalogue</div>`;
 
-      const varietyTagsHTML = (p.varieties && p.varieties.length)
-        ? `<div class="plant-variety-tags">${p.varieties.slice(0,3).map(v=>`<span class="variety-tag">${typeof v==='object'?v.name:v}</span>`).join('')}${p.varieties.length>3?`<span class="variety-tag">+${p.varieties.length-3} more</span>`:''}</div>`
+      const statusBadge = added
+        ? (inStk
+            ? `<span class="plant-status-badge psb-active">Active</span>`
+            : `<span class="plant-status-badge psb-oos">OOS</span>`)
+        : '';
+      const proBadge = (added && isPro)
+        ? `<span style="position:absolute;top:8px;left:8px;display:inline-flex;align-items:center;gap:.28rem;padding:.2rem .55rem;border-radius:100px;font-size:.62rem;font-weight:600;background:var(--forest);color:var(--amber);letter-spacing:.04em;z-index:3;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="9" height="9"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            Pro
+          </span>`
         : '';
 
-      html += `<div class="plant-card-mgmt ${p.inStock?'':'oos'} ${isPro?'pro-card':''}">
-        ${!p.inStock?'<div class="oos-banner">Out of Stock</div>':isPro?'<div class="pro-banner">✦ Professional Listing</div>':''}
-        <div class="card-img-mgmt" data-plant-id="${p.id}" style="background:#fff;">
-          ${imgInner}
-          ${badge}
+      const actions = added
+        ? `<button class="btn btn-primary btn-sm" style="flex:1;" onclick="openEditModal('${m.id}')">Edit</button>
+           ${inStk
+             ? `<button class="btn btn-danger btn-sm" onclick="markOOS('${m.id}')" title="Mark out of stock">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="11" height="11"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>`
+             : `<button class="btn btn-restore btn-sm" onclick="openRestoreModal('${m.id}')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+                  Restore
+                </button>`
+           }`
+        : `<button class="btn btn-primary btn-sm" style="flex:1;" onclick="openEditModal('${m.id}')">
+             + Add to My Catalogue
+           </button>`;
+
+      html += `<div class="plant-card-mgmt ${added ? (!inStk ? 'oos' : '') : 'not-added'}">
+        ${topBanner}
+        <div class="card-img-mgmt" style="background:#fff;">
+          ${imgAreaHtml}
+          ${statusBadge}
+          ${proBadge}
         </div>
         <div class="card-body-mgmt">
-          <div class="plant-name-mgmt">${p.name}</div>
-          <div class="plant-sci-mgmt">${p.variety}</div>
-          ${varietyTagsHTML}
+          <div class="plant-name-mgmt">${m.name}</div>
+          <div class="plant-sci-mgmt">${m.sci}</div>
           <div class="plant-meta-mgmt">
-            <div class="plant-price-mgmt">Rs. ${p.price}</div>
-            <div class="plant-stock-mgmt">Stock: ${p.stock||0}</div>
+            <div class="plant-price-mgmt">Rs. ${price}</div>
+            <div class="plant-stock-mgmt">${added ? `Stock: ${stock}` : 'Not listed'}</div>
           </div>
-          <div class="plant-actions-mgmt">${actionBtns}</div>
+          <div class="plant-actions-mgmt">${actions}</div>
         </div>
       </div>`;
     });
 
-    html += `<div class="plant-card-mgmt add-new-card" onclick="openCatalogueModal('${cat}')">
-      <div class="card-img-mgmt">
-        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(107,143,113,.4)" stroke-width="1.5" width="28" height="28"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-        <span style="font-size:.72rem;color:var(--text-muted);">Add ${cat}</span>
-      </div>
-      <div class="card-body-mgmt" style="text-align:center;"><div style="font-size:.78rem;color:var(--text-muted);">List another plant</div></div>
-    </div>`;
-
     html += `</div></div>`;
   });
 
-  container.innerHTML = html || `<div style="text-align:center;padding:3rem;color:var(--text-muted);">No plants found.</div>`;
+  container.innerHTML = html ||
+    `<div style="text-align:center;padding:3rem;color:var(--text-muted);">No plants found.</div>`;
   updateStats();
 }
 
-// CATALOGUE MODAL
-function openCatalogueModal(preselectedCat) {
-  selectedCatalogueId = null;
-  catalogueCatFilter = preselectedCat || 'All';
-  buildCatFilterRow();
-  renderCatalogueGrid();
-  document.getElementById('catalogue-modal').classList.add('open');
-  document.getElementById('catalogue-proceed-btn').disabled = true;
-  document.getElementById('catalogue-proceed-btn').style.opacity = '.5';
-}
-function closeCatalogueModal() { document.getElementById('catalogue-modal').classList.remove('open'); }
+// ══════════════════════════════════════════════════════════════════
+// EDIT / ADD MODAL
+// ══════════════════════════════════════════════════════════════════
+function openEditModal(plantId) {
+  editingId          = plantId;
+  photoFile          = null;
+  pendingDeletePhoto = false;
 
-function buildCatFilterRow() {
-  const cats = ['All','Flowering','Medicinal','Indoor','Succulent & Cactus','Vegetables & Herbs','Fruit Trees','Ornamental Trees','Aquatic','Climbers & Creepers','Grass & Bamboo','Ferns & Foliage'];
-  document.getElementById('cat-filter-row').innerHTML = cats.map(c =>
-    `<button class="cat-filter-btn ${catalogueCatFilter===c?'active':''}" onclick="setCatFilter('${c.replace(/'/g,"\\'")}')">${c}</button>`
-  ).join('');
-}
-function setCatFilter(cat) {
-  catalogueCatFilter = cat;
-  buildCatFilterRow();
-  renderCatalogueGrid();
-}
+  const m   = MASTER_CATALOGUE.find(x => x.id === plantId);
+  const inv = inventory[plantId];
+  const existingPhoto = inv?.custom_photo || null;
 
-function renderCatalogueGrid() {
-  const q = (document.getElementById('cat-search')?.value||'').toLowerCase();
-  const existing = new Set(plants.map(p=>p.id));
-  const visible = MASTER_CATALOGUE.filter(m => {
-    if(catalogueCatFilter !== 'All' && m.category !== catalogueCatFilter) return false;
-    if(q && !m.name.toLowerCase().includes(q) && !m.sci.toLowerCase().includes(q)) return false;
-    return true;
+  document.getElementById('modal-title').textContent = (inv && !inv.removed)
+    ? `Edit — ${m.name}`
+    : `Add ${m.name} to My Catalogue`;
+  document.getElementById('modal-plant-sci').textContent = m.sci;
+  document.getElementById('f-price').value   = inv?.price   || m.basePrice;
+  document.getElementById('f-stock').value   = inv?.stock   || 10;
+  document.getElementById('f-cluster').value = inv?.cluster || 'Cluster A';
+
+  // Photo state
+  _setModalPhoto(existingPhoto);
+
+  // Listing type — restore saved value or default to 'immediate'
+  const savedType = inv?.listing_type || 'immediate';
+  document.querySelectorAll('.lt-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.val === savedType);
   });
 
-  document.getElementById('catalogue-grid').innerHTML = visible.map(m => {
-    const isAdded = existing.has(m.id);
-    return `<div class="catalogue-card ${selectedCatalogueId===m.id?'selected':''}" onclick="${isAdded?'':''} selectCatalogueItem('${m.id}',this)" style="${isAdded?'opacity:.55;cursor:default;':''}">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.3rem;">
-        <div class="catalogue-card-name">${m.name}</div>
-        ${isAdded?`<span style="font-size:.6rem;background:rgba(74,124,89,.1);color:var(--leaf);padding:.1rem .4rem;border-radius:4px;">Added</span>`:''}
-      </div>
-      <div class="catalogue-card-sci">${m.sci}</div>
-      <div class="catalogue-card-tags">
-        <span class="cat-chip" style="background:${CAT_COLORS[m.category]||'#607d8b'}18;color:${CAT_COLORS[m.category]||'#607d8b'};">${m.category}</span>
-        <span class="cat-chip">Rs. ${m.basePrice}</span>
-        <span class="cat-chip">${m.varieties?.length||0} varieties</span>
-      </div>
-    </div>`;
-  }).join('') || `<div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--text-muted);">No plants match.</div>`;
+  // Varieties — pre-fill from THIS nursery's saved varieties or master defaults
+  const srcVarieties = (inv?.varieties?.length ? inv.varieties : m.varieties) || [];
+  document.getElementById('varieties-list').innerHTML = '';
+  srcVarieties.forEach(v => {
+    if (typeof v === 'object') addVarietyRow(v.name, v.price || inv?.price || m.basePrice);
+    else addVarietyRow(v, inv?.price || m.basePrice);
+  });
+
+  document.getElementById('edit-modal').classList.add('open');
 }
 
-function selectCatalogueItem(id, el) {
-  const m = MASTER_CATALOGUE.find(x=>x.id===id);
-  if(!m) return;
-  const existing = new Set(plants.map(p=>p.id));
-  if(existing.has(id)){ showToast('Already in your catalogue','⚠'); return; }
-  selectedCatalogueId = id;
-  document.querySelectorAll('.catalogue-card').forEach(c=>c.classList.remove('selected'));
-  el.classList.add('selected');
-  const btn = document.getElementById('catalogue-proceed-btn');
-  btn.disabled = false; btn.style.opacity='1';
-  btn.textContent = `List "${m.name}" →`;
+function _setModalPhoto(url) {
+  const prev       = document.getElementById('photo-preview-img');
+  const uploadArea = document.getElementById('photo-upload-area');
+  const changeRow  = document.getElementById('photo-change-row');
+  const progress   = document.getElementById('upload-progress');
+  progress.classList.remove('show');
+
+  if (url) {
+    prev.src = url;
+    prev.style.display = 'block';
+    uploadArea.style.display = 'none';
+    changeRow.style.display = 'flex';
+  } else {
+    prev.src = '';
+    prev.style.display = 'none';
+    uploadArea.style.display = 'block';
+    changeRow.style.display = 'none';
+  }
 }
 
-function proceedFromCatalogue() {
-  if(!selectedCatalogueId) return;
-  const m = MASTER_CATALOGUE.find(x=>x.id===selectedCatalogueId);
-  if(!m) return;
-  closeCatalogueModal();
-  editingId = null; photoDataURL = null; photoFile = null; selectedListing='immediate';
-  document.getElementById('modal-title').textContent = `List "${m.name}"`;
-  document.getElementById('submit-btn').textContent = 'Add to Catalogue';
-  document.getElementById('f-name').value = m.name;
-  document.getElementById('f-variety').value = m.sci;
-  document.getElementById('f-cat').value = m.category;
-  document.getElementById('f-price').value = m.basePrice;
-  document.getElementById('f-stock').value = 10;
-  document.getElementById('f-cluster').value = 'Cluster A';
-  document.getElementById('f-desc').value = m.desc;
-  document.getElementById('f-care').value = m.care;
-  const prev = document.getElementById('photo-preview-img');
-  prev.style.display='none'; prev.src='';
-  document.getElementById('photo-upload-area').style.display='block';
-  document.getElementById('photo-change-row').style.display='none';
-  selectListing('immediate');
-  document.getElementById('varieties-list').innerHTML='';
-  (m.varieties||[]).forEach(v => addVarietyRow(v, m.basePrice));
-  document.getElementById('add-modal').classList.add('open');
+function handleModalPhoto(input) {
+  const file = input.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) { showToast('Photo must be under 5 MB', '⚠'); return; }
+  photoFile = file;
+  pendingDeletePhoto = false;
+  _setModalPhoto(URL.createObjectURL(file));
 }
 
-function addVarietyRow(name='', price='') {
+function deleteModalPhoto() {
+  pendingDeletePhoto = true;
+  photoFile = null;
+  _setModalPhoto(null);
+}
+
+function closeEditModal() {
+  document.getElementById('edit-modal').classList.remove('open');
+  editingId = null; photoFile = null; pendingDeletePhoto = false;
+}
+
+function addVarietyRow(name = '', price = '') {
   const list = document.getElementById('varieties-list');
-  const row = document.createElement('div');
+  const row  = document.createElement('div');
   row.className = 'variety-row';
   row.innerHTML = `
     <input type="text" placeholder="Variety name" value="${name}" style="flex:2;">
     <input type="number" placeholder="Price (Rs.)" value="${price}" min="1" style="flex:1;">
-    <button type="button" class="remove-variety" onclick="this.parentElement.remove()">✕ Remove</button>`;
+    <button type="button" class="remove-variety" onclick="this.parentElement.remove()">✕</button>`;
   list.appendChild(row);
 }
 
 function getVarieties() {
-  const rows = document.querySelectorAll('#varieties-list .variety-row');
-  const out = [];
-  rows.forEach(r => {
-    const inputs = r.querySelectorAll('input');
-    const n = inputs[0].value.trim();
-    const p = parseInt(inputs[1].value);
-    if(n) out.push({ name:n, price:p||0 });
-  });
-  return out;
+  return [...document.querySelectorAll('#varieties-list .variety-row')].map(r => {
+    const [n, p] = r.querySelectorAll('input');
+    const name = n.value.trim();
+    return name ? { name, price: parseInt(p.value) || 0 } : null;
+  }).filter(Boolean);
 }
 
-async function markOOS(id) {
-  plants = loadPlants();
-  const p = plants.find(x=>x.id===id);
-  if(!p) return;
-  p.inStock=false;
-  savePlants(plants);
-  await savePlantToDB(p);
-  renderMgmtGrid();
-  showToast(`${p.name} marked as out of stock`,'⚠');
+function setListingType(val, el) {
+  document.querySelectorAll('.lt-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
 }
-function openRestoreModal(id) {
-  restoreTargetId=id; plants=loadPlants();
-  const p=plants.find(x=>x.id===id);
-  document.getElementById('restore-name').textContent=p?.name||'';
-  document.getElementById('restore-qty').value=10;
+
+function getListingType() {
+  const active = document.querySelector('.lt-btn.active');
+  return active ? active.dataset.val : 'immediate';
+}
+
+// ══════════════════════════════════════════════════════════════════
+// SAVE — writes ONLY to nursery_inventory; never touches plants table
+// ══════════════════════════════════════════════════════════════════
+async function saveInventory() {
+  if (!editingId || !currentUser) return;
+  const btn = document.getElementById('save-btn');
+  btn.textContent = 'Saving…'; btn.disabled = true;
+
+  try {
+    const inv = inventory[editingId];
+    let photoUrl = inv?.custom_photo || null;
+
+    // ── Handle photo deletion ──
+    if (pendingDeletePhoto) {
+      // Optionally delete old file from storage (best-effort)
+      if (photoUrl) await _deleteStorageFile(photoUrl);
+      photoUrl = null;
+    }
+
+    // ── Handle new photo upload ──
+    if (photoFile) {
+      showUploadProgress(0, 'Uploading photo…');
+      const uploadedUrl = await uploadPhoto(photoFile, editingId, pct => {
+        showUploadProgress(pct, `Uploading… ${pct}%`);
+      });
+      if (uploadedUrl) {
+        // Delete old photo from storage (best-effort)
+        if (inv?.custom_photo) await _deleteStorageFile(inv.custom_photo);
+        photoUrl = uploadedUrl;
+      }
+      hideUploadProgress();
+    }
+
+    const row = {
+      nursery_id:   currentUser.id,
+      plant_id:     editingId,
+      price:        parseInt(document.getElementById('f-price').value) || null,
+      stock:        parseInt(document.getElementById('f-stock').value) || 0,
+      in_stock:     true,
+      removed:      false,
+      cluster:      document.getElementById('f-cluster').value.trim() || 'Cluster A',
+      varieties:    getVarieties(),
+      listing_type: getListingType(),
+      // custom_photo belongs EXCLUSIVELY to this nursery
+      custom_photo: photoUrl,
+      updated_at:   new Date().toISOString()
+    };
+
+    const { error } = await _sb.from('nursery_inventory').upsert(row, {
+      onConflict: 'nursery_id,plant_id'
+    });
+    if (error) throw error;
+
+    inventory[editingId] = { ...inventory[editingId], ...row };
+    showToast(`${MASTER_CATALOGUE.find(x => x.id === editingId)?.name} saved`, '✓');
+    closeEditModal();
+    renderMgmtGrid();
+  } catch (e) {
+    console.error('saveInventory error', e);
+    showToast('Save failed. Please try again.', '✗');
+    hideUploadProgress();
+  } finally {
+    btn.textContent = 'Save to My Catalogue';
+    btn.disabled = false;
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════
+// PHOTO UPLOAD — stored under nursery/<nursery_id>/<plant_id>_<ts>
+// Path encodes nursery ownership so no cross-contamination possible
+// ══════════════════════════════════════════════════════════════════
+async function uploadPhoto(file, plantId, onProgress) {
+  try {
+    const ext  = file.name.split('.').pop().toLowerCase().replace('jpeg','jpg');
+    // Path: nursery/<nursery_id>/<plant_id>_<timestamp>.<ext>
+    const path = `nursery/${currentUser.id}/${plantId}_${Date.now()}.${ext}`;
+
+    const { data, error } = await _sb.storage
+      .from(BUCKET)
+      .upload(path, file, {
+        cacheControl: '3600',
+        upsert: true,
+        contentType: file.type
+      });
+
+    if (error) throw error;
+    if (onProgress) onProgress(100);
+
+    const { data: { publicUrl } } = _sb.storage
+      .from(BUCKET)
+      .getPublicUrl(path);
+
+    return publicUrl;
+  } catch (e) {
+    console.error('uploadPhoto error', e);
+    showToast('Photo upload failed', '✗');
+    return null;
+  }
+}
+
+async function _deleteStorageFile(publicUrl) {
+  try {
+    // Extract storage path from public URL
+    const marker = `/object/public/${BUCKET}/`;
+    const idx = publicUrl.indexOf(marker);
+    if (idx < 0) return;
+    const path = decodeURIComponent(publicUrl.slice(idx + marker.length));
+    await _sb.storage.from(BUCKET).remove([path]);
+  } catch (e) {
+    console.warn('_deleteStorageFile (non-critical):', e);
+  }
+}
+
+// Quick upload straight from card overlay (no modal needed)
+async function quickUploadPhoto(plantId, input) {
+  const file = input.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) { showToast('Photo must be under 5 MB', '⚠'); return; }
+
+  showToast('Uploading photo…', '↑');
+  const url = await uploadPhoto(file, plantId);
+  if (url) {
+    // Delete old photo from storage if exists
+    const old = inventory[plantId]?.custom_photo;
+    if (old) await _deleteStorageFile(old);
+
+    // Update nursery_inventory row
+    if (inventory[plantId]) {
+      await _sb.from('nursery_inventory')
+        .update({ custom_photo: url, updated_at: new Date().toISOString() })
+        .eq('nursery_id', currentUser.id)
+        .eq('plant_id', plantId);
+      inventory[plantId].custom_photo = url;
+    } else {
+      // Plant not yet in inventory — create a minimal row
+      const m = MASTER_CATALOGUE.find(x => x.id === plantId);
+      const row = {
+        nursery_id: currentUser.id, plant_id: plantId,
+        price: m?.basePrice || null, stock: 10, in_stock: true,
+        removed: false, cluster: 'Cluster A', varieties: m?.varieties || [],
+        custom_photo: url, updated_at: new Date().toISOString()
+      };
+      await _sb.from('nursery_inventory').upsert(row, { onConflict: 'nursery_id,plant_id' });
+      inventory[plantId] = row;
+    }
+
+    renderMgmtGrid();
+    showToast('Photo uploaded!', '✓');
+  }
+}
+
+async function quickDeletePhoto(plantId) {
+  if (!inventory[plantId]?.custom_photo) return;
+  const old = inventory[plantId].custom_photo;
+  await _deleteStorageFile(old);
+  await _sb.from('nursery_inventory')
+    .update({ custom_photo: null, updated_at: new Date().toISOString() })
+    .eq('nursery_id', currentUser.id)
+    .eq('plant_id', plantId);
+  inventory[plantId].custom_photo = null;
+  renderMgmtGrid();
+  showToast('Photo removed', '✓');
+}
+
+// ══════════════════════════════════════════════════════════════════
+// UPLOAD PROGRESS UI
+// ══════════════════════════════════════════════════════════════════
+function showUploadProgress(pct, label) {
+  document.getElementById('upload-progress').classList.add('show');
+  document.getElementById('progress-bar-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = label;
+}
+function hideUploadProgress() {
+  document.getElementById('upload-progress').classList.remove('show');
+  document.getElementById('progress-bar-fill').style.width = '0%';
+}
+
+// ══════════════════════════════════════════════════════════════════
+// OOS / RESTORE
+// ══════════════════════════════════════════════════════════════════
+async function markOOS(plantId) {
+  if (!inventory[plantId]) return;
+  const { error } = await _sb.from('nursery_inventory')
+    .update({ in_stock: false, updated_at: new Date().toISOString() })
+    .eq('nursery_id', currentUser.id)
+    .eq('plant_id', plantId);
+  if (!error) {
+    inventory[plantId].in_stock = false;
+    renderMgmtGrid();
+    showToast(`${MASTER_CATALOGUE.find(x=>x.id===plantId)?.name} marked out of stock`, '⚠');
+  }
+}
+
+function openRestoreModal(plantId) {
+  restoreId = plantId;
+  document.getElementById('restore-name').textContent =
+    MASTER_CATALOGUE.find(x => x.id === plantId)?.name || plantId;
+  document.getElementById('restore-qty').value = inventory[plantId]?.stock || 10;
   document.getElementById('restore-modal').classList.add('open');
 }
-function closeRestoreModal(){ document.getElementById('restore-modal').classList.remove('open'); restoreTargetId=null; }
-async function confirmRestore(){
-  plants=loadPlants();
-  const p=plants.find(x=>x.id===restoreTargetId);
-  if(!p) return;
-  const qty=parseInt(document.getElementById('restore-qty').value)||10;
-  p.inStock=true; p.stock=qty;
-  savePlants(plants);
-  await savePlantToDB(p);
-  closeRestoreModal(); renderMgmtGrid();
-  showToast(`${p.name} restored to stock`,'✓');
+
+async function confirmRestore() {
+  if (!restoreId) return;
+  const qty = parseInt(document.getElementById('restore-qty').value) || 10;
+  const { error } = await _sb.from('nursery_inventory')
+    .update({ in_stock: true, stock: qty, updated_at: new Date().toISOString() })
+    .eq('nursery_id', currentUser.id)
+    .eq('plant_id', restoreId);
+  if (!error) {
+    if (inventory[restoreId]) { inventory[restoreId].in_stock = true; inventory[restoreId].stock = qty; }
+    document.getElementById('restore-modal').classList.remove('open');
+    restoreId = null;
+    renderMgmtGrid();
+    showToast('Plant restored to stock', '✓');
+  }
 }
 
-function openAddModal() {
-  editingId=null; photoDataURL=null; photoFile=null; selectedListing='immediate';
-  document.getElementById('modal-title').textContent='Add New Plant';
-  document.getElementById('submit-btn').textContent='Add Plant';
-  ['f-name','f-variety','f-price','f-stock','f-cluster','f-desc','f-care'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
-  document.getElementById('f-cat').value='';
-  const prev=document.getElementById('photo-preview-img');
-  prev.style.display='none'; prev.src='';
-  document.getElementById('photo-input').value='';
-  document.getElementById('photo-upload-area').style.display='block';
-  document.getElementById('photo-change-row').style.display='none';
-  document.getElementById('varieties-list').innerHTML='';
-  selectListing('immediate');
-  document.getElementById('add-modal').classList.add('open');
+// ══════════════════════════════════════════════════════════════════
+// STATS
+// ══════════════════════════════════════════════════════════════════
+function updateStats() {
+  const rows    = Object.values(inventory).filter(i => !i.removed);
+  const added   = rows.length;
+  const inStock = rows.filter(i => i.in_stock).length;
+  document.getElementById('stat-listed').textContent      = added;
+  document.getElementById('stat-instock-text').textContent = `${inStock} in stock`;
+  document.getElementById('nav-plants-count').textContent   = added;
+  const lbl = document.getElementById('plant-count-label');
+  if (lbl) lbl.textContent = `(${added} listed · ${inStock} in stock)`;
 }
 
-function openEditModal(id) {
-  plants=loadPlants();
-  const p=plants.find(x=>x.id===id);
-  if(!p) return;
-  editingId=id; photoDataURL=p.photo||null; photoFile=null; selectedListing=p.listingType||'immediate';
-  document.getElementById('modal-title').textContent='Edit Plant';
-  document.getElementById('submit-btn').textContent='Save Changes';
-  document.getElementById('f-name').value=p.name;
-  document.getElementById('f-variety').value=p.variety;
-  document.getElementById('f-cat').value=p.category;
-  document.getElementById('f-price').value=p.price;
-  document.getElementById('f-stock').value=p.stock||0;
-  document.getElementById('f-cluster').value=p.cluster||'';
-  document.getElementById('f-desc').value=p.description||'';
-  document.getElementById('f-care').value=p.care||'';
-  const prev=document.getElementById('photo-preview-img');
-  if(p.photo){ prev.src=p.photo; prev.style.display='block'; document.getElementById('photo-upload-area').style.display='none'; document.getElementById('photo-change-row').style.display='flex'; }
-  else{ prev.style.display='none'; document.getElementById('photo-upload-area').style.display='block'; document.getElementById('photo-change-row').style.display='none'; }
-  document.getElementById('varieties-list').innerHTML='';
-  (p.varieties||[]).forEach(v => {
-    if(typeof v==='object') addVarietyRow(v.name, v.price);
-    else addVarietyRow(v, p.price);
+// ══════════════════════════════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════════════════════════════
+const SECTIONS = ['dashboard','plants','visit','orders','settings'];
+const TITLES   = {
+  dashboard:'Dashboard Overview', plants:'My Plant Catalogue',
+  visit:'Request Executive Visit', orders:'Orders & Sales', settings:'Nursery Settings'
+};
+
+function showSection(id, navEl) {
+  SECTIONS.forEach(s => {
+    const el = document.getElementById('section-' + s);
+    if (el) el.style.display = 'none';
   });
-  selectListing(p.listingType||'immediate');
-  document.getElementById('add-modal').classList.add('open');
-}
-function closeAddModal(){ document.getElementById('add-modal').classList.remove('open'); }
-function selectListing(type){
-  selectedListing=type;
-  document.getElementById('opt-immediate').classList.toggle('selected',type==='immediate');
-  document.getElementById('opt-professional').classList.toggle('selected',type==='professional');
-}
-
-
-async function uploadToSupabase(file) {
-  const ext = file.name.split('.').pop();
-  const fileName = `plants/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
-  const res = await fetch(`${SUPABASE_URL}/storage/v1/object/${SUPABASE_BUCKET}/${fileName}`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-      'Content-Type': file.type,
-      'x-upsert': 'true'
-    },
-    body: file
-  });
-  if (!res.ok) { const err = await res.text(); throw new Error('Upload failed: ' + err); }
-  return `${SUPABASE_URL}/storage/v1/object/public/${SUPABASE_BUCKET}/${fileName}`;
-}
-
-async function uploadAndPatch(plantId, file) {
-  try {
-    const url = await uploadToSupabase(file);
-    const current = loadPlants();
-    const p = current.find(x => x.id === plantId);
-    if (!p) return;
-    p.photo = url;
-    savePlants(current);
-    await savePlantToDB(p);
-    const mgmtGrid = document.getElementById('mgmt-container');
-    if (mgmtGrid) renderMgmtGrid();
-  } catch(e) {
-    console.warn('[Urban Farmer] Photo upload failed', plantId, e);
-  }
-}
-
-function handlePhoto(input){
-  const file=input.files[0]; if(!file) return;
-  photoFile=file;
-  const prev=document.getElementById('photo-preview-img');
-  prev.src=URL.createObjectURL(file); prev.style.display='block';
-  document.getElementById('photo-upload-area').style.display='none';
-  document.getElementById('photo-change-row').style.display='flex';
-}
-function deletePhoto(){
-  photoFile=null; photoDataURL=null;
-  const prev=document.getElementById('photo-preview-img');
-  if(prev.src) URL.revokeObjectURL(prev.src);
-  prev.src=''; prev.style.display='none';
-  document.getElementById('photo-change-row').style.display='none';
-  document.getElementById('photo-upload-area').innerHTML=`
-    <input type="file" id="photo-input" accept="image/*" onchange="handlePhoto(this)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="rgba(107,143,113,.4)" stroke-width="1.5" width="28" height="28" style="margin-bottom:.4rem;"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-    <div style="font-size:.82rem;color:var(--text-muted);">Click to upload a photo</div>`;
-  document.getElementById('photo-upload-area').style.display='block';
-}
-function changeCardPhoto(id,input){
-  const file=input.files[0]; if(!file) return;
-  const cardImg=document.querySelector(`.card-img-mgmt[data-plant-id="${id}"] img`);
-  if(cardImg) cardImg.src=URL.createObjectURL(file);
-  uploadAndPatch(id,file);
-}
-async function deleteCardPhoto(id){
-  plants=loadPlants(); const p=plants.find(x=>x.id===id); if(!p) return;
-  p.photo=null;
-  savePlants(plants);
-  await savePlantToDB(p);
-  renderMgmtGrid();
-  showToast('Photo removed','✓');
-}
-
-async function submitPlant(){
-  plants=loadPlants();
-  const name=document.getElementById('f-name').value.trim();
-  const variety=document.getElementById('f-variety').value.trim();
-  const category=document.getElementById('f-cat').value;
-  const price=parseInt(document.getElementById('f-price').value);
-  if(!name||!variety||!category||!price){ showToast('Please fill in all required fields','⚠'); return; }
-  const varieties = getVarieties();
-  if(editingId){
-    const idx=plants.findIndex(x=>x.id===editingId);
-    const existingPhoto=plants[idx].photo;
-    plants[idx]={ ...plants[idx], name, variety, category, price,
-      stock:parseInt(document.getElementById('f-stock').value)||0,
-      cluster:document.getElementById('f-cluster').value.trim(),
-      description:document.getElementById('f-desc').value.trim(),
-      care:document.getElementById('f-care').value.trim(),
-      photo:photoDataURL||existingPhoto,
-      listingType:selectedListing,
-      _manualPro: selectedListing === 'professional',
-      bgGradient:CAT_BG[category]||CAT_BG.Other,
-      varieties
-    };
-    savePlants(plants);
-    await savePlantToDB(plants[idx]);
-    if(photoFile) uploadAndPatch(editingId,photoFile);
-    showToast(`${name} updated`,'✓');
-  } else {
-    const masterId = selectedCatalogueId || ('plant_'+Date.now());
-    selectedCatalogueId = null;
-    const newPlant={
-      id:masterId, name, variety, category, price, nursery:'Green Valley',
-      stock:parseInt(document.getElementById('f-stock').value)||0,
-      cluster:document.getElementById('f-cluster').value.trim(),
-      description:document.getElementById('f-desc').value.trim(),
-      care:document.getElementById('f-care').value.trim(),
-      photo:null, listingType:selectedListing, inStock:true,
-      _manualPro: selectedListing === 'professional',
-      bgGradient:CAT_BG[category]||CAT_BG.Other,
-      svgColor:'rgba(74,124,89,.45)',
-      varieties
-    };
-    plants.unshift(newPlant);
-    savePlants(plants);
-    await savePlantToDB(newPlant);
-    if(photoFile) uploadAndPatch(masterId,photoFile);
-    showToast(`${name} added`,'✓');
-  }
-  photoFile=null; photoDataURL=null;
-  closeAddModal(); renderMgmtGrid();
-}
-
-function bookVisit(){
-  const d=document.getElementById('visit-date').value;
-  if(!d){ showToast('Please select a date','⚠'); return; }
-  showToast('Visit booked! Our team will confirm shortly.','✓');
-  showSection('dashboard',null);
-}
-
-function showToast(msg,icon='✓'){
-  document.getElementById('toast-msg').textContent=msg;
-  document.getElementById('toast-icon').textContent=icon;
-  const t=document.getElementById('toast');
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2800);
-}
-
-document.getElementById('add-modal').addEventListener('click',function(e){ if(e.target===this) closeAddModal(); });
-document.getElementById('restore-modal').addEventListener('click',function(e){ if(e.target===this) closeRestoreModal(); });
-document.getElementById('catalogue-modal').addEventListener('click',function(e){ if(e.target===this) closeCatalogueModal(); });
-
-loadPlantsFromDB().then(async (loaded) => {
-  // Merge: ensure every master plant exists
-  const existingIds = new Set(loaded.map(p => p.id));
-  const missing = MASTER_CATALOGUE.filter(m => !existingIds.has(m.id));
-  if (missing.length) {
-    const newPlants = missing.map(m => ({
-      id: m.id, name: m.name, variety: m.sci, category: m.category,
-      price: m.basePrice, nursery: 'Green Valley', photo: null,
-      inStock: true, stock: 10,
-      cluster: 'Cluster A', description: m.desc, care: m.care,
-      listingType: 'immediate',
-      bgGradient: CAT_BG[m.category] || CAT_BG.Other,
-      svgColor: m.svgColor || 'rgba(74,124,89,.45)',
-      varieties: m.varieties || [],
-      _manualPro: false
-    }));
-    for (const p of newPlants) await savePlantToDB(p);
-    plants = [...loaded, ...newPlants];
-  } else {
-    plants = loaded;
-  }
-  savePlants(plants);
+  const t = document.getElementById('section-' + id);
+  if (t) t.style.display = 'block';
+  document.getElementById('page-title').textContent = TITLES[id] || id;
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  if (navEl) navEl.classList.add('active');
+  if (id === 'plants') renderMgmtGrid();
   updateStats();
-  renderMgmtGrid();
+}
+
+function bookVisit() {
+  const d = document.getElementById('visit-date').value;
+  if (!d) { showToast('Please select a date', '⚠'); return; }
+  showToast('Visit booked! Our team will confirm shortly.', '✓');
+  showSection('dashboard', null);
+}
+
+function showToast(msg, icon = '✓') {
+  document.getElementById('toast-msg').textContent  = msg;
+  document.getElementById('toast-icon').textContent = icon;
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+async function signOut() {
+  await _sb.auth.signOut();
+  window.location.href = 'login.html';
+}
+
+// Close modals on backdrop click
+document.getElementById('edit-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('edit-modal')) closeEditModal();
+});
+document.getElementById('restore-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('restore-modal'))
+    document.getElementById('restore-modal').classList.remove('open');
 });
 </script>
 </body>
