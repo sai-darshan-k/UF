@@ -3,387 +3,862 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sign In - Urban Farmer</title>
+<title>Sign In — Urban Farmer</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --forest: #1a3a2a; --moss: #2d5a3d; --sage: #6b8f71; --leaf: #4a7c59;
-    --terra: #c17b4a; --amber: #e8a25a; --cream: #f5f0e8; --linen: #ede7d9;
-    --white: #fdfcf9; --text: #1a1a18; --text-muted: #5a5a50;
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    min-height: 100vh;
-    background: var(--linen);
-    display: flex;
-  }
-  .left-panel {
-    width: 42%;
-    background: var(--forest);
-    display: flex; flex-direction: column;
-    padding: 3rem; position: relative; overflow: hidden;
-  }
-  .left-panel::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse 80% 60% at 20% 80%, rgba(107,143,113,0.25), transparent 60%),
-                radial-gradient(ellipse 50% 50% at 80% 20%, rgba(193,123,74,0.15), transparent 50%);
-  }
-  .brand {
-    display: flex; align-items: center; gap: 0.75rem;
-    text-decoration: none; position: relative; z-index: 2;
-  }
-  .brand-icon {
-    width: 44px; height: 44px; border-radius: 50%;
-    background: rgba(255,255,255,0.12);
-    display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
-  }
-  .brand-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.4rem; font-weight: 700; color: var(--white);
-  }
-  .panel-content {
-    flex: 1; display: flex; flex-direction: column; justify-content: center;
-    position: relative; z-index: 2;
-  }
-  .panel-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem; font-weight: 700; color: var(--white);
-    line-height: 1.2; margin-bottom: 1rem;
-  }
-  .panel-title em { font-style: italic; color: var(--amber); }
-  .panel-quote {
-    background: rgba(255,255,255,0.06);
-    border-left: 3px solid var(--amber);
-    border-radius: 0 12px 12px 0;
-    padding: 1.2rem 1.4rem; margin-bottom: 2rem;
-  }
-  .quote-text { font-size: 0.9rem; color: rgba(245,240,232,0.75); font-style: italic; line-height: 1.6; margin-bottom: 0.5rem; }
-  .quote-author { font-size: 0.78rem; color: rgba(245,240,232,0.45); }
-  .nursery-preview {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 14px; padding: 1.2rem;
-  }
-  .np-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--amber); margin-bottom: 0.8rem; }
-  .np-row {
-    display: flex; align-items: center; gap: 0.75rem;
-    padding: 0.6rem 0;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-  }
-  .np-row:last-child { border-bottom: none; }
-  .np-icon { font-size: 1.1rem; }
-  .np-name { font-size: 0.875rem; color: var(--cream); }
-  .np-sub { font-size: 0.75rem; color: rgba(245,240,232,0.45); }
-  .np-badge {
-    margin-left: auto; font-size: 0.7rem; padding: 0.2rem 0.5rem;
-    border-radius: 100px; background: rgba(74,124,89,0.3); color: rgba(245,240,232,0.7);
-  }
-  .panel-bottom { position: relative; z-index: 2; font-size: 0.8rem; color: rgba(245,240,232,0.35); }
-  .right-panel {
-    flex: 1; display: flex; align-items: center; justify-content: center; padding: 2rem;
-  }
-  .form-container { width: 100%; max-width: 420px; }
-  .form-header { text-align: center; margin-bottom: 2rem; }
-  .form-header h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem; color: var(--forest); margin-bottom: 0.4rem;
-  }
-  .form-header p { font-size: 0.875rem; color: var(--text-muted); }
-  .form-header a { color: var(--terra); text-decoration: none; font-weight: 500; }
-  .type-toggle {
-    display: grid; grid-template-columns: 1fr 1fr;
-    background: var(--linen); border-radius: 14px; padding: 0.4rem; gap: 0.4rem;
-    margin-bottom: 1.5rem; border: 1.5px solid rgba(107,143,113,0.15);
-  }
-  .toggle-btn {
-    padding: 0.75rem; border-radius: 10px; border: none; background: transparent;
-    font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 500;
-    cursor: pointer; color: var(--text-muted); transition: all 0.25s;
-    display: flex; align-items: center; justify-content: center; gap: 0.4rem;
-  }
-  .toggle-btn.active {
-    background: var(--white); color: var(--forest);
-    box-shadow: 0 2px 10px rgba(26,58,42,0.1);
-  }
-  .form-card {
-    background: var(--white); border-radius: 20px; padding: 2rem;
-    box-shadow: 0 4px 30px rgba(26,58,42,0.08);
-    border: 1px solid rgba(107,143,113,0.1);
-  }
-  .form-group { margin-bottom: 1.2rem; }
-  label {
-    display: block; font-size: 0.8rem; font-weight: 500; color: var(--text-muted);
-    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.4rem;
-  }
-  input {
-    width: 100%; padding: 0.75rem 1rem;
-    border: 1.5px solid rgba(107,143,113,0.2);
-    border-radius: 10px; font-family: 'DM Sans', sans-serif;
-    font-size: 0.9rem; color: var(--text); background: var(--white);
-    transition: all 0.2s; outline: none;
-  }
-  input:focus { border-color: var(--leaf); box-shadow: 0 0 0 3px rgba(74,124,89,0.1); }
-  input.error { border-color: #c0392b; }
-  .password-wrap { position: relative; }
-  .password-wrap input { padding-right: 3rem; }
-  .toggle-pw {
-    position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%);
-    cursor: pointer; font-size: 1rem; color: var(--text-muted); background: none; border: none;
-  }
-  .forgot-row {
-    display: flex; justify-content: flex-end; margin-top: 0.3rem; margin-bottom: 0.5rem;
-  }
-  .forgot-row a { font-size: 0.8rem; color: var(--terra); text-decoration: none; }
-  .error-msg { font-size: 0.75rem; color: #c0392b; margin-top: 0.3rem; display: none; }
-  .error-msg.show { display: block; }
-  .alert-box {
-    background: rgba(192,57,43,0.08); border: 1px solid rgba(192,57,43,0.2);
-    border-radius: 10px; padding: 0.75rem 1rem;
-    font-size: 0.82rem; color: #c0392b; margin-bottom: 1.2rem; display: none;
-  }
-  .alert-box.show { display: block; }
-  .btn {
-    display: flex; align-items: center; justify-content: center;
-    width: 100%; padding: 0.8rem; border-radius: 100px;
-    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500;
-    cursor: pointer; border: none; transition: all 0.25s; text-decoration: none;
-  }
-  .btn-primary { background: var(--forest); color: var(--white); }
-  .btn-primary:hover { background: var(--moss); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(26,58,42,0.3); }
-  .divider {
-    display: flex; align-items: center; gap: 1rem; margin: 1.2rem 0;
-  }
-  .divider::before, .divider::after {
-    content: ''; flex: 1; height: 1px; background: rgba(107,143,113,0.15);
-  }
-  .divider span { font-size: 0.75rem; color: var(--text-muted); }
-  .demo-section {
-    background: var(--linen); border-radius: 12px; padding: 1rem; margin-top: 0.5rem;
-  }
-  .demo-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 0.6rem; font-weight: 500; }
-  .demo-row { display: flex; gap: 0.5rem; }
-  .demo-btn {
-    flex: 1; padding: 0.5rem; border-radius: 8px; border: 1.5px solid rgba(107,143,113,0.2);
-    background: var(--white); cursor: pointer; font-family: 'DM Sans', sans-serif;
-    font-size: 0.78rem; color: var(--forest); transition: all 0.2s;
-  }
-  .demo-btn:hover { border-color: var(--forest); }
-  @media (max-width: 768px) {
-    .left-panel { display: none; }
-    .right-panel { padding: 1.5rem; }
-  }
+:root {
+  --ink:    #0e1a10;
+  --forest: #1a3a2a;
+  --moss:   #2c5338;
+  --fern:   #3d6b4a;
+  --sage:   #7fa882;
+  --mist:   #b8ccbb;
+  --cream:  #f7f3ec;
+  --linen:  #ede8df;
+  --sand:   #d9d0c0;
+  --terra:  #b5612a;
+  --amber:  #d4883a;
+  --gold:   #c9a227;
+  --white:  #fdfcf9;
+  --text:   #1a1a16;
+  --muted:  #6b6b5e;
+  --err:    #c0392b;
+  --err-bg: rgba(192,57,43,0.07);
+  --err-border: rgba(192,57,43,0.22);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--linen);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── TOPBAR ─── */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 62px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem;
+  background: rgba(253,252,249,0.96);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(180,160,120,0.15);
+}
+.topbar-logo {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none;
+}
+.topbar-logo-img {
+  width: 36px; height: 36px; border-radius: 8px;
+  overflow: hidden; flex-shrink: 0;
+  background: var(--forest);
+  display: flex; align-items: center; justify-content: center;
+}
+.topbar-logo-img img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.logo-fallback {
+  width: 100%; height: 100%;
+  display: none; align-items: center; justify-content: center;
+}
+.topbar-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem; font-weight: 700;
+  color: var(--forest); letter-spacing: 0.01em;
+}
+.topbar-brand small {
+  display: block; font-family: 'Outfit', sans-serif;
+  font-size: 0.5rem; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--sage); margin-top: 1px;
+}
+.topbar-right {
+  display: flex; align-items: center; gap: 1.5rem;
+}
+.topbar-right a {
+  font-size: 0.82rem; color: var(--muted);
+  text-decoration: none; transition: color .2s;
+}
+.topbar-right a:hover { color: var(--forest); }
+.topbar-register {
+  font-size: 0.82rem; font-weight: 500;
+  color: var(--terra) !important;
+  border: 1.5px solid rgba(181,97,42,0.3);
+  padding: 0.45rem 1.1rem; border-radius: 6px;
+  transition: all .2s !important;
+}
+.topbar-register:hover {
+  background: var(--terra) !important;
+  color: var(--white) !important;
+  border-color: var(--terra) !important;
+}
+
+/* ─── PAGE SHELL ─── */
+.page-shell {
+  min-height: 100vh;
+  padding-top: 62px;
+  display: grid;
+  grid-template-columns: 420px 1fr;
+}
+
+/* ─── LEFT RAIL ─── */
+.left-rail {
+  background: var(--forest);
+  position: sticky; top: 62px;
+  height: calc(100vh - 62px);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+
+.rail-bg {
+  position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+}
+.rail-bg-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  opacity: 0.17;
+}
+.rail-bg-grad {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(14,26,16,0.7) 0%, rgba(14,26,16,0.15) 45%, rgba(14,26,16,0.82) 100%),
+    radial-gradient(ellipse 70% 60% at 25% 75%, rgba(61,107,74,0.32), transparent 65%),
+    radial-gradient(ellipse 55% 45% at 80% 18%, rgba(181,97,42,0.18), transparent 55%);
+}
+
+.rail-inner {
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column;
+  height: 100%; padding: 2.5rem 2.4rem;
+}
+
+.rail-eyebrow {
+  font-size: 0.63rem; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--amber);
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 1.2rem;
+}
+.rail-eyebrow::before {
+  content: ''; display: block;
+  width: 22px; height: 1.5px; background: var(--amber);
+}
+
+.rail-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem; font-weight: 700;
+  color: var(--white); line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.7rem;
+}
+.rail-headline em { font-style: italic; color: var(--amber); }
+
+/* Quote block */
+.rail-quote {
+  background: rgba(255,255,255,0.05);
+  border-left: 3px solid var(--amber);
+  border-radius: 0 10px 10px 0;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.8rem;
+}
+.quote-text {
+  font-size: 0.85rem; font-style: italic;
+  color: rgba(245,240,232,0.65); line-height: 1.65;
+  margin-bottom: 0.5rem;
+}
+.quote-author {
+  font-size: 0.7rem; color: rgba(245,240,232,0.35);
+  font-weight: 500; letter-spacing: 0.04em;
+}
+
+/* Nursery cards */
+.rail-section-label {
+  font-size: 0.6rem; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--amber); margin-bottom: 0.75rem;
+  display: flex; align-items: center; gap: 8px;
+}
+.rail-section-label::after {
+  content: ''; flex: 1; height: 1px; background: rgba(212,136,58,0.25);
+}
+
+.nursery-list { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
+.nursery-row {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 9px;
+  transition: background .2s;
+}
+.nursery-row:hover { background: rgba(255,255,255,0.09); }
+.nr-avatar {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: rgba(61,107,74,0.4);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.nr-avatar svg {
+  width: 15px; height: 15px; fill: none; stroke: rgba(245,240,232,0.55);
+  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+}
+.nr-info { flex: 1; min-width: 0; }
+.nr-name {
+  font-size: 0.82rem; font-weight: 500;
+  color: var(--cream); white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis;
+}
+.nr-sub {
+  font-size: 0.7rem; color: rgba(245,240,232,0.35); margin-top: 1px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.nr-badge {
+  font-size: 0.58rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 0.18rem 0.5rem; border-radius: 100px;
+  background: rgba(61,107,74,0.35); color: rgba(245,240,232,0.6);
+  flex-shrink: 0;
+}
+
+/* Stats */
+.rail-stats {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px; background: rgba(255,255,255,0.07);
+  border-radius: 10px; overflow: hidden;
+  margin-top: auto;
+}
+.rs { background: rgba(14,26,16,0.5); padding: 0.75rem 0.5rem; text-align: center; }
+.rs-n {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem; font-weight: 700; color: var(--white); line-height: 1;
+}
+.rs-l {
+  font-size: 0.58rem; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: rgba(245,240,232,0.28); margin-top: 3px;
+}
+.rail-foot {
+  font-size: 0.68rem; color: rgba(245,240,232,0.18);
+  text-align: center; padding-top: 0.9rem;
+}
+
+/* ─── RIGHT CONTENT ─── */
+.right-content {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 3rem 2.5rem 4rem;
+  background: var(--linen);
+  min-height: calc(100vh - 62px);
+}
+
+/* ── FORM WRAP ── */
+.form-wrap { width: 100%; max-width: 480px; }
+
+.form-header { text-align: center; margin-bottom: 2rem; }
+.form-header-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem; font-weight: 700; color: var(--forest);
+  margin-bottom: 0.25rem;
+}
+.form-header-sub { font-size: 0.84rem; color: var(--muted); }
+.form-header-sub a { color: var(--terra); font-weight: 500; text-decoration: none; }
+.form-header-sub a:hover { text-decoration: underline; }
+
+/* ── ACCOUNT TYPE TOGGLE ── */
+.type-toggle {
+  display: grid; grid-template-columns: 1fr 1fr;
+  background: var(--white);
+  border: 1.5px solid rgba(180,160,120,0.25);
+  border-radius: 12px; padding: 0.35rem; gap: 0.35rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 8px rgba(26,58,42,0.05);
+}
+.toggle-btn {
+  padding: 0.72rem 1rem; border-radius: 9px;
+  border: none; background: transparent;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.84rem; font-weight: 500;
+  cursor: pointer; color: var(--muted);
+  transition: all .22s;
+  display: flex; align-items: center; justify-content: center; gap: 0.45rem;
+}
+.toggle-btn svg {
+  width: 15px; height: 15px; fill: none;
+  stroke: currentColor; stroke-width: 1.8;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.toggle-btn.active-cust {
+  background: var(--terra); color: var(--white);
+  box-shadow: 0 2px 10px rgba(181,97,42,0.28);
+}
+.toggle-btn.active-nurs {
+  background: var(--forest); color: var(--white);
+  box-shadow: 0 2px 10px rgba(26,58,42,0.25);
+}
+
+/* ── FORM CARD ── */
+.form-card {
+  background: var(--white);
+  border: 1px solid rgba(180,160,120,0.2);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 2px 22px rgba(26,58,42,0.07);
+}
+
+.alert-box {
+  padding: 0.75rem 0.95rem; border-radius: 8px;
+  font-size: 0.81rem; margin-bottom: 1.1rem; display: none;
+}
+.alert-box.show { display: block; }
+.alert-error { background: var(--err-bg); border: 1px solid var(--err-border); color: var(--err); }
+
+.f-group { margin-bottom: 1.1rem; }
+
+label.f-label {
+  display: block;
+  font-size: 0.71rem; font-weight: 600;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 0.38rem;
+}
+
+input.f-input {
+  width: 100%;
+  padding: 0.72rem 1rem;
+  border: 1.5px solid rgba(180,160,120,0.28);
+  border-radius: 8px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.875rem; color: var(--text);
+  background: var(--white);
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+input.f-input::placeholder { color: rgba(107,107,94,0.42); }
+input.f-input:focus {
+  border-color: var(--fern);
+  box-shadow: 0 0 0 3px rgba(61,107,74,0.09);
+}
+input.f-input.err { border-color: var(--err); box-shadow: 0 0 0 3px rgba(192,57,43,0.07); }
+
+/* Password field with toggle */
+.pw-wrap { position: relative; }
+.pw-wrap input { padding-right: 3rem; }
+.pw-toggle {
+  position: absolute; right: 0; top: 0; bottom: 0;
+  width: 3rem;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; background: none; border: none;
+  color: var(--muted); transition: color .2s;
+}
+.pw-toggle:hover { color: var(--forest); }
+.pw-toggle svg {
+  width: 16px; height: 16px; fill: none;
+  stroke: currentColor; stroke-width: 1.8;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+
+.err-msg {
+  font-size: 0.72rem; color: var(--err);
+  margin-top: 0.28rem; display: none;
+}
+.err-msg.show { display: block; }
+
+/* Forgot row */
+.forgot-row {
+  display: flex; justify-content: flex-end;
+  margin-top: 0.35rem;
+}
+.forgot-row a {
+  font-size: 0.78rem; color: var(--terra);
+  text-decoration: none; transition: opacity .2s;
+}
+.forgot-row a:hover { opacity: 0.75; text-decoration: underline; }
+
+/* Submit */
+.btn-submit {
+  width: 100%; padding: 0.82rem;
+  border-radius: 9px; border: none;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.9rem; font-weight: 600;
+  cursor: pointer; transition: all .25s;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  letter-spacing: 0.01em; margin-top: 0.4rem;
+}
+.btn-submit-cust { background: var(--terra); color: var(--white); }
+.btn-submit-cust:hover:not(:disabled) {
+  background: #9e5022;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 20px rgba(181,97,42,0.3);
+}
+.btn-submit-nurs { background: var(--forest); color: var(--white); }
+.btn-submit-nurs:hover:not(:disabled) {
+  background: var(--moss);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 20px rgba(26,58,42,0.28);
+}
+.btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
+
+/* Divider */
+.divider {
+  display: flex; align-items: center; gap: 0.85rem;
+  margin: 1.4rem 0 1rem;
+}
+.divider::before, .divider::after {
+  content: ''; flex: 1; height: 1px; background: rgba(180,160,120,0.25);
+}
+.divider span {
+  font-size: 0.72rem; color: var(--muted); white-space: nowrap; font-weight: 400;
+}
+
+/* Demo */
+.demo-panel {
+  background: var(--linen);
+  border: 1px solid rgba(180,160,120,0.2);
+  border-radius: 10px; padding: 0.95rem 1rem;
+}
+.demo-label {
+  font-size: 0.62rem; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 0.65rem; display: block;
+}
+.demo-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.demo-btn {
+  padding: 0.55rem 0.75rem; border-radius: 7px;
+  border: 1.5px solid rgba(180,160,120,0.25);
+  background: var(--white); cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.78rem; font-weight: 500;
+  color: var(--forest); transition: all .2s;
+  display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+}
+.demo-btn:hover { border-color: var(--forest); background: rgba(26,58,42,0.04); }
+.demo-btn svg {
+  width: 13px; height: 13px; fill: none;
+  stroke: currentColor; stroke-width: 1.8;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  .page-shell { grid-template-columns: 1fr; }
+  .left-rail { display: none; }
+  .right-content { padding: 2rem 1.5rem 3rem; justify-content: flex-start; padding-top: 3rem; }
+}
+@media (max-width: 560px) {
+  .topbar { padding: 0 1.4rem; }
+  .topbar-right a:not(.topbar-register) { display: none; }
+  .form-card { padding: 1.4rem; border-radius: 13px; }
+  .form-wrap { max-width: 100%; }
+}
 </style>
 </head>
 <body>
 
-<div class="left-panel">
-  <a href="index.html" class="brand">
-    <div class="brand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(245,240,232,0.7)" stroke-width="2" width="18" height="18"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/></svg></div>
-    <span class="brand-name">Urban Farmer</span>
+<!-- ─── TOPBAR ─── -->
+<header class="topbar">
+  <a href="index.html" class="topbar-logo">
+    <div class="topbar-logo-img">
+      <!-- LOGO PLACEHOLDER: Upload your logo as logo.png -->
+      <img src="logo.png" alt="Urban Farmer"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+      <span class="logo-fallback">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="rgba(245,240,232,0.85)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 3a2 2 0 012-2h10a2 2 0 012 2v18l-7-3-7 3V3z"/>
+        </svg>
+      </span>
+    </div>
+    <div class="topbar-brand">
+      Urban Farmer
+      <small>India's Plant Ecosystem</small>
+    </div>
   </a>
-  <div class="panel-content">
-    <h2 class="panel-title">Welcome Back to<br><em>Urban Farmer</em></h2>
-    <div class="panel-quote">
-      <div class="quote-text">"Plants give us oxygen for the lungs and for the soul."</div>
-      <div class="quote-author">— Terri Guillemets</div>
-    </div>
-    <div class="nursery-preview">
-      <div class="np-label">Recently Joined Nurseries</div>
-      <div class="np-row">
-        <div class="np-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(245,240,232,0.5)" stroke-width="2" width="16" height="16"><path d="M12 22V12M12 12C12 12 7 9 7 4a5 5 0 0110 0c0 5-5 8-5 8z"/></svg></div>
-        <div><div class="np-name">Green Valley Nursery</div><div class="np-sub">Indiranagar, Bengaluru · 142 plants</div></div>
-        <div class="np-badge">Active</div>
-      </div>
-      <div class="np-row">
-        <div class="np-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(245,240,232,0.5)" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="4"/></svg></div>
-        <div><div class="np-name">Blooms & Beyond</div><div class="np-sub">Koramangala · 87 plants</div></div>
-        <div class="np-badge">Active</div>
-      </div>
-      <div class="np-row">
-        <div class="np-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(245,240,232,0.5)" stroke-width="2" width="16" height="16"><path d="M17 22V12M7 22V12M3 7l9-5 9 5-9 5-9-5z"/></svg></div>
-        <div><div class="np-name">Nature's Corner</div><div class="np-sub">Whitefield · 213 plants</div></div>
-        <div class="np-badge">Active</div>
-      </div>
-    </div>
+  <div class="topbar-right">
+    <a href="index.html">Home</a>
+    <a href="register.html" class="topbar-register">Create Account</a>
   </div>
-  <div class="panel-bottom">© 2025 Urban Farmer · Made in India 🇮🇳</div>
-</div>
+</header>
 
-<div class="right-panel">
-  <div class="form-container">
-    <div class="form-header">
-      <h2>Sign In</h2>
-      <p>New to Urban Farmer? <a href="register.html">Create account</a></p>
+<!-- ─── PAGE SHELL ─── -->
+<div class="page-shell">
+
+  <!-- ─── LEFT RAIL ─── -->
+  <aside class="left-rail">
+    <div class="rail-bg">
+      <!-- SIDE PANEL IMAGE PLACEHOLDER: Upload a tall botanical photo as login-side.jpg -->
+      <img class="rail-bg-img" src="login-side.jpg" alt=""
+           onerror="this.style.display='none'">
+      <div class="rail-bg-grad"></div>
     </div>
+    <div class="rail-inner">
+      <div class="rail-eyebrow">Welcome Back</div>
+      <h2 class="rail-headline">
+        Good to See<br>You Again,<br><em>Plant Lover</em>
+      </h2>
 
-    <div class="type-toggle">
-      <button class="toggle-btn active" id="btn-nursery" onclick="switchType('nursery', this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
-        Nursery Login
-      </button>
-      <button class="toggle-btn" id="btn-customer" onclick="switchType('customer', this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        Customer Login
-      </button>
-    </div>
-
-    <div class="form-card">
-      <div class="alert-box" id="login-alert"></div>
-
-      <div class="form-group">
-        <label>Email Address</label>
-        <input type="email" id="email" placeholder="you@example.com" />
-        <div class="error-msg" id="err-email">Please enter a valid email</div>
+      <div class="rail-quote">
+        <div class="quote-text">"Plants give us oxygen for the lungs and for the soul. Every morning they remind us that growth is possible."</div>
+        <div class="quote-author">— Terri Guillemets</div>
       </div>
-      <div class="form-group">
-        <label>Password</label>
-        <div class="password-wrap">
-          <input type="password" id="password" placeholder="Your password" />
-          <button class="toggle-pw" onclick="togglePw()" type="button">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          </button>
+
+      <div class="rail-section-label">Recently Active Nurseries</div>
+
+      <div class="nursery-list">
+        <div class="nursery-row">
+          <div class="nr-avatar">
+            <svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+          </div>
+          <div class="nr-info">
+            <div class="nr-name">Green Valley Nursery</div>
+            <div class="nr-sub">Indiranagar, Bengaluru · 142 plants</div>
+          </div>
+          <div class="nr-badge">Active</div>
         </div>
-        <div class="forgot-row"><a href="#">Forgot password?</a></div>
-        <div class="error-msg" id="err-password">Please enter your password</div>
-      </div>
-
-      <button class="btn btn-primary" onclick="doLogin()" id="login-btn">Sign In →</button>
-
-      <div class="divider"><span>or use demo accounts</span></div>
-
-      <div class="demo-section">
-        <div class="demo-title">Quick Demo Access</div>
-        <div class="demo-row">
-          <button class="demo-btn" onclick="demoLogin('nursery')">🌿 Demo Nursery</button>
-          <button class="demo-btn" onclick="demoLogin('customer')">👤 Demo Customer</button>
+        <div class="nursery-row">
+          <div class="nr-avatar">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+          </div>
+          <div class="nr-info">
+            <div class="nr-name">Blooms and Beyond</div>
+            <div class="nr-sub">Koramangala · 87 plants</div>
+          </div>
+          <div class="nr-badge">Active</div>
+        </div>
+        <div class="nursery-row">
+          <div class="nr-avatar">
+            <svg viewBox="0 0 24 24"><path d="M17 22V12M7 22V12M3 7l9-5 9 5-9 5-9-5z"/></svg>
+          </div>
+          <div class="nr-info">
+            <div class="nr-name">Nature's Corner</div>
+            <div class="nr-sub">Whitefield · 213 plants</div>
+          </div>
+          <div class="nr-badge">Active</div>
         </div>
       </div>
+
+      <div class="rail-stats">
+        <div class="rs"><div class="rs-n">240+</div><div class="rs-l">Nurseries</div></div>
+        <div class="rs"><div class="rs-n">5K+</div><div class="rs-l">Plants</div></div>
+        <div class="rs"><div class="rs-n">12+</div><div class="rs-l">Services</div></div>
+      </div>
+      <div class="rail-foot">2025 Urban Farmer · Made in India</div>
     </div>
-  </div>
-</div>
+  </aside>
+
+  <!-- ─── RIGHT CONTENT ─── -->
+  <main class="right-content">
+    <div class="form-wrap">
+
+      <div class="form-header">
+        <div class="form-header-title">Sign In</div>
+        <div class="form-header-sub">
+          New to Urban Farmer? <a href="register.html">Create a free account</a>
+        </div>
+      </div>
+
+      <!-- ACCOUNT TYPE TOGGLE -->
+      <div class="type-toggle">
+        <button class="toggle-btn" id="btn-customer" onclick="switchType('customer')">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Customer Login
+        </button>
+        <button class="toggle-btn" id="btn-nursery" onclick="switchType('nursery')">
+          <svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+          Nursery Login
+        </button>
+      </div>
+
+      <div class="form-card">
+
+        <div class="alert-box alert-error" id="login-alert"></div>
+
+        <div class="f-group">
+          <label class="f-label">Email Address</label>
+          <input class="f-input" type="email" id="email" placeholder="you@example.com"
+                 onkeydown="if(event.key==='Enter') document.getElementById('password').focus()">
+          <div class="err-msg" id="err-email">Please enter a valid email address</div>
+        </div>
+
+        <div class="f-group">
+          <label class="f-label">Password</label>
+          <div class="pw-wrap">
+            <input class="f-input" type="password" id="password" placeholder="Your password"
+                   onkeydown="if(event.key==='Enter') doLogin()">
+            <button class="pw-toggle" type="button" onclick="togglePw()" aria-label="Show password">
+              <svg id="pw-icon-show" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg id="pw-icon-hide" viewBox="0 0 24 24" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            </button>
+          </div>
+          <div class="forgot-row"><a href="#" onclick="handleForgotPassword(event)">Forgot password?</a></div>
+          <div class="err-msg" id="err-password">Please enter your password</div>
+        </div>
+
+        <button class="btn-submit btn-submit-cust" id="login-btn" onclick="doLogin()">
+          <span id="login-label">Sign In</span>
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </button>
+
+        <div class="divider"><span>or try a demo account</span></div>
+
+        <div class="demo-panel">
+          <span class="demo-label">Quick Demo Access</span>
+          <div class="demo-btns">
+            <button class="demo-btn" onclick="demoLogin('customer')">
+              <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              Demo Customer
+            </button>
+            <button class="demo-btn" onclick="demoLogin('nursery')">
+              <svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+              Demo Nursery
+            </button>
+          </div>
+        </div>
+
+      </div><!-- /form-card -->
+
+      <!-- Reset password inline panel (shown on forgot) -->
+      <div id="reset-panel" style="display:none; margin-top:1rem;">
+        <div class="form-card">
+          <div class="f-group" style="margin-bottom:0.5rem;">
+            <label class="f-label">Enter your registered email</label>
+            <input class="f-input" type="email" id="reset-email" placeholder="you@example.com">
+            <div class="err-msg" id="err-reset-email">Please enter a valid email address</div>
+          </div>
+          <div class="alert-box" id="reset-alert" style="margin-top:0.75rem;"></div>
+          <div style="display:flex; gap:0.6rem; margin-top:0.9rem;">
+            <button class="btn-submit btn-submit-cust" id="reset-btn" onclick="sendResetEmail()" style="margin-top:0; flex:1;">
+              <span id="reset-label">Send Reset Link</span>
+            </button>
+            <button onclick="closeReset()" style="padding:0.82rem 1rem; border-radius:9px; border:1.5px solid var(--sand); background:transparent; font-family:'Outfit',sans-serif; font-size:0.85rem; color:var(--muted); cursor:pointer; transition:all .2s; white-space:nowrap;" onmouseover="this.style.borderColor='var(--forest)'" onmouseout="this.style.borderColor='var(--sand)'">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /form-wrap -->
+  </main>
+</div><!-- /page-shell -->
 
 <script>
-  const SUPABASE_URL = 'https://ujmpogomwcqbotvgdggo.supabase.co';
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqbXBvZ29td2NxYm90dmdkZ2dvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxNDc3NzcsImV4cCI6MjA4ODcyMzc3N30.rnlT2ok31ureULFPjWm2TBp6DOB_zU7y_rL9EAf9Kbk';
-  const _sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// ── Supabase ─────────────────────────────────────────────────────────────
+const SUPABASE_URL  = 'https://ujmpogomwcqbotvgdggo.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqbXBvZ29td2NxYm90dmdkZ2dvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxNDc3NzcsImV4cCI6MjA4ODcyMzc3N30.rnlT2ok31ureULFPjWm2TBp6DOB_zU7y_rL9EAf9Kbk';
+const _sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
-  // loginType is only used as a LAST RESORT fallback — the profile DB value always wins
-  let loginType = 'nursery';
+// loginType is a UI hint only — profile.type from DB is always the source of truth
+let loginType = 'customer';
 
-  function switchType(type, btn) {
-    loginType = type;
-    document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
-    if (btn) btn.classList.add('active');
-    else document.getElementById('btn-' + type).classList.add('active');
-    document.getElementById('login-alert').classList.remove('show');
+// ── Type toggle ───────────────────────────────────────────────────────────
+function switchType(type) {
+  loginType = type;
+
+  document.getElementById('btn-customer').className =
+    'toggle-btn' + (type === 'customer' ? ' active-cust' : '');
+  document.getElementById('btn-nursery').className =
+    'toggle-btn' + (type === 'nursery' ? ' active-nurs' : '');
+
+  const btn = document.getElementById('login-btn');
+  btn.className = 'btn-submit ' + (type === 'customer' ? 'btn-submit-cust' : 'btn-submit-nurs');
+
+  // Update reset button color too
+  const rb = document.getElementById('reset-btn');
+  if (rb) rb.className = 'btn-submit ' + (type === 'customer' ? 'btn-submit-cust' : 'btn-submit-nurs');
+
+  document.getElementById('login-alert').classList.remove('show');
+}
+window.switchType = switchType;
+
+// ── Password visibility ───────────────────────────────────────────────────
+function togglePw() {
+  const inp = document.getElementById('password');
+  const isHidden = inp.type === 'password';
+  inp.type = isHidden ? 'text' : 'password';
+  document.getElementById('pw-icon-show').style.display = isHidden ? 'none' : '';
+  document.getElementById('pw-icon-hide').style.display = isHidden ? '' : 'none';
+}
+window.togglePw = togglePw;
+
+// ── Demo login ────────────────────────────────────────────────────────────
+function demoLogin(type) {
+  switchType(type);
+  document.getElementById('email').value    = type === 'nursery' ? 'demo@nursery.com'   : 'demo@customer.com';
+  document.getElementById('password').value = 'Demo@1234';
+  setTimeout(doLogin, 280);
+}
+window.demoLogin = demoLogin;
+
+// ── Forgot password ───────────────────────────────────────────────────────
+function handleForgotPassword(e) {
+  e.preventDefault();
+  // Pre-fill reset email if user already typed one
+  const email = document.getElementById('email').value.trim();
+  if (email) document.getElementById('reset-email').value = email;
+  document.getElementById('reset-panel').style.display = 'block';
+  document.getElementById('reset-email').focus();
+}
+function closeReset() {
+  document.getElementById('reset-panel').style.display = 'none';
+  document.getElementById('reset-alert').className = 'alert-box';
+  document.getElementById('reset-alert').textContent = '';
+  document.getElementById('err-reset-email').classList.remove('show');
+}
+window.handleForgotPassword = handleForgotPassword;
+window.closeReset = closeReset;
+
+async function sendResetEmail() {
+  const email = document.getElementById('reset-email').value.trim();
+  const alertEl = document.getElementById('reset-alert');
+  const errEl   = document.getElementById('err-reset-email');
+  alertEl.className = 'alert-box'; alertEl.textContent = '';
+  errEl.classList.remove('show');
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errEl.classList.add('show'); return;
   }
 
-  function togglePw() {
-    const inp = document.getElementById('password');
-    inp.type = inp.type === 'password' ? 'text' : 'password';
+  const btn = document.getElementById('reset-btn');
+  btn.disabled = true;
+  document.getElementById('reset-label').textContent = 'Sending…';
+
+  try {
+    const { error } = await _sb.auth.resetPasswordForEmail(email, {
+      redirectTo: window.location.origin + '/reset-password.html'
+    });
+    if (error) throw error;
+    alertEl.textContent = 'Reset link sent! Check your inbox at ' + email + '.';
+    alertEl.className = 'alert-box show';
+    alertEl.style.background = 'rgba(61,107,74,0.08)';
+    alertEl.style.borderColor = 'rgba(61,107,74,0.25)';
+    alertEl.style.color = 'var(--fern)';
+    document.getElementById('reset-label').textContent = 'Sent!';
+  } catch (err) {
+    alertEl.textContent = err.message || 'Could not send reset email. Please try again.';
+    alertEl.className = 'alert-box show alert-error';
+    btn.disabled = false;
+    document.getElementById('reset-label').textContent = 'Send Reset Link';
   }
+}
+window.sendResetEmail = sendResetEmail;
 
-  function demoLogin(type) {
-    switchType(type, null);
-    document.getElementById('email').value = type === 'nursery' ? 'demo@nursery.com' : 'demo@customer.com';
-    document.getElementById('password').value = 'Demo@1234';
-    setTimeout(() => doLogin(), 300);
-  }
+// ── Main login ────────────────────────────────────────────────────────────
+async function doLogin() {
+  const email = document.getElementById('email').value.trim();
+  const pass  = document.getElementById('password').value;
+  const alertEl = document.getElementById('login-alert');
+  alertEl.classList.remove('show');
 
-  async function doLogin() {
-    const email = document.getElementById('email').value.trim();
-    const pass  = document.getElementById('password').value;
-    let valid = true;
+  let valid = true;
 
-    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    document.getElementById('err-email').classList.toggle('show', !emailOk);
-    if (!emailOk) valid = false;
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  document.getElementById('err-email').classList.toggle('show', !emailOk);
+  document.getElementById('email').classList.toggle('err', !emailOk);
+  if (!emailOk) valid = false;
 
-    if (!pass) {
-      document.getElementById('err-password').classList.add('show');
-      valid = false;
-    } else {
-      document.getElementById('err-password').classList.remove('show');
+  const passOk = pass.length > 0;
+  document.getElementById('err-password').classList.toggle('show', !passOk);
+  document.getElementById('password').classList.toggle('err', !passOk);
+  if (!passOk) valid = false;
+
+  if (!valid) return;
+
+  const btn = document.getElementById('login-btn');
+  btn.disabled = true;
+  document.getElementById('login-label').textContent = 'Signing in…';
+
+  try {
+    // Step 1 — authenticate
+    const { data, error } = await _sb.auth.signInWithPassword({ email, password: pass });
+    if (error) throw error;
+
+    const userId = data.user.id;
+
+    // Step 2 — fetch profile (type is the single source of truth)
+    const { data: profile, error: profileError } = await _sb
+      .from('profiles')
+      .select('type, first_name, nursery_name')
+      .eq('id', userId)
+      .single();
+
+    if (profileError || !profile) {
+      throw new Error('Could not load your account details. Please try again.');
     }
-    if (!valid) return;
 
-    const btn = document.getElementById('login-btn');
-    btn.textContent = 'Signing in…';
-    btn.style.opacity = '0.7';
-    btn.disabled = true;
-    document.getElementById('login-alert').classList.remove('show');
+    const accountType = profile.type; // always 'nursery' or 'customer' per DB constraint
 
-    try {
-      // Step 1 — authenticate
-      const { data, error } = await _sb.auth.signInWithPassword({ email, password: pass });
-      if (error) throw error;
-
-      const userId = data.user.id;
-
-      // Step 2 — fetch profile to get the REAL account type
-      // We select both 'type' and 'nursery_name' so we can distinguish clearly
-      const { data: profile, error: profileError } = await _sb
-        .from('profiles')
-        .select('type, first_name, nursery_name')
-        .eq('id', userId)
-        .single();
-
-      // Step 3 — profile.type from DB is the single source of truth
-      // (type column is NOT NULL with CHECK constraint, so it's always 'nursery' or 'customer')
-      if (profileError || !profile) {
-        throw new Error('Could not load your account details. Please try again.');
-      }
-
-      const accountType = profile.type; // always 'nursery' or 'customer'
-
-      // Step 4 — enforce toggle matches account type
-      // If user picked "Nursery Login" but has a customer account → show clear error
-      // If user picked "Customer Login" but has a nursery account → show clear error
-      if (loginType === 'nursery' && accountType === 'customer') {
-        // Sign them back out so session isn't left open
-        await _sb.auth.signOut();
-        throw new Error('This is a customer account. Please use the Customer Login tab, or register a nursery account.');
-      }
-      if (loginType === 'customer' && accountType === 'nursery') {
-        await _sb.auth.signOut();
-        throw new Error('This is a nursery account. Please use the Nursery Login tab to sign in.');
-      }
-
-      // Step 5 — store user info
-      localStorage.setItem('uf_user', JSON.stringify({
-        id: userId,
-        email: data.user.email,
-        type: accountType,
-        name: profile?.first_name || null,
-        nursery_name: profile?.nursery_name || null
-      }));
-
-      // Step 6 — redirect based on DB account type
-      if (accountType === 'nursery') {
-        window.location.href = 'nursery-dashboard.html';
-      } else {
-        window.location.href = 'customer-dashboard.html';
-      }
-
-    } catch (err) {
-      btn.textContent = 'Sign In →';
-      btn.style.opacity = '1';
-      btn.disabled = false;
-
-      const alertEl = document.getElementById('login-alert');
-      if (err.message?.toLowerCase().includes('email not confirmed')) {
-        alertEl.textContent = 'Please verify your email first. Check your inbox for the confirmation link.';
-      } else if (err.message?.toLowerCase().includes('invalid login') || err.message?.toLowerCase().includes('invalid credentials')) {
-        alertEl.textContent = 'Incorrect email or password. Please try again.';
-      } else {
-        alertEl.textContent = err.message || 'Login failed. Please try again.';
-      }
-      alertEl.classList.add('show');
+    // Step 3 — enforce that the toggle selection matches the actual account type
+    if (loginType === 'nursery' && accountType === 'customer') {
+      await _sb.auth.signOut();
+      throw new Error('This is a customer account. Please select Customer Login and try again.');
     }
+    if (loginType === 'customer' && accountType === 'nursery') {
+      await _sb.auth.signOut();
+      throw new Error('This is a nursery account. Please select Nursery Login and try again.');
+    }
+
+    // Step 4 — persist user info locally
+    localStorage.setItem('uf_user', JSON.stringify({
+      id:           userId,
+      email:        data.user.email,
+      type:         accountType,
+      name:         profile.first_name || null,
+      nursery_name: profile.nursery_name || null
+    }));
+
+    // Step 5 — redirect by DB account type
+    window.location.href = accountType === 'nursery'
+      ? 'nursery-dashboard.html'
+      : 'customer-dashboard.html';
+
+  } catch (err) {
+    btn.disabled = false;
+    document.getElementById('login-label').textContent = 'Sign In';
+
+    let msg = err.message || 'Login failed. Please try again.';
+    if (msg.toLowerCase().includes('email not confirmed')) {
+      msg = 'Please verify your email first. Check your inbox for the confirmation link.';
+    } else if (
+      msg.toLowerCase().includes('invalid login') ||
+      msg.toLowerCase().includes('invalid credentials') ||
+      msg.toLowerCase().includes('invalid email or password')
+    ) {
+      msg = 'Incorrect email or password. Please try again.';
+    }
+    alertEl.textContent = msg;
+    alertEl.className = 'alert-box alert-error show';
   }
+}
+window.doLogin = doLogin;
+
+// ── Init ──────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  // Default to customer (given more prominence per design spec)
+  switchType('customer');
+
+  // Pre-select tab if coming from a typed URL
+  const p = new URLSearchParams(window.location.search);
+  if (p.get('type') === 'nursery') switchType('nursery');
+
+  // If already logged in, redirect
+  _sb.auth.getSession().then(({ data }) => {
+    if (data.session) {
+      const stored = localStorage.getItem('uf_user');
+      if (stored) {
+        const u = JSON.parse(stored);
+        window.location.href = u.type === 'nursery'
+          ? 'nursery-dashboard.html'
+          : 'customer-dashboard.html';
+      }
+    }
+  });
+});
 </script>
 </body>
 </html>
