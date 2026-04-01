@@ -27,33 +27,33 @@
 html { scroll-behavior:smooth; }
 body { font-family:'Outfit', sans-serif; background:var(--white); color:var(--text); overflow-x:hidden; }
 
-/* NAV */
+/* ═══════════════════════════════════
+   NAV
+═══════════════════════════════════ */
 nav {
   position:fixed; top:0; left:0; right:0; z-index:200;
   display:flex; align-items:center; justify-content:space-between;
-  padding:0 5%; height:68px;
-  background:rgba(253,252,249,0.96); backdrop-filter:blur(20px);
+  padding:0 5%; height:64px;
+  background:rgba(253,252,249,0.97); backdrop-filter:blur(20px);
   border-bottom:1px solid rgba(180,160,120,0.15);
   transition:box-shadow .3s;
 }
-.nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+.nav-logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
 .logo-mark {
-  width:42px; height:42px; border-radius:10px;
+  width:40px; height:40px; border-radius:10px;
   display:flex; align-items:center; justify-content:center; flex-shrink:0;
-  overflow:hidden;
+  overflow:hidden; background:var(--forest);
 }
 .logo-mark img { width:100%; height:100%; object-fit:cover; display:block; }
-.logo-mark-placeholder {
-  width:42px; height:42px; background:var(--forest); border-radius:10px;
-  display:flex; align-items:center; justify-content:center; flex-shrink:0;
-  font-size:1.2rem;
-}
-.logo-text { font-family:'Cormorant Garamond', serif; font-size:1.35rem; font-weight:700; color:var(--forest); letter-spacing:0.02em; line-height:1; }
-.logo-text small { display:block; font-size:0.55rem; font-family:'Outfit', sans-serif; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--sage); margin-top:1px; }
-.nav-links { display:flex; align-items:center; gap:2.2rem; list-style:none; }
-.nav-links a { text-decoration:none; font-size:0.825rem; font-weight:400; color:var(--muted); letter-spacing:0.02em; transition:color .2s; }
+.logo-mark-fallback { font-size:1.1rem; }
+.logo-text { font-family:'Cormorant Garamond', serif; font-size:1.3rem; font-weight:700; color:var(--forest); letter-spacing:0.02em; line-height:1; }
+.logo-text small { display:block; font-size:0.52rem; font-family:'Outfit', sans-serif; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--sage); margin-top:2px; }
+.nav-links { display:flex; align-items:center; gap:2rem; list-style:none; }
+.nav-links a { text-decoration:none; font-size:0.82rem; font-weight:400; color:var(--muted); letter-spacing:0.02em; transition:color .2s; }
 .nav-links a:hover { color:var(--forest); }
 .nav-actions { display:flex; gap:10px; align-items:center; }
+
+/* BUTTONS */
 .btn {
   display:inline-flex; align-items:center; justify-content:center; gap:6px;
   padding:0.58rem 1.3rem; border-radius:6px; border:none; cursor:pointer;
@@ -71,10 +71,42 @@ nav {
 .btn-lg { padding:0.82rem 1.9rem; font-size:0.9rem; }
 .btn-xl { padding:1rem 2.4rem; font-size:0.95rem; font-weight:600; }
 
-/* ─── HERO: FULL-BLEED SPLIT ─── */
+/* Hamburger */
+.hamburger {
+  display:none; flex-direction:column; justify-content:center; gap:5px;
+  background:none; border:none; cursor:pointer; padding:6px;
+  width:40px; height:40px; flex-shrink:0;
+}
+.hamburger span { display:block; height:2px; background:var(--forest); border-radius:2px; transition:all .3s; }
+.hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity:0; }
+.hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+/* Mobile nav drawer */
+.mobile-nav {
+  display:none; position:fixed; top:64px; left:0; right:0; z-index:190;
+  background:rgba(253,252,249,0.99); backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(180,160,120,0.2);
+  padding:0 5% 1.5rem; flex-direction:column;
+  box-shadow:0 8px 30px rgba(10,25,15,0.1);
+}
+.mobile-nav.open { display:flex; }
+.mobile-nav a {
+  display:block; padding:1rem 0; border-bottom:1px solid rgba(180,160,120,0.12);
+  text-decoration:none; font-size:1rem; font-weight:400; color:var(--text);
+  transition:color .2s;
+}
+.mobile-nav a:hover { color:var(--forest); }
+.mobile-nav a:last-of-type { border-bottom:none; }
+.mobile-nav-actions { display:flex; gap:10px; margin-top:1.2rem; }
+.mobile-nav-actions .btn { flex:1; justify-content:center; padding:0.75rem 1rem; font-size:0.9rem; }
+
+/* ═══════════════════════════════════
+   HERO — FULL-BLEED SPLIT
+═══════════════════════════════════ */
 .hero {
-  min-height:100vh; display:grid; grid-template-columns:52% 48%; padding-top:68px; position:relative;
-  margin:0; width:100%;
+  min-height:100vh; display:grid; grid-template-columns:52% 48%;
+  padding-top:64px; position:relative; width:100%;
 }
 .hero-left {
   background:var(--cream); display:flex; flex-direction:column; justify-content:center;
@@ -82,88 +114,96 @@ nav {
 }
 .hero-eyebrow {
   display:inline-flex; align-items:center; gap:8px;
-  font-size:0.7rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase;
+  font-size:0.68rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase;
   color:var(--terra); margin-bottom:1.6rem;
 }
 .hero-eyebrow::before { content:''; display:block; width:28px; height:1.5px; background:var(--terra); }
 .hero-title {
   font-family:'Cormorant Garamond', serif;
-  font-size:clamp(3rem,5.5vw,5rem); font-weight:700; line-height:1.02;
-  color:var(--forest); margin-bottom:1.5rem; letter-spacing:-0.01em;
+  font-size:clamp(2.8rem,5vw,4.8rem); font-weight:700; line-height:1.03;
+  color:var(--forest); margin-bottom:1.4rem; letter-spacing:-0.01em;
 }
 .hero-title em { font-style:italic; color:var(--terra); }
 .hero-body {
-  font-size:0.97rem; color:var(--muted); line-height:1.8; max-width:420px;
-  margin-bottom:2.8rem; font-weight:300;
+  font-size:0.95rem; color:var(--muted); line-height:1.8; max-width:420px;
+  margin-bottom:2.5rem; font-weight:300;
 }
-.hero-ctas { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:3.5rem; }
-.hero-rule { width:50px; height:1px; background:var(--sand); margin-bottom:2rem; }
+.hero-ctas { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:3rem; }
+.hero-rule { width:50px; height:1px; background:var(--sand); margin-bottom:1.8rem; }
 .hero-stats { display:flex; gap:0; }
-.hero-stat { padding-right:2.4rem; margin-right:2.4rem; border-right:1px solid var(--sand); }
-.hero-stat:last-child { border-right:none; }
-.stat-n { font-family:'Cormorant Garamond', serif; font-size:2.2rem; font-weight:700; color:var(--forest); line-height:1; }
-.stat-l { font-size:0.7rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--sage); margin-top:4px; }
+.hero-stat { padding-right:2rem; margin-right:2rem; border-right:1px solid var(--sand); }
+.hero-stat:last-child { border-right:none; padding-right:0; margin-right:0; }
+.stat-n { font-family:'Cormorant Garamond', serif; font-size:2rem; font-weight:700; color:var(--forest); line-height:1; }
+.stat-l { font-size:0.68rem; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:var(--sage); margin-top:4px; }
 
-/* RIGHT — full-bleed image with plant quote overlay */
+/* HERO RIGHT */
 .hero-right { position:relative; overflow:hidden; background:var(--forest); }
 .hero-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
 .hero-scrim {
   position:absolute; inset:0; pointer-events:none;
-  background:linear-gradient(180deg,rgba(10,25,15,0.15) 0%,rgba(10,25,15,0.45) 100%);
+  background:linear-gradient(180deg,rgba(10,25,15,0.12) 0%,rgba(10,25,15,0.5) 100%);
 }
 .hero-quote-block {
   position:absolute; left:0; right:0; bottom:0;
-  padding:2.5rem 2.5rem 3rem;
+  padding:2rem 2rem 2.5rem;
 }
 .plant-says { font-size:0.58rem; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.45); margin-bottom:10px; display:flex; align-items:center; gap:8px; }
 .plant-says::before { content:''; display:block; width:20px; height:1px; background:rgba(255,255,255,0.35); }
-.hero-quote { font-family:'Cormorant Garamond', serif; font-size:clamp(1.4rem,2.5vw,2rem); font-style:italic; font-weight:300; color:white; line-height:1.45; max-width:300px; }
-.hero-quote cite { display:block; font-family:'Outfit', sans-serif; font-style:normal; font-size:0.72rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.45); margin-top:12px; }
+.hero-quote { font-family:'Cormorant Garamond', serif; font-size:clamp(1.2rem,2vw,1.8rem); font-style:italic; font-weight:300; color:white; line-height:1.45; max-width:280px; }
+.hero-quote cite { display:block; font-family:'Outfit', sans-serif; font-style:normal; font-size:0.7rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.45); margin-top:10px; }
 
-/* TICKER */
-.ticker-bar { background:var(--forest); padding:0.75rem 0; overflow:hidden; position:relative; }
-.ticker-track { display:flex; gap:0; white-space:nowrap; animation:ticker 28s linear infinite; }
-.ticker-item { display:inline-flex; align-items:center; gap:12px; font-size:0.72rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:rgba(245,240,232,0.55); padding:0 2.5rem; }
+/* ═══════════════════════════════════
+   TICKER
+═══════════════════════════════════ */
+.ticker-bar { background:var(--forest); padding:0.7rem 0; overflow:hidden; position:relative; }
+.ticker-track { display:flex; white-space:nowrap; animation:ticker 28s linear infinite; }
+.ticker-item { display:inline-flex; align-items:center; gap:12px; font-size:0.7rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:rgba(245,240,232,0.55); padding:0 2.5rem; }
 .ticker-dot { width:4px; height:4px; border-radius:50%; background:var(--amber); flex-shrink:0; }
 @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-/* SECTION BASE */
-section { padding:6rem 8%; }
-.tag { display:inline-flex; align-items:center; gap:8px; font-size:0.68rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--terra); margin-bottom:1.1rem; }
+/* ═══════════════════════════════════
+   SECTION BASE
+═══════════════════════════════════ */
+section { padding:5.5rem 8%; }
+.tag { display:inline-flex; align-items:center; gap:8px; font-size:0.68rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--terra); margin-bottom:1rem; }
 .tag::before { content:''; display:block; width:20px; height:1.5px; background:var(--terra); }
-.section-h { font-family:'Cormorant Garamond', serif; font-size:clamp(2rem,3.8vw,3rem); font-weight:700; color:var(--forest); line-height:1.12; max-width:640px; }
+.section-h { font-family:'Cormorant Garamond', serif; font-size:clamp(1.9rem,3.5vw,2.9rem); font-weight:700; color:var(--forest); line-height:1.12; max-width:640px; }
 section.hero { padding:0; }
 .section-h em { font-style:italic; }
-.section-p { font-size:0.95rem; color:var(--muted); line-height:1.8; max-width:520px; font-weight:300; }
+.section-p { font-size:0.92rem; color:var(--muted); line-height:1.8; max-width:520px; font-weight:300; }
 
-/* HOW IT WORKS */
-.how-section { background:var(--forest); padding:6rem 8%; }
-.how-header { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:end; margin-bottom:4rem; }
-.how-title { font-family:'Cormorant Garamond', serif; font-size:clamp(2rem,3.5vw,2.8rem); font-weight:700; color:var(--cream); line-height:1.1; }
-.how-subtitle { font-size:0.9rem; color:rgba(245,240,232,0.5); line-height:1.75; font-weight:300; }
+/* ═══════════════════════════════════
+   HOW IT WORKS
+═══════════════════════════════════ */
+.how-section { background:var(--forest); padding:5.5rem 8%; }
+.how-header { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:end; margin-bottom:3.5rem; }
+.how-title { font-family:'Cormorant Garamond', serif; font-size:clamp(1.9rem,3.2vw,2.7rem); font-weight:700; color:var(--cream); line-height:1.1; }
+.how-subtitle { font-size:0.88rem; color:rgba(245,240,232,0.5); line-height:1.75; font-weight:300; margin-bottom:1.4rem; }
 .how-tabs { display:inline-flex; border:1px solid rgba(255,255,255,0.12); border-radius:8px; overflow:hidden; }
-.how-tab { padding:0.65rem 1.6rem; background:transparent; border:none; cursor:pointer; font-family:'Outfit', sans-serif; font-size:0.825rem; font-weight:500; color:rgba(245,240,232,0.45); transition:all .22s; }
+.how-tab { padding:0.6rem 1.4rem; background:transparent; border:none; cursor:pointer; font-family:'Outfit', sans-serif; font-size:0.8rem; font-weight:500; color:rgba(245,240,232,0.45); transition:all .22s; }
 .how-tab.active { background:var(--terra); color:white; }
 .how-tab:not(:last-child) { border-right:1px solid rgba(255,255,255,0.12); }
 
 .steps-grid { display:none; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(255,255,255,0.07); border-radius:12px; overflow:hidden; }
 .steps-grid.active { display:grid; }
-.step-item { background:rgba(26,58,42,0.6); padding:2rem 1.6rem; position:relative; transition:background .3s; cursor:default; }
+.step-item { background:rgba(26,58,42,0.6); padding:1.8rem 1.5rem; position:relative; transition:background .3s; cursor:default; }
 .step-item:hover { background:rgba(44,83,56,0.8); }
-.step-icon-wrap { width:48px; height:48px; background:rgba(193,123,74,0.15); border:1px solid rgba(193,123,74,0.25); border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:1.2rem; }
-.step-icon-wrap svg { width:22px; height:22px; stroke:var(--amber); stroke-width:1.8; fill:none; stroke-linecap:round; stroke-linejoin:round; }
-.step-title { font-family:'Cormorant Garamond', serif; font-size:1.15rem; font-weight:600; color:var(--cream); margin-bottom:0.6rem; }
-.step-desc { font-size:0.8rem; color:rgba(245,240,232,0.45); line-height:1.7; font-weight:300; }
+.step-icon-wrap { width:46px; height:46px; background:rgba(193,123,74,0.15); border:1px solid rgba(193,123,74,0.25); border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:1.1rem; }
+.step-icon-wrap svg { width:20px; height:20px; stroke:var(--amber); stroke-width:1.8; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+.step-title { font-family:'Cormorant Garamond', serif; font-size:1.1rem; font-weight:600; color:var(--cream); margin-bottom:0.5rem; }
+.step-desc { font-size:0.79rem; color:rgba(245,240,232,0.45); line-height:1.7; font-weight:300; }
 .step-item::after { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:transparent; transition:background .3s; }
 .step-item:hover::after { background:var(--amber); }
 
-/* NURSERY SERVICES */
-.svc-section { background:white; padding:6rem 8%; }
-.svc-header { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start; margin-bottom:3.5rem; }
+/* ═══════════════════════════════════
+   NURSERY SERVICES
+═══════════════════════════════════ */
+.svc-section { background:white; padding:5.5rem 8%; }
+.svc-header { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start; margin-bottom:3rem; }
 .svc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5px; background:var(--linen); border:1.5px solid var(--linen); border-radius:14px; overflow:hidden; }
-.svc-card { background:var(--white); padding:1.8rem; transition:all .28s; position:relative; cursor:default; }
+.svc-card { background:var(--white); padding:1.7rem; transition:all .28s; position:relative; cursor:default; }
 .svc-card:hover { background:var(--cream); }
-.svc-ico { width:46px; height:46px; border-radius:10px; display:flex; align-items:center; justify-content:center; margin-bottom:1.1rem; }
+.svc-ico { width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; margin-bottom:1rem; }
 .svc-ico svg { width:20px; height:20px; stroke-width:1.8; fill:none; stroke-linecap:round; stroke-linejoin:round; }
 .ico-g { background:rgba(61,107,74,0.1); } .ico-g svg { stroke:var(--fern); }
 .ico-t { background:rgba(181,97,42,0.1); } .ico-t svg { stroke:var(--terra); }
@@ -171,16 +211,17 @@ section.hero { padding:0; }
 .ico-s { background:rgba(127,168,130,0.15); } .ico-s svg { stroke:var(--sage); }
 .ico-k { background:rgba(26,58,42,0.09); } .ico-k svg { stroke:var(--forest); }
 .ico-b { background:rgba(201,162,39,0.12); } .ico-b svg { stroke:var(--gold); }
-.svc-title { font-family:'Cormorant Garamond', serif; font-size:1.05rem; font-weight:600; color:var(--forest); margin-bottom:0.45rem; }
-.svc-desc { font-size:0.8rem; color:var(--muted); line-height:1.7; }
+.svc-title { font-family:'Cormorant Garamond', serif; font-size:1.05rem; font-weight:600; color:var(--forest); margin-bottom:0.4rem; }
+.svc-desc { font-size:0.79rem; color:var(--muted); line-height:1.7; }
 
-/* RENTAL */
+/* ═══════════════════════════════════
+   RENTAL
+═══════════════════════════════════ */
 .rent-section { background:var(--cream); padding:0; overflow:hidden; }
-.rent-hero { display:grid; grid-template-columns:1fr 1fr; min-height:640px; }
-.rent-img-col { position:relative; overflow:hidden; background:var(--forest); min-height:500px; }
+.rent-hero { display:grid; grid-template-columns:1fr 1fr; min-height:600px; }
+.rent-img-col { position:relative; overflow:hidden; background:var(--forest); min-height:480px; }
 .rent-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
 
-/* Lifestyle plant image placeholder */
 .rent-img-placeholder {
   position:absolute; inset:0;
   background:linear-gradient(145deg,#1f4a2e 0%,#3a7a4a 50%,#4f9960 100%);
@@ -189,37 +230,36 @@ section.hero { padding:0; }
 .img-placeholder-box {
   width:80%; max-width:260px;
   border:2px dashed rgba(255,255,255,0.25);
-  border-radius:12px;
-  padding:2.5rem 1.5rem;
-  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px;
-  text-align:center;
+  border-radius:12px; padding:2.5rem 1.5rem;
+  display:flex; flex-direction:column; align-items:center; gap:12px; text-align:center;
 }
 .img-placeholder-box svg { width:48px; height:48px; stroke:rgba(255,255,255,0.35); stroke-width:1; fill:none; }
 .img-placeholder-box .ph-title { font-size:0.8rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.55); }
-.img-placeholder-box .ph-sub { font-size:0.68rem; color:rgba(255,255,255,0.3); letter-spacing:0.04em; }
+.img-placeholder-box .ph-sub { font-size:0.68rem; color:rgba(255,255,255,0.3); }
 
-.rent-label-float { position:absolute; top:2rem; left:2rem; background:white; border-radius:8px; padding:10px 16px; box-shadow:0 4px 24px rgba(0,0,0,0.12); }
-.rfl { font-size:0.6rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--sage); }
-.rfv { font-size:0.92rem; font-weight:600; color:var(--forest); font-family:'Cormorant Garamond',serif; margin-top:2px; }
+.rent-label-float { position:absolute; top:1.5rem; left:1.5rem; background:white; border-radius:8px; padding:10px 16px; box-shadow:0 4px 24px rgba(0,0,0,0.12); z-index:2; }
+.rfl { font-size:0.58rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--sage); }
+.rfv { font-size:0.88rem; font-weight:600; color:var(--forest); font-family:'Cormorant Garamond',serif; margin-top:2px; }
 .rent-content-col { background:var(--cream); display:flex; flex-direction:column; justify-content:center; padding:4rem 5% 4rem 6%; }
 .rent-eyebrow { display:inline-flex; align-items:center; gap:10px; margin-bottom:1.2rem; font-size:0.68rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--terra); }
 .rent-eyebrow::before { content:''; width:24px; height:1.5px; background:var(--terra); }
-.rent-headline { font-family:'Cormorant Garamond', serif; font-size:clamp(2rem,3.5vw,3rem); font-weight:700; color:var(--forest); line-height:1.08; margin-bottom:0.6rem; }
+.rent-headline { font-family:'Cormorant Garamond', serif; font-size:clamp(1.9rem,3.2vw,2.9rem); font-weight:700; color:var(--forest); line-height:1.08; margin-bottom:0.5rem; }
 .rent-headline em { font-style:italic; color:var(--terra); }
-.rent-subhead { font-family:'Cormorant Garamond', serif; font-size:1.15rem; font-weight:300; font-style:italic; color:var(--muted); margin-bottom:1rem; line-height:1.5; }
-.rent-body { font-size:0.88rem; color:var(--muted); line-height:1.8; max-width:420px; margin-bottom:2.2rem; font-weight:300; }
-.rent-steps { display:flex; flex-direction:column; gap:1.2rem; margin-bottom:2.4rem; }
+.rent-subhead { font-family:'Cormorant Garamond', serif; font-size:1.1rem; font-weight:300; font-style:italic; color:var(--muted); margin-bottom:0.9rem; line-height:1.5; }
+.rent-body { font-size:0.87rem; color:var(--muted); line-height:1.8; max-width:420px; margin-bottom:2rem; font-weight:300; }
+.rent-steps { display:flex; flex-direction:column; gap:1.1rem; margin-bottom:2.2rem; }
 .rent-step { display:flex; gap:1rem; align-items:flex-start; }
 .rs-icon { width:36px; height:36px; border-radius:50%; background:var(--forest); display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
-.rs-icon svg { stroke:rgba(245,240,232,0.9); stroke-width:1.8; fill:none; stroke-linecap:round; stroke-linejoin:round; width:16px; height:16px; }
-.rs-body .rs-title { font-size:0.88rem; font-weight:600; color:var(--forest); margin-bottom:3px; }
-.rs-body .rs-desc { font-size:0.8rem; color:var(--muted); line-height:1.65; }
+.rs-icon svg { stroke:rgba(245,240,232,0.9); stroke-width:1.8; fill:none; stroke-linecap:round; stroke-linejoin:round; width:15px; height:15px; }
+.rs-body .rs-title { font-size:0.87rem; font-weight:600; color:var(--forest); margin-bottom:3px; }
+.rs-body .rs-desc { font-size:0.79rem; color:var(--muted); line-height:1.65; }
 .rent-cta-row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
-.rent-note { font-size:0.75rem; color:var(--muted); font-style:italic; }
+.rent-note { font-size:0.73rem; color:var(--muted); font-style:italic; }
 
+/* RENTAL PLANS */
 .rent-plans { background:var(--forest); padding:4rem 8%; }
-.plans-top { display:flex; justify-content:space-between; align-items:end; margin-bottom:2.5rem; }
-.plans-title { font-family:'Cormorant Garamond', serif; font-size:1.9rem; font-weight:700; color:var(--cream); }
+.plans-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:2.5rem; }
+.plans-title { font-family:'Cormorant Garamond', serif; font-size:1.8rem; font-weight:700; color:var(--cream); }
 .plans-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5px; background:rgba(255,255,255,0.08); border-radius:12px; overflow:hidden; }
 .plan-card { background:rgba(26,58,42,0.55); padding:2rem; position:relative; transition:background .3s; }
 .plan-card:hover { background:rgba(44,83,56,0.75); }
@@ -227,54 +267,46 @@ section.hero { padding:0; }
 .plan-card.featured:hover { background:#9e5022; }
 .plan-badge { font-size:0.6rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:1rem; }
 .plan-card.featured .plan-badge { color:rgba(255,255,255,0.7); }
-.plan-name { font-family:'Cormorant Garamond', serif; font-size:1.5rem; font-weight:700; color:white; margin-bottom:0.5rem; }
-.plan-price { font-size:2rem; font-weight:600; color:white; font-family:'Cormorant Garamond', serif; }
-.plan-price sub { font-size:0.85rem; font-weight:400; color:rgba(255,255,255,0.55); }
-.plan-divider { height:1px; background:rgba(255,255,255,0.1); margin:1.2rem 0; }
-.plan-feature { font-size:0.8rem; color:rgba(255,255,255,0.55); margin-bottom:0.5rem; display:flex; align-items:center; gap:8px; }
+.plan-name { font-family:'Cormorant Garamond', serif; font-size:1.45rem; font-weight:700; color:white; margin-bottom:0.5rem; }
+.plan-price { font-size:1.9rem; font-weight:600; color:white; font-family:'Cormorant Garamond', serif; }
+.plan-price sub { font-size:0.82rem; font-weight:400; color:rgba(255,255,255,0.55); }
+.plan-divider { height:1px; background:rgba(255,255,255,0.1); margin:1.1rem 0; }
+.plan-feature { font-size:0.79rem; color:rgba(255,255,255,0.55); margin-bottom:0.5rem; display:flex; align-items:center; gap:8px; }
 .plan-feature::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--amber); flex-shrink:0; }
 .plan-card.featured .plan-feature { color:rgba(255,255,255,0.75); }
 .plan-card.featured .plan-feature::before { background:white; }
 
-/* CUSTOMER ECOSYSTEM */
-.cust-section { background:white; padding:6rem 8%; }
-.cust-header { text-align:center; margin-bottom:3.5rem; }
+/* ═══════════════════════════════════
+   CUSTOMER ECOSYSTEM
+═══════════════════════════════════ */
+.cust-section { background:white; padding:5.5rem 8%; }
+.cust-header { text-align:center; margin-bottom:3rem; }
 .cust-header .section-h { margin:0 auto 1rem; text-align:center; max-width:720px; }
 .cust-header .section-p { margin:0 auto; text-align:center; }
 .cust-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1.5px; background:var(--linen); border-radius:14px; overflow:hidden; }
-.cc { background:white; padding:1.6rem; transition:all .25s; }
+.cc { background:white; padding:1.5rem; transition:all .25s; }
 .cc:hover { background:var(--cream); }
-.cc-icon { width:48px; height:48px; border-radius:11px; display:flex; align-items:center; justify-content:center; margin-bottom:1rem; }
-.cc-icon svg { width:22px; height:22px; stroke-width:1.8; fill:none; stroke-linecap:round; stroke-linejoin:round; }
-.cc-title { font-family:'Cormorant Garamond', serif; font-size:1.05rem; font-weight:600; color:var(--forest); margin-bottom:0.4rem; }
-.cc-desc { font-size:0.79rem; color:var(--muted); line-height:1.65; }
+.cc-icon { width:46px; height:46px; border-radius:11px; display:flex; align-items:center; justify-content:center; margin-bottom:0.9rem; }
+.cc-icon svg { width:20px; height:20px; stroke-width:1.8; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+.cc-title { font-family:'Cormorant Garamond', serif; font-size:1.02rem; font-weight:600; color:var(--forest); margin-bottom:0.35rem; }
+.cc-desc { font-size:0.78rem; color:var(--muted); line-height:1.65; }
 
-/* CORPORATE */
-.corp-section { background:var(--forest); padding:6rem 8%; position:relative; overflow:hidden; }
-.corp-section::before { content:''; position:absolute; right:-10%; top:-20%; width:600px; height:600px; border-radius:50%; background:radial-gradient(circle,rgba(61,107,74,0.25),transparent 70%); }
-.corp-grid { display:grid; grid-template-columns:1fr 1fr; gap:6rem; align-items:center; position:relative; z-index:2; }
+/* ═══════════════════════════════════
+   CORPORATE
+═══════════════════════════════════ */
+.corp-section { background:var(--forest); padding:5.5rem 8%; position:relative; overflow:hidden; }
+.corp-section::before { content:''; position:absolute; right:-10%; top:-20%; width:600px; height:600px; border-radius:50%; background:radial-gradient(circle,rgba(61,107,74,0.25),transparent 70%); pointer-events:none; }
+.corp-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; position:relative; z-index:2; }
 .corp-tag { font-size:0.68rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--amber); margin-bottom:1rem; display:flex; align-items:center; gap:8px; }
 .corp-tag::before { content:''; width:20px; height:1.5px; background:var(--amber); }
-.corp-title { font-family:'Cormorant Garamond', serif; font-size:clamp(2rem,3.5vw,2.8rem); font-weight:700; color:white; line-height:1.1; margin-bottom:1rem; }
+.corp-title { font-family:'Cormorant Garamond', serif; font-size:clamp(1.9rem,3.2vw,2.7rem); font-weight:700; color:white; line-height:1.1; margin-bottom:1rem; }
 .corp-title em { font-style:italic; color:var(--amber); }
-.corp-body { font-size:0.9rem; color:rgba(245,240,232,0.55); line-height:1.78; font-weight:300; margin-bottom:2rem; }
-.corp-list { display:flex; flex-direction:column; gap:0.8rem; margin-bottom:2.5rem; }
-.corp-li { display:flex; gap:12px; align-items:center; font-size:0.85rem; color:rgba(245,240,232,0.65); }
+.corp-body { font-size:0.88rem; color:rgba(245,240,232,0.55); line-height:1.78; font-weight:300; margin-bottom:2rem; }
+.corp-list { display:flex; flex-direction:column; gap:0.75rem; margin-bottom:2.2rem; }
+.corp-li { display:flex; gap:12px; align-items:center; font-size:0.84rem; color:rgba(245,240,232,0.65); }
 .corp-li-dot { width:6px; height:6px; border-radius:50%; background:var(--amber); flex-shrink:0; }
-.corp-visual { position:relative; }
-
-/* Corporate image — fully fitted */
-.corp-img-wrap {
-  width:100%; border-radius:16px; overflow:hidden;
-  border:1px solid rgba(255,255,255,0.08);
-  aspect-ratio:4/3;
-  position:relative;
-}
-.corp-img-wrap img {
-  width:100%; height:100%;
-  object-fit:cover; object-position:center;
-  display:block;
-}
+.corp-img-wrap { width:100%; border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,0.08); aspect-ratio:4/3; position:relative; }
+.corp-img-wrap img { width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
 .corp-img-fallback {
   position:absolute; inset:0;
   background:linear-gradient(135deg,rgba(44,83,56,0.6),rgba(26,58,42,0.9));
@@ -283,44 +315,46 @@ section.hero { padding:0; }
 .corp-img-fallback svg { width:52px; height:52px; stroke:rgba(255,255,255,0.15); stroke-width:1; fill:none; }
 .corp-img-fallback span { font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.18); }
 
-.corp-metrics { display:grid; grid-template-columns:1fr 1fr; gap:1px; margin-top:1px; background:rgba(255,255,255,0.07); border-radius:0 0 16px 16px; overflow:hidden; }
-.corp-metric { background:rgba(26,58,42,0.7); padding:1.2rem 1.4rem; }
-.corp-metric-n { font-family:'Cormorant Garamond', serif; font-size:1.8rem; font-weight:700; color:white; }
-.corp-metric-l { font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:rgba(245,240,232,0.4); }
-
-/* DUAL CTA */
+/* ═══════════════════════════════════
+   DUAL CTA
+═══════════════════════════════════ */
 .dual-cta { display:grid; grid-template-columns:1fr 1fr; gap:0; }
 .cta-half { padding:5rem 6%; position:relative; overflow:hidden; }
 .cta-forest { background:var(--ink); }
 .cta-terra { background:var(--terra); }
 .cta-half::after { content:''; position:absolute; width:300px; height:300px; border-radius:50%; right:-80px; bottom:-80px; background:rgba(255,255,255,0.04); pointer-events:none; }
 .cta-eyebrow { font-size:0.65rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:0.9rem; }
-.cta-title { font-family:'Cormorant Garamond', serif; font-size:clamp(1.7rem,2.8vw,2.3rem); font-weight:700; color:white; line-height:1.18; margin-bottom:0.8rem; }
-.cta-body { font-size:0.875rem; color:rgba(255,255,255,0.5); line-height:1.72; margin-bottom:2rem; font-weight:300; }
+.cta-title { font-family:'Cormorant Garamond', serif; font-size:clamp(1.6rem,2.6vw,2.2rem); font-weight:700; color:white; line-height:1.18; margin-bottom:0.8rem; }
+.cta-body { font-size:0.87rem; color:rgba(255,255,255,0.5); line-height:1.72; margin-bottom:2rem; font-weight:300; }
 
-/* FOOTER */
-footer { background:var(--ink); padding:4.5rem 8% 2rem; }
-.footer-top { display:grid; grid-template-columns:2.2fr 1fr 1fr 1fr; gap:4rem; margin-bottom:3.5rem; }
-.footer-brand-logo { display:flex; align-items:center; gap:12px; margin-bottom:0.75rem; }
-.footer-logo-mark { width:36px; height:36px; border-radius:8px; overflow:hidden; }
+/* ═══════════════════════════════════
+   FOOTER
+═══════════════════════════════════ */
+footer { background:var(--ink); padding:4rem 8% 2rem; }
+.footer-top { display:grid; grid-template-columns:2.2fr 1fr 1fr 1fr; gap:3.5rem; margin-bottom:3rem; }
+.footer-brand-logo { display:flex; align-items:center; gap:12px; margin-bottom:0.7rem; }
+.footer-logo-mark { width:34px; height:34px; border-radius:8px; overflow:hidden; background:var(--forest); display:flex; align-items:center; justify-content:center; }
 .footer-logo-mark img { width:100%; height:100%; object-fit:cover; display:block; }
-.footer-logo-mark-ph { width:36px; height:36px; border-radius:8px; background:var(--forest); display:flex; align-items:center; justify-content:center; font-size:1rem; }
-.footer-brand-name { font-family:'Cormorant Garamond', serif; font-size:1.3rem; font-weight:700; color:white; }
-.footer-tagline { font-size:0.82rem; color:rgba(255,255,255,0.3); line-height:1.7; max-width:250px; }
-.footer-col-h { font-size:0.65rem; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--amber); margin-bottom:1.2rem; }
+.footer-brand-name { font-family:'Cormorant Garamond', serif; font-size:1.25rem; font-weight:700; color:white; }
+.footer-tagline { font-size:0.8rem; color:rgba(255,255,255,0.3); line-height:1.7; max-width:250px; }
+.footer-col-h { font-size:0.63rem; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--amber); margin-bottom:1.1rem; }
 .footer-links { list-style:none; }
-.footer-links li { margin-bottom:0.6rem; }
-.footer-links a { text-decoration:none; font-size:0.82rem; color:rgba(255,255,255,0.3); transition:color .2s; }
+.footer-links li { margin-bottom:0.55rem; }
+.footer-links a { text-decoration:none; font-size:0.8rem; color:rgba(255,255,255,0.3); transition:color .2s; }
 .footer-links a:hover { color:rgba(255,255,255,0.75); }
-.footer-bottom { border-top:1px solid rgba(255,255,255,0.07); padding-top:1.5rem; display:flex; justify-content:space-between; align-items:center; font-size:0.75rem; color:rgba(255,255,255,0.2); }
+.footer-bottom { border-top:1px solid rgba(255,255,255,0.07); padding-top:1.4rem; display:flex; justify-content:space-between; align-items:center; font-size:0.73rem; color:rgba(255,255,255,0.2); }
 
-/* ANIMATIONS */
-.reveal { opacity:0; transform:translateY(28px); transition:opacity .65s ease, transform .65s ease; }
+/* ═══════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════ */
+.reveal { opacity:0; transform:translateY(24px); transition:opacity .65s ease, transform .65s ease; }
 .reveal.in { opacity:1; transform:none; }
-@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
 .float-anim { animation:float 3.5s ease-in-out infinite; }
 
-/* MODAL OVERLAY */
+/* ═══════════════════════════════════
+   MODALS
+═══════════════════════════════════ */
 .modal-overlay {
   position:fixed; inset:0; z-index:1000;
   background:rgba(14,26,16,0.75); backdrop-filter:blur(6px);
@@ -348,12 +382,12 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
 .modal-tag { font-size:0.68rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--terra); margin-bottom:0.5rem; display:flex; align-items:center; gap:6px; }
 .modal-tag::before { content:''; display:block; width:16px; height:1.5px; background:var(--terra); }
 .modal-title { font-family:'Cormorant Garamond', serif; font-size:1.7rem; font-weight:700; color:var(--forest); margin-bottom:0.4rem; line-height:1.2; }
-.modal-desc { font-size:0.85rem; color:var(--muted); line-height:1.65; margin-bottom:1.8rem; }
+.modal-desc { font-size:0.84rem; color:var(--muted); line-height:1.65; margin-bottom:1.7rem; }
 .modal-form { display:flex; flex-direction:column; gap:1rem; }
 .modal-form-row { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; }
-.mfield label { display:block; font-size:0.73rem; font-weight:500; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); margin-bottom:0.35rem; }
+.mfield label { display:block; font-size:0.72rem; font-weight:500; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); margin-bottom:0.32rem; }
 .mfield input, .mfield select, .mfield textarea {
-  width:100%; padding:0.7rem 0.9rem;
+  width:100%; padding:0.68rem 0.9rem;
   border:1.5px solid rgba(107,143,113,0.2);
   border-radius:10px; font-family:'Outfit', sans-serif; font-size:0.875rem;
   color:var(--text); background:var(--white); outline:none;
@@ -365,44 +399,17 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
   width:100%; padding:0.8rem 1.5rem; border-radius:10px;
   background:var(--forest); color:white; border:none; cursor:pointer;
   font-family:'Outfit', sans-serif; font-size:0.9rem; font-weight:500;
-  transition:all 0.22s; margin-top:0.5rem;
+  transition:all 0.22s; margin-top:0.4rem;
 }
 .modal-submit:hover { background:var(--moss); transform:translateY(-1px); box-shadow:0 4px 16px rgba(26,58,42,0.25); }
 .modal-success { text-align:center; padding:1.5rem 0 0.5rem; display:none; }
 .modal-success svg { stroke:var(--fern); margin-bottom:1rem; }
 .modal-success h3 { font-family:'Cormorant Garamond', serif; font-size:1.4rem; color:var(--forest); margin-bottom:0.5rem; }
-.modal-success p { font-size:0.85rem; color:var(--muted); line-height:1.6; }
+.modal-success p { font-size:0.84rem; color:var(--muted); line-height:1.6; }
 
-/* Hamburger menu */
-.hamburger {
-  display:none; flex-direction:column; justify-content:center; gap:5px;
-  background:none; border:none; cursor:pointer; padding:6px; width:36px; height:36px;
-}
-.hamburger span { display:block; height:2px; background:var(--forest); border-radius:2px; transition:all .3s; }
-.hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
-.hamburger.open span:nth-child(2) { opacity:0; }
-.hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
-
-/* Mobile nav drawer */
-.mobile-nav {
-  display:none; position:fixed; top:68px; left:0; right:0; z-index:190;
-  background:rgba(253,252,249,0.98); backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(180,160,120,0.2);
-  padding:1.5rem 5% 2rem; flex-direction:column; gap:0;
-  box-shadow:0 8px 30px rgba(10,25,15,0.1);
-}
-.mobile-nav.open { display:flex; }
-.mobile-nav a {
-  display:block; padding:0.9rem 0; border-bottom:1px solid rgba(180,160,120,0.12);
-  text-decoration:none; font-size:0.95rem; font-weight:400; color:var(--text);
-}
-.mobile-nav a:last-of-type { border-bottom:none; }
-.mobile-nav-actions { display:flex; gap:10px; margin-top:1.2rem; }
-.mobile-nav-actions .btn { flex:1; justify-content:center; }
-
-/* ══════════════════════════════
-   RESPONSIVE
-══════════════════════════════ */
+/* ═══════════════════════════════════════════════
+   RESPONSIVE — TABLET (≤1100px)
+═══════════════════════════════════════════════ */
 @media(max-width:1100px) {
   .steps-grid.active { grid-template-columns:repeat(2,1fr); }
   .svc-grid { grid-template-columns:repeat(2,1fr); }
@@ -410,29 +417,38 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
   .footer-top { grid-template-columns:1fr 1fr; gap:2.5rem; }
 }
 
+/* ═══════════════════════════════════════════════
+   RESPONSIVE — MOBILE (≤900px)
+═══════════════════════════════════════════════ */
 @media(max-width:900px) {
-  /* Hero */
+  /* Nav */
+  .nav-links { display:none; }
+  .nav-actions { display:none; }
+  .hamburger { display:flex; }
+
+  /* Hero — stacked */
   .hero { grid-template-columns:1fr; min-height:auto; }
-  .hero-left { padding:4rem 5%; min-height:auto; }
+  .hero-left { padding:3rem 5% 3.5rem; justify-content:flex-start; padding-top:3rem; }
   .hero-right {
-    display:block; height:380px; position:relative;
+    height:340px; position:relative; display:block;
   }
-  .hero-right .hero-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; }
+  .hero-quote { font-size:1.15rem; max-width:260px; }
 
   /* How it works */
-  .how-header { grid-template-columns:1fr; gap:2rem; }
+  .how-header { grid-template-columns:1fr; gap:1.8rem; }
+  .how-tabs { width:100%; }
+  .how-tab { flex:1; text-align:center; }
   .steps-grid.active { grid-template-columns:1fr 1fr; }
 
-  /* Nursery services */
-  .svc-header { grid-template-columns:1fr; gap:2rem; }
-  .svc-grid { grid-template-columns:1fr 1fr; }
+  /* Services */
+  .svc-header { grid-template-columns:1fr; gap:1.8rem; }
 
   /* Rent */
   .rent-hero { grid-template-columns:1fr; }
-  .rent-img-col { min-height:320px; }
+  .rent-img-col { min-height:300px; height:300px; }
   .rent-content-col { padding:3rem 5%; }
 
-  /* Rental plans */
+  /* Plans */
   .plans-grid { grid-template-columns:1fr; }
   .plans-top { flex-direction:column; align-items:flex-start; gap:1rem; }
 
@@ -443,79 +459,97 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
   /* Dual CTA */
   .dual-cta { grid-template-columns:1fr; }
 
-  /* Nav */
-  .nav-links { display:none; }
-  .nav-actions { display:none; }
-  .hamburger { display:flex; }
-
   /* Footer */
   .footer-top { grid-template-columns:1fr 1fr; gap:2rem; }
   .footer-bottom { flex-direction:column; gap:0.5rem; text-align:center; }
 }
 
+/* ═══════════════════════════════════════════════
+   RESPONSIVE — SMALL MOBILE (≤640px)
+═══════════════════════════════════════════════ */
 @media(max-width:640px) {
-  section { padding:3.5rem 5%; }
-  .how-section { padding:3.5rem 5%; }
-  .rent-plans { padding:3rem 5%; }
-  .corp-section { padding:3.5rem 5%; }
-  .svc-section { padding:3.5rem 5%; }
-  .cust-section { padding:3.5rem 5%; }
-  .dual-cta .cta-half { padding:3.5rem 5%; }
-  footer { padding:3rem 5% 1.5rem; }
+  /* Sections */
+  section { padding:3rem 5%; }
+  .how-section { padding:3rem 5%; }
+  .rent-plans { padding:2.5rem 5%; }
+  .corp-section { padding:3rem 5%; }
+  .svc-section { padding:3rem 5%; }
+  .cust-section { padding:3rem 5%; }
+  .dual-cta .cta-half { padding:3rem 5%; }
+  footer { padding:2.8rem 5% 1.5rem; }
 
   /* Hero */
-  .hero-left { padding:3rem 5%; }
-  .hero-right { height:300px; }
-  .hero-stats { flex-direction:column; gap:1rem; }
-  .hero-stat { padding-right:0; margin-right:0; border-right:none; border-bottom:1px solid var(--sand); padding-bottom:1rem; }
-  .hero-stat:last-child { border-bottom:none; padding-bottom:0; }
-  .hero-ctas { flex-direction:column; }
-  .hero-ctas .btn { text-align:center; justify-content:center; }
+  .hero-left { padding:2.5rem 5% 3rem; }
+  .hero-eyebrow { margin-bottom:1.2rem; }
+  .hero-body { font-size:0.9rem; margin-bottom:2rem; }
+  .hero-right { height:260px; }
+  .hero-quote-block { padding:1.5rem 1.5rem 2rem; }
+  .hero-quote { font-size:1.05rem; max-width:240px; }
 
-  /* How tabs */
-  .how-tabs { width:100%; }
-  .how-tab { flex:1; text-align:center; padding:0.65rem 0.75rem; font-size:0.78rem; }
+  /* Hero CTAs — full width stack on very small */
+  .hero-ctas { flex-direction:column; gap:10px; }
+  .hero-ctas .btn { width:100%; justify-content:center; text-align:center; }
+
+  /* Hero stats — horizontal scroll friendly */
+  .hero-stats { flex-direction:row; overflow-x:auto; gap:0; -webkit-overflow-scrolling:touch; padding-bottom:2px; }
+  .hero-stat { flex-shrink:0; padding-right:1.5rem; margin-right:1.5rem; border-right:1px solid var(--sand); }
+  .hero-stat:last-child { border-right:none; padding-right:0; margin-right:0; }
+
+  /* How it works tabs */
+  .how-tab { padding:0.6rem 0.6rem; font-size:0.76rem; }
   .steps-grid.active { grid-template-columns:1fr; }
+  .step-item { padding:1.5rem 1.2rem; }
 
-  /* Services */
+  /* Services — single col */
   .svc-grid { grid-template-columns:1fr; }
-  .svc-header { gap:1.5rem; }
 
-  /* Customer grid */
+  /* Customer grid — 2 col */
   .cust-grid { grid-template-columns:1fr 1fr; }
-
-  /* Footer */
-  .footer-top { grid-template-columns:1fr; gap:2rem; }
-
-  /* Modal */
-  .modal-form-row { grid-template-columns:1fr; }
-  .modal-card { padding:1.8rem; border-radius:14px; }
-
-  /* Rent steps */
-  .rent-label-float { top:1rem; left:1rem; }
+  .cc { padding:1.2rem; }
 
   /* Plans */
   .plan-card { padding:1.5rem; }
+  .plans-top { gap:0.8rem; }
+  .plans-title { font-size:1.5rem; }
 
-  /* Corp metrics */
-  .corp-metrics { grid-template-columns:1fr 1fr; }
+  /* Rent */
+  .rent-label-float { top:1rem; left:1rem; }
+  .rent-steps { gap:1rem; }
+  .rent-cta-row { flex-direction:column; gap:10px; }
+  .rent-cta-row .btn { width:100%; justify-content:center; }
+
+  /* Corporate */
+  .corp-grid { gap:2rem; }
+
+  /* CTA */
+  .cta-half { padding:2.8rem 5%; }
+
+  /* Footer */
+  .footer-top { grid-template-columns:1fr; gap:2rem; }
+  .footer-bottom { font-size:0.7rem; }
+
+  /* Modal */
+  .modal-form-row { grid-template-columns:1fr; }
+  .modal-card { padding:1.8rem 1.5rem; border-radius:16px; }
 }
 
 @media(max-width:400px) {
   .cust-grid { grid-template-columns:1fr; }
-  .hero-right { height:250px; }
+  .hero-right { height:220px; }
+  .hero-stats { flex-direction:column; }
+  .hero-stat { padding-right:0; margin-right:0; border-right:none; border-bottom:1px solid var(--sand); padding-bottom:1rem; }
+  .hero-stat:last-child { border-bottom:none; padding-bottom:0; }
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
+<!-- ══ NAV ══ -->
 <nav id="topnav">
   <a href="index.html" class="nav-logo">
-    <!-- LOGO: Replace logo.png with your actual logo file -->
     <div class="logo-mark">
       <img src="logo.png" alt="Urban Farmer Logo"
-           onerror="this.parentElement.innerHTML='<div class=\'logo-mark-placeholder\'>🌿</div>'">
+           onerror="this.outerHTML='<span class=\'logo-mark-fallback\'>🌿</span>'">
     </div>
     <div class="logo-text">Urban Farmer<small>India's Plant Ecosystem</small></div>
   </a>
@@ -529,13 +563,12 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
     <a href="login.html" class="btn btn-ghost">Sign In</a>
     <a href="customer-dashboard.html" class="btn btn-solid">Get Started</a>
   </div>
-  <!-- Hamburger for mobile -->
   <button class="hamburger" id="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
-<!-- MOBILE NAV DRAWER -->
+<!-- ══ MOBILE NAV ══ -->
 <nav class="mobile-nav" id="mobileNav">
   <a href="#how" onclick="closeMobileNav()">How it Works</a>
   <a href="#nurseries" onclick="closeMobileNav()">For Nurseries</a>
@@ -547,10 +580,10 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
   </div>
 </nav>
 
-<!-- HERO -->
+<!-- ══ HERO ══ -->
 <section class="hero">
   <div class="hero-left">
-    <div class="hero-eyebrow">India's first structured plant ecosystem</div>
+    <div class="hero-eyebrow">India's structured plant ecosystem</div>
     <h1 class="hero-title">Making Every<br>Urban Home<br><em>Self-Sustaining</em></h1>
     <p class="hero-body">From discovering the right plant to growing it, buying it, renting it, and maintaining it — Urban Farmer is your end-to-end partner for intelligent urban living with plants.</p>
     <div class="hero-ctas">
@@ -559,41 +592,39 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
     </div>
     <div class="hero-rule"></div>
     <div class="hero-stats">
-      <div class="hero-stat"><div class="stat-n">240+</div><div class="stat-l">Partner Nurseries</div></div>
-      <div class="hero-stat"><div class="stat-n">5,000+</div><div class="stat-l">Plants Listed</div></div>
-      <div class="hero-stat"><div class="stat-n">12+</div><div class="stat-l">Services</div></div>
+      <div class="hero-stat"><div class="stat-n">12+</div><div class="stat-l">Services Offered</div></div>
+      <div class="hero-stat"><div class="stat-n">500+</div><div class="stat-l">Plant Varieties</div></div>
+      <div class="hero-stat"><div class="stat-n">3</div><div class="stat-l">Cities · Launching</div></div>
     </div>
   </div>
-
   <div class="hero-right">
-    <!-- HERO IMAGE: Replace tulasi.png with your actual image — 900×1000px recommended -->
     <img class="hero-img" src="tulasi.png" alt="Urban home garden">
     <div class="hero-scrim"></div>
     <div class="hero-quote-block">
       <div class="plant-says">The plant says</div>
       <blockquote class="hero-quote">
         "Give me a corner of your home and I will give you clean air, calm mornings, and a reason to slow down."
-        <cite>— Holy Basil, Green Valley Nursery</cite>
+        <cite>— Holy Basil</cite>
       </blockquote>
     </div>
   </div>
 </section>
 
-<!-- TICKER -->
+<!-- ══ TICKER ══ -->
 <div class="ticker-bar">
   <div class="ticker-track">
-    <span class="ticker-item"><span class="ticker-dot"></span>240+ Partner Nurseries</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>5,000+ Plants Listed</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Now Onboarding Nurseries</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>500+ Plant Varieties</span>
     <span class="ticker-item"><span class="ticker-dot"></span>AI Plant Doctor</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>Rent a Plant Available Now</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Rent a Plant · Launching</span>
     <span class="ticker-item"><span class="ticker-dot"></span>Corporate Greening Projects</span>
     <span class="ticker-item"><span class="ticker-dot"></span>IoT Sensor Integration</span>
     <span class="ticker-item"><span class="ticker-dot"></span>QR Powered Nurseries</span>
     <span class="ticker-item"><span class="ticker-dot"></span>Terrace Garden Setup</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>240+ Partner Nurseries</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>5,000+ Plants Listed</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Now Onboarding Nurseries</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>500+ Plant Varieties</span>
     <span class="ticker-item"><span class="ticker-dot"></span>AI Plant Doctor</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>Rent a Plant Available Now</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Rent a Plant · Launching</span>
     <span class="ticker-item"><span class="ticker-dot"></span>Corporate Greening Projects</span>
     <span class="ticker-item"><span class="ticker-dot"></span>IoT Sensor Integration</span>
     <span class="ticker-item"><span class="ticker-dot"></span>QR Powered Nurseries</span>
@@ -601,7 +632,7 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
   </div>
 </div>
 
-<!-- HOW IT WORKS -->
+<!-- ══ HOW IT WORKS ══ -->
 <section class="how-section" id="how">
   <div class="how-header">
     <div>
@@ -609,7 +640,7 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
       <h2 class="how-title">How Urban Farmer<br><em style="font-style:italic;color:var(--amber);">Works</em></h2>
     </div>
     <div>
-      <p class="how-subtitle" style="margin-bottom:1.6rem;">Whether you run a nursery or love plants, every step of the journey is intelligently covered.</p>
+      <p class="how-subtitle">Whether you run a nursery or love plants, every step of the journey is intelligently covered.</p>
       <div class="how-tabs">
         <button class="how-tab active" onclick="switchTab('nursery',this)">For Nurseries</button>
         <button class="how-tab" onclick="switchTab('customer',this)">For Customers</button>
@@ -680,7 +711,7 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
   </div>
 </section>
 
-<!-- NURSERY SERVICES -->
+<!-- ══ NURSERY SERVICES ══ -->
 <section class="svc-section" id="nurseries">
   <div class="svc-header">
     <div>
@@ -726,11 +757,10 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
   </div>
 </section>
 
-<!-- RENT A PLANT -->
+<!-- ══ RENT A PLANT ══ -->
 <section class="rent-section" id="rent">
   <div class="rent-hero">
     <div class="rent-img-col">
-      <!-- LIFESTYLE IMAGE: Replace lifestyle.png with your actual plant arrangement image -->
       <img class="rent-img" src="lifestyle.png" alt="Lifestyle plant arrangement"
            onerror="this.style.display='none'; document.getElementById('rentImgFallback').style.display='flex'">
       <div class="rent-img-placeholder" id="rentImgFallback" style="display:none">
@@ -742,55 +772,44 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
       </div>
       <div class="rent-label-float float-anim">
         <div class="rfl">Available Now</div>
-        <div class="rfv">Starting Rs. 499 per month</div>
+        <div class="rfv">Starting Rs. 499/month</div>
       </div>
     </div>
-
     <div class="rent-content-col">
       <div class="rent-eyebrow">A New Way to Live with Plants</div>
       <h2 class="rent-headline">Bloom. Breathe.<br><em>Don't Worry.</em></h2>
       <p class="rent-subhead">You enjoy the fragrance. We handle everything else.</p>
       <p class="rent-body">No buying. No maintaining. No worrying. We bring curated living arrangements — Jasmine, Mogra, Lavender, Tulasi — to your home, office, or event. Our team plants, maintains, and replaces them throughout the rental period.</p>
-
       <div class="rent-steps">
         <div class="rent-step">
-          <div class="rs-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 2C8 2 4 5.5 4 9c0 5 8 13 8 13s8-8 8-13c0-3.5-4-7-8-7z"/></svg>
-          </div>
+          <div class="rs-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8 2 4 5.5 4 9c0 5 8 13 8 13s8-8 8-13c0-3.5-4-7-8-7z"/></svg></div>
           <div class="rs-body">
             <div class="rs-title">We design it for your space</div>
             <div class="rs-desc">Our team curates the right varieties, pot styles, and arrangements based on your space, light conditions, and fragrance preference.</div>
           </div>
         </div>
         <div class="rent-step">
-          <div class="rs-icon">
-            <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-          </div>
+          <div class="rs-icon"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
           <div class="rs-body">
             <div class="rs-title">We arrange and install</div>
             <div class="rs-desc">Plants are delivered and placed exactly where they'll thrive — balconies, terraces, lobbies, weddings, or living rooms.</div>
           </div>
         </div>
         <div class="rent-step">
-          <div class="rs-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
+          <div class="rs-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
           <div class="rs-body">
             <div class="rs-title">We maintain throughout</div>
             <div class="rs-desc">Watering, feeding, seasonal swaps — our team visits regularly to keep every plant blooming and every arrangement at its best.</div>
           </div>
         </div>
         <div class="rent-step">
-          <div class="rs-icon">
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          </div>
+          <div class="rs-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
           <div class="rs-body">
             <div class="rs-title">You simply enjoy</div>
             <div class="rs-desc">No ownership, no upkeep, no stress. At the end of your rental period, we collect everything. Want to continue? Just say the word.</div>
           </div>
         </div>
       </div>
-
       <div class="rent-cta-row">
         <a href="#rent-plans" class="btn btn-terra btn-lg">Explore Rental Plans</a>
         <button class="btn btn-ghost btn-lg" onclick="openModal('consultModal')">Book a Consultation</button>
@@ -837,7 +856,7 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
         <div class="plan-feature">Unlimited arrangements</div>
         <div class="plan-feature">Dedicated on-site gardener</div>
         <div class="plan-feature">Event and wedding packages</div>
-        <div class="plan-feature">Corporate bulk pricing</div>
+        <div class="plan-feature">Bulk pricing</div>
         <div class="plan-feature">Brand-matching aesthetics</div>
         <div style="margin-top:1.5rem;"><button onclick="openModal('quoteModal')" class="btn btn-terra" style="width:100%;justify-content:center;">Request Quote</button></div>
       </div>
@@ -845,7 +864,7 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
   </div>
 </section>
 
-<!-- CUSTOMER ECOSYSTEM -->
+<!-- ══ CUSTOMER ECOSYSTEM ══ -->
 <section class="cust-section" id="customers">
   <div class="cust-header">
     <div class="tag reveal">For Customers</div>
@@ -861,7 +880,7 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
     <div class="cc reveal">
       <div class="cc-icon ico-t"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div>
       <div class="cc-title">Shop Online and Offline</div>
-      <div class="cc-desc">Buy plants, pots, and tools from the marketplace. Online delivery or pickup from partner nurseries near you.</div>
+      <div class="cc-desc">Buy plants, pots, and tools from the marketplace. Online delivery or pickup from nurseries near you.</div>
     </div>
     <div class="cc reveal">
       <div class="cc-icon ico-a"><svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg></div>
@@ -896,7 +915,7 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
   </div>
 </section>
 
-<!-- CORPORATE -->
+<!-- ══ CORPORATE ══ -->
 <section class="corp-section" id="corporate">
   <div class="corp-grid">
     <div>
@@ -913,35 +932,24 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
       <button class="btn btn-terra btn-xl" onclick="openModal('partnerModal')">Partner With Us</button>
     </div>
     <div class="corp-visual">
-      <!-- CORPORATE IMAGE: Replace co_5.png with your actual image — 800×600px recommended -->
       <div class="corp-img-wrap">
         <img src="co_5.jpg" alt="Corporate greening project"
              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
         <div class="corp-img-fallback">
           <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-          <span>co_5.jpg — Corporate office image</span>
-        </div>
-      </div>
-      <div class="corp-metrics">
-        <div class="corp-metric">
-          <div class="corp-metric-n">48</div>
-          <div class="corp-metric-l">Active Corporate Partners</div>
-        </div>
-        <div class="corp-metric">
-          <div class="corp-metric-n">12K+</div>
-          <div class="corp-metric-l">Plants Supplied This Year</div>
+          <span>co_5.jpg</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- DUAL CTA -->
+<!-- ══ DUAL CTA ══ -->
 <div class="dual-cta">
   <div class="cta-half cta-forest">
     <div class="cta-eyebrow">For Nurseries</div>
     <h2 class="cta-title">Ready to List<br>Your Nursery?</h2>
-    <p class="cta-body">Join 240+ nurseries already growing on Urban Farmer. Get QR codes, real-time analytics, and marketplace access from day one.</p>
+    <p class="cta-body">Be among the first nurseries on Urban Farmer. Get QR codes, real-time analytics, and marketplace access from day one.</p>
     <a href="register.html?type=nursery" class="btn btn-amber btn-xl">Register Nursery</a>
   </div>
   <div class="cta-half cta-terra">
@@ -952,15 +960,14 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
   </div>
 </div>
 
-<!-- FOOTER -->
+<!-- ══ FOOTER ══ -->
 <footer>
   <div class="footer-top">
     <div>
       <div class="footer-brand-logo">
-        <!-- FOOTER LOGO: Replace logo.png with your actual logo file -->
         <div class="footer-logo-mark">
           <img src="logo.png" alt="Urban Farmer"
-               onerror="this.parentElement.innerHTML='<div class=\'footer-logo-mark-ph\'>🌿</div>'">
+               onerror="this.outerHTML='🌿'">
         </div>
         <span class="footer-brand-name">Urban Farmer</span>
       </div>
@@ -1000,9 +1007,8 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
   </div>
 </footer>
 
-
-<!-- MODAL: BOOK A CONSULTATION -->
-<div class="modal-overlay" id="consultModal" onclick="handleModalClick(event, 'consultModal')">
+<!-- ══ MODAL: BOOK A CONSULTATION ══ -->
+<div class="modal-overlay" id="consultModal" onclick="handleModalClick(event,'consultModal')">
   <div class="modal-card">
     <button class="modal-close" onclick="closeModal('consultModal')">
       <svg viewBox="0 0 24 24" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -1013,19 +1019,10 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
       <div class="modal-desc">Tell us about your space and preferences. Our plant specialist will get in touch within 24 hours to plan your perfect arrangement.</div>
       <div class="modal-form">
         <div class="modal-form-row">
-          <div class="mfield">
-            <label>Your Name</label>
-            <input type="text" placeholder="Ravi Sharma">
-          </div>
-          <div class="mfield">
-            <label>Mobile Number</label>
-            <input type="tel" placeholder="+91 98765 43210">
-          </div>
+          <div class="mfield"><label>Your Name</label><input type="text" placeholder="Ravi Sharma"></div>
+          <div class="mfield"><label>Mobile Number</label><input type="tel" placeholder="+91 98765 43210"></div>
         </div>
-        <div class="mfield">
-          <label>Email Address</label>
-          <input type="email" placeholder="you@example.com">
-        </div>
+        <div class="mfield"><label>Email Address</label><input type="email" placeholder="you@example.com"></div>
         <div class="mfield">
           <label>Space Type</label>
           <select>
@@ -1037,15 +1034,12 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
             <option>Wedding or Event</option>
           </select>
         </div>
-        <div class="mfield">
-          <label>City</label>
-          <input type="text" placeholder="Bengaluru">
-        </div>
+        <div class="mfield"><label>City</label><input type="text" placeholder="Bengaluru"></div>
         <div class="mfield">
           <label>Anything else you'd like us to know?</label>
           <textarea placeholder="Preferred plants, budget, space size, timeline..."></textarea>
         </div>
-        <button class="modal-submit" onclick="submitModal('consultForm', 'consultSuccess')">Request Consultation</button>
+        <button class="modal-submit" onclick="submitModal('consultForm','consultSuccess')">Request Consultation</button>
       </div>
     </div>
     <div class="modal-success" id="consultSuccess">
@@ -1056,8 +1050,8 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
   </div>
 </div>
 
-<!-- MODAL: GET CUSTOM QUOTE -->
-<div class="modal-overlay" id="quoteModal" onclick="handleModalClick(event, 'quoteModal')">
+<!-- ══ MODAL: GET CUSTOM QUOTE ══ -->
+<div class="modal-overlay" id="quoteModal" onclick="handleModalClick(event,'quoteModal')">
   <div class="modal-card">
     <button class="modal-close" onclick="closeModal('quoteModal')">
       <svg viewBox="0 0 24 24" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -1068,19 +1062,10 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
       <div class="modal-desc">Every space is different. Share your requirements and we'll put together a tailored rental plan just for you.</div>
       <div class="modal-form">
         <div class="modal-form-row">
-          <div class="mfield">
-            <label>Your Name</label>
-            <input type="text" placeholder="Priya Menon">
-          </div>
-          <div class="mfield">
-            <label>Mobile Number</label>
-            <input type="tel" placeholder="+91 98765 43210">
-          </div>
+          <div class="mfield"><label>Your Name</label><input type="text" placeholder="Priya Menon"></div>
+          <div class="mfield"><label>Mobile Number</label><input type="tel" placeholder="+91 98765 43210"></div>
         </div>
-        <div class="mfield">
-          <label>Email Address</label>
-          <input type="email" placeholder="you@example.com">
-        </div>
+        <div class="mfield"><label>Email Address</label><input type="email" placeholder="you@example.com"></div>
         <div class="modal-form-row">
           <div class="mfield">
             <label>Space Type</label>
@@ -1118,7 +1103,7 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
           <label>Additional Requirements</label>
           <textarea placeholder="Specific plant types, fragrance preferences, event date, duration..."></textarea>
         </div>
-        <button class="modal-submit" onclick="submitModal('quoteForm', 'quoteSuccess')">Submit Request</button>
+        <button class="modal-submit" onclick="submitModal('quoteForm','quoteSuccess')">Submit Request</button>
       </div>
     </div>
     <div class="modal-success" id="quoteSuccess">
@@ -1129,8 +1114,8 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
   </div>
 </div>
 
-<!-- MODAL: PARTNER WITH US -->
-<div class="modal-overlay" id="partnerModal" onclick="handleModalClick(event, 'partnerModal')">
+<!-- ══ MODAL: PARTNER WITH US ══ -->
+<div class="modal-overlay" id="partnerModal" onclick="handleModalClick(event,'partnerModal')">
   <div class="modal-card">
     <button class="modal-close" onclick="closeModal('partnerModal')">
       <svg viewBox="0 0 24 24" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -1141,28 +1126,13 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
       <div class="modal-desc">Let's build a greener workspace or event together. Share your details and our corporate team will connect with you shortly.</div>
       <div class="modal-form">
         <div class="modal-form-row">
-          <div class="mfield">
-            <label>Your Name</label>
-            <input type="text" placeholder="Anita Rao">
-          </div>
-          <div class="mfield">
-            <label>Designation</label>
-            <input type="text" placeholder="Facilities Manager">
-          </div>
+          <div class="mfield"><label>Your Name</label><input type="text" placeholder="Anita Rao"></div>
+          <div class="mfield"><label>Designation</label><input type="text" placeholder="Facilities Manager"></div>
         </div>
-        <div class="mfield">
-          <label>Organisation Name</label>
-          <input type="text" placeholder="Company or Event Name">
-        </div>
+        <div class="mfield"><label>Organisation Name</label><input type="text" placeholder="Company or Event Name"></div>
         <div class="modal-form-row">
-          <div class="mfield">
-            <label>Work Email</label>
-            <input type="email" placeholder="you@company.com">
-          </div>
-          <div class="mfield">
-            <label>Mobile Number</label>
-            <input type="tel" placeholder="+91 98765 43210">
-          </div>
+          <div class="mfield"><label>Work Email</label><input type="email" placeholder="you@company.com"></div>
+          <div class="mfield"><label>Mobile Number</label><input type="tel" placeholder="+91 98765 43210"></div>
         </div>
         <div class="mfield">
           <label>Type of Partnership</label>
@@ -1175,15 +1145,12 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
             <option>Ongoing Maintenance Contract</option>
           </select>
         </div>
-        <div class="mfield">
-          <label>City and Location</label>
-          <input type="text" placeholder="Bengaluru, Koramangala">
-        </div>
+        <div class="mfield"><label>City and Location</label><input type="text" placeholder="Bengaluru, Koramangala"></div>
         <div class="mfield">
           <label>Brief Description of Your Requirements</label>
           <textarea placeholder="Scale, timeline, specific plants, budget range..."></textarea>
         </div>
-        <button class="modal-submit" onclick="submitModal('partnerForm', 'partnerSuccess')">Submit Partnership Request</button>
+        <button class="modal-submit" onclick="submitModal('partnerForm','partnerSuccess')">Submit Partnership Request</button>
       </div>
     </div>
     <div class="modal-success" id="partnerSuccess">
@@ -1193,7 +1160,6 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
     </div>
   </div>
 </div>
-
 
 <script>
   function switchTab(type, el) {
@@ -1227,7 +1193,6 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
     document.getElementById(formId).style.display = 'none';
     document.getElementById(successId).style.display = 'block';
   }
-
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
       document.querySelectorAll('.modal-overlay.open').forEach(m => {
@@ -1236,7 +1201,6 @@ footer { background:var(--ink); padding:4.5rem 8% 2rem; }
       });
     }
   });
-
   function toggleMobileNav() {
     const nav = document.getElementById('mobileNav');
     const btn = document.getElementById('hamburger');
