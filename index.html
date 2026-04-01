@@ -6,570 +6,551 @@
 <title>Urban Farmer — India's Plant Ecosystem</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ─── TOKENS ─── */
 :root {
-  --ink:#0e1a10; --forest:#1a3a2a; --moss:#2c5338; --fern:#3d6b4a;
-  --sage:#7fa882; --cream:#f7f3ec; --linen:#ede8df; --sand:#d9d0c0;
-  --terra:#b5612a; --amber:#d4883a; --gold:#c9a227;
-  --white:#fdfcf9; --text:#1a1a16; --muted:#6b6b5e;
+  --ink: #0e1a10;
+  --forest: #1a3a2a;
+  --moss: #2c5338;
+  --fern: #3d6b4a;
+  --sage: #7fa882;
+  --mist: #b8ccbb;
+  --cream: #f7f3ec;
+  --linen: #ede8df;
+  --sand: #d9d0c0;
+  --terra: #b5612a;
+  --amber: #d4883a;
+  --gold: #c9a227;
+  --white: #fdfcf9;
+  --text: #1a1a16;
+  --muted: #6b6b5e;
 }
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:'Outfit',sans-serif;background:var(--white);color:var(--text);overflow-x:hidden}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Outfit', sans-serif; background:var(--white); color:var(--text); overflow-x:hidden; }
 
-/* ─── BUTTONS ─── */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:.58rem 1.3rem;border-radius:6px;border:none;cursor:pointer;font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:500;text-decoration:none;transition:all .22s;white-space:nowrap;line-height:1}
-.btn-ghost{background:transparent;color:var(--forest);border:1.5px solid rgba(26,58,42,.25)}
-.btn-ghost:hover{border-color:var(--forest);background:rgba(26,58,42,.04)}
-.btn-solid{background:var(--forest);color:#fff;box-shadow:0 2px 14px rgba(26,58,42,.18)}
-.btn-solid:hover{background:var(--moss);transform:translateY(-1px)}
-.btn-terra{background:var(--terra);color:#fff}
-.btn-terra:hover{background:#9e5022;transform:translateY(-1px)}
-.btn-amber{background:var(--amber);color:#fff}
-.btn-amber:hover{background:#bf7428}
-.btn-lg{padding:.82rem 1.9rem;font-size:.9rem}
-.btn-xl{padding:1rem 2.4rem;font-size:.95rem;font-weight:600}
-
-/* ─── NAV (desktop) ─── */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:68px;background:rgba(253,252,249,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(180,160,120,.15);transition:box-shadow .3s}
-.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.logo-mark{width:40px;height:40px;border-radius:10px;flex-shrink:0;overflow:hidden;background:var(--forest);display:flex;align-items:center;justify-content:center}
-.logo-mark img{width:100%;height:100%;object-fit:cover;display:block}
-.logo-text{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--forest);letter-spacing:.02em;line-height:1}
-.logo-text small{display:block;font-size:.52rem;font-family:'Outfit',sans-serif;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);margin-top:2px}
-.nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
-.nav-links a{text-decoration:none;font-size:.82rem;font-weight:400;color:var(--muted);transition:color .2s}
-.nav-links a:hover{color:var(--forest)}
-.nav-actions{display:flex;gap:10px;align-items:center}
-.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;width:40px;height:40px;flex-shrink:0;padding:4px}
-.hamburger span{display:block;height:2px;background:var(--forest);border-radius:2px;transition:all .3s}
-.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.hamburger.open span:nth-child(2){opacity:0}
-.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.mobile-nav{display:none;position:fixed;top:56px;left:0;right:0;z-index:190;background:var(--white);border-bottom:1px solid var(--linen);flex-direction:column;box-shadow:0 4px 24px rgba(10,25,15,.08)}
-.mobile-nav.open{display:flex}
-.mobile-nav a{display:block;padding:1rem 6%;font-size:.95rem;color:var(--text);text-decoration:none;border-bottom:1px solid var(--linen)}
-.mob-ctas{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:1rem 6% 1.4rem}
-.mob-ctas .btn{justify-content:center;font-size:.85rem}
-
-/* ─── HERO (desktop) ─── */
-.hero{min-height:100vh;display:grid;grid-template-columns:52% 48%;padding-top:68px;width:100%}
-.hero-left{background:var(--cream);display:flex;flex-direction:column;justify-content:center;padding:5rem 5%;position:relative;z-index:2}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.68rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);margin-bottom:1.6rem}
-.hero-eyebrow::before{content:'';display:block;width:28px;height:1.5px;background:var(--terra)}
-.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,5vw,4.8rem);font-weight:700;line-height:1.03;color:var(--forest);margin-bottom:1.4rem;letter-spacing:-.01em}
-.hero-title em{font-style:italic;color:var(--terra)}
-.hero-body{font-size:.95rem;color:var(--muted);line-height:1.8;max-width:420px;margin-bottom:2.5rem;font-weight:300}
-.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:3rem}
-.hero-rule{width:50px;height:1px;background:var(--sand);margin-bottom:1.8rem}
-.hero-stats{display:flex}
-.hero-stat{padding-right:2rem;margin-right:2rem;border-right:1px solid var(--sand)}
-.hero-stat:last-child{border-right:none;padding-right:0;margin-right:0}
-.stat-n{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--forest);line-height:1}
-.stat-l{font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--sage);margin-top:4px}
-.hero-right{position:relative;overflow:hidden;background:var(--forest)}
-.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block}
-.hero-scrim{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(10,25,15,.1) 0%,rgba(10,25,15,.52) 100%)}
-.hero-quote-block{position:absolute;left:0;right:0;bottom:0;padding:2rem 2rem 2.5rem}
-.plant-says{font-size:.58rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.plant-says::before{content:'';display:block;width:20px;height:1px;background:rgba(255,255,255,.35)}
-.hero-quote{font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,2vw,1.8rem);font-style:italic;font-weight:300;color:#fff;line-height:1.45;max-width:280px}
-.hero-quote cite{display:block;font-family:'Outfit',sans-serif;font-style:normal;font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:10px}
-
-/* ─── TICKER ─── */
-.ticker-bar{background:var(--forest);padding:.7rem 0;overflow:hidden}
-.ticker-track{display:flex;white-space:nowrap;animation:ticker 28s linear infinite}
-.ticker-item{display:inline-flex;align-items:center;gap:12px;font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,240,232,.55);padding:0 2.5rem}
-.ticker-dot{width:4px;height:4px;border-radius:50%;background:var(--amber);flex-shrink:0}
-@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
-/* ─── SECTION BASE ─── */
-section{padding:5.5rem 8%}
-section.hero{padding:0}
-.tag{display:inline-flex;align-items:center;gap:8px;font-size:.68rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);margin-bottom:1rem}
-.tag::before{content:'';display:block;width:20px;height:1.5px;background:var(--terra)}
-.section-h{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,3.5vw,2.9rem);font-weight:700;color:var(--forest);line-height:1.12;max-width:640px}
-.section-h em{font-style:italic}
-.section-p{font-size:.92rem;color:var(--muted);line-height:1.8;max-width:520px;font-weight:300}
-
-/* ─── HOW IT WORKS ─── */
-.how-section{background:var(--forest);padding:5.5rem 8%}
-.how-header{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:3.5rem}
-.how-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,3.2vw,2.7rem);font-weight:700;color:var(--cream);line-height:1.1}
-.how-subtitle{font-size:.88rem;color:rgba(245,240,232,.5);line-height:1.75;font-weight:300;margin-bottom:1.4rem}
-.how-tabs{display:inline-flex;border:1px solid rgba(255,255,255,.12);border-radius:8px;overflow:hidden}
-.how-tab{padding:.6rem 1.4rem;background:transparent;border:none;cursor:pointer;font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:500;color:rgba(245,240,232,.45);transition:all .22s}
-.how-tab.active{background:var(--terra);color:#fff}
-.how-tab:not(:last-child){border-right:1px solid rgba(255,255,255,.12)}
-.steps-grid{display:none;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.07);border-radius:12px;overflow:hidden}
-.steps-grid.active{display:grid}
-.step-item{background:rgba(26,58,42,.6);padding:1.8rem 1.5rem;position:relative;transition:background .3s}
-.step-item:hover{background:rgba(44,83,56,.8)}
-.step-icon-wrap{width:46px;height:46px;background:rgba(193,123,74,.15);border:1px solid rgba(193,123,74,.25);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:1.1rem}
-.step-icon-wrap svg{width:20px;height:20px;stroke:var(--amber);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.step-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--cream);margin-bottom:.5rem}
-.step-desc{font-size:.79rem;color:rgba(245,240,232,.45);line-height:1.7;font-weight:300}
-.step-item::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:transparent;transition:background .3s}
-.step-item:hover::after{background:var(--amber)}
-
-/* ─── NURSERY SERVICES ─── */
-.svc-section{background:#fff;padding:5.5rem 8%}
-.svc-header{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;margin-bottom:3rem}
-.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:var(--linen);border:1.5px solid var(--linen);border-radius:14px;overflow:hidden}
-.svc-card{background:var(--white);padding:1.7rem;transition:background .28s}
-.svc-card:hover{background:var(--cream)}
-.svc-ico{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem}
-.svc-ico svg{width:20px;height:20px;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.ico-g{background:rgba(61,107,74,.1)}.ico-g svg{stroke:var(--fern)}
-.ico-t{background:rgba(181,97,42,.1)}.ico-t svg{stroke:var(--terra)}
-.ico-a{background:rgba(212,136,58,.12)}.ico-a svg{stroke:var(--amber)}
-.ico-s{background:rgba(127,168,130,.15)}.ico-s svg{stroke:var(--sage)}
-.ico-k{background:rgba(26,58,42,.09)}.ico-k svg{stroke:var(--forest)}
-.ico-b{background:rgba(201,162,39,.12)}.ico-b svg{stroke:var(--gold)}
-.svc-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--forest);margin-bottom:.4rem}
-.svc-desc{font-size:.79rem;color:var(--muted);line-height:1.7}
-
-/* ─── RENTAL ─── */
-.rent-section{background:var(--cream);padding:0;overflow:hidden}
-.rent-hero{display:grid;grid-template-columns:1fr 1fr;min-height:600px}
-.rent-img-col{position:relative;overflow:hidden;background:var(--forest);min-height:480px}
-.rent-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.rent-img-placeholder{position:absolute;inset:0;background:linear-gradient(145deg,#1f4a2e,#3a7a4a 50%,#4f9960);display:flex;align-items:center;justify-content:center}
-.img-placeholder-box{width:80%;max-width:260px;border:2px dashed rgba(255,255,255,.25);border-radius:12px;padding:2.5rem 1.5rem;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
-.img-placeholder-box svg{width:48px;height:48px;stroke:rgba(255,255,255,.35);stroke-width:1;fill:none}
-.img-placeholder-box .ph-title{font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55)}
-.img-placeholder-box .ph-sub{font-size:.68rem;color:rgba(255,255,255,.3)}
-.rent-label-float{position:absolute;top:1.5rem;left:1.5rem;background:#fff;border-radius:8px;padding:10px 16px;box-shadow:0 4px 24px rgba(0,0,0,.12);z-index:2}
-.rfl{font-size:.58rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--sage)}
-.rfv{font-size:.88rem;font-weight:600;color:var(--forest);font-family:'Cormorant Garamond',serif;margin-top:2px}
-.rent-content-col{background:var(--cream);display:flex;flex-direction:column;justify-content:center;padding:4rem 5% 4rem 6%}
-.rent-eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:1.2rem;font-size:.68rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--terra)}
-.rent-eyebrow::before{content:'';width:24px;height:1.5px;background:var(--terra)}
-.rent-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,3.2vw,2.9rem);font-weight:700;color:var(--forest);line-height:1.08;margin-bottom:.5rem}
-.rent-headline em{font-style:italic;color:var(--terra)}
-.rent-subhead{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;font-style:italic;color:var(--muted);margin-bottom:.9rem;line-height:1.5}
-.rent-body{font-size:.87rem;color:var(--muted);line-height:1.8;max-width:420px;margin-bottom:2rem;font-weight:300}
-.rent-steps{display:flex;flex-direction:column;gap:1.1rem;margin-bottom:2.2rem}
-.rent-step{display:flex;gap:1rem;align-items:flex-start}
-.rs-icon{width:36px;height:36px;border-radius:50%;background:var(--forest);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.rs-icon svg{stroke:rgba(245,240,232,.9);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;width:15px;height:15px}
-.rs-title{font-size:.87rem;font-weight:600;color:var(--forest);margin-bottom:3px}
-.rs-desc{font-size:.79rem;color:var(--muted);line-height:1.65}
-.rent-cta-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.rent-note{font-size:.73rem;color:var(--muted);font-style:italic}
-.rent-plans{background:var(--forest);padding:4rem 8%}
-.plans-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:2.5rem}
-.plans-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:var(--cream)}
-.plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:rgba(255,255,255,.08);border-radius:12px;overflow:hidden}
-.plan-card{background:rgba(26,58,42,.55);padding:2rem;transition:background .3s}
-.plan-card:hover{background:rgba(44,83,56,.75)}
-.plan-card.featured{background:var(--terra)}
-.plan-card.featured:hover{background:#9e5022}
-.plan-badge{font-size:.6rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:1rem}
-.plan-card.featured .plan-badge{color:rgba(255,255,255,.75)}
-.plan-name{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:700;color:#fff;margin-bottom:.5rem}
-.plan-price{font-size:1.9rem;font-weight:600;color:#fff;font-family:'Cormorant Garamond',serif}
-.plan-price sub{font-size:.82rem;font-weight:400;color:rgba(255,255,255,.55)}
-.plan-divider{height:1px;background:rgba(255,255,255,.1);margin:1.1rem 0}
-.plan-feature{font-size:.79rem;color:rgba(255,255,255,.55);margin-bottom:.5rem;display:flex;align-items:center;gap:8px}
-.plan-feature::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--amber);flex-shrink:0}
-.plan-card.featured .plan-feature{color:rgba(255,255,255,.8)}
-.plan-card.featured .plan-feature::before{background:#fff}
-
-/* ─── CUSTOMER ECOSYSTEM ─── */
-.cust-section{background:#fff;padding:5.5rem 8%}
-.cust-header{text-align:center;margin-bottom:3rem}
-.cust-header .section-h{margin:0 auto 1rem;text-align:center;max-width:720px}
-.cust-header .section-p{margin:0 auto;text-align:center}
-.cust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5px;background:var(--linen);border-radius:14px;overflow:hidden}
-.cc{background:#fff;padding:1.5rem;transition:background .25s}
-.cc:hover{background:var(--cream)}
-.cc-icon{width:46px;height:46px;border-radius:11px;display:flex;align-items:center;justify-content:center;margin-bottom:.9rem}
-.cc-icon svg{width:20px;height:20px;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.cc-title{font-family:'Cormorant Garamond',serif;font-size:1.02rem;font-weight:600;color:var(--forest);margin-bottom:.35rem}
-.cc-desc{font-size:.78rem;color:var(--muted);line-height:1.65}
-
-/* ─── CORPORATE ─── */
-.corp-section{background:var(--forest);padding:5.5rem 8%;position:relative;overflow:hidden}
-.corp-section::before{content:'';position:absolute;right:-10%;top:-20%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(61,107,74,.25),transparent 70%);pointer-events:none}
-.corp-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;position:relative;z-index:2}
-.corp-tag{font-size:.68rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:1rem;display:flex;align-items:center;gap:8px}
-.corp-tag::before{content:'';width:20px;height:1.5px;background:var(--amber)}
-.corp-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,3.2vw,2.7rem);font-weight:700;color:#fff;line-height:1.1;margin-bottom:1rem}
-.corp-title em{font-style:italic;color:var(--amber)}
-.corp-body{font-size:.88rem;color:rgba(245,240,232,.55);line-height:1.78;font-weight:300;margin-bottom:2rem}
-.corp-list{display:flex;flex-direction:column;gap:.75rem;margin-bottom:2.2rem}
-.corp-li{display:flex;gap:12px;align-items:center;font-size:.84rem;color:rgba(245,240,232,.65)}
-.corp-li-dot{width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0}
-.corp-img-wrap{width:100%;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.08);aspect-ratio:4/3;position:relative}
-.corp-img-wrap img{width:100%;height:100%;object-fit:cover;display:block}
-.corp-img-fallback{position:absolute;inset:0;background:linear-gradient(135deg,rgba(44,83,56,.6),rgba(26,58,42,.9));display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px}
-
-/* ─── DUAL CTA ─── */
-.dual-cta{display:grid;grid-template-columns:1fr 1fr}
-.cta-half{padding:5rem 6%;position:relative;overflow:hidden}
-.cta-forest{background:var(--ink)}
-.cta-terra{background:var(--terra)}
-.cta-half::after{content:'';position:absolute;width:300px;height:300px;border-radius:50%;right:-80px;bottom:-80px;background:rgba(255,255,255,.04);pointer-events:none}
-.cta-eyebrow{font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.9rem}
-.cta-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,2.6vw,2.2rem);font-weight:700;color:#fff;line-height:1.18;margin-bottom:.8rem}
-.cta-body{font-size:.87rem;color:rgba(255,255,255,.5);line-height:1.72;margin-bottom:2rem;font-weight:300}
-
-/* ─── FOOTER ─── */
-footer{background:var(--ink);padding:4rem 8% 2rem}
-.footer-top{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:3.5rem;margin-bottom:3rem}
-.footer-brand-logo{display:flex;align-items:center;gap:12px;margin-bottom:.7rem}
-.footer-logo-mark{width:34px;height:34px;border-radius:8px;overflow:hidden;background:var(--forest);display:flex;align-items:center;justify-content:center}
-.footer-logo-mark img{width:100%;height:100%;object-fit:cover;display:block}
-.footer-brand-name{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:#fff}
-.footer-tagline{font-size:.8rem;color:rgba(255,255,255,.3);line-height:1.7;max-width:250px}
-.footer-col-h{font-size:.63rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:1.1rem}
-.footer-links{list-style:none}
-.footer-links li{margin-bottom:.55rem}
-.footer-links a{text-decoration:none;font-size:.8rem;color:rgba(255,255,255,.3);transition:color .2s}
-.footer-links a:hover{color:rgba(255,255,255,.75)}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:1.4rem;display:flex;justify-content:space-between;align-items:center;font-size:.73rem;color:rgba(255,255,255,.2)}
-
-/* ─── ANIMATIONS ─── */
-.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
-.reveal.in{opacity:1;transform:none}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-.float-anim{animation:float 3.5s ease-in-out infinite}
-
-/* ─── MODALS ─── */
-.modal-overlay{position:fixed;inset:0;z-index:1000;background:rgba(14,26,16,.75);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:1rem}
-.modal-overlay.open{display:flex}
-.modal-card{background:var(--white);border-radius:20px;padding:2.5rem;width:100%;max-width:480px;box-shadow:0 24px 80px rgba(14,26,16,.3);position:relative;animation:modalIn .3s cubic-bezier(.34,1.4,.64,1) both;max-height:90vh;overflow-y:auto}
-@keyframes modalIn{from{opacity:0;transform:scale(.92) translateY(16px)}to{opacity:1;transform:none}}
-.modal-close{position:absolute;top:1.2rem;right:1.2rem;width:32px;height:32px;border-radius:50%;background:var(--linen);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
-.modal-close:hover{background:var(--sand)}
-.modal-close svg{stroke:var(--muted);stroke-width:2;fill:none;stroke-linecap:round}
-.modal-tag{font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--terra);margin-bottom:.5rem;display:flex;align-items:center;gap:6px}
-.modal-tag::before{content:'';display:block;width:16px;height:1.5px;background:var(--terra)}
-.modal-title{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:700;color:var(--forest);margin-bottom:.4rem;line-height:1.2}
-.modal-desc{font-size:.84rem;color:var(--muted);line-height:1.65;margin-bottom:1.7rem}
-.modal-form{display:flex;flex-direction:column;gap:1rem}
-.modal-form-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
-.mfield label{display:block;font-size:.72rem;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:.32rem}
-.mfield input,.mfield select,.mfield textarea{width:100%;padding:.68rem .9rem;border:1.5px solid rgba(107,143,113,.2);border-radius:10px;font-family:'Outfit',sans-serif;font-size:.875rem;color:var(--text);background:var(--white);outline:none;transition:border-color .2s}
-.mfield input:focus,.mfield select:focus,.mfield textarea:focus{border-color:var(--fern);box-shadow:0 0 0 3px rgba(61,107,74,.08)}
-.mfield textarea{resize:vertical;min-height:80px}
-.modal-submit{width:100%;padding:.8rem 1.5rem;border-radius:10px;background:var(--forest);color:#fff;border:none;cursor:pointer;font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:500;transition:all .22s;margin-top:.4rem}
-.modal-submit:hover{background:var(--moss);transform:translateY(-1px)}
-.modal-success{text-align:center;padding:1.5rem 0 .5rem;display:none}
-.modal-success svg{stroke:var(--fern);margin-bottom:1rem}
-.modal-success h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--forest);margin-bottom:.5rem}
-.modal-success p{font-size:.84rem;color:var(--muted);line-height:1.6}
-
-/* ═══════════════════════════════════════════════════════════════
-   TABLET ≤ 1100px
-═══════════════════════════════════════════════════════════════ */
-@media(max-width:1100px){
-  .steps-grid.active{grid-template-columns:repeat(2,1fr)}
-  .svc-grid{grid-template-columns:repeat(2,1fr)}
-  .cust-grid{grid-template-columns:repeat(2,1fr)}
-  .footer-top{grid-template-columns:1fr 1fr;gap:2.5rem}
+/* ═══════════════════════════════════
+   NAV
+═══════════════════════════════════ */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 5%; height:64px;
+  background:rgba(253,252,249,0.97); backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(180,160,120,0.15);
+  transition:box-shadow .3s;
 }
+.nav-logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
+.logo-mark {
+  width:40px; height:40px; border-radius:10px;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  overflow:hidden; background:var(--forest);
+}
+.logo-mark img { width:100%; height:100%; object-fit:cover; display:block; }
+.logo-mark-fallback { font-size:1.1rem; }
+.logo-text { font-family:'Cormorant Garamond', serif; font-size:1.3rem; font-weight:700; color:var(--forest); letter-spacing:0.02em; line-height:1; }
+.logo-text small { display:block; font-size:0.52rem; font-family:'Outfit', sans-serif; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--sage); margin-top:2px; }
+.nav-links { display:flex; align-items:center; gap:2rem; list-style:none; }
+.nav-links a { text-decoration:none; font-size:0.82rem; font-weight:400; color:var(--muted); letter-spacing:0.02em; transition:color .2s; }
+.nav-links a:hover { color:var(--forest); }
+.nav-actions { display:flex; gap:10px; align-items:center; }
 
-/* ═══════════════════════════════════════════════════════════════
-   MOBILE ≤ 768px — clean, minimal, white-space-first redesign
-═══════════════════════════════════════════════════════════════ */
-@media(max-width:768px){
+/* BUTTONS */
+.btn {
+  display:inline-flex; align-items:center; justify-content:center; gap:6px;
+  padding:0.58rem 1.3rem; border-radius:6px; border:none; cursor:pointer;
+  font-family:'Outfit', sans-serif; font-size:0.82rem; font-weight:500;
+  text-decoration:none; transition:all .22s; white-space:nowrap; line-height:1;
+}
+.btn-ghost { background:transparent; color:var(--forest); border:1.5px solid rgba(26,58,42,0.25); }
+.btn-ghost:hover { border-color:var(--forest); background:rgba(26,58,42,0.04); }
+.btn-solid { background:var(--forest); color:white; box-shadow:0 2px 14px rgba(26,58,42,0.22); }
+.btn-solid:hover { background:var(--moss); transform:translateY(-1px); box-shadow:0 4px 20px rgba(26,58,42,0.3); }
+.btn-terra { background:var(--terra); color:white; }
+.btn-terra:hover { background:#9e5022; transform:translateY(-1px); }
+.btn-amber { background:var(--amber); color:white; }
+.btn-amber:hover { background:#bf7428; }
+.btn-lg { padding:0.82rem 1.9rem; font-size:0.9rem; }
+.btn-xl { padding:1rem 2.4rem; font-size:0.95rem; font-weight:600; }
 
-  /* NAV */
-  nav{height:56px;padding:0 5%}
-  .nav-links,.nav-actions{display:none}
-  .hamburger{display:flex}
+/* Hamburger */
+.hamburger {
+  display:none; flex-direction:column; justify-content:center; gap:5px;
+  background:none; border:none; cursor:pointer; padding:6px;
+  width:40px; height:40px; flex-shrink:0;
+}
+.hamburger span { display:block; height:2px; background:var(--forest); border-radius:2px; transition:all .3s; }
+.hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity:0; }
+.hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
 
-  /* ── HERO ── */
-  .hero{
-    grid-template-columns:1fr;
-    min-height:auto;
-    padding-top:56px
-  }
-  /* image on top, full bleed */
-  .hero-right{
-    order:1;
-    height:52vw;
-    min-height:200px;
-    max-height:300px;
-    position:relative
-  }
-  .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  /* hide the quote on mobile — too cluttered */
-  .hero-quote-block{display:none}
+/* Mobile nav drawer */
+.mobile-nav {
+  display:none; position:fixed; top:64px; left:0; right:0; z-index:190;
+  background:rgba(253,252,249,0.99); backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(180,160,120,0.2);
+  padding:0 5% 1.5rem; flex-direction:column;
+  box-shadow:0 8px 30px rgba(10,25,15,0.1);
+}
+.mobile-nav.open { display:flex; }
+.mobile-nav a {
+  display:block; padding:1rem 0; border-bottom:1px solid rgba(180,160,120,0.12);
+  text-decoration:none; font-size:1rem; font-weight:400; color:var(--text);
+  transition:color .2s;
+}
+.mobile-nav a:hover { color:var(--forest); }
+.mobile-nav a:last-of-type { border-bottom:none; }
+.mobile-nav-actions { display:flex; gap:10px; margin-top:1.2rem; }
+.mobile-nav-actions .btn { flex:1; justify-content:center; padding:0.75rem 1rem; font-size:0.9rem; }
 
-  /* text block below */
-  .hero-left{
-    order:2;
-    padding:2.4rem 6% 3rem;
-    background:var(--white);
-    justify-content:flex-start
-  }
-  .hero-eyebrow{
-    font-size:.62rem;
-    margin-bottom:.9rem
-  }
-  .hero-title{
-    font-size:2.4rem;
-    line-height:1.06;
-    margin-bottom:1rem
-  }
-  .hero-body{
-    font-size:.9rem;
-    line-height:1.72;
-    margin-bottom:1.6rem;
-    max-width:100%;
-    color:var(--muted)
-  }
-  /* Two full-width stacked buttons */
-  .hero-ctas{
-    flex-direction:column;
-    gap:10px;
-    margin-bottom:2rem
-  }
-  .hero-ctas .btn{
-    width:100%;
-    padding:.9rem 1rem;
-    font-size:.92rem;
-    border-radius:8px
-  }
-  .hero-rule{margin-bottom:1.4rem;width:36px}
-  /* Stats as a clean 3-column row */
-  .hero-stats{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:0;
-    border:1px solid var(--linen);
-    border-radius:12px;
-    overflow:hidden;
-    background:var(--linen)
-  }
-  .hero-stat{
-    background:var(--white);
-    padding:.9rem .4rem;
-    text-align:center;
-    margin:0;
-    border-right:1px solid var(--linen)
-  }
-  .hero-stat:last-child{border-right:none}
-  .stat-n{font-size:1.55rem}
-  .stat-l{font-size:.58rem}
+/* ═══════════════════════════════════
+   HERO — FULL-BLEED SPLIT
+═══════════════════════════════════ */
+.hero {
+  min-height:100vh; display:grid; grid-template-columns:52% 48%;
+  padding-top:64px; position:relative; width:100%;
+}
+.hero-left {
+  background:var(--cream); display:flex; flex-direction:column; justify-content:center;
+  padding:5rem 5% 5rem 5%; position:relative; z-index:2;
+}
+.hero-eyebrow {
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:0.68rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase;
+  color:var(--terra); margin-bottom:1.6rem;
+}
+.hero-eyebrow::before { content:''; display:block; width:28px; height:1.5px; background:var(--terra); }
+.hero-title {
+  font-family:'Cormorant Garamond', serif;
+  font-size:clamp(2.8rem,5vw,4.8rem); font-weight:700; line-height:1.03;
+  color:var(--forest); margin-bottom:1.4rem; letter-spacing:-0.01em;
+}
+.hero-title em { font-style:italic; color:var(--terra); }
+.hero-body {
+  font-size:0.95rem; color:var(--muted); line-height:1.8; max-width:420px;
+  margin-bottom:2.5rem; font-weight:300;
+}
+.hero-ctas { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:3rem; }
+.hero-rule { width:50px; height:1px; background:var(--sand); margin-bottom:1.8rem; }
+.hero-stats { display:flex; gap:0; }
+.hero-stat { padding-right:2rem; margin-right:2rem; border-right:1px solid var(--sand); }
+.hero-stat:last-child { border-right:none; padding-right:0; margin-right:0; }
+.stat-n { font-family:'Cormorant Garamond', serif; font-size:2rem; font-weight:700; color:var(--forest); line-height:1; }
+.stat-l { font-size:0.68rem; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:var(--sage); margin-top:4px; }
 
-  /* ── TICKER ── */
-  .ticker-item{font-size:.6rem;padding:0 1.2rem;gap:8px}
+/* HERO RIGHT */
+.hero-right { position:relative; overflow:hidden; background:var(--forest); }
+.hero-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
+.hero-scrim {
+  position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(180deg,rgba(10,25,15,0.12) 0%,rgba(10,25,15,0.5) 100%);
+}
+.hero-quote-block {
+  position:absolute; left:0; right:0; bottom:0;
+  padding:2rem 2rem 2.5rem;
+}
+.plant-says { font-size:0.58rem; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.45); margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.plant-says::before { content:''; display:block; width:20px; height:1px; background:rgba(255,255,255,0.35); }
+.hero-quote { font-family:'Cormorant Garamond', serif; font-size:clamp(1.2rem,2vw,1.8rem); font-style:italic; font-weight:300; color:white; line-height:1.45; max-width:280px; }
+.hero-quote cite { display:block; font-family:'Outfit', sans-serif; font-style:normal; font-size:0.7rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.45); margin-top:10px; }
 
-  /* ── HOW IT WORKS ── */
-  .how-section{padding:2.8rem 6%}
-  .how-header{grid-template-columns:1fr;gap:1.2rem;margin-bottom:1.8rem}
-  .how-title{font-size:1.9rem}
-  .how-subtitle{font-size:.84rem;margin-bottom:.9rem}
-  .how-tabs{display:flex;width:100%;border-radius:10px}
-  .how-tab{flex:1;text-align:center;padding:.7rem .5rem;font-size:.82rem}
+/* ═══════════════════════════════════
+   TICKER
+═══════════════════════════════════ */
+.ticker-bar { background:var(--forest); padding:0.7rem 0; overflow:hidden; position:relative; }
+.ticker-track { display:flex; white-space:nowrap; animation:ticker 28s linear infinite; }
+.ticker-item { display:inline-flex; align-items:center; gap:12px; font-size:0.7rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:rgba(245,240,232,0.55); padding:0 2.5rem; }
+.ticker-dot { width:4px; height:4px; border-radius:50%; background:var(--amber); flex-shrink:0; }
+@keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-  /* Steps: single column, clean white cards */
-  .steps-grid.active{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-    background:transparent;
-    border-radius:0
-  }
-  .step-item{
-    background:var(--white);
-    border:1px solid var(--linen);
-    border-radius:14px;
-    padding:1.2rem 1.1rem;
-    display:grid;
-    grid-template-columns:40px 1fr;
-    column-gap:1rem;
-    row-gap:.2rem;
-    align-items:start
-  }
-  .step-item:hover{background:var(--cream)}
-  .step-item::after{display:none}
-  .step-icon-wrap{
-    grid-row:1/3;
-    width:40px;height:40px;
-    margin-bottom:0;
-    border-radius:10px;
-    background:rgba(193,123,74,.12);
-    border:none
-  }
-  .step-icon-wrap svg{stroke:var(--amber)}
-  .step-title{font-size:1rem;color:var(--forest);margin-bottom:0}
-  .step-desc{font-size:.78rem;color:var(--muted);line-height:1.6;grid-column:2}
+/* ═══════════════════════════════════
+   SECTION BASE
+═══════════════════════════════════ */
+section { padding:5.5rem 8%; }
+.tag { display:inline-flex; align-items:center; gap:8px; font-size:0.68rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--terra); margin-bottom:1rem; }
+.tag::before { content:''; display:block; width:20px; height:1.5px; background:var(--terra); }
+.section-h { font-family:'Cormorant Garamond', serif; font-size:clamp(1.9rem,3.5vw,2.9rem); font-weight:700; color:var(--forest); line-height:1.12; max-width:640px; }
+section.hero { padding:0; }
+.section-h em { font-style:italic; }
+.section-p { font-size:0.92rem; color:var(--muted); line-height:1.8; max-width:520px; font-weight:300; }
 
-  /* ── NURSERY SERVICES ── */
-  .svc-section{padding:2.8rem 6%}
-  .svc-header{grid-template-columns:1fr;gap:1.4rem;margin-bottom:2rem}
-  .svc-header .section-h{font-size:1.9rem}
-  .svc-header .section-p{max-width:100%}
-  .svc-header .btn{width:100%;justify-content:center;margin-top:.2rem}
+/* ═══════════════════════════════════
+   HOW IT WORKS
+═══════════════════════════════════ */
+.how-section { background:var(--forest); padding:5.5rem 8%; }
+.how-header { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:end; margin-bottom:3.5rem; }
+.how-title { font-family:'Cormorant Garamond', serif; font-size:clamp(1.9rem,3.2vw,2.7rem); font-weight:700; color:var(--cream); line-height:1.1; }
+.how-subtitle { font-size:0.88rem; color:rgba(245,240,232,0.5); line-height:1.75; font-weight:300; margin-bottom:1.4rem; }
+.how-tabs { display:inline-flex; border:1px solid rgba(255,255,255,0.12); border-radius:8px; overflow:hidden; }
+.how-tab { padding:0.6rem 1.4rem; background:transparent; border:none; cursor:pointer; font-family:'Outfit', sans-serif; font-size:0.8rem; font-weight:500; color:rgba(245,240,232,0.45); transition:all .22s; }
+.how-tab.active { background:var(--terra); color:white; }
+.how-tab:not(:last-child) { border-right:1px solid rgba(255,255,255,0.12); }
 
-  /* Cards: clean white list style */
-  .svc-grid{
-    grid-template-columns:1fr;
-    gap:10px;
-    background:transparent;
-    border:none;
-    border-radius:0
-  }
-  .svc-card{
-    border:1px solid var(--linen);
-    border-radius:14px;
-    background:var(--white);
-    padding:1.1rem 1.1rem;
-    display:grid;
-    grid-template-columns:40px 1fr;
-    column-gap:1rem;
-    row-gap:.2rem;
-    align-items:start
-  }
-  .svc-card:hover{background:var(--cream)}
-  .svc-ico{
-    grid-row:1/3;
-    width:40px;height:40px;
-    margin-bottom:0;
-    border-radius:10px
-  }
-  .svc-ico svg{width:18px;height:18px}
-  .svc-title{font-size:1rem;margin-bottom:0;align-self:center}
-  .svc-desc{font-size:.78rem;grid-column:2;line-height:1.6}
+.steps-grid { display:none; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(255,255,255,0.07); border-radius:12px; overflow:hidden; }
+.steps-grid.active { display:grid; }
+.step-item { background:rgba(26,58,42,0.6); padding:1.8rem 1.5rem; position:relative; transition:background .3s; cursor:default; }
+.step-item:hover { background:rgba(44,83,56,0.8); }
+.step-icon-wrap { width:46px; height:46px; background:rgba(193,123,74,0.15); border:1px solid rgba(193,123,74,0.25); border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:1.1rem; }
+.step-icon-wrap svg { width:20px; height:20px; stroke:var(--amber); stroke-width:1.8; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+.step-title { font-family:'Cormorant Garamond', serif; font-size:1.1rem; font-weight:600; color:var(--cream); margin-bottom:0.5rem; }
+.step-desc { font-size:0.79rem; color:rgba(245,240,232,0.45); line-height:1.7; font-weight:300; }
+.step-item::after { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:transparent; transition:background .3s; }
+.step-item:hover::after { background:var(--amber); }
 
-  /* ── RENT A PLANT ── */
-  .rent-hero{grid-template-columns:1fr}
-  .rent-img-col{
-    height:52vw;
-    min-height:180px;
-    max-height:260px;
-    min-height:unset;
-    position:relative
-  }
-  .rent-label-float{top:.9rem;left:.9rem;padding:8px 12px}
-  .rfl{font-size:.54rem}
-  .rfv{font-size:.82rem}
-  .rent-content-col{padding:2.4rem 6%}
-  .rent-eyebrow{font-size:.62rem;margin-bottom:.9rem}
-  .rent-headline{font-size:2.1rem;margin-bottom:.4rem}
-  .rent-subhead{font-size:.98rem;margin-bottom:.8rem}
-  .rent-body{font-size:.86rem;margin-bottom:1.5rem;max-width:100%}
+/* ═══════════════════════════════════
+   NURSERY SERVICES
+═══════════════════════════════════ */
+.svc-section { background:white; padding:5.5rem 8%; }
+.svc-header { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start; margin-bottom:3rem; }
+.svc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5px; background:var(--linen); border:1.5px solid var(--linen); border-radius:14px; overflow:hidden; }
+.svc-card { background:var(--white); padding:1.7rem; transition:all .28s; position:relative; cursor:default; }
+.svc-card:hover { background:var(--cream); }
+.svc-ico { width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; margin-bottom:1rem; }
+.svc-ico svg { width:20px; height:20px; stroke-width:1.8; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+.ico-g { background:rgba(61,107,74,0.1); } .ico-g svg { stroke:var(--fern); }
+.ico-t { background:rgba(181,97,42,0.1); } .ico-t svg { stroke:var(--terra); }
+.ico-a { background:rgba(212,136,58,0.12); } .ico-a svg { stroke:var(--amber); }
+.ico-s { background:rgba(127,168,130,0.15); } .ico-s svg { stroke:var(--sage); }
+.ico-k { background:rgba(26,58,42,0.09); } .ico-k svg { stroke:var(--forest); }
+.ico-b { background:rgba(201,162,39,0.12); } .ico-b svg { stroke:var(--gold); }
+.svc-title { font-family:'Cormorant Garamond', serif; font-size:1.05rem; font-weight:600; color:var(--forest); margin-bottom:0.4rem; }
+.svc-desc { font-size:0.79rem; color:var(--muted); line-height:1.7; }
 
-  /* Rent steps: minimal */
-  .rent-steps{gap:.8rem;margin-bottom:1.6rem}
-  .rent-step{gap:.8rem;padding:.85rem;background:var(--white);border:1px solid var(--linen);border-radius:12px}
-  .rs-icon{width:32px;height:32px;flex-shrink:0}
-  .rs-icon svg{width:13px;height:13px}
-  .rs-title{font-size:.84rem}
-  .rs-desc{font-size:.77rem}
-  .rent-cta-row{flex-direction:column;gap:10px}
-  .rent-cta-row .btn{width:100%;justify-content:center;padding:.88rem}
+/* ═══════════════════════════════════
+   RENTAL
+═══════════════════════════════════ */
+.rent-section { background:var(--cream); padding:0; overflow:hidden; }
+.rent-hero { display:grid; grid-template-columns:1fr 1fr; min-height:600px; }
+.rent-img-col { position:relative; overflow:hidden; background:var(--forest); min-height:480px; }
+.rent-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
 
-  /* Rental plans */
-  .rent-plans{padding:2.4rem 6%}
-  .plans-top{flex-direction:column;align-items:flex-start;gap:.9rem;margin-bottom:1.6rem}
-  .plans-title{font-size:1.6rem}
-  .plans-top .btn{width:100%;justify-content:center}
-  /* Plans as clean stacked white cards */
-  .plans-grid{
-    grid-template-columns:1fr;
-    background:transparent;
-    gap:10px;
-    border-radius:0
-  }
-  .plan-card{
-    border-radius:14px;
-    padding:1.4rem 1.2rem;
-    background:rgba(26,58,42,.65)
-  }
-  .plan-card.featured{background:var(--terra)}
-  .plan-badge{font-size:.58rem}
-  .plan-name{font-size:1.3rem}
-  .plan-price{font-size:1.7rem}
-  .plan-feature{font-size:.78rem}
+.rent-img-placeholder {
+  position:absolute; inset:0;
+  background:linear-gradient(145deg,#1f4a2e 0%,#3a7a4a 50%,#4f9960 100%);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
+}
+.img-placeholder-box {
+  width:80%; max-width:260px;
+  border:2px dashed rgba(255,255,255,0.25);
+  border-radius:12px; padding:2.5rem 1.5rem;
+  display:flex; flex-direction:column; align-items:center; gap:12px; text-align:center;
+}
+.img-placeholder-box svg { width:48px; height:48px; stroke:rgba(255,255,255,0.35); stroke-width:1; fill:none; }
+.img-placeholder-box .ph-title { font-size:0.8rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.55); }
+.img-placeholder-box .ph-sub { font-size:0.68rem; color:rgba(255,255,255,0.3); }
 
-  /* ── CUSTOMER ECOSYSTEM ── */
-  .cust-section{padding:2.8rem 6%}
-  .cust-header{margin-bottom:1.8rem}
-  .cust-header .section-h{font-size:1.9rem}
-  .cust-header .section-p{font-size:.86rem}
-  /* 2 column clean cards */
-  .cust-grid{
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    background:transparent;
-    border-radius:0
-  }
-  .cc{
-    border:1px solid var(--linen);
-    border-radius:14px;
-    background:var(--white);
-    padding:1.1rem 1rem
-  }
-  .cc:hover{background:var(--cream)}
-  .cc-icon{width:38px;height:38px;border-radius:9px;margin-bottom:.65rem}
-  .cc-icon svg{width:17px;height:17px}
-  .cc-title{font-size:.92rem;margin-bottom:.2rem}
-  .cc-desc{font-size:.75rem;line-height:1.55}
+.rent-label-float { position:absolute; top:1.5rem; left:1.5rem; background:white; border-radius:8px; padding:10px 16px; box-shadow:0 4px 24px rgba(0,0,0,0.12); z-index:2; }
+.rfl { font-size:0.58rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--sage); }
+.rfv { font-size:0.88rem; font-weight:600; color:var(--forest); font-family:'Cormorant Garamond',serif; margin-top:2px; }
+.rent-content-col { background:var(--cream); display:flex; flex-direction:column; justify-content:center; padding:4rem 5% 4rem 6%; }
+.rent-eyebrow { display:inline-flex; align-items:center; gap:10px; margin-bottom:1.2rem; font-size:0.68rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--terra); }
+.rent-eyebrow::before { content:''; width:24px; height:1.5px; background:var(--terra); }
+.rent-headline { font-family:'Cormorant Garamond', serif; font-size:clamp(1.9rem,3.2vw,2.9rem); font-weight:700; color:var(--forest); line-height:1.08; margin-bottom:0.5rem; }
+.rent-headline em { font-style:italic; color:var(--terra); }
+.rent-subhead { font-family:'Cormorant Garamond', serif; font-size:1.1rem; font-weight:300; font-style:italic; color:var(--muted); margin-bottom:0.9rem; line-height:1.5; }
+.rent-body { font-size:0.87rem; color:var(--muted); line-height:1.8; max-width:420px; margin-bottom:2rem; font-weight:300; }
+.rent-steps { display:flex; flex-direction:column; gap:1.1rem; margin-bottom:2.2rem; }
+.rent-step { display:flex; gap:1rem; align-items:flex-start; }
+.rs-icon { width:36px; height:36px; border-radius:50%; background:var(--forest); display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+.rs-icon svg { stroke:rgba(245,240,232,0.9); stroke-width:1.8; fill:none; stroke-linecap:round; stroke-linejoin:round; width:15px; height:15px; }
+.rs-body .rs-title { font-size:0.87rem; font-weight:600; color:var(--forest); margin-bottom:3px; }
+.rs-body .rs-desc { font-size:0.79rem; color:var(--muted); line-height:1.65; }
+.rent-cta-row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+.rent-note { font-size:0.73rem; color:var(--muted); font-style:italic; }
 
-  /* ── CORPORATE ── */
-  .corp-section{padding:2.8rem 6%}
-  .corp-grid{grid-template-columns:1fr;gap:2rem}
-  .corp-title{font-size:1.9rem;margin-bottom:.8rem}
-  .corp-body{font-size:.86rem;margin-bottom:1.5rem}
-  .corp-li{font-size:.82rem}
-  .corp-list{gap:.55rem;margin-bottom:1.8rem}
-  .corp-img-wrap{aspect-ratio:16/9;border-radius:12px}
-  .corp-section .btn{width:100%;justify-content:center}
+/* RENTAL PLANS */
+.rent-plans { background:var(--forest); padding:4rem 8%; }
+.plans-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:2.5rem; }
+.plans-title { font-family:'Cormorant Garamond', serif; font-size:1.8rem; font-weight:700; color:var(--cream); }
+.plans-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5px; background:rgba(255,255,255,0.08); border-radius:12px; overflow:hidden; }
+.plan-card { background:rgba(26,58,42,0.55); padding:2rem; position:relative; transition:background .3s; }
+.plan-card:hover { background:rgba(44,83,56,0.75); }
+.plan-card.featured { background:var(--terra); }
+.plan-card.featured:hover { background:#9e5022; }
+.plan-badge { font-size:0.6rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:1rem; }
+.plan-card.featured .plan-badge { color:rgba(255,255,255,0.7); }
+.plan-name { font-family:'Cormorant Garamond', serif; font-size:1.45rem; font-weight:700; color:white; margin-bottom:0.5rem; }
+.plan-price { font-size:1.9rem; font-weight:600; color:white; font-family:'Cormorant Garamond', serif; }
+.plan-price sub { font-size:0.82rem; font-weight:400; color:rgba(255,255,255,0.55); }
+.plan-divider { height:1px; background:rgba(255,255,255,0.1); margin:1.1rem 0; }
+.plan-feature { font-size:0.79rem; color:rgba(255,255,255,0.55); margin-bottom:0.5rem; display:flex; align-items:center; gap:8px; }
+.plan-feature::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--amber); flex-shrink:0; }
+.plan-card.featured .plan-feature { color:rgba(255,255,255,0.75); }
+.plan-card.featured .plan-feature::before { background:white; }
 
-  /* ── DUAL CTA ── */
-  .dual-cta{grid-template-columns:1fr}
-  .cta-half{padding:2.8rem 6%}
-  .cta-title{font-size:1.85rem}
-  .cta-body{font-size:.86rem;margin-bottom:1.5rem}
-  .cta-half .btn{width:100%;justify-content:center}
+/* ═══════════════════════════════════
+   CUSTOMER ECOSYSTEM
+═══════════════════════════════════ */
+.cust-section { background:white; padding:5.5rem 8%; }
+.cust-header { text-align:center; margin-bottom:3rem; }
+.cust-header .section-h { margin:0 auto 1rem; text-align:center; max-width:720px; }
+.cust-header .section-p { margin:0 auto; text-align:center; }
+.cust-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1.5px; background:var(--linen); border-radius:14px; overflow:hidden; }
+.cc { background:white; padding:1.5rem; transition:all .25s; }
+.cc:hover { background:var(--cream); }
+.cc-icon { width:46px; height:46px; border-radius:11px; display:flex; align-items:center; justify-content:center; margin-bottom:0.9rem; }
+.cc-icon svg { width:20px; height:20px; stroke-width:1.8; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+.cc-title { font-family:'Cormorant Garamond', serif; font-size:1.02rem; font-weight:600; color:var(--forest); margin-bottom:0.35rem; }
+.cc-desc { font-size:0.78rem; color:var(--muted); line-height:1.65; }
 
-  /* ── FOOTER ── */
-  footer{padding:2.8rem 6% 2rem}
-  .footer-top{
-    grid-template-columns:1fr 1fr;
-    gap:2rem 1.5rem
-  }
-  .footer-top>div:first-child{grid-column:1/-1}
-  .footer-tagline{max-width:100%;font-size:.79rem}
-  .footer-bottom{flex-direction:column;gap:.4rem;text-align:center;font-size:.7rem}
+/* ═══════════════════════════════════
+   CORPORATE
+═══════════════════════════════════ */
+.corp-section { background:var(--forest); padding:5.5rem 8%; position:relative; overflow:hidden; }
+.corp-section::before { content:''; position:absolute; right:-10%; top:-20%; width:600px; height:600px; border-radius:50%; background:radial-gradient(circle,rgba(61,107,74,0.25),transparent 70%); pointer-events:none; }
+.corp-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; position:relative; z-index:2; }
+.corp-tag { font-size:0.68rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--amber); margin-bottom:1rem; display:flex; align-items:center; gap:8px; }
+.corp-tag::before { content:''; width:20px; height:1.5px; background:var(--amber); }
+.corp-title { font-family:'Cormorant Garamond', serif; font-size:clamp(1.9rem,3.2vw,2.7rem); font-weight:700; color:white; line-height:1.1; margin-bottom:1rem; }
+.corp-title em { font-style:italic; color:var(--amber); }
+.corp-body { font-size:0.88rem; color:rgba(245,240,232,0.55); line-height:1.78; font-weight:300; margin-bottom:2rem; }
+.corp-list { display:flex; flex-direction:column; gap:0.75rem; margin-bottom:2.2rem; }
+.corp-li { display:flex; gap:12px; align-items:center; font-size:0.84rem; color:rgba(245,240,232,0.65); }
+.corp-li-dot { width:6px; height:6px; border-radius:50%; background:var(--amber); flex-shrink:0; }
+.corp-img-wrap { width:100%; border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,0.08); aspect-ratio:4/3; position:relative; }
+.corp-img-wrap img { width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
+.corp-img-fallback {
+  position:absolute; inset:0;
+  background:linear-gradient(135deg,rgba(44,83,56,0.6),rgba(26,58,42,0.9));
+  display:none; flex-direction:column; align-items:center; justify-content:center; gap:12px;
+}
+.corp-img-fallback svg { width:52px; height:52px; stroke:rgba(255,255,255,0.15); stroke-width:1; fill:none; }
+.corp-img-fallback span { font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.18); }
 
-  /* ── MODALS ── */
-  .modal-overlay{padding:.75rem;align-items:flex-end}
-  .modal-card{
-    border-radius:20px 20px 16px 16px;
-    padding:1.8rem 1.4rem;
-    max-height:92vh
-  }
-  .modal-form-row{grid-template-columns:1fr}
-  .modal-title{font-size:1.45rem}
-  .modal-desc{font-size:.82rem;margin-bottom:1.2rem}
+/* ═══════════════════════════════════
+   DUAL CTA
+═══════════════════════════════════ */
+.dual-cta { display:grid; grid-template-columns:1fr 1fr; gap:0; }
+.cta-half { padding:5rem 6%; position:relative; overflow:hidden; }
+.cta-forest { background:var(--ink); }
+.cta-terra { background:var(--terra); }
+.cta-half::after { content:''; position:absolute; width:300px; height:300px; border-radius:50%; right:-80px; bottom:-80px; background:rgba(255,255,255,0.04); pointer-events:none; }
+.cta-eyebrow { font-size:0.65rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:0.9rem; }
+.cta-title { font-family:'Cormorant Garamond', serif; font-size:clamp(1.6rem,2.6vw,2.2rem); font-weight:700; color:white; line-height:1.18; margin-bottom:0.8rem; }
+.cta-body { font-size:0.87rem; color:rgba(255,255,255,0.5); line-height:1.72; margin-bottom:2rem; font-weight:300; }
 
-  /* Section padding override */
-  section{padding:2.8rem 6%}
+/* ═══════════════════════════════════
+   FOOTER
+═══════════════════════════════════ */
+footer { background:var(--ink); padding:4rem 8% 2rem; }
+.footer-top { display:grid; grid-template-columns:2.2fr 1fr 1fr 1fr; gap:3.5rem; margin-bottom:3rem; }
+.footer-brand-logo { display:flex; align-items:center; gap:12px; margin-bottom:0.7rem; }
+.footer-logo-mark { width:34px; height:34px; border-radius:8px; overflow:hidden; background:var(--forest); display:flex; align-items:center; justify-content:center; }
+.footer-logo-mark img { width:100%; height:100%; object-fit:cover; display:block; }
+.footer-brand-name { font-family:'Cormorant Garamond', serif; font-size:1.25rem; font-weight:700; color:white; }
+.footer-tagline { font-size:0.8rem; color:rgba(255,255,255,0.3); line-height:1.7; max-width:250px; }
+.footer-col-h { font-size:0.63rem; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--amber); margin-bottom:1.1rem; }
+.footer-links { list-style:none; }
+.footer-links li { margin-bottom:0.55rem; }
+.footer-links a { text-decoration:none; font-size:0.8rem; color:rgba(255,255,255,0.3); transition:color .2s; }
+.footer-links a:hover { color:rgba(255,255,255,0.75); }
+.footer-bottom { border-top:1px solid rgba(255,255,255,0.07); padding-top:1.4rem; display:flex; justify-content:space-between; align-items:center; font-size:0.73rem; color:rgba(255,255,255,0.2); }
+
+/* ═══════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════ */
+.reveal { opacity:0; transform:translateY(24px); transition:opacity .65s ease, transform .65s ease; }
+.reveal.in { opacity:1; transform:none; }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+.float-anim { animation:float 3.5s ease-in-out infinite; }
+
+/* ═══════════════════════════════════
+   MODALS
+═══════════════════════════════════ */
+.modal-overlay {
+  position:fixed; inset:0; z-index:1000;
+  background:rgba(14,26,16,0.75); backdrop-filter:blur(6px);
+  display:none; align-items:center; justify-content:center; padding:1.5rem;
+}
+.modal-overlay.open { display:flex; }
+.modal-card {
+  background:var(--white); border-radius:20px;
+  padding:2.5rem; width:100%; max-width:480px;
+  box-shadow:0 24px 80px rgba(14,26,16,0.3);
+  position:relative;
+  animation:modalIn 0.3s cubic-bezier(0.34,1.4,0.64,1) both;
+  max-height:90vh; overflow-y:auto;
+}
+@keyframes modalIn { from{opacity:0;transform:scale(0.92) translateY(16px)} to{opacity:1;transform:none} }
+.modal-close {
+  position:absolute; top:1.2rem; right:1.2rem;
+  width:32px; height:32px; border-radius:50%;
+  background:var(--linen); border:none; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:background 0.2s;
+}
+.modal-close:hover { background:var(--sand); }
+.modal-close svg { stroke:var(--muted); stroke-width:2; fill:none; stroke-linecap:round; }
+.modal-tag { font-size:0.68rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--terra); margin-bottom:0.5rem; display:flex; align-items:center; gap:6px; }
+.modal-tag::before { content:''; display:block; width:16px; height:1.5px; background:var(--terra); }
+.modal-title { font-family:'Cormorant Garamond', serif; font-size:1.7rem; font-weight:700; color:var(--forest); margin-bottom:0.4rem; line-height:1.2; }
+.modal-desc { font-size:0.84rem; color:var(--muted); line-height:1.65; margin-bottom:1.7rem; }
+.modal-form { display:flex; flex-direction:column; gap:1rem; }
+.modal-form-row { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; }
+.mfield label { display:block; font-size:0.72rem; font-weight:500; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); margin-bottom:0.32rem; }
+.mfield input, .mfield select, .mfield textarea {
+  width:100%; padding:0.68rem 0.9rem;
+  border:1.5px solid rgba(107,143,113,0.2);
+  border-radius:10px; font-family:'Outfit', sans-serif; font-size:0.875rem;
+  color:var(--text); background:var(--white); outline:none;
+  transition:border-color 0.2s;
+}
+.mfield input:focus, .mfield select:focus, .mfield textarea:focus { border-color:var(--fern); box-shadow:0 0 0 3px rgba(61,107,74,0.08); }
+.mfield textarea { resize:vertical; min-height:80px; }
+.modal-submit {
+  width:100%; padding:0.8rem 1.5rem; border-radius:10px;
+  background:var(--forest); color:white; border:none; cursor:pointer;
+  font-family:'Outfit', sans-serif; font-size:0.9rem; font-weight:500;
+  transition:all 0.22s; margin-top:0.4rem;
+}
+.modal-submit:hover { background:var(--moss); transform:translateY(-1px); box-shadow:0 4px 16px rgba(26,58,42,0.25); }
+.modal-success { text-align:center; padding:1.5rem 0 0.5rem; display:none; }
+.modal-success svg { stroke:var(--fern); margin-bottom:1rem; }
+.modal-success h3 { font-family:'Cormorant Garamond', serif; font-size:1.4rem; color:var(--forest); margin-bottom:0.5rem; }
+.modal-success p { font-size:0.84rem; color:var(--muted); line-height:1.6; }
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE — TABLET (≤1100px)
+═══════════════════════════════════════════════ */
+@media(max-width:1100px) {
+  .steps-grid.active { grid-template-columns:repeat(2,1fr); }
+  .svc-grid { grid-template-columns:repeat(2,1fr); }
+  .cust-grid { grid-template-columns:repeat(2,1fr); }
+  .footer-top { grid-template-columns:1fr 1fr; gap:2.5rem; }
 }
 
-/* ─── very small ≤ 400px ─── */
-@media(max-width:400px){
-  .hero-title{font-size:2.05rem}
-  .hero-stats{grid-template-columns:1fr 1fr}
-  .hero-stat:nth-child(2){border-right:none}
-  .hero-stat:nth-child(3){grid-column:1/-1;border-top:1px solid var(--linen)}
-  .cust-grid{grid-template-columns:1fr}
+/* ═══════════════════════════════════════════════
+   RESPONSIVE — MOBILE (≤900px)
+═══════════════════════════════════════════════ */
+@media(max-width:900px) {
+  /* Nav */
+  .nav-links { display:none; }
+  .nav-actions { display:none; }
+  .hamburger { display:flex; }
+
+  /* Hero — stacked */
+  .hero { grid-template-columns:1fr; min-height:auto; }
+  .hero-left { padding:3rem 5% 3.5rem; justify-content:flex-start; padding-top:3rem; }
+  .hero-right {
+    height:340px; position:relative; display:block;
+  }
+  .hero-quote { font-size:1.15rem; max-width:260px; }
+
+  /* How it works */
+  .how-header { grid-template-columns:1fr; gap:1.8rem; }
+  .how-tabs { width:100%; }
+  .how-tab { flex:1; text-align:center; }
+  .steps-grid.active { grid-template-columns:1fr 1fr; }
+
+  /* Services */
+  .svc-header { grid-template-columns:1fr; gap:1.8rem; }
+
+  /* Rent */
+  .rent-hero { grid-template-columns:1fr; }
+  .rent-img-col { min-height:300px; height:300px; }
+  .rent-content-col { padding:3rem 5%; }
+
+  /* Plans */
+  .plans-grid { grid-template-columns:1fr; }
+  .plans-top { flex-direction:column; align-items:flex-start; gap:1rem; }
+
+  /* Corporate */
+  .corp-grid { grid-template-columns:1fr; gap:3rem; }
+  .corp-img-wrap { aspect-ratio:16/9; }
+
+  /* Dual CTA */
+  .dual-cta { grid-template-columns:1fr; }
+
+  /* Footer */
+  .footer-top { grid-template-columns:1fr 1fr; gap:2rem; }
+  .footer-bottom { flex-direction:column; gap:0.5rem; text-align:center; }
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE — SMALL MOBILE (≤640px)
+═══════════════════════════════════════════════ */
+@media(max-width:640px) {
+  /* Sections */
+  section { padding:3rem 5%; }
+  .how-section { padding:3rem 5%; }
+  .rent-plans { padding:2.5rem 5%; }
+  .corp-section { padding:3rem 5%; }
+  .svc-section { padding:3rem 5%; }
+  .cust-section { padding:3rem 5%; }
+  .dual-cta .cta-half { padding:3rem 5%; }
+  footer { padding:2.8rem 5% 1.5rem; }
+
+  /* Hero */
+  .hero-left { padding:2.5rem 5% 3rem; }
+  .hero-eyebrow { margin-bottom:1.2rem; }
+  .hero-body { font-size:0.9rem; margin-bottom:2rem; }
+  .hero-right { height:260px; }
+  .hero-quote-block { padding:1.5rem 1.5rem 2rem; }
+  .hero-quote { font-size:1.05rem; max-width:240px; }
+
+  /* Hero CTAs — full width stack on very small */
+  .hero-ctas { flex-direction:column; gap:10px; }
+  .hero-ctas .btn { width:100%; justify-content:center; text-align:center; }
+
+  /* Hero stats — horizontal scroll friendly */
+  .hero-stats { flex-direction:row; overflow-x:auto; gap:0; -webkit-overflow-scrolling:touch; padding-bottom:2px; }
+  .hero-stat { flex-shrink:0; padding-right:1.5rem; margin-right:1.5rem; border-right:1px solid var(--sand); }
+  .hero-stat:last-child { border-right:none; padding-right:0; margin-right:0; }
+
+  /* How it works tabs */
+  .how-tab { padding:0.6rem 0.6rem; font-size:0.76rem; }
+  .steps-grid.active { grid-template-columns:1fr; }
+  .step-item { padding:1.5rem 1.2rem; }
+
+  /* Services — single col */
+  .svc-grid { grid-template-columns:1fr; }
+
+  /* Customer grid — 2 col */
+  .cust-grid { grid-template-columns:1fr 1fr; }
+  .cc { padding:1.2rem; }
+
+  /* Plans */
+  .plan-card { padding:1.5rem; }
+  .plans-top { gap:0.8rem; }
+  .plans-title { font-size:1.5rem; }
+
+  /* Rent */
+  .rent-label-float { top:1rem; left:1rem; }
+  .rent-steps { gap:1rem; }
+  .rent-cta-row { flex-direction:column; gap:10px; }
+  .rent-cta-row .btn { width:100%; justify-content:center; }
+
+  /* Corporate */
+  .corp-grid { gap:2rem; }
+
+  /* CTA */
+  .cta-half { padding:2.8rem 5%; }
+
+  /* Footer */
+  .footer-top { grid-template-columns:1fr; gap:2rem; }
+  .footer-bottom { font-size:0.7rem; }
+
+  /* Modal */
+  .modal-form-row { grid-template-columns:1fr; }
+  .modal-card { padding:1.8rem 1.5rem; border-radius:16px; }
+}
+
+@media(max-width:400px) {
+  .cust-grid { grid-template-columns:1fr; }
+  .hero-right { height:220px; }
+  .hero-stats { flex-direction:column; }
+  .hero-stat { padding-right:0; margin-right:0; border-right:none; border-bottom:1px solid var(--sand); padding-bottom:1rem; }
+  .hero-stat:last-child { border-bottom:none; padding-bottom:0; }
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
+<!-- ══ NAV ══ -->
 <nav id="topnav">
   <a href="index.html" class="nav-logo">
-    <div class="logo-mark"><img src="logo.png" alt="Urban Farmer" onerror="this.outerHTML='🌿'"></div>
+    <div class="logo-mark">
+      <img src="logo.png" alt="Urban Farmer Logo"
+           onerror="this.outerHTML='<span class=\'logo-mark-fallback\'>🌿</span>'">
+    </div>
     <div class="logo-text">Urban Farmer<small>India's Plant Ecosystem</small></div>
   </a>
   <ul class="nav-links">
@@ -587,19 +568,19 @@ footer{background:var(--ink);padding:4rem 8% 2rem}
   </button>
 </nav>
 
-<!-- MOBILE DRAWER -->
+<!-- ══ MOBILE NAV ══ -->
 <nav class="mobile-nav" id="mobileNav">
   <a href="#how" onclick="closeMobileNav()">How it Works</a>
   <a href="#nurseries" onclick="closeMobileNav()">For Nurseries</a>
   <a href="#rent" onclick="closeMobileNav()">Rent a Plant</a>
   <a href="#corporate" onclick="closeMobileNav()">Corporate</a>
-  <div class="mob-ctas">
+  <div class="mobile-nav-actions">
     <a href="login.html" class="btn btn-ghost">Sign In</a>
     <a href="customer-dashboard.html" class="btn btn-solid">Get Started</a>
   </div>
 </nav>
 
-<!-- HERO -->
+<!-- ══ HERO ══ -->
 <section class="hero">
   <div class="hero-left">
     <div class="hero-eyebrow">India's structured plant ecosystem</div>
@@ -611,9 +592,9 @@ footer{background:var(--ink);padding:4rem 8% 2rem}
     </div>
     <div class="hero-rule"></div>
     <div class="hero-stats">
-      <div class="hero-stat"><div class="stat-n">12+</div><div class="stat-l">Services</div></div>
-      <div class="hero-stat"><div class="stat-n">500+</div><div class="stat-l">Varieties</div></div>
-      <div class="hero-stat"><div class="stat-n">3</div><div class="stat-l">Cities</div></div>
+      <div class="hero-stat"><div class="stat-n">12+</div><div class="stat-l">Services Offered</div></div>
+      <div class="hero-stat"><div class="stat-n">500+</div><div class="stat-l">Plant Varieties</div></div>
+      <div class="hero-stat"><div class="stat-n">3</div><div class="stat-l">Cities · Launching</div></div>
     </div>
   </div>
   <div class="hero-right">
@@ -629,7 +610,7 @@ footer{background:var(--ink);padding:4rem 8% 2rem}
   </div>
 </section>
 
-<!-- TICKER -->
+<!-- ══ TICKER ══ -->
 <div class="ticker-bar">
   <div class="ticker-track">
     <span class="ticker-item"><span class="ticker-dot"></span>Now Onboarding Nurseries</span>
@@ -651,12 +632,12 @@ footer{background:var(--ink);padding:4rem 8% 2rem}
   </div>
 </div>
 
-<!-- HOW IT WORKS -->
+<!-- ══ HOW IT WORKS ══ -->
 <section class="how-section" id="how">
   <div class="how-header">
     <div>
-      <div class="tag" style="color:var(--amber)"><span style="background:var(--amber);display:block;width:20px;height:1.5px"></span>The Process</div>
-      <h2 class="how-title">How Urban Farmer<br><em style="font-style:italic;color:var(--amber)">Works</em></h2>
+      <div class="tag" style="color:var(--amber);"><span style="background:var(--amber);display:block;width:20px;height:1.5px;"></span>The Process</div>
+      <h2 class="how-title">How Urban Farmer<br><em style="font-style:italic;color:var(--amber);">Works</em></h2>
     </div>
     <div>
       <p class="how-subtitle">Whether you run a nursery or love plants, every step of the journey is intelligently covered.</p>
@@ -666,53 +647,71 @@ footer{background:var(--ink);padding:4rem 8% 2rem}
       </div>
     </div>
   </div>
+
   <div class="steps-grid active" id="steps-nursery">
     <div class="step-item reveal">
-      <div class="step-icon-wrap"><svg viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
+      <div class="step-icon-wrap">
+        <svg viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+      </div>
       <div class="step-title">Register and Get Verified</div>
       <div class="step-desc">Create your nursery profile. Our team verifies and fully onboards you within 24 hours with QR setup and dashboard access.</div>
     </div>
     <div class="step-item reveal">
-      <div class="step-icon-wrap"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div>
+      <div class="step-icon-wrap">
+        <svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+      </div>
       <div class="step-title">List Your Plants</div>
       <div class="step-desc">Upload plants yourself or request an Urban Farmer executive to visit, photograph, and professionally list your entire collection.</div>
     </div>
     <div class="step-item reveal">
-      <div class="step-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h4M18 14v4M14 18h4"/></svg></div>
+      <div class="step-icon-wrap">
+        <svg viewBox="0 0 24 24"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h4M18 14v4M14 18h4"/></svg>
+      </div>
       <div class="step-title">Deploy QR Codes</div>
       <div class="step-desc">Each plant cluster gets a physical QR. Customers scan, learn, and purchase directly. Orders flow to your dashboard automatically.</div>
     </div>
     <div class="step-item reveal">
-      <div class="step-icon-wrap"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <div class="step-icon-wrap">
+        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
       <div class="step-title">Grow with Analytics</div>
       <div class="step-desc">Track scans, sales, top plants, and revenue in real-time. Expand via marketplace listings, corporate tie-ups, and sensor services.</div>
     </div>
   </div>
+
   <div class="steps-grid" id="steps-customer">
     <div class="step-item reveal">
-      <div class="step-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+      <div class="step-icon-wrap">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </div>
       <div class="step-title">Know Before You Buy</div>
       <div class="step-desc">Scan a plant's QR code at any partner nursery. Get videos, care guides, botanical facts, and uses before making any decision.</div>
     </div>
     <div class="step-item reveal">
-      <div class="step-icon-wrap"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div>
+      <div class="step-icon-wrap">
+        <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      </div>
       <div class="step-title">Buy Online or Rent</div>
       <div class="step-desc">Purchase online for delivery or pick up in-store. Or explore our rent-a-plant program for events, offices, and seasonal homes.</div>
     </div>
     <div class="step-item reveal">
-      <div class="step-icon-wrap"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="3"/></svg></div>
+      <div class="step-icon-wrap">
+        <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="3"/></svg>
+      </div>
       <div class="step-title">Download the App</div>
       <div class="step-desc">Get the Urban Farmer app for AI plant doctor, sensor monitoring, gamified care reminders, and booking gardeners on demand.</div>
     </div>
     <div class="step-item reveal">
-      <div class="step-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div class="step-icon-wrap">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
       <div class="step-title">Make Your Home Green</div>
       <div class="step-desc">From balcony gardens to terrace farms — book gardeners, install sensors, and join a community that grows together.</div>
     </div>
   </div>
 </section>
 
-<!-- NURSERY SERVICES -->
+<!-- ══ NURSERY SERVICES ══ -->
 <section class="svc-section" id="nurseries">
   <div class="svc-header">
     <div>
@@ -720,27 +719,61 @@ footer{background:var(--ink);padding:4rem 8% 2rem}
       <h2 class="section-h reveal">A Complete Business<br>Platform for Every <em>Nursery</em></h2>
     </div>
     <div>
-      <p class="section-p reveal" style="margin-bottom:2rem">From listing plants to supplying corporates — Urban Farmer gives nurseries every tool to grow digitally and reach more customers across the city.</p>
+      <p class="section-p reveal" style="margin-bottom:2rem;">From listing plants to supplying corporates — Urban Farmer gives nurseries every tool to grow digitally and reach more customers across the city.</p>
       <a href="register.html?type=nursery" class="btn btn-solid btn-lg reveal">Register Your Nursery</a>
     </div>
   </div>
   <div class="svc-grid reveal">
-    <div class="svc-card"><div class="svc-ico ico-g"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="svc-title">Marketplace Listing</div><div class="svc-desc">List your nursery on the Urban Farmer marketplace for online sales, home delivery, and city-wide visibility.</div></div>
-    <div class="svc-card"><div class="svc-ico ico-t"><svg viewBox="0 0 24 24"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h4M18 14v4M14 18h4"/></svg></div><div class="svc-title">In-Nursery QR System</div><div class="svc-desc">Physical QR codes for every plant cluster. Visitors scan, learn, and buy. Orders sync to your dashboard automatically.</div></div>
-    <div class="svc-card"><div class="svc-ico ico-a"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="svc-title">Advanced Analytics</div><div class="svc-desc">Real-time dashboards for QR scans, sales, top plants, and revenue — all synced to Google Sheets automatically.</div></div>
-    <div class="svc-card"><div class="svc-ico ico-s"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="svc-title">IoT Sensor Integration</div><div class="svc-desc">Deploy sensors across your nursery to monitor soil moisture, temperature, and plant health. Automate care decisions.</div></div>
-    <div class="svc-card"><div class="svc-ico ico-k"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div><div class="svc-title">Corporate and Event Supply</div><div class="svc-desc">Get listed for bulk plant supply, office greening, event decor, and corporate landscape contracts via Urban Farmer.</div></div>
-    <div class="svc-card"><div class="svc-ico ico-b"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><div class="svc-title">Executive Visit and Listing</div><div class="svc-desc">Our team visits your nursery, photographs all plants, and creates complete listings with care guides — you focus on growing.</div></div>
+    <div class="svc-card">
+      <div class="svc-ico ico-g"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div class="svc-title">Marketplace Listing</div>
+      <div class="svc-desc">List your nursery on the Urban Farmer marketplace for online sales, home delivery, and city-wide visibility.</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-ico ico-t"><svg viewBox="0 0 24 24"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h4M18 14v4M14 18h4"/></svg></div>
+      <div class="svc-title">In-Nursery QR System</div>
+      <div class="svc-desc">Physical QR codes for every plant cluster. Visitors scan, learn, and buy. Orders sync to your dashboard and Google Sheets automatically.</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-ico ico-a"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <div class="svc-title">Advanced Analytics</div>
+      <div class="svc-desc">Real-time dashboards for QR scans, sales, top plants, and revenue — all synced to Google Sheets automatically.</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-ico ico-s"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="svc-title">IoT Sensor Integration</div>
+      <div class="svc-desc">Deploy sensors across your nursery to monitor soil moisture, temperature, and plant health. Automate care decisions.</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-ico ico-k"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+      <div class="svc-title">Corporate and Event Supply</div>
+      <div class="svc-desc">Get listed for bulk plant supply, office greening, event decor, and corporate landscape contracts via Urban Farmer.</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-ico ico-b"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+      <div class="svc-title">Executive Visit and Listing</div>
+      <div class="svc-desc">Our team visits your nursery, photographs all plants, and creates complete listings with care guides — you focus on growing.</div>
+    </div>
   </div>
 </section>
 
-<!-- RENT A PLANT -->
+<!-- ══ RENT A PLANT ══ -->
 <section class="rent-section" id="rent">
   <div class="rent-hero">
     <div class="rent-img-col">
-      <img class="rent-img" src="lifestyle.png" alt="Plant arrangement" onerror="this.style.display='none';document.getElementById('rif').style.display='flex'">
-      <div class="rent-img-placeholder" id="rif" style="display:none"><div class="img-placeholder-box"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg><div class="ph-title">lifestyle.png</div><div class="ph-sub">Upload your plant image</div></div></div>
-      <div class="rent-label-float float-anim"><div class="rfl">Available Now</div><div class="rfv">Starting Rs. 499/month</div></div>
+      <img class="rent-img" src="lifestyle.png" alt="Lifestyle plant arrangement"
+           onerror="this.style.display='none'; document.getElementById('rentImgFallback').style.display='flex'">
+      <div class="rent-img-placeholder" id="rentImgFallback" style="display:none">
+        <div class="img-placeholder-box">
+          <svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+          <div class="ph-title">lifestyle.png</div>
+          <div class="ph-sub">Upload your plant arrangement image</div>
+        </div>
+      </div>
+      <div class="rent-label-float float-anim">
+        <div class="rfl">Available Now</div>
+        <div class="rfv">Starting Rs. 499/month</div>
+      </div>
     </div>
     <div class="rent-content-col">
       <div class="rent-eyebrow">A New Way to Live with Plants</div>
@@ -748,21 +781,47 @@ footer{background:var(--ink);padding:4rem 8% 2rem}
       <p class="rent-subhead">You enjoy the fragrance. We handle everything else.</p>
       <p class="rent-body">No buying. No maintaining. No worrying. We bring curated living arrangements — Jasmine, Mogra, Lavender, Tulasi — to your home, office, or event. Our team plants, maintains, and replaces them throughout the rental period.</p>
       <div class="rent-steps">
-        <div class="rent-step"><div class="rs-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8 2 4 5.5 4 9c0 5 8 13 8 13s8-8 8-13c0-3.5-4-7-8-7z"/></svg></div><div><div class="rs-title">We design it for your space</div><div class="rs-desc">Our team curates the right varieties, pot styles, and arrangements based on your space and light conditions.</div></div></div>
-        <div class="rent-step"><div class="rs-icon"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div><div class="rs-title">We arrange and install</div><div class="rs-desc">Plants are delivered and placed exactly where they'll thrive — balconies, terraces, lobbies, or living rooms.</div></div></div>
-        <div class="rent-step"><div class="rs-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><div class="rs-title">We maintain throughout</div><div class="rs-desc">Watering, feeding, seasonal swaps — our team visits regularly to keep every plant blooming at its best.</div></div></div>
-        <div class="rent-step"><div class="rs-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><div><div class="rs-title">You simply enjoy</div><div class="rs-desc">No ownership, no stress. At the end of your rental, we collect everything. Want to continue? Just say the word.</div></div></div>
+        <div class="rent-step">
+          <div class="rs-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8 2 4 5.5 4 9c0 5 8 13 8 13s8-8 8-13c0-3.5-4-7-8-7z"/></svg></div>
+          <div class="rs-body">
+            <div class="rs-title">We design it for your space</div>
+            <div class="rs-desc">Our team curates the right varieties, pot styles, and arrangements based on your space, light conditions, and fragrance preference.</div>
+          </div>
+        </div>
+        <div class="rent-step">
+          <div class="rs-icon"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+          <div class="rs-body">
+            <div class="rs-title">We arrange and install</div>
+            <div class="rs-desc">Plants are delivered and placed exactly where they'll thrive — balconies, terraces, lobbies, weddings, or living rooms.</div>
+          </div>
+        </div>
+        <div class="rent-step">
+          <div class="rs-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div class="rs-body">
+            <div class="rs-title">We maintain throughout</div>
+            <div class="rs-desc">Watering, feeding, seasonal swaps — our team visits regularly to keep every plant blooming and every arrangement at its best.</div>
+          </div>
+        </div>
+        <div class="rent-step">
+          <div class="rs-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <div class="rs-body">
+            <div class="rs-title">You simply enjoy</div>
+            <div class="rs-desc">No ownership, no upkeep, no stress. At the end of your rental period, we collect everything. Want to continue? Just say the word.</div>
+          </div>
+        </div>
       </div>
       <div class="rent-cta-row">
         <a href="#rent-plans" class="btn btn-terra btn-lg">Explore Rental Plans</a>
         <button class="btn btn-ghost btn-lg" onclick="openModal('consultModal')">Book a Consultation</button>
       </div>
-      <p class="rent-note" style="margin-top:1rem">Available for homes, offices, hotels, and weddings</p>
+      <p class="rent-note" style="margin-top:1rem;">Available for homes, offices, hotels, and weddings</p>
     </div>
   </div>
+
+  <!-- RENTAL PLANS -->
   <div class="rent-plans" id="rent-plans">
     <div class="plans-top">
-      <h3 class="plans-title">Choose Your <em style="font-style:italic">Arrangement</em></h3>
+      <h3 class="plans-title">Choose Your <em style="font-style:italic;">Arrangement</em></h3>
       <button class="btn btn-amber" onclick="openModal('quoteModal')">Get Custom Quote</button>
     </div>
     <div class="plans-grid">
@@ -775,7 +834,7 @@ footer{background:var(--ink);padding:4rem 8% 2rem}
         <div class="plan-feature">Bi-weekly maintenance visit</div>
         <div class="plan-feature">Seasonal variety swaps</div>
         <div class="plan-feature">Free installation and removal</div>
-        <div style="margin-top:1.4rem"><a href="checkout.html" class="btn btn-ghost" style="color:rgba(245,240,232,.6);border-color:rgba(255,255,255,.2);width:100%;justify-content:center">Get Started</a></div>
+        <div style="margin-top:1.5rem;"><a href="checkout.html" class="btn btn-ghost" style="color:rgba(245,240,232,0.6);border-color:rgba(255,255,255,0.2);width:100%;justify-content:center;">Get Started</a></div>
       </div>
       <div class="plan-card featured">
         <div class="plan-badge">Most Popular · Homes and Offices</div>
@@ -787,7 +846,7 @@ footer{background:var(--ink);padding:4rem 8% 2rem}
         <div class="plan-feature">AI health monitoring</div>
         <div class="plan-feature">Priority replacement guarantee</div>
         <div class="plan-feature">Dedicated plant manager</div>
-        <div style="margin-top:1.4rem"><a href="checkout.html" class="btn btn-solid" style="width:100%;justify-content:center;background:rgba(255,255,255,.18)">Get Started</a></div>
+        <div style="margin-top:1.5rem;"><a href="checkout.html" class="btn btn-solid" style="width:100%;justify-content:center;background:rgba(255,255,255,0.18);">Get Started</a></div>
       </div>
       <div class="plan-card">
         <div class="plan-badge">For Offices and Events</div>
@@ -799,38 +858,70 @@ footer{background:var(--ink);padding:4rem 8% 2rem}
         <div class="plan-feature">Event and wedding packages</div>
         <div class="plan-feature">Bulk pricing</div>
         <div class="plan-feature">Brand-matching aesthetics</div>
-        <div style="margin-top:1.4rem"><button onclick="openModal('quoteModal')" class="btn btn-terra" style="width:100%;justify-content:center">Request Quote</button></div>
+        <div style="margin-top:1.5rem;"><button onclick="openModal('quoteModal')" class="btn btn-terra" style="width:100%;justify-content:center;">Request Quote</button></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CUSTOMER ECOSYSTEM -->
+<!-- ══ CUSTOMER ECOSYSTEM ══ -->
 <section class="cust-section" id="customers">
   <div class="cust-header">
     <div class="tag reveal">For Customers</div>
     <h2 class="section-h reveal">End-to-End Support for<br>Every <em>Urban Gardener</em></h2>
-    <p class="section-p reveal" style="margin-top:.8rem">From the moment you discover a plant to the day you harvest your terrace farm — Urban Farmer is with you at every step.</p>
+    <p class="section-p reveal" style="margin-top:0.8rem;">From the moment you discover a plant to the day you harvest your terrace farm — Urban Farmer is with you at every step.</p>
   </div>
   <div class="cust-grid">
-    <div class="cc reveal"><div class="cc-icon ico-g"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><div class="cc-title">Know Your Plant</div><div class="cc-desc">Scan QR codes at nurseries for videos, care guides, and botanical facts before you buy.</div></div>
-    <div class="cc reveal"><div class="cc-icon ico-t"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div><div class="cc-title">Shop Online and Offline</div><div class="cc-desc">Buy plants, pots, and tools from the marketplace or pickup from nurseries near you.</div></div>
-    <div class="cc reveal"><div class="cc-icon ico-a"><svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg></div><div class="cc-title">AI and Doctor Consult</div><div class="cc-desc">Instant AI plant diagnosis or a real plant doctor consultation for struggling plants.</div></div>
-    <div class="cc reveal"><div class="cc-icon ico-s"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="cc-title">Smart Plant Sensors</div><div class="cc-desc">Monitor soil moisture, light, and humidity in real-time. Get care recommendations automatically.</div></div>
-    <div class="cc reveal"><div class="cc-icon ico-k" style="background:rgba(201,162,39,.1)"><svg viewBox="0 0 24 24" style="stroke:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><div class="cc-title">Gamified Health</div><div class="cc-desc">Earn points and badges for keeping your plants healthy. Unlock rewards and compete with the community.</div></div>
-    <div class="cc reveal"><div class="cc-icon ico-b"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div><div class="cc-title">Book Gardeners</div><div class="cc-desc">Schedule maintenance, terrace garden setup, or sensor installation — anytime, on demand.</div></div>
-    <div class="cc reveal"><div class="cc-icon ico-g"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></div><div class="cc-title">Terrace Gardens</div><div class="cc-desc">End-to-end balcony and terrace garden setup — design, sourcing, installation, and maintenance.</div></div>
-    <div class="cc reveal"><div class="cc-icon ico-t"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></div><div class="cc-title">Community and Events</div><div class="cc-desc">Connect with urban gardeners, attend plant swaps, workshops, and events in your city.</div></div>
+    <div class="cc reveal">
+      <div class="cc-icon ico-g"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+      <div class="cc-title">Know Your Plant</div>
+      <div class="cc-desc">Scan QR codes at nurseries for videos, care guides, and botanical facts before you buy. Every purchase becomes an informed one.</div>
+    </div>
+    <div class="cc reveal">
+      <div class="cc-icon ico-t"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div>
+      <div class="cc-title">Shop Online and Offline</div>
+      <div class="cc-desc">Buy plants, pots, and tools from the marketplace. Online delivery or pickup from nurseries near you.</div>
+    </div>
+    <div class="cc reveal">
+      <div class="cc-icon ico-a"><svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg></div>
+      <div class="cc-title">AI and Real Doctor Consult</div>
+      <div class="cc-desc">Instant AI plant diagnosis or a real plant doctor consultation for sick or struggling plants. Advice you can trust.</div>
+    </div>
+    <div class="cc reveal">
+      <div class="cc-icon ico-s"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="cc-title">Smart Plant Sensors</div>
+      <div class="cc-desc">Monitor soil moisture, light, temperature, and humidity in real-time. Get care recommendations automatically.</div>
+    </div>
+    <div class="cc reveal">
+      <div class="cc-icon ico-k" style="background:rgba(201,162,39,0.1);"><svg viewBox="0 0 24 24" style="stroke:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+      <div class="cc-title">Gamified Plant Health</div>
+      <div class="cc-desc">Earn points, badges, and streaks for keeping your plants healthy. Compete with the community and unlock rewards.</div>
+    </div>
+    <div class="cc reveal">
+      <div class="cc-icon ico-b"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+      <div class="cc-title">Book Gardeners</div>
+      <div class="cc-desc">Schedule a gardener for maintenance, pot replacement, terrace garden setup, or sensor installation — anytime.</div>
+    </div>
+    <div class="cc reveal">
+      <div class="cc-icon ico-g"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></div>
+      <div class="cc-title">Terrace and Balcony Gardens</div>
+      <div class="cc-desc">End-to-end garden setup — design, sourcing, installation, and maintenance by Urban Farmer professionals.</div>
+    </div>
+    <div class="cc reveal">
+      <div class="cc-icon ico-t"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></div>
+      <div class="cc-title">Community and Events</div>
+      <div class="cc-desc">Connect with urban gardeners, attend plant swaps, workshops, and events. Share your journey and inspire others.</div>
+    </div>
   </div>
 </section>
 
-<!-- CORPORATE -->
+<!-- ══ CORPORATE ══ -->
 <section class="corp-section" id="corporate">
   <div class="corp-grid">
     <div>
       <div class="corp-tag">Corporate and Events</div>
       <h2 class="corp-title">Green Solutions for <em>Offices, Events,</em> and Spaces</h2>
-      <p class="corp-body">Urban Farmer partners with businesses, event planners, and institutions to deliver bulk plants, landscape design, office greening, and event decor — handled by our verified nursery network.</p>
+      <p class="corp-body">Urban Farmer partners with businesses, event planners, and institutions to deliver bulk plants, landscape design, office greening, and event decor — handled completely by our verified nursery network.</p>
       <div class="corp-list">
         <div class="corp-li"><span class="corp-li-dot"></span>Office and corporate landscape greening projects</div>
         <div class="corp-li"><span class="corp-li-dot"></span>Event and wedding decor with plants and floral arrangements</div>
@@ -840,16 +931,20 @@ footer{background:var(--ink);padding:4rem 8% 2rem}
       </div>
       <button class="btn btn-terra btn-xl" onclick="openModal('partnerModal')">Partner With Us</button>
     </div>
-    <div>
+    <div class="corp-visual">
       <div class="corp-img-wrap">
-        <img src="co_5.jpg" alt="Corporate greening project" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="corp-img-fallback"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <img src="co_5.jpg" alt="Corporate greening project"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <div class="corp-img-fallback">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          <span>co_5.jpg</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- DUAL CTA -->
+<!-- ══ DUAL CTA ══ -->
 <div class="dual-cta">
   <div class="cta-half cta-forest">
     <div class="cta-eyebrow">For Nurseries</div>
@@ -865,113 +960,257 @@ footer{background:var(--ink);padding:4rem 8% 2rem}
   </div>
 </div>
 
-<!-- FOOTER -->
+<!-- ══ FOOTER ══ -->
 <footer>
   <div class="footer-top">
     <div>
-      <div class="footer-brand-logo"><div class="footer-logo-mark"><img src="logo.png" alt="Urban Farmer" onerror="this.outerHTML='🌿'"></div><span class="footer-brand-name">Urban Farmer</span></div>
+      <div class="footer-brand-logo">
+        <div class="footer-logo-mark">
+          <img src="logo.png" alt="Urban Farmer"
+               onerror="this.outerHTML='🌿'">
+        </div>
+        <span class="footer-brand-name">Urban Farmer</span>
+      </div>
       <p class="footer-tagline">Making every urban home self-sustaining and green — intelligently. From nursery to harvest, we are with you.</p>
     </div>
-    <div><div class="footer-col-h">Platform</div><ul class="footer-links"><li><a href="register.html?type=nursery">List a Nursery</a></li><li><a href="register.html?type=customer">Customer Sign Up</a></li><li><a href="login.html">Sign In</a></li><li><a href="#">Rent a Plant</a></li></ul></div>
-    <div><div class="footer-col-h">Services</div><ul class="footer-links"><li><a href="#">Book a Gardener</a></li><li><a href="#">Plant Sensors</a></li><li><a href="#">AI Plant Doctor</a></li><li><a href="#">Corporate Orders</a></li></ul></div>
-    <div><div class="footer-col-h">Company</div><ul class="footer-links"><li><a href="#">About Urban Farmer</a></li><li><a href="#">Executive Visit</a></li><li><a href="#">Contact Us</a></li><li><a href="#">Privacy Policy</a></li></ul></div>
+    <div>
+      <div class="footer-col-h">Platform</div>
+      <ul class="footer-links">
+        <li><a href="register.html?type=nursery">List a Nursery</a></li>
+        <li><a href="register.html?type=customer">Customer Sign Up</a></li>
+        <li><a href="login.html">Sign In</a></li>
+        <li><a href="#">Rent a Plant</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-h">Services</div>
+      <ul class="footer-links">
+        <li><a href="#">Book a Gardener</a></li>
+        <li><a href="#">Plant Sensors</a></li>
+        <li><a href="#">AI Plant Doctor</a></li>
+        <li><a href="#">Corporate Orders</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-h">Company</div>
+      <ul class="footer-links">
+        <li><a href="#">About Urban Farmer</a></li>
+        <li><a href="#">Executive Visit</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
   </div>
-  <div class="footer-bottom"><span>2025 Urban Farmer. Made with care in India.</span><span>For nurseries · For customers · For nature</span></div>
+  <div class="footer-bottom">
+    <span>2025 Urban Farmer. Made with care in India.</span>
+    <span>For nurseries · For customers · For nature</span>
+  </div>
 </footer>
 
-<!-- MODAL: CONSULTATION -->
+<!-- ══ MODAL: BOOK A CONSULTATION ══ -->
 <div class="modal-overlay" id="consultModal" onclick="handleModalClick(event,'consultModal')">
   <div class="modal-card">
-    <button class="modal-close" onclick="closeModal('consultModal')"><svg viewBox="0 0 24 24" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <button class="modal-close" onclick="closeModal('consultModal')">
+      <svg viewBox="0 0 24 24" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
     <div id="consultForm">
       <div class="modal-tag">Rent a Plant</div>
       <div class="modal-title">Book a Consultation</div>
-      <div class="modal-desc">Tell us about your space. Our plant specialist will get in touch within 24 hours.</div>
+      <div class="modal-desc">Tell us about your space and preferences. Our plant specialist will get in touch within 24 hours to plan your perfect arrangement.</div>
       <div class="modal-form">
-        <div class="modal-form-row"><div class="mfield"><label>Your Name</label><input type="text" placeholder="Ravi Sharma"></div><div class="mfield"><label>Mobile Number</label><input type="tel" placeholder="+91 98765 43210"></div></div>
+        <div class="modal-form-row">
+          <div class="mfield"><label>Your Name</label><input type="text" placeholder="Ravi Sharma"></div>
+          <div class="mfield"><label>Mobile Number</label><input type="tel" placeholder="+91 98765 43210"></div>
+        </div>
         <div class="mfield"><label>Email Address</label><input type="email" placeholder="you@example.com"></div>
-        <div class="mfield"><label>Space Type</label><select><option value="">Select your space</option><option>Home — Balcony or Terrace</option><option>Home — Indoor Spaces</option><option>Office or Co-working</option><option>Hotel or Hospitality</option><option>Wedding or Event</option></select></div>
+        <div class="mfield">
+          <label>Space Type</label>
+          <select>
+            <option value="">Select your space</option>
+            <option>Home — Balcony or Terrace</option>
+            <option>Home — Indoor Spaces</option>
+            <option>Office or Co-working</option>
+            <option>Hotel or Hospitality</option>
+            <option>Wedding or Event</option>
+          </select>
+        </div>
         <div class="mfield"><label>City</label><input type="text" placeholder="Bengaluru"></div>
-        <div class="mfield"><label>Anything else?</label><textarea placeholder="Preferred plants, budget, space size, timeline..."></textarea></div>
+        <div class="mfield">
+          <label>Anything else you'd like us to know?</label>
+          <textarea placeholder="Preferred plants, budget, space size, timeline..."></textarea>
+        </div>
         <button class="modal-submit" onclick="submitModal('consultForm','consultSuccess')">Request Consultation</button>
       </div>
     </div>
-    <div class="modal-success" id="consultSuccess"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" width="52" height="52" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><h3>Consultation Requested!</h3><p>Our plant specialist will contact you within 24 hours to plan your perfect arrangement.</p></div>
+    <div class="modal-success" id="consultSuccess">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" width="52" height="52" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <h3>Consultation Requested!</h3>
+      <p>Thank you! Our plant specialist will contact you within 24 hours to plan your perfect plant arrangement.</p>
+    </div>
   </div>
 </div>
 
-<!-- MODAL: CUSTOM QUOTE -->
+<!-- ══ MODAL: GET CUSTOM QUOTE ══ -->
 <div class="modal-overlay" id="quoteModal" onclick="handleModalClick(event,'quoteModal')">
   <div class="modal-card">
-    <button class="modal-close" onclick="closeModal('quoteModal')"><svg viewBox="0 0 24 24" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <button class="modal-close" onclick="closeModal('quoteModal')">
+      <svg viewBox="0 0 24 24" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
     <div id="quoteForm">
       <div class="modal-tag">Rental Plans</div>
       <div class="modal-title">Get a Custom Quote</div>
-      <div class="modal-desc">Share your requirements and we'll put together a tailored rental plan just for you.</div>
+      <div class="modal-desc">Every space is different. Share your requirements and we'll put together a tailored rental plan just for you.</div>
       <div class="modal-form">
-        <div class="modal-form-row"><div class="mfield"><label>Your Name</label><input type="text" placeholder="Priya Menon"></div><div class="mfield"><label>Mobile Number</label><input type="tel" placeholder="+91 98765 43210"></div></div>
+        <div class="modal-form-row">
+          <div class="mfield"><label>Your Name</label><input type="text" placeholder="Priya Menon"></div>
+          <div class="mfield"><label>Mobile Number</label><input type="tel" placeholder="+91 98765 43210"></div>
+        </div>
         <div class="mfield"><label>Email Address</label><input type="email" placeholder="you@example.com"></div>
-        <div class="modal-form-row"><div class="mfield"><label>Space Type</label><select><option value="">Select type</option><option>Residential Home</option><option>Office or Co-working</option><option>Hotel or Resort</option><option>Wedding or Event</option><option>Retail or Commercial</option></select></div><div class="mfield"><label>Budget / Month</label><select><option value="">Approximate budget</option><option>Under Rs. 1,000</option><option>Rs. 1,000 to Rs. 3,000</option><option>Rs. 3,000 to Rs. 10,000</option><option>Rs. 10,000 and above</option></select></div></div>
-        <div class="mfield"><label>No. of Arrangements</label><select><option value="">Select range</option><option>1 to 5</option><option>5 to 15</option><option>15 to 30</option><option>30 and above</option></select></div>
-        <div class="mfield"><label>Additional Requirements</label><textarea placeholder="Specific plant types, fragrance preferences, event date, duration..."></textarea></div>
+        <div class="modal-form-row">
+          <div class="mfield">
+            <label>Space Type</label>
+            <select>
+              <option value="">Select type</option>
+              <option>Residential Home</option>
+              <option>Office or Co-working</option>
+              <option>Hotel or Resort</option>
+              <option>Wedding or Event</option>
+              <option>Retail or Commercial</option>
+            </select>
+          </div>
+          <div class="mfield">
+            <label>Budget per Month</label>
+            <select>
+              <option value="">Approximate budget</option>
+              <option>Under Rs. 1,000</option>
+              <option>Rs. 1,000 to Rs. 3,000</option>
+              <option>Rs. 3,000 to Rs. 10,000</option>
+              <option>Rs. 10,000 and above</option>
+            </select>
+          </div>
+        </div>
+        <div class="mfield">
+          <label>Number of Plants or Arrangements Needed</label>
+          <select>
+            <option value="">Select range</option>
+            <option>1 to 5</option>
+            <option>5 to 15</option>
+            <option>15 to 30</option>
+            <option>30 and above</option>
+          </select>
+        </div>
+        <div class="mfield">
+          <label>Additional Requirements</label>
+          <textarea placeholder="Specific plant types, fragrance preferences, event date, duration..."></textarea>
+        </div>
         <button class="modal-submit" onclick="submitModal('quoteForm','quoteSuccess')">Submit Request</button>
       </div>
     </div>
-    <div class="modal-success" id="quoteSuccess"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" width="52" height="52" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><h3>Quote Request Sent!</h3><p>Our team will prepare a customised quote and reach out within 24 hours.</p></div>
+    <div class="modal-success" id="quoteSuccess">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" width="52" height="52" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <h3>Quote Request Sent!</h3>
+      <p>We've received your requirements. Our team will prepare a customised quote and reach out within 24 hours.</p>
+    </div>
   </div>
 </div>
 
-<!-- MODAL: PARTNER -->
+<!-- ══ MODAL: PARTNER WITH US ══ -->
 <div class="modal-overlay" id="partnerModal" onclick="handleModalClick(event,'partnerModal')">
   <div class="modal-card">
-    <button class="modal-close" onclick="closeModal('partnerModal')"><svg viewBox="0 0 24 24" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <button class="modal-close" onclick="closeModal('partnerModal')">
+      <svg viewBox="0 0 24 24" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
     <div id="partnerForm">
       <div class="modal-tag">Corporate and Events</div>
       <div class="modal-title">Partner With Us</div>
-      <div class="modal-desc">Share your details and our corporate team will connect with you shortly.</div>
+      <div class="modal-desc">Let's build a greener workspace or event together. Share your details and our corporate team will connect with you shortly.</div>
       <div class="modal-form">
-        <div class="modal-form-row"><div class="mfield"><label>Your Name</label><input type="text" placeholder="Anita Rao"></div><div class="mfield"><label>Designation</label><input type="text" placeholder="Facilities Manager"></div></div>
+        <div class="modal-form-row">
+          <div class="mfield"><label>Your Name</label><input type="text" placeholder="Anita Rao"></div>
+          <div class="mfield"><label>Designation</label><input type="text" placeholder="Facilities Manager"></div>
+        </div>
         <div class="mfield"><label>Organisation Name</label><input type="text" placeholder="Company or Event Name"></div>
-        <div class="modal-form-row"><div class="mfield"><label>Work Email</label><input type="email" placeholder="you@company.com"></div><div class="mfield"><label>Mobile Number</label><input type="tel" placeholder="+91 98765 43210"></div></div>
-        <div class="mfield"><label>Type of Partnership</label><select><option value="">Select partnership type</option><option>Office Greening Project</option><option>Corporate Plant Supply</option><option>Event or Wedding Decor</option><option>Apartment or Community Garden</option><option>Ongoing Maintenance Contract</option></select></div>
+        <div class="modal-form-row">
+          <div class="mfield"><label>Work Email</label><input type="email" placeholder="you@company.com"></div>
+          <div class="mfield"><label>Mobile Number</label><input type="tel" placeholder="+91 98765 43210"></div>
+        </div>
+        <div class="mfield">
+          <label>Type of Partnership</label>
+          <select>
+            <option value="">Select partnership type</option>
+            <option>Office Greening Project</option>
+            <option>Corporate Plant Supply</option>
+            <option>Event or Wedding Decor</option>
+            <option>Apartment or Community Garden</option>
+            <option>Ongoing Maintenance Contract</option>
+          </select>
+        </div>
         <div class="mfield"><label>City and Location</label><input type="text" placeholder="Bengaluru, Koramangala"></div>
-        <div class="mfield"><label>Brief Description</label><textarea placeholder="Scale, timeline, specific plants, budget range..."></textarea></div>
+        <div class="mfield">
+          <label>Brief Description of Your Requirements</label>
+          <textarea placeholder="Scale, timeline, specific plants, budget range..."></textarea>
+        </div>
         <button class="modal-submit" onclick="submitModal('partnerForm','partnerSuccess')">Submit Partnership Request</button>
       </div>
     </div>
-    <div class="modal-success" id="partnerSuccess"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" width="52" height="52" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><h3>Partnership Request Received!</h3><p>Our corporate team will contact you within 1 business day to discuss your project.</p></div>
+    <div class="modal-success" id="partnerSuccess">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" width="52" height="52" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <h3>Partnership Request Received!</h3>
+      <p>Thank you for reaching out. Our corporate partnerships team will contact you within 1 business day to discuss your project.</p>
+    </div>
   </div>
 </div>
 
 <script>
-function switchTab(type,el){
-  document.querySelectorAll('.how-tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.steps-grid').forEach(s=>s.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('steps-'+type).classList.add('active');
-}
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}});
-},{threshold:.1});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-window.addEventListener('scroll',()=>{
-  document.getElementById('topnav').style.boxShadow=scrollY>20?'0 2px 20px rgba(10,25,15,.08)':'none';
-});
-function openModal(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden'}
-function closeModal(id){document.getElementById(id).classList.remove('open');document.body.style.overflow=''}
-function handleModalClick(e,id){if(e.target===document.getElementById(id))closeModal(id)}
-function submitModal(fid,sid){document.getElementById(fid).style.display='none';document.getElementById(sid).style.display='block'}
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape')document.querySelectorAll('.modal-overlay.open').forEach(m=>{m.classList.remove('open');document.body.style.overflow=''});
-});
-function toggleMobileNav(){
-  document.getElementById('mobileNav').classList.toggle('open');
-  document.getElementById('hamburger').classList.toggle('open');
-}
-function closeMobileNav(){
-  document.getElementById('mobileNav').classList.remove('open');
-  document.getElementById('hamburger').classList.remove('open');
-}
+  function switchTab(type, el) {
+    document.querySelectorAll('.how-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.steps-grid').forEach(s => s.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('steps-' + type).classList.add('active');
+  }
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  window.addEventListener('scroll', () => {
+    document.getElementById('topnav').style.boxShadow = scrollY > 40 ? '0 2px 24px rgba(10,25,15,0.09)' : 'none';
+  });
+
+  function openModal(id) {
+    document.getElementById(id).classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function handleModalClick(e, id) {
+    if (e.target === document.getElementById(id)) closeModal(id);
+  }
+  function submitModal(formId, successId) {
+    document.getElementById(formId).style.display = 'none';
+    document.getElementById(successId).style.display = 'block';
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.open').forEach(m => {
+        m.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    }
+  });
+  function toggleMobileNav() {
+    const nav = document.getElementById('mobileNav');
+    const btn = document.getElementById('hamburger');
+    nav.classList.toggle('open');
+    btn.classList.toggle('open');
+  }
+  function closeMobileNav() {
+    document.getElementById('mobileNav').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+  }
 </script>
 </body>
 </html>
